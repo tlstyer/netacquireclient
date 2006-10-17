@@ -17,12 +17,12 @@ class TextComponent extends JComponent {
     static final int PADDING = 3;
     
     public TextComponent() {
-    	SetBackgroundColour(Color.black);
-    	SetTextAlign(ALIGN_CENTER);
-    	SetText("text");
+    	setBackgroundColor(Color.black);
+    	setTextAlign(ALIGN_CENTER);
+    	setText("text");
     }
     
-    public void SetBackgroundColour(Color c) {
+    public void setBackgroundColor(Color c) {
     	color_bg = c;
     	if (c.getRed() == 0 && c.getGreen() == 0 && c.getBlue() == 0) {
     		color_fg = Color.white;
@@ -31,11 +31,11 @@ class TextComponent extends JComponent {
     	}
     }
     
-    public void SetTextAlign(int a) {
+    public void setTextAlign(int a) {
     	align = a;
     }
     
-    public void SetText(String t) {
+    public void setText(String t) {
     	text = t;
     }
 

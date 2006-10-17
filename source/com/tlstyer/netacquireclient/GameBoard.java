@@ -16,9 +16,9 @@ public class GameBoard {
     	for (int y=0; y<9; ++y) {
     		for (int x=0; x<12; ++x) {
     			board[y][x] = new TextComponent();
-    			board[y][x].SetBackgroundColour(color_def);
-    			board[y][x].SetText(Integer.toString(x + 1) + letters.charAt(y));
-    			board[y][x].setAlignmentX(TextComponent.ALIGN_CENTER);
+    			board[y][x].setBackgroundColor(color_def);
+    			board[y][x].setText(Integer.toString(x + 1) + letters.charAt(y));
+    			board[y][x].setTextAlign(TextComponent.ALIGN_CENTER);
         		panel.add(board[y][x]);
         	}
         }
