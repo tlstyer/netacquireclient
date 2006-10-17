@@ -54,7 +54,14 @@ class TextComponent extends JComponent {
         FontRenderContext frc = g2d.getFontRenderContext();
         TextLayout tl = new TextLayout(text, font, frc);
         Rectangle2D r = tl.getBounds();
-        int x = (int)((getWidth() - r.getWidth()) / 2 - r.getX());
+        int x;
+        if (align == ALIGN_LEFT) {
+        	x = PADDING;
+        } else if (align == ALIGN_CENTER) {
+            x = (int)((getWidth() - r.getWidth()) / 2 - r.getX());
+        } else { // align == ALIGN_RIGHT
+        	x = getWidth() - PADDING;
+        }
         int y = (int)((getHeight() - r.getHeight()) / 2  - r.getY());
         g2d.drawString(text, x, y);
     }

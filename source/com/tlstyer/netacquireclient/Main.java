@@ -10,6 +10,7 @@ public class Main implements ActionListener {
     //Specify the look and feel to use.  Valid values:
     //null (use the default), "Metal", "System", "Motif", "GTK+"
     final static String LOOKANDFEEL = "System";
+    private GameBoard board;
     
     public Component createComponents() {
         /*
@@ -17,14 +18,8 @@ public class Main implements ActionListener {
          * and its contents is to put the contents in a JPanel
          * that has an "empty" border.
          */
-        GridLayout gl = new GridLayout(3, 2, 2, 2);
-        JPanel pane = new JPanel(gl);
-        pane.add(new TextComponent());
-        pane.add(new TextComponent());
-        pane.add(new TextComponent());
-        pane.add(new TextComponent());
-        pane.add(new TextComponent());
-        pane.add(new TextComponent());
+    	board = new GameBoard();
+    	JPanel pane = board.getPanel();
         
         return pane;
     }
