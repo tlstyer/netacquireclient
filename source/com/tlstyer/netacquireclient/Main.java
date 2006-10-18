@@ -12,20 +12,24 @@ public class Main implements ActionListener {
     final static String LOOKANDFEEL = "System";
     private GameBoard board;
     private ScoreSheet scoresheet;
-    
+	private GridLayout gl;
+	private JPanel panel;
+
     public Component createComponents(Color colorbg) {
         /*
          * An easy way to put space between a top-level container
          * and its contents is to put the contents in a JPanel
          * that has an "empty" border.
          */
-//    	board = new GameBoard();
-//    	JPanel pane = board.getPanel();
-    	
+    	board = new GameBoard();
     	scoresheet = new ScoreSheet(colorbg);
-    	JPanel pane = scoresheet.getPanel();
-        
-        return pane;
+    	
+        gl = new GridLayout(1, 2, 2, 2);
+        panel = new JPanel(gl);
+		panel.add(board.getPanel());
+		panel.add(scoresheet.getPanel());
+		
+        return panel;
     }
     
     public void actionPerformed(ActionEvent e) {
