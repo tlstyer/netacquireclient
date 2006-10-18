@@ -60,7 +60,7 @@ class TextComponent extends JComponent {
         } else if (align == ALIGN_CENTER) {
             x = (int)((getWidth() - r.getWidth()) / 2 - r.getX());
         } else { // align == ALIGN_RIGHT
-        	x = getWidth() - PADDING;
+        	x = (int)(getWidth() - r.getWidth() - PADDING);
         }
         int y = (int)((getHeight() - r.getHeight()) / 2  - r.getY());
         g2d.drawString(text, x, y);
