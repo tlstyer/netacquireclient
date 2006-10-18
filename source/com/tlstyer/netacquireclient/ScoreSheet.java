@@ -6,16 +6,18 @@ public class ScoreSheet {
 	private GridBagLayout gbl;
 	private GridBagConstraints c;
 	private JPanel panel;
+	private Color colorbg;
     private static final String htchars = "LTAFWCI";
     private static final int[] widths = {5, 1, 1, 1, 1, 1, 1, 1, 3, 3};
     private static final int[] startx = {0, 5, 6, 7, 8, 9, 10, 11, 12, 15};
     private static final Insets insets = new Insets(0, 0, 2, 2);
 	
-	public ScoreSheet() {
+	public ScoreSheet(Color color_bg) {
 		scoresheet = new TextComponent[10][10];
         gbl = new GridBagLayout();
         c = new GridBagConstraints();
         panel = new JPanel(gbl);
+        colorbg = color_bg;
 
         c.fill = GridBagConstraints.BOTH;
     	c.gridheight = 1;
@@ -24,8 +26,8 @@ public class ScoreSheet {
 
         int y = 0;
         int x = 0;
-
-        // row 1
+        
+        // header (row 0)
         addTC(y, x++, BoardtypeEnum.CSSCLASS_PLAYER.ordinal(), "Player");
         for (int hoteltype=1; hoteltype<=7; ++hoteltype) {
             addTC(y, x++, hoteltype, "" + htchars.charAt(hoteltype - 1));
@@ -35,6 +37,33 @@ public class ScoreSheet {
 
         ++y;
         x = 0;
+        
+        // player data (rows 1-6)
+        for (int row=1; row<=6; ++row) {
+            addTC(y, x++, BoardtypeEnum.CSSCLASS_NOT_MY_TURN.ordinal(), " ");
+            for (int hoteltype=1; hoteltype<=7; ++hoteltype) {
+                addTC(y, x++, BoardtypeEnum.CSSCLASS_HOLDINGS.ordinal(), " ");
+            }
+            addTC(y, x++, BoardtypeEnum.CSSCLASS_CASH.ordinal(), " ");
+            addTC(y, x++, BoardtypeEnum.CSSCLASS_CASH.ordinal(), " ");
+            
+        	++y;
+        	x = 0;
+        }
+        
+        // hotel data (rows 7-9)
+        for (int row=7; row<=9; ++row) {
+            addTC(y, x++, BoardtypeEnum.CSSCLASS_HCS_TITLE.ordinal(), " ");
+            for (int hoteltype=1; hoteltype<=7; ++hoteltype) {
+                addTC(y, x++, BoardtypeEnum.CSSCLASS_HCS.ordinal(), " ");
+            }
+            
+        	++y;
+        	x = 0;
+        }
+        scoresheet[7][0].setText("Available");
+		scoresheet[8][0].setText("Chain Size");
+		scoresheet[9][0].setText("Price ($00)");
 	}
 	
     protected void addTC(int y, int x, int hoteltype, String text) {

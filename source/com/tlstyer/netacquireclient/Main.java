@@ -13,7 +13,7 @@ public class Main implements ActionListener {
     private GameBoard board;
     private ScoreSheet scoresheet;
     
-    public Component createComponents() {
+    public Component createComponents(Color colorbg) {
         /*
          * An easy way to put space between a top-level container
          * and its contents is to put the contents in a JPanel
@@ -22,7 +22,7 @@ public class Main implements ActionListener {
 //    	board = new GameBoard();
 //    	JPanel pane = board.getPanel();
     	
-    	scoresheet = new ScoreSheet();
+    	scoresheet = new ScoreSheet(colorbg);
     	JPanel pane = scoresheet.getPanel();
         
         return pane;
@@ -88,7 +88,7 @@ public class Main implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         Main app = new Main();
-        Component contents = app.createComponents();
+        Component contents = app.createComponents(frame.getBackground());
         frame.getContentPane().add(contents, BorderLayout.CENTER);
         
         //Display the window.
