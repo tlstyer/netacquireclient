@@ -11,6 +11,7 @@ public class Main implements ActionListener {
     //null (use the default), "Metal", "System", "Motif", "GTK+"
     final static String LOOKANDFEEL = "System";
     private GameBoard board;
+    private ScoreSheet scoresheet;
     
     public Component createComponents() {
         /*
@@ -18,8 +19,11 @@ public class Main implements ActionListener {
          * and its contents is to put the contents in a JPanel
          * that has an "empty" border.
          */
-    	board = new GameBoard();
-    	JPanel pane = board.getPanel();
+//    	board = new GameBoard();
+//    	JPanel pane = board.getPanel();
+    	
+    	scoresheet = new ScoreSheet();
+    	JPanel pane = scoresheet.getPanel();
         
         return pane;
     }
