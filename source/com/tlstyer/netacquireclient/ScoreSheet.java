@@ -9,6 +9,7 @@ public class ScoreSheet {
     private static final String htchars = "LTAFWCI";
     private static final int[] widths = {5, 1, 1, 1, 1, 1, 1, 1, 3, 3};
     private static final int[] startx = {0, 5, 6, 7, 8, 9, 10, 11, 12, 15};
+    private static final Insets insets = new Insets(0, 0, 2, 2);
 	
 	public ScoreSheet() {
 		scoresheet = new TextComponent[10][10];
@@ -18,6 +19,7 @@ public class ScoreSheet {
 
         c.fill = GridBagConstraints.BOTH;
     	c.gridheight = 1;
+    	c.insets = insets;
         c.weighty = 1;
 
         int y = 0;
