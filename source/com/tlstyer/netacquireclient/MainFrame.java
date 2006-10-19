@@ -8,6 +8,8 @@ public class MainFrame implements ActionListener, ComponentListener {
 	
     private GameBoard board;
     private ScoreSheet scoresheet;
+    private MessageWindow lobby;
+    private MessageWindow gameroom;
 	
 	public MainFrame() {
         //Set the look and feel.
@@ -27,11 +29,15 @@ public class MainFrame implements ActionListener, ComponentListener {
 		// create the components
     	board = new GameBoard();
     	scoresheet = new ScoreSheet(frame.getBackground());
+    	lobby = new MessageWindow();
+    	gameroom = new MessageWindow();
     	
     	// layout the components
         panel = new JPanel(null);
 		panel.add(board.getPanel());
 		panel.add(scoresheet.getPanel());
+		panel.add(lobby.getTextArea());
+		panel.add(gameroom.getTextArea());
 
 		// don't know what to call these!
 		panel.addComponentListener(this);
@@ -65,8 +71,8 @@ public class MainFrame implements ActionListener, ComponentListener {
         board.getPanel().setBounds(bw, bw, GBw, GBh);
         board.getPanel().validate();
 
-//		TRBy = bw + GBh + bw
-//		TRBh = GBh * 2 / 13
+		int TRBy = bw + GBh + bw;
+		int TRBh = GBh * 2 / 13;
 //		self.tile_rack_bg.SetDimensions(bw, TRBy, GBw, TRBh)
 
 //		TRh = TRBh * 8 / 10
@@ -75,18 +81,20 @@ public class MainFrame implements ActionListener, ComponentListener {
 //		TRy = TRBy + (TRBh - TRh) / 2
 //		self.tile_rack.SetDimension(TRx, TRy, TRw, TRh)
 
-//		Ly = TRBy + TRBh + bw
-//		Lh = h - bw - Ly
-//		self.lobby.SetDimensions(bw, Ly, GBw, Lh)
+		int Ly = TRBy + TRBh + bw;
+		int Lh = h - bw - Ly;
+		lobby.getTextArea().setBounds(bw, Ly, GBw, Lh);
+		lobby.getTextArea().validate();
 
 		int SSx = w / 2 + bw_div_2;
 		int SSh = GBw * 10 / 18;
 		scoresheet.getPanel().setBounds(SSx, bw, GBw, SSh);
 		scoresheet.getPanel().validate();
 
-//		GRy = bw + SSh + bw
-//		GRh = h - bw - GRy
-//		self.game_room.SetDimensions(SSx, GRy, GBw, GRh)
+		int GRy = bw + SSh + bw;
+		int GRh = h - bw - GRy;
+		gameroom.getTextArea().setBounds(SSx, GRy, GBw, GRh);
+		gameroom.getTextArea().validate();
     }
     
     public void componentShown(ComponentEvent e) {
