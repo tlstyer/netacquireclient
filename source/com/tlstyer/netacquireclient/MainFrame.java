@@ -59,41 +59,39 @@ public class MainFrame implements ActionListener, ComponentListener {
     }
     
     public void componentResized(ComponentEvent e) {
-        int bw = 4;
-        int bw_div_2 = bw / 2;
-        int bw_plus_bw_div_2 = bw + bw_div_2;
+        int border_width = 4;
 
-        int w = panel.getWidth();
-        int h = panel.getHeight();
+        int width = panel.getWidth();
+        int height = panel.getHeight();
 
-        int GBw = w / 2 - bw_plus_bw_div_2;
-        int GBh = GBw * 3 / 4;
-        board.getPanel().setBounds(bw, bw, GBw, GBh);
+        int game_board_width = width / 2 - (border_width + border_width / 2);
+        int game_board_height = game_board_width * 3 / 4;
+        board.getPanel().setBounds(border_width, border_width, game_board_width, game_board_height);
         board.getPanel().validate();
 
-		int TRBy = bw + GBh + bw;
-		int TRBh = GBh * 2 / 13;
-//		self.tile_rack_bg.SetDimensions(bw, TRBy, GBw, TRBh)
+		int tile_rack_background_y = border_width + game_board_height + border_width;
+		int tile_rack_background_height = game_board_height * 2 / 13;
+//		self.tile_rack_bg.SetDimensions(border_width, tile_rack_background_y, game_board_width, tile_rack_background_height)
 
-//		TRh = TRBh * 8 / 10
-//		TRw = TRh * 6 + AcquireTileRack.spacing * 5
-//		TRx = (w / 2 + bw_div_2 - TRw) / 2
-//		TRy = TRBy + (TRBh - TRh) / 2
-//		self.tile_rack.SetDimension(TRx, TRy, TRw, TRh)
+//		tile_rack_h = tile_rack_background_height * 8 / 10
+//		tile_rack_w = tile_rack_h * 6 + AcquireTileRack.spacing * 5
+//		tile_rack_x = (width / 2 + border_width / 2 - tile_rack_w) / 2
+//		tile_rack_y = tile_rack_background_y + (tile_rack_background_height - tile_rack_h) / 2
+//		self.tile_rack.SetDimension(tile_rack_x, tile_rack_y, tile_rack_w, tile_rack_h)
 
-		int Ly = TRBy + TRBh + bw;
-		int Lh = h - bw - Ly;
-		lobby.getTextArea().setBounds(bw, Ly, GBw, Lh);
+		int lobby_y = tile_rack_background_y + tile_rack_background_height + border_width;
+		int lobby_height = height - border_width - lobby_y;
+		lobby.getTextArea().setBounds(border_width, lobby_y, game_board_width, lobby_height);
 		lobby.getTextArea().validate();
 
-		int SSx = w / 2 + bw_div_2;
-		int SSh = GBw * 10 / 18;
-		scoresheet.getPanel().setBounds(SSx, bw, GBw, SSh);
+		int score_sheet_x = width / 2 + border_width / 2;
+		int score_sheet_height = game_board_width * 10 / 18;
+		scoresheet.getPanel().setBounds(score_sheet_x, border_width, game_board_width, score_sheet_height);
 		scoresheet.getPanel().validate();
 
-		int GRy = bw + SSh + bw;
-		int GRh = h - bw - GRy;
-		gameroom.getTextArea().setBounds(SSx, GRy, GBw, GRh);
+		int game_room_y = border_width + score_sheet_height + border_width;
+		int game_room_height = height - border_width - game_room_y;
+		gameroom.getTextArea().setBounds(score_sheet_x, game_room_y, game_board_width, game_room_height);
 		gameroom.getTextArea().validate();
     }
     
