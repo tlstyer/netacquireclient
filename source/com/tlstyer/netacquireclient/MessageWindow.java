@@ -9,6 +9,7 @@ public class MessageWindow {
 	public MessageWindow() {
 		jtextarea = new JTextArea();
 		jtextarea.setBackground(colorbg);
+		jtextarea.setEditable(false);
 	}
 	
     public JTextArea getTextArea() {
