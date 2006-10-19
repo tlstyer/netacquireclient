@@ -5,9 +5,9 @@ import java.awt.geom.*;
 
 /* A rectangle that has a fixed size. */
 class TextComponent extends JComponent {
+    private String text;
     private Color color_bg;
     private Color color_fg;
-    private String text;
     private int align;
 
     static final int ALIGN_LEFT = 0;
@@ -17,9 +17,19 @@ class TextComponent extends JComponent {
     static final int PADDING = 3;
     
     public TextComponent() {
+    	setText("text");
     	setBackgroundColor(Color.black);
     	setTextAlign(ALIGN_CENTER);
-    	setText("text");
+    }
+    
+    public TextComponent(String t, Color c, int ta) {
+    	setText(t);
+    	setBackgroundColor(c);
+    	setTextAlign(ta);
+    }
+    
+    public void setText(String t) {
+    	text = t;
     }
     
     public void setBackgroundColor(Color c) {
@@ -35,10 +45,6 @@ class TextComponent extends JComponent {
     	align = a;
     }
     
-    public void setText(String t) {
-    	text = t;
-    }
-
     public boolean isOpaque() {
         return true;
     }

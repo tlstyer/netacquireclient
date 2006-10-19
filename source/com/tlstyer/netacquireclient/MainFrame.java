@@ -7,8 +7,9 @@ public class MainFrame implements ActionListener, ComponentListener {
 	private JPanel panel;
 	
     private GameBoard board;
-    private ScoreSheet scoresheet;
+    private TextComponent tilerackbg;
     private MessageWindow lobby;
+    private ScoreSheet scoresheet;
     private MessageWindow gameroom;
 	
 	public MainFrame() {
@@ -28,15 +29,17 @@ public class MainFrame implements ActionListener, ComponentListener {
         
 		// create the components
     	board = new GameBoard();
-    	scoresheet = new ScoreSheet(frame.getBackground());
+    	tilerackbg = new TextComponent(" ", new Color(255, 128, 0), TextComponent.ALIGN_CENTER);
     	lobby = new MessageWindow();
+    	scoresheet = new ScoreSheet(frame.getBackground());
     	gameroom = new MessageWindow();
     	
     	// layout the components
         panel = new JPanel(null);
 		panel.add(board.getPanel());
-		panel.add(scoresheet.getPanel());
+		panel.add(tilerackbg);
 		panel.add(lobby.getTextArea());
+		panel.add(scoresheet.getPanel());
 		panel.add(gameroom.getTextArea());
 
 		// don't know what to call these!
@@ -71,7 +74,7 @@ public class MainFrame implements ActionListener, ComponentListener {
 
 		int tile_rack_background_y = border_width + game_board_height + border_width;
 		int tile_rack_background_height = game_board_height * 2 / 13;
-//		self.tile_rack_bg.SetDimensions(border_width, tile_rack_background_y, game_board_width, tile_rack_background_height)
+		tilerackbg.setBounds(border_width, tile_rack_background_y, game_board_width, tile_rack_background_height);
 
 //		tile_rack_h = tile_rack_background_height * 8 / 10
 //		tile_rack_w = tile_rack_h * 6 + AcquireTileRack.spacing * 5
