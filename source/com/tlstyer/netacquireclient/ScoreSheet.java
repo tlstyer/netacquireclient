@@ -1,11 +1,10 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class ScoreSheet {
+public class ScoreSheet extends JPanel {
 	private TextComponent[][] scoresheet;
 	private GridBagLayout gbl;
 	private GridBagConstraints c;
-	private JPanel panel;
 	private Color colorbg;
     private static final String htchars = "LTAFWCI";
     private static final int[] widths = {5, 1, 1, 1, 1, 1, 1, 1, 3, 3};
@@ -16,7 +15,7 @@ public class ScoreSheet {
 		scoresheet = new TextComponent[10][10];
         gbl = new GridBagLayout();
         c = new GridBagConstraints();
-        panel = new JPanel(gbl);
+        setLayout(gbl);
         colorbg = color_bg;
 
         c.fill = GridBagConstraints.BOTH;
@@ -77,11 +76,7 @@ public class ScoreSheet {
         c.weightx = widths[x];
     	
     	gbl.setConstraints(tc, c);
-    	panel.add(tc);
+    	add(tc);
     	scoresheet[y][x] = tc;
 	}
-	
-    public JPanel getPanel() {
-    	return panel;
-    }
 }

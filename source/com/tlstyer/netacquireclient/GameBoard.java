@@ -1,10 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class GameBoard {
+public class GameBoard extends JPanel {
 	private TextComponent[][] board;
 	private GridLayout gl;
-	private JPanel panel;
 	
 	private Color color_def = new Color(HoteltypeToColorvalue.lookupSwing(BoardtypeEnum.BOARDTYPE_NONE.ordinal()));
 	private String letters = "ABCDEFGHI";
@@ -12,18 +11,14 @@ public class GameBoard {
     public GameBoard() {
     	board = new TextComponent[9][12];
         gl = new GridLayout(9, 12, 2, 2);
-        panel = new JPanel(gl);
+        setLayout(gl);
     	for (int y=0; y<9; ++y) {
     		for (int x=0; x<12; ++x) {
     			board[y][x] = new TextComponent();
-        		panel.add(board[y][x]);
+        		add(board[y][x]);
         	}
         }
     	init();
-    }
-    
-    public JPanel getPanel() {
-    	return panel;
     }
     
     public void init() {

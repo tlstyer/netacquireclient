@@ -2,8 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MainFrame implements ActionListener, ComponentListener {
-	private JFrame frame;
+public class MainFrame extends JFrame implements ActionListener, ComponentListener {
 	private JPanel panel;
 	
     private GameBoard board;
@@ -24,32 +23,32 @@ public class MainFrame implements ActionListener, ComponentListener {
         JFrame.setDefaultLookAndFeelDecorated(true);
         
         //Create and set up the window.
-        frame = new JFrame("Acquire");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Acquire");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
 		// create the components
     	board = new GameBoard();
     	tilerackbg = new TextComponent(" ", new Color(255, 128, 0), TextComponent.ALIGN_CENTER);
     	lobby = new MessageWindow();
-    	scoresheet = new ScoreSheet(frame.getBackground());
+    	scoresheet = new ScoreSheet(getBackground());
     	gameroom = new MessageWindow();
     	
     	// layout the components
         panel = new JPanel(null);
-		panel.add(board.getPanel());
+		panel.add(board);
 		panel.add(tilerackbg);
-		panel.add(lobby.getTextArea());
-		panel.add(scoresheet.getPanel());
-		panel.add(gameroom.getTextArea());
+		panel.add(lobby);
+		panel.add(scoresheet);
+		panel.add(gameroom);
 
 		// don't know what to call these!
 		panel.addComponentListener(this);
-        frame.getContentPane().add(panel, BorderLayout.CENTER);
+        getContentPane().add(panel, BorderLayout.CENTER);
 		
         //Display the window.
-        frame.pack();
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setVisible(true);
+        pack();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -69,8 +68,8 @@ public class MainFrame implements ActionListener, ComponentListener {
 
         int game_board_width = width / 2 - (border_width + border_width / 2);
         int game_board_height = game_board_width * 3 / 4;
-        board.getPanel().setBounds(border_width, border_width, game_board_width, game_board_height);
-        board.getPanel().validate();
+        board.setBounds(border_width, border_width, game_board_width, game_board_height);
+        board.validate();
 
 		int tile_rack_background_y = border_width + game_board_height + border_width;
 		int tile_rack_background_height = game_board_height * 2 / 13;
@@ -84,18 +83,18 @@ public class MainFrame implements ActionListener, ComponentListener {
 
 		int lobby_y = tile_rack_background_y + tile_rack_background_height + border_width;
 		int lobby_height = height - border_width - lobby_y;
-		lobby.getTextArea().setBounds(border_width, lobby_y, game_board_width, lobby_height);
-		lobby.getTextArea().validate();
+		lobby.setBounds(border_width, lobby_y, game_board_width, lobby_height);
+		lobby.validate();
 
 		int score_sheet_x = width / 2 + border_width / 2;
 		int score_sheet_height = game_board_width * 10 / 18;
-		scoresheet.getPanel().setBounds(score_sheet_x, border_width, game_board_width, score_sheet_height);
-		scoresheet.getPanel().validate();
+		scoresheet.setBounds(score_sheet_x, border_width, game_board_width, score_sheet_height);
+		scoresheet.validate();
 
 		int game_room_y = border_width + score_sheet_height + border_width;
 		int game_room_height = height - border_width - game_room_y;
-		gameroom.getTextArea().setBounds(score_sheet_x, game_room_y, game_board_width, game_room_height);
-		gameroom.getTextArea().validate();
+		gameroom.setBounds(score_sheet_x, game_room_y, game_board_width, game_room_height);
+		gameroom.validate();
     }
     
     public void componentShown(ComponentEvent e) {
