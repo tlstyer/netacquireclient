@@ -1,7 +1,7 @@
 import java.awt.*;
-import javax.swing.*;
 import java.awt.font.*;
 import java.awt.geom.*;
+import javax.swing.*;
 
 /* A rectangle that has a fixed size. */
 class TextComponent extends JComponent {

@@ -1,4 +1,3 @@
-
 public enum BoardtypeEnum {
     BOARDTYPE_NONE,
     BOARDTYPE_LUXOR,

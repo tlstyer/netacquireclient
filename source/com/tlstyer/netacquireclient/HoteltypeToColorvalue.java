@@ -1,4 +1,3 @@
-
 public class HoteltypeToColorvalue {
 	private static final int[] array = {
         12648447, // BOARDTYPE_NONE
