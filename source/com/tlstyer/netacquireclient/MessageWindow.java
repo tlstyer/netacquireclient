@@ -7,5 +7,6 @@ public class MessageWindow extends JTextArea {
 	public MessageWindow() {
 		setBackground(colorbg);
 		setEditable(false);
+		this.setLineWrap(true);
 	}
 }

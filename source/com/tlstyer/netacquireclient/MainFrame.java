@@ -43,12 +43,19 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
 
 		// don't know what to call these!
 		panel.addComponentListener(this);
-        getContentPane().add(panel, BorderLayout.CENTER);
+		getContentPane().add(panel, BorderLayout.CENTER);
 		
         //Display the window.
-        pack();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setVisible(true);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		pack();
+        
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+        		setVisible(true);
+            }
+        });
+
+        new NetworkConnection(board, lobby, scoresheet, gameroom);
     }
 
     public void actionPerformed(ActionEvent e) {
