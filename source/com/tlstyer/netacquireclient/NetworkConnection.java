@@ -15,7 +15,7 @@ public class NetworkConnection {
     
     private String dataRead;
 
-    private static final Pattern pattern = Pattern.compile("([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
+    private static final Pattern pattern = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
 
 	public NetworkConnection(GameBoard b, MessageWindow l, ScoreSheet s, MessageWindow g) {
 		board = b;
@@ -58,6 +58,12 @@ public class NetworkConnection {
         }
 	}
 
+    public NetworkConnection() {
+        dataRead = "SP;2,0,2,tlstyer;:LM;\"*tlstyer2 has entered the lobby.\";:LM;\"> Welcome, there are currently 2 users and 0 games.\";:SS;3;:";
+        processDataRead();
+        Util.splitCommand("1;2;3");
+    }
+
 	protected void processDataRead() {
 		while (true) {
 			Matcher matcher = pattern.matcher(dataRead);
@@ -66,7 +72,8 @@ public class NetworkConnection {
 			}
 			String command = matcher.group(1);
 			dataRead = dataRead.substring(matcher.end(), dataRead.length());
-			gameroom.append(command + "\n");
+//			gameroom.append(command + "\n");
+			Util.splitCommand(command);
 		}
 	}
 }
