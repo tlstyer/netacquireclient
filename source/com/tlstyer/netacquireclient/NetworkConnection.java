@@ -5,6 +5,7 @@ import java.nio.channels.*;
 import java.nio.channels.spi.*;
 import java.nio.charset.*;
 import java.util.*;
+import java.util.regex.*;
 
 public class NetworkConnection {
     private GameBoard board;
@@ -12,24 +13,26 @@ public class NetworkConnection {
     private ScoreSheet scoresheet;
     private MessageWindow gameroom;
     
-    private Socket socketClientListener;
-	
+    private String dataRead;
+
+    private static final Pattern pattern = Pattern.compile("([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
+
 	public NetworkConnection(GameBoard b, MessageWindow l, ScoreSheet s, MessageWindow g) {
 		board = b;
 		lobby = l;
 		scoresheet = s;
 		gameroom = g;
 		
-		String dataread = "";
-		ByteBuffer bytebuffer = ByteBuffer.allocate(1024);
+		dataRead = "";
+		ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
 		Charset charsetDecoder = Charset.forName("US-ASCII"); 
 		
         try {
         	Selector selector = SelectorProvider.provider().openSelector();
             InetSocketAddress isa = new InetSocketAddress("localhost", 1002);
-            SocketChannel socketchannel = SocketChannel.open(isa);
-            socketchannel.configureBlocking(false);
-            SelectionKey selectionkey = socketchannel.register(selector, SelectionKey.OP_READ);
+            SocketChannel socketChannel = SocketChannel.open(isa);
+            socketChannel.configureBlocking(false);
+            SelectionKey selectionKey = socketChannel.register(selector, SelectionKey.OP_READ);
 
             int keysAdded = 0;
 
@@ -39,17 +42,31 @@ public class NetworkConnection {
         	    while (i.hasNext()) {
 	        		SelectionKey sk = (SelectionKey)i.next();
 	        		i.remove();
-	        		if (sk == selectionkey) {
-	        			bytebuffer.clear();
-	        			socketchannel.read(bytebuffer);
-	        			bytebuffer.flip();
-	        			dataread = "" + charsetDecoder.decode(bytebuffer);
-	        			gameroom.append(dataread);
+	        		if (sk == selectionKey) {
+	        			if (sk.isReadable()) {
+		        			byteBuffer.clear();
+		        			socketChannel.read(byteBuffer);
+		        			byteBuffer.flip();
+		        			dataRead += charsetDecoder.decode(byteBuffer);
+		        			processDataRead();
+	        			}
 	        		}
         	    }
             }
         } catch (IOException e) {
         	gameroom.append(e.getMessage());
         }
+	}
+
+	protected void processDataRead() {
+		while (true) {
+			Matcher matcher = pattern.matcher(dataRead);
+			if (!matcher.find()) {
+				return;
+			}
+			String command = matcher.group(1);
+			dataRead = dataRead.substring(matcher.end(), dataRead.length());
+			gameroom.append(command + "\n");
+		}
 	}
 }
