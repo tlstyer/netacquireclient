@@ -61,7 +61,7 @@ public class NetworkConnection {
     public NetworkConnection() {
         dataRead = "SP;2,0,2,tlstyer;:LM;\"*tlstyer2 has entered the lobby.\";:LM;\"> Welcome, there are currently 2 users and 0 games.\";:SS;3;:";
         processDataRead();
-        Util.splitCommand("1;2;3");
+        Util.printSplitCommand(Util.splitCommand("1;2;3;4,5,6"));
     }
 
 	protected void processDataRead() {
@@ -73,7 +73,7 @@ public class NetworkConnection {
 			String command = matcher.group(1);
 			dataRead = dataRead.substring(matcher.end(), dataRead.length());
 //			gameroom.append(command + "\n");
-			Util.splitCommand(command);
+			Util.printSplitCommand(Util.splitCommand(command));
 		}
 	}
 }

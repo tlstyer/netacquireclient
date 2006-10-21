@@ -18,19 +18,35 @@ public class Util {
 		return splitObjectArray;
 	}
 
-	public static void splitCommand(String command) {
-		System.out.println(command);
+	public static Object[] splitCommand(String command) {
 		Object[] splitObjectArray = splitCommandHelper(command, ";");
 		for (int index=0; index<splitObjectArray.length; ++index) {
 			Object o = splitObjectArray[index]; 
-			System.out.println(o + " : " + o.getClass().getSimpleName());
 			if (o.getClass().getSimpleName().equals("String")) {
-				splitObjectArray[index] = splitCommandHelper((String)o, ",");
-				for (Object o2 : (Object[])splitObjectArray[index]) {
-					System.out.println("  " + o2 + " : " + o2.getClass().getSimpleName());
+				Object[] splitObjectArray2 = splitCommandHelper((String)o, ",");
+				splitObjectArray[index] = splitObjectArray2;
+				if (splitObjectArray2.length == 1) {
+					splitObjectArray[index] = splitObjectArray2[0]; 
 				}
 			}
 		}
+		return splitObjectArray;
+	}
+	
+	private static void printSplitCommandHelper(Object object, int indent) {
+		for (int i=0; i<indent; ++i) {
+			System.out.print("  ");
+		}
+		System.out.println(object + " : " + object.getClass().getSimpleName());
+		if (object.getClass().getSimpleName().equals("Object[]")) {
+			for (Object o : (Object[])object) {
+				printSplitCommandHelper(o, indent + 1);
+			}
+		}
+	}
+	
+	public static void printSplitCommand(Object splitCommand) {
+		printSplitCommandHelper(splitCommand, 0);
 		System.out.println();
 	}
 }
