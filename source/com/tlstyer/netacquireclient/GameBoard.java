@@ -2,16 +2,15 @@ import java.awt.*;
 import javax.swing.*;
 
 public class GameBoard extends JPanel {
-	private TextComponent[][] board;
-	private GridLayout gl;
+	private TextComponent[][] board = new TextComponent[9][12];
+	private GridLayout gridlayout = new GridLayout(9, 12, 2, 2);
+	private GameBoardData gameboarddata = new GameBoardData();
 	
-	private Color color_def = new Color(HoteltypeToColorvalue.lookupSwing(BoardtypeEnum.BOARDTYPE_NONE.ordinal()));
-	private String letters = "ABCDEFGHI";
+	private static final Color color_def = new Color(HoteltypeToColorvalue.lookupSwing(BoardtypeEnum.BOARDTYPE_NONE.ordinal()));
+	private static final String letters = "ABCDEFGHI";
     
     public GameBoard() {
-    	board = new TextComponent[9][12];
-        gl = new GridLayout(9, 12, 2, 2);
-        setLayout(gl);
+        setLayout(gridlayout);
     	for (int y=0; y<9; ++y) {
     		for (int x=0; x<12; ++x) {
     			board[y][x] = new TextComponent();
@@ -29,6 +28,18 @@ public class GameBoard extends JPanel {
     			board[y][x].setTextAlign(TextComponent.ALIGN_CENTER);
         	}
         }
-
+    	gameboarddata.init();
+    }
+    
+    public void sync(GameBoardData gbd) {
+    	for (int y=0; y<9; ++y) {
+    		for (int x=0; x<12; ++x) {
+    			int hoteltype = gbd.getHoteltype(y, x);
+    			if (gameboarddata.getHoteltype(y, x) != hoteltype) {
+    				gameboarddata.setHoteltype(y, x, hoteltype);
+    				board[y][x].setBackgroundColor(new Color(HoteltypeToColorvalue.lookupSwing(hoteltype)));
+    			}
+        	}
+        }
     }
 }

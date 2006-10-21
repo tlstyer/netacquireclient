@@ -18,7 +18,7 @@ public class Util {
 		return splitObjectArray;
 	}
 
-	public static Object[] splitCommand(String command) {
+	public static Object[] commandTextToJava(String command) {
 		Object[] splitObjectArray = splitCommandHelper(command, ";");
 		for (int index=0; index<splitObjectArray.length; ++index) {
 			Object o = splitObjectArray[index]; 
@@ -48,5 +48,9 @@ public class Util {
 	public static void printSplitCommand(Object splitCommand) {
 		printSplitCommandHelper(splitCommand, 0);
 		System.out.println();
+	}
+	
+	public static Coordinates gameBoardIndexToCoords(int index) {
+		return new Coordinates((index - 1) % 9, (index - 1) / 9);
 	}
 }
