@@ -95,6 +95,10 @@ public class NetworkConnection {
 				handleSB(command);
 			} else if (command[0].toString().equals("SV")) {
 				handleSV(command);
+			} else if (command[0].toString().equals("LM")) {
+				handleLM(command);
+			} else if (command[0].toString().equals("GM")) {
+				handleGM(command);
 			}
 		}
 		
@@ -137,5 +141,13 @@ public class NetworkConnection {
 //			Coordinate where = ScoreSheetIndexToCoordinate.lookup(index);
 ////			self.game_state.score_sheet_colors[where[0]][where[1]] = color
 //		}
+	}
+	
+	protected void handleLM(Object[] command) {
+		lobby.append(Util.commandToContainedMessage(command) + "\n");
+	}
+	
+	protected void handleGM(Object[] command) {
+		gameroom.append(Util.commandToContainedMessage(command) + "\n");
 	}
 }
