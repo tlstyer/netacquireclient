@@ -11,7 +11,8 @@ public class GameBoardData {
     		for (int x=0; x<12; ++x) {
     			hoteltypes[y][x] = BoardtypeEnum.BOARDTYPE_NONE.ordinal();
         	}
-        }		
+        }
+    	dirty = true;
 	}
 	
 	public int getHoteltype(int y, int x) {

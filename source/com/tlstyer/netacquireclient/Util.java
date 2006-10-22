@@ -1,6 +1,6 @@
 public class Util {
 	private static Object[] splitCommandHelper(String command, String separator) {
-		String[] splitStringArray = command.split(separator);
+		String[] splitStringArray = command.split(separator, -1);
 		Object[] splitObjectArray = new Object[splitStringArray.length];
 		for (int index=0; index<splitObjectArray.length; ++index) {
 			String splitString = splitStringArray[index];

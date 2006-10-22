@@ -38,6 +38,7 @@ public class GameBoard extends JPanel {
     			if (gameboarddata.getHoteltype(y, x) != hoteltype) {
     				gameboarddata.setHoteltype(y, x, hoteltype);
     				board[y][x].setBackgroundColor(new Color(HoteltypeToColorvalue.lookupSwing(hoteltype)));
+    				board[y][x].repaint();
     			}
         	}
         }
