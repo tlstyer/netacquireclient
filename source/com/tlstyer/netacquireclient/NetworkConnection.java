@@ -93,8 +93,8 @@ public class NetworkConnection {
 	protected void handleSB(Object[] command) {
 		int index = (Integer)((Object[])command[1])[0];
 		int color = (Integer)((Object[])command[1])[1];
-		Coordinates coords = Util.gameBoardIndexToCoords(index);
+		Coordinate coord = Util.gameBoardIndexToCoordinate(index);
 		int hoteltype = ColorvalueToHoteltype.lookup(color);
-		gameboarddata.setHoteltype(coords.getY(), coords.getX(), hoteltype);
+		gameboarddata.setHoteltype(coord.getY(), coord.getX(), hoteltype);
 	}
 }

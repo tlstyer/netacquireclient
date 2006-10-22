@@ -50,7 +50,7 @@ public class Util {
 		System.out.println();
 	}
 	
-	public static Coordinates gameBoardIndexToCoords(int index) {
-		return new Coordinates((index - 1) % 9, (index - 1) / 9);
+	public static Coordinate gameBoardIndexToCoordinate(int index) {
+		return new Coordinate((index - 1) % 9, (index - 1) / 9);
 	}
 }
