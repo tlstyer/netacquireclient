@@ -9,6 +9,7 @@ public class MessageWindow extends JScrollPane {
 	public MessageWindow() {
 		jtextarea.setEditable(false);
 		jtextarea.setLineWrap(true);
+		jtextarea.setWrapStyleWord(true);
 		jtextarea.setBackground(colorbg);
 		setViewportView(jtextarea);
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
