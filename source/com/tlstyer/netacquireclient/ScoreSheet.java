@@ -7,7 +7,8 @@ public class ScoreSheet extends JPanel {
 	private GridBagConstraints c;
 	private Color colorbg;
     private ScoreSheetCaptionData scoresheetcaptiondata = new ScoreSheetCaptionData();
-    
+    private ScoreSheetBackColorData scoresheetbackcolordata = new ScoreSheetBackColorData();
+
     private static final String htchars = "LTAFWCI";
     private static final int[] widths = {5, 1, 1, 1, 1, 1, 1, 1, 3, 3};
     private static final int[] startx = {0, 5, 6, 7, 8, 9, 10, 11, 12, 15};
@@ -82,7 +83,7 @@ public class ScoreSheet extends JPanel {
     	scoresheet[y][x] = tc;
 	}
     
-    public void sync(ScoreSheetCaptionData sscd) {
+    public void sync(ScoreSheetCaptionData sscd, ScoreSheetBackColorData ssbcd) {
     	for (int y=0; y<10; ++y) {
     		for (int x=0; x<9; ++x) {
     			Object caption = sscd.getCaption(y, x);

@@ -17,6 +17,7 @@ public class NetworkConnection {
     
     private GameBoardData gameboarddata = new GameBoardData();
     private ScoreSheetCaptionData scoresheetcaptiondata = new ScoreSheetCaptionData();
+    private ScoreSheetBackColorData scoresheetbackcolordata = new ScoreSheetBackColorData();
 
     private static final Pattern pattern = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
 
@@ -106,9 +107,10 @@ public class NetworkConnection {
 			board.sync(gameboarddata);
 			gameboarddata.clean();
 		}
-		if (scoresheetcaptiondata.isDirty()) {
-			scoresheet.sync(scoresheetcaptiondata);
+		if (scoresheetcaptiondata.isDirty() || scoresheetbackcolordata.isDirty()) {
+			scoresheet.sync(scoresheetcaptiondata, scoresheetbackcolordata);
 			scoresheetcaptiondata.clean();
+			scoresheetbackcolordata.clean();
 		}
 	}
 	
@@ -134,13 +136,14 @@ public class NetworkConnection {
 			if (where != null) {
 				scoresheetcaptiondata.setCaption(where.getY(), where.getX(), what);
 			}
+		} else if (((String)((Object[])command[1])[3]).equals("BackColor")) {
+			int index = (Integer)((Object[])command[1])[2];
+			int color = (Integer)((Object[])command[1])[4];
+			Coordinate where = ScoreSheetIndexToCoordinate.lookup(index);
+			if (where != null) {
+				scoresheetbackcolordata.setBackColor(where.getY(), where.getX(), color);
+			}
 		}
-//		else if (((String)((Object[])command[1])[3]).equals("BackColor")) {
-//			int index = (Integer)((Object[])command[1])[2];
-//			int color = (Integer)((Object[])command[1])[4];
-//			Coordinate where = ScoreSheetIndexToCoordinate.lookup(index);
-////			self.game_state.score_sheet_colors[where[0]][where[1]] = color
-//		}
 	}
 	
 	protected void handleLM(Object[] command) {
