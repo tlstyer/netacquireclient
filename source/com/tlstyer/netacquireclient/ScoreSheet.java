@@ -86,11 +86,21 @@ public class ScoreSheet extends JPanel {
     public void sync(ScoreSheetCaptionData sscd, ScoreSheetBackColorData ssbcd) {
     	for (int y=0; y<10; ++y) {
     		for (int x=0; x<9; ++x) {
+    			boolean repaint = false;
     			Object caption = sscd.getCaption(y, x);
     			if (scoresheetcaptiondata.getCaption(y, x) != caption) {
     				scoresheetcaptiondata.setCaption(y, x, caption);
     				scoresheet[y][x].setText(caption.toString());
-    				scoresheet[y][x].repaint();
+    				repaint = true;
+    			}
+    			int backcolor = ssbcd.getBackColor(y, x);
+    			if (scoresheetbackcolordata.getBackColor(y, x) != backcolor) {
+    				scoresheetbackcolordata.setBackColor(y, x, backcolor);
+    				scoresheet[y][x].setBackgroundColor(new Color(backcolor));
+    				repaint = true;
+    			}
+    			if (repaint) {
+    				scoresheet[y][x].repaint();    				
     			}
         	}
         }
