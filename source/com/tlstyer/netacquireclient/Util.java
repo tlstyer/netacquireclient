@@ -88,4 +88,11 @@ public class Util {
 		message = message.replace("\"\"", "\"");
 		return message;
 	}
+	
+	public static int networkColorToSwingColor(int color) {
+		int red = color % 256;
+		int green = (color >> 8) % 256;
+		int blue = (color >> 16) % 256;
+		return (red << 16) + (green << 8) + (blue);
+	}
 }

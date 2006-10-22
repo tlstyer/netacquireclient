@@ -32,10 +32,6 @@ public class HoteltypeToColorvalue {
 	}
 	
 	public static int lookupSwing(int hoteltype) {
-		int color = array[hoteltype];
-		int red = color % 256;
-		int green = (color >> 8) % 256;
-		int blue = (color >> 16) % 256;
-		return (red << 16) + (green << 8) + (blue);
+		return Util.networkColorToSwingColor(array[hoteltype]);
 	}
 }
