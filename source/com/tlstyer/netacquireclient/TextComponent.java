@@ -14,7 +14,7 @@ class TextComponent extends JComponent {
     static final int ALIGN_CENTER = 1;
     static final int ALIGN_RIGHT = 2;
     
-    static final int PADDING = 3;
+    static final int PADDING = 5;
     
     public TextComponent() {
     	setText("text");
@@ -54,6 +54,8 @@ class TextComponent extends JComponent {
         
         g2d.setColor(color_bg);
         g2d.fillRect(0, 0, getWidth(), getHeight());
+        
+        g2d.setFont(FontManager.getFont());
         
         g2d.setColor(color_fg);
         Font font = g2d.getFont();
