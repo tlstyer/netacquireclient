@@ -69,7 +69,7 @@ public class NetworkConnection {
 		gameroom = g;
 		
 		try {
-			FileReader fr = new FileReader("C:/programming/acquire/logs/06.10.12-19.07.35 - 834 - tlstyer (633), Three Ears (483), So_ (395), MergerMagnate (190).log");
+			FileReader fr = new FileReader("C:/programming/eclipse/Acquire/input.log");
 			BufferedReader input = new BufferedReader(fr);
 			String str = input.readLine();
 			while(str instanceof String) {
