@@ -1,5 +1,5 @@
 public class ScoreSheetCaptionData {
-	private Object[][] captions = new Object[10][9];
+	private Object[][] captions = new Object[10][10];
 	private boolean dirty = true;
 	
 	public ScoreSheetCaptionData() {
@@ -8,7 +8,7 @@ public class ScoreSheetCaptionData {
 	
 	public void init() {
     	for (int y=0; y<10; ++y) {
-    		for (int x=0; x<9; ++x) {
+    		for (int x=0; x<10; ++x) {
     			captions[y][x] = 0;
         	}
         }

@@ -67,7 +67,7 @@ public class ScoreSheet extends JPanel {
 		scoresheet[8][0].setText("Chain Size");
 		scoresheet[9][0].setText("Price ($00)");
 	}
-	
+
     protected void addTC(int y, int x, int hoteltype, String text) {
     	TextComponent tc = new TextComponent();
     	tc.setBackgroundColor(new Color(HoteltypeToColorvalue.lookupSwing(hoteltype)));
@@ -82,10 +82,10 @@ public class ScoreSheet extends JPanel {
     	add(tc);
     	scoresheet[y][x] = tc;
 	}
-    
+
     public void sync(ScoreSheetCaptionData sscd, ScoreSheetBackColorData ssbcd) {
     	for (int y=0; y<10; ++y) {
-    		for (int x=0; x<9; ++x) {
+    		for (int x=0; x<10; ++x) {
     			boolean repaint = false;
     			Object caption = sscd.getCaption(y, x);
     			if (scoresheetcaptiondata.getCaption(y, x) != caption) {
