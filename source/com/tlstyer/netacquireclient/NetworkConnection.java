@@ -139,6 +139,7 @@ public class NetworkConnection {
 		} else if (((String)((Object[])command[1])[3]).equals("BackColor")) {
 			int index = (Integer)((Object[])command[1])[2];
 			int color = (Integer)((Object[])command[1])[4];
+			color = Util.networkColorToSwingColor(color);
 			Coordinate where = ScoreSheetIndexToCoordinate.lookup(index);
 			if (where != null) {
 				scoresheetbackcolordata.setBackColor(where.getY(), where.getX(), color);
