@@ -90,6 +90,17 @@ public class ScoreSheet extends JPanel {
     			Object caption = sscd.getCaption(y, x);
     			if (scoresheetcaptiondata.getCaption(y, x) != caption) {
     				scoresheetcaptiondata.setCaption(y, x, caption);
+    				if (caption.getClass().getSimpleName().equals("Integer")) {
+    					if (((Integer)caption) == 0) {
+        					if (x >= 1 && x <= 7) {
+        						if (y >= 1 && y <= 6) {
+        							caption = " ";
+        						} else if (y >= 8 && y <= 9) {
+        							caption = "-";
+        						}
+        					}
+    					}
+    				}
     				scoresheet[y][x].setText(caption.toString());
     				repaint = true;
     			}
