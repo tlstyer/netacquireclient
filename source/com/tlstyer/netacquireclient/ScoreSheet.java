@@ -100,6 +100,9 @@ public class ScoreSheet extends JPanel {
         						}
         					}
     					}
+    					if (x == 8 && y >= 1 && y <= 6) {
+    						caption = (Integer)caption * 100;
+    					}
     				}
     				scoresheet[y][x].setText(caption.toString());
     				repaint = true;
