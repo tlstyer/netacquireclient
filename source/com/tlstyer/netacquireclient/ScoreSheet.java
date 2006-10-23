@@ -3,6 +3,7 @@ import javax.swing.*;
 
 public class ScoreSheet extends JPanel {
 	private TextComponent[][] scoresheet;
+	private TextComponent[] blankrows;
 	private GridBagLayout gbl;
 	private GridBagConstraints c;
 	private Color colorbg;
@@ -17,6 +18,7 @@ public class ScoreSheet extends JPanel {
 	
 	public ScoreSheet(Color color_bg) {
 		scoresheet = new TextComponent[10][10];
+		blankrows = new TextComponent[6];
         gbl = new GridBagLayout();
         c = new GridBagConstraints();
         setLayout(gbl);
@@ -67,6 +69,11 @@ public class ScoreSheet extends JPanel {
         scoresheet[7][0].setText("Available");
 		scoresheet[8][0].setText("Chain Size");
 		scoresheet[9][0].setText("Price ($00)");
+		
+		// add blank rows
+		for (int row=0; row<6; ++row) {
+			addBlankTC(row);
+		}
 	}
 
     protected void addTC(int y, int x, int hoteltype, String text) {
@@ -84,17 +91,28 @@ public class ScoreSheet extends JPanel {
     	scoresheet[y][x] = tc;
 	}
     
+    protected void addBlankTC(int row) {
+    	int y = row + 10;
+    	int x = 1;
+    	TextComponent tc = new TextComponent();
+    	tc.setBackgroundColor(colorbg);
+    	tc.setText(" ");
+        tc.setVisible(false);
+    	c.gridy = y;
+    	c.gridx = startx[x];
+    	c.gridwidth = widths[x];
+        c.weightx = widths[x];
+    	
+    	gbl.setConstraints(tc, c);
+    	add(tc);
+    	blankrows[row] = tc;
+	}
+    
     private void setRowVisible(int row, boolean visible) {
-    	for (int x=0; x<9; ++x) {
+    	for (int x=0; x<10; ++x) {
     		scoresheet[row][x].setVisible(visible);
     	}
-    	if (visible) {
-    		scoresheet[row][9].setBackgroundColor(Color.white);
-    		scoresheet[row][9].setText(" ");
-    	} else {
-    		scoresheet[row][9].setBackgroundColor(colorbg);
-    		scoresheet[row][9].setText(" ");
-    	}
+    	blankrows[(row - 1)].setVisible(!visible);
     }
     
     private void makeOnlyUsedRowsVisible(ScoreSheetCaptionData sscd) {
