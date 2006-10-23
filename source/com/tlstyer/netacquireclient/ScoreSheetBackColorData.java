@@ -1,5 +1,3 @@
-import java.awt.Color;
-
 public class ScoreSheetBackColorData {
 	private int[][] backcolors = new int[10][10];
 	private boolean dirty = true;

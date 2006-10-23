@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Util {
 	private static Object[] splitCommandHelper(String command, String separator) {
 		String[] splitStringArray = command.split(separator, -1);
