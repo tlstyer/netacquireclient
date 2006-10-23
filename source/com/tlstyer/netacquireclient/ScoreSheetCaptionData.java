@@ -9,7 +9,7 @@ public class ScoreSheetCaptionData {
 	public void init() {
     	for (int y=0; y<10; ++y) {
     		for (int x=0; x<10; ++x) {
-    			captions[y][x] = 0;
+    			captions[y][x] = null;
         	}
         }
     	dirty = true;

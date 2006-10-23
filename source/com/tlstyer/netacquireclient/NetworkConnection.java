@@ -108,6 +108,9 @@ public class NetworkConnection {
 			gameboarddata.clean();
 		}
 		if (scoresheetcaptiondata.isDirty() || scoresheetbackcolordata.isDirty()) {
+			if (scoresheetcaptiondata.isDirty()) {
+				Util.updateNetWorths(scoresheetcaptiondata, gameboarddata);
+			}
 			scoresheet.sync(scoresheetcaptiondata, scoresheetbackcolordata);
 			scoresheetcaptiondata.clean();
 			scoresheetbackcolordata.clean();
