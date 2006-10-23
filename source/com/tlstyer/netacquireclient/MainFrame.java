@@ -27,14 +27,14 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
 		// create the components
+        panel = new JPanel(null);
     	board = new GameBoard();
     	tilerackbg = new TextComponent(" ", new Color(255, 128, 0), TextComponent.ALIGN_CENTER);
     	lobby = new MessageWindow();
-    	scoresheet = new ScoreSheet(getBackground());
+    	scoresheet = new ScoreSheet(panel.getBackground());
     	gameroom = new MessageWindow();
     	
     	// layout the components
-        panel = new JPanel(null);
 		panel.add(board);
 		panel.add(tilerackbg);
 		panel.add(lobby);

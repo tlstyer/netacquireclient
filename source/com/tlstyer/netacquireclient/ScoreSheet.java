@@ -8,6 +8,7 @@ public class ScoreSheet extends JPanel {
 	private Color colorbg;
     private ScoreSheetCaptionData scoresheetcaptiondata = new ScoreSheetCaptionData();
     private ScoreSheetBackColorData scoresheetbackcolordata = new ScoreSheetBackColorData();
+    private int usedRows = 6;
 
     private static final String htchars = "LTAFWCI";
     private static final int[] widths = {5, 1, 1, 1, 1, 1, 1, 1, 3, 3};
@@ -82,8 +83,37 @@ public class ScoreSheet extends JPanel {
     	add(tc);
     	scoresheet[y][x] = tc;
 	}
+    
+    private void setRowVisible(int row, boolean visible) {
+    	for (int x=0; x<9; ++x) {
+    		scoresheet[row][x].setVisible(visible);
+    	}
+    	if (visible) {
+    		scoresheet[row][9].setBackgroundColor(Color.white);
+    		scoresheet[row][9].setText(" ");
+    	} else {
+    		scoresheet[row][9].setBackgroundColor(colorbg);
+    		scoresheet[row][9].setText(" ");
+    	}
+    }
+    
+    private void makeOnlyUsedRowsVisible(ScoreSheetCaptionData sscd) {
+    	int numPlayers = Util.getNumberOfPlayers(sscd);
+    	if (numPlayers < usedRows) {
+    		for (int y=numPlayers+1; y<=usedRows; ++y) {
+    			setRowVisible(y, false);
+    		}
+    		usedRows = numPlayers;
+    	} else if (usedRows < numPlayers) {
+    		for (int y=usedRows+1; y<=numPlayers; ++y) {
+    			setRowVisible(y, true);
+    		}
+    		usedRows = numPlayers;
+    	}
+    }
 
     public void sync(ScoreSheetCaptionData sscd, ScoreSheetBackColorData ssbcd) {
+    	makeOnlyUsedRowsVisible(sscd);
     	for (int y=0; y<10; ++y) {
     		for (int x=0; x<10; ++x) {
     			boolean repaint = false;
