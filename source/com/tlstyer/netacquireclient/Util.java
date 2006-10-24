@@ -272,5 +272,10 @@ public class Util {
 			sscd.setCaption(player + 1, 9, (Integer)money[player]);
 		}
 	}
+	
+	private static final String letters = "ABCDEFGHI";
 
+	public static String coordsToNumberAndLetter(int y, int x) {
+		return Integer.toString(x + 1) + letters.charAt(y);
+	}
 }

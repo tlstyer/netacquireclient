@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.*;
 import java.net.*;
 import java.nio.*;
@@ -9,6 +10,7 @@ import java.util.regex.*;
 
 public class NetworkConnection {
     private GameBoard board;
+    private TileRack tilerack;
     private MessageWindow lobby;
     private ScoreSheet scoresheet;
     private MessageWindow gameroom;
@@ -21,8 +23,9 @@ public class NetworkConnection {
 
     private static final Pattern pattern = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
 
-	public NetworkConnection(GameBoard b, MessageWindow l, ScoreSheet s, MessageWindow g) {
+	public NetworkConnection(GameBoard b, TileRack t, MessageWindow l, ScoreSheet s, MessageWindow g) {
 		board = b;
+		tilerack = t;
 		lobby = l;
 		scoresheet = s;
 		gameroom = g;
@@ -62,8 +65,9 @@ public class NetworkConnection {
         }
 	}
 
-    public NetworkConnection(GameBoard b, MessageWindow l, ScoreSheet s, MessageWindow g, boolean lala) {
+    public NetworkConnection(GameBoard b, TileRack t, MessageWindow l, ScoreSheet s, MessageWindow g, boolean lala) {
 		board = b;
+		tilerack = t;
 		lobby = l;
 		scoresheet = s;
 		gameroom = g;
@@ -100,6 +104,8 @@ public class NetworkConnection {
 				handleLM(command);
 			} else if (command[0].toString().equals("GM")) {
 				handleGM(command);
+			} else if (command[0].toString().equals("AT")) {
+				handleAT(command);
 			}
 		}
 		
@@ -156,5 +162,17 @@ public class NetworkConnection {
 	
 	protected void handleGM(Object[] command) {
 		gameroom.append(Util.commandToContainedMessage(command) + "\n");
+	}
+	
+	protected void handleAT(Object[] command) {
+		int tileRackIndex = (Integer)((Object[])command[1])[0];
+		int gameBoardIndex = (Integer)((Object[])command[1])[1];
+		int tileRackColor = (Integer)((Object[])command[1])[2];
+        int index = tileRackIndex - 1;
+		Coordinate coord = Util.gameBoardIndexToCoordinate(gameBoardIndex);
+		String label = Util.coordsToNumberAndLetter(coord.getY(), coord.getX());
+		Color color = new Color(Util.networkColorToSwingColor(tileRackColor));
+		tilerack.setButtonLabel(index, label);
+		tilerack.setButtonColor(index, color);
 	}
 }

@@ -7,7 +7,6 @@ public class GameBoard extends JPanel {
 	private GameBoardData gameboarddata = new GameBoardData();
 	
 	private static final Color color_def = new Color(HoteltypeToColorvalue.lookupSwing(BoardtypeEnum.BOARDTYPE_NONE.ordinal()));
-	private static final String letters = "ABCDEFGHI";
     
     public GameBoard() {
         setLayout(gridlayout);
@@ -24,7 +23,7 @@ public class GameBoard extends JPanel {
     	for (int y=0; y<9; ++y) {
     		for (int x=0; x<12; ++x) {
     			board[y][x].setBackgroundColor(color_def);
-    			board[y][x].setText(Integer.toString(x + 1) + letters.charAt(y));
+    			board[y][x].setText(Util.coordsToNumberAndLetter(y, x));
     			board[y][x].setTextAlign(TextComponent.ALIGN_CENTER);
         	}
         }

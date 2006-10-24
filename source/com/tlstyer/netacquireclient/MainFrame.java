@@ -58,8 +58,8 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
             }
         });
 
-        //new NetworkConnection(board, lobby, scoresheet, gameroom);
-        new NetworkConnection(board, lobby, scoresheet, gameroom, true);
+        //new NetworkConnection(board, tilerack, lobby, scoresheet, gameroom);
+        new NetworkConnection(board, tilerack, lobby, scoresheet, gameroom, true);
     }
 
     public void actionPerformed(ActionEvent e) {

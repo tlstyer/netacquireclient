@@ -10,7 +10,7 @@ public class TileRack extends JPanel {
 	public TileRack() {
 		setLayout(gridlayout);
 		for (int b=0; b<6; ++b) {
-			buttons[b] = new Button(((Integer)b).toString());
+			buttons[b] = new Button();
 			buttons[b].setFont(FontManager.getFont());
 			add(buttons[b]);
 		}
