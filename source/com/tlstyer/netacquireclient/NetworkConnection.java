@@ -18,6 +18,11 @@ public class NetworkConnection {
     private String dataRead;
     private StringBuffer dataToWrite;
     
+    private Selector selector;
+    private SocketChannel socketChannel;
+    private SelectionKey selectionkey;
+    private boolean isWritable = false;
+    
     private GameBoardData gameboarddata = new GameBoardData();
     private ScoreSheetCaptionData scoresheetcaptiondata = new ScoreSheetCaptionData();
     private ScoreSheetBackColorData scoresheetbackcolordata = new ScoreSheetBackColorData();
@@ -38,41 +43,46 @@ public class NetworkConnection {
 		dataToWrite = new StringBuffer(10240);
 		
         try {
-        	Selector selector = SelectorProvider.provider().openSelector();
+        	selector = SelectorProvider.provider().openSelector();
             InetSocketAddress isa = new InetSocketAddress("localhost", 1001);
-            SocketChannel socketChannel = SocketChannel.open(isa);
+            socketChannel = SocketChannel.open(isa);
             socketChannel.configureBlocking(false);
-            SelectionKey selectionKey = socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+            selectionkey = socketChannel.register(selector, SelectionKey.OP_READ);
 
             int keysAdded = 0;
 
-            while ((keysAdded = selector.select()) > 0) {
-        	    Set readyKeys = selector.selectedKeys();
-        	    Iterator i = readyKeys.iterator();
-        	    while (i.hasNext()) {
-	        		SelectionKey sk = (SelectionKey)i.next();
-	        		i.remove();
-	        		if (sk == selectionKey) {
-	        			if (sk.isReadable()) {
-		        			byteBuffer.clear();
-		        			socketChannel.read(byteBuffer);
-		        			byteBuffer.flip();
-		        			dataRead += charsetDecoder.decode(byteBuffer);
-		        			processDataRead();
-	        			} else if (sk.isWritable()) {
-	        				byteBuffer.clear();
-	        				byteBuffer.put(charsetDecoder.encode(dataToWrite.toString()));
-	        				byteBuffer.flip();
-	        				int numWritten = socketChannel.write(byteBuffer);
-	        				if (numWritten > 0) {
-	        					dataToWrite.delete(0, numWritten);
-	        				}
-	        			}
-	        		}
-        	    }
+            while (true) {
+            	keysAdded = selector.select(50);
+            	if (keysAdded > 0) {
+            	    Set readyKeys = selector.selectedKeys();
+            	    Iterator i = readyKeys.iterator();
+            	    while (i.hasNext()) {
+    	        		SelectionKey sk = (SelectionKey)i.next();
+    	        		i.remove();
+            			if (sk.isReadable()) {
+    	        			byteBuffer.clear();
+    	        			socketChannel.read(byteBuffer);
+    	        			byteBuffer.flip();
+    	        			dataRead += charsetDecoder.decode(byteBuffer);
+    	        			processDataRead();
+            			} else if (sk.isWritable()) {
+            				byteBuffer.clear();
+            				byteBuffer.put(charsetDecoder.encode(dataToWrite.toString()));
+            				byteBuffer.flip();
+            				int numWritten = socketChannel.write(byteBuffer);
+            				if (numWritten > 0) {
+            					dataToWrite.delete(0, numWritten);
+            				}
+            				if (dataToWrite.length() == 0) {
+            		            selectionkey = socketChannel.register(selector, SelectionKey.OP_READ);
+            					isWritable = false;
+            				}
+            			}
+            	    }            		
+            	}
             }
         } catch (IOException e) {
-        	gameroom.append(e.getMessage());
+        	lobby.append(e.getMessage());
         }
 	}
 
@@ -136,6 +146,17 @@ public class NetworkConnection {
 		}
 	}
 	
+	protected void writeMessage(String message) {
+		dataToWrite.append(message + ";:");
+		if (!isWritable) {
+			try {
+				selectionkey = socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+				isWritable = true;
+			} catch (ClosedChannelException cce) {
+			}
+		}
+	}
+	
 	protected void handleSB(Object[] command) {
 		int index = (Integer)((Object[])command[1])[0];
 		int color = (Integer)((Object[])command[1])[1];
@@ -190,6 +211,6 @@ public class NetworkConnection {
 	}
 	
 	protected void handleSP(Object[] command) {
-		dataToWrite.append("PL;tlsJava,2,0,2;:");
+		writeMessage("PL;tlsJava,2,0,2");
 	}
 }
