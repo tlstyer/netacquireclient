@@ -7,6 +7,7 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
 	
     private GameBoard board;
     private TextComponent tilerackbg;
+    private TileRack tilerack;
     private MessageWindow lobby;
     private ScoreSheet scoresheet;
     private MessageWindow gameroom;
@@ -30,6 +31,7 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
         panel = new JPanel(null);
     	board = new GameBoard();
     	tilerackbg = new TextComponent(" ", new Color(255, 128, 0), TextComponent.ALIGN_CENTER);
+    	tilerack = new TileRack();
     	lobby = new MessageWindow();
     	scoresheet = new ScoreSheet(panel.getBackground());
     	gameroom = new MessageWindow();
@@ -37,6 +39,7 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
     	// layout the components
 		panel.add(board);
 		panel.add(tilerackbg);
+		panel.add(tilerack);
 		panel.add(lobby);
 		panel.add(scoresheet);
 		panel.add(gameroom);
@@ -83,11 +86,12 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
 		int tile_rack_background_height = game_board_height * 2 / 13;
 		tilerackbg.setBounds(border_width, tile_rack_background_y, game_board_width, tile_rack_background_height);
 
-//		tile_rack_h = tile_rack_background_height * 8 / 10
-//		tile_rack_w = tile_rack_h * 6 + AcquireTileRack.spacing * 5
-//		tile_rack_x = (width / 2 + border_width / 2 - tile_rack_w) / 2
-//		tile_rack_y = tile_rack_background_y + (tile_rack_background_height - tile_rack_h) / 2
-//		self.tile_rack.SetDimension(tile_rack_x, tile_rack_y, tile_rack_w, tile_rack_h)
+		int tile_rack_h = tile_rack_background_height * 8 / 10;
+		int tile_rack_w = tile_rack_h * 6 + TileRack.spacing * 5;
+		int tile_rack_x = (width / 2 + border_width / 2 - tile_rack_w) / 2;
+		int tile_rack_y = tile_rack_background_y + (tile_rack_background_height - tile_rack_h) / 2;
+		tilerack.setBounds(tile_rack_x, tile_rack_y, tile_rack_w, tile_rack_h);
+		tilerack.validate();
 
 		int lobby_y = tile_rack_background_y + tile_rack_background_height + border_width;
 		int lobby_height = height - border_width - lobby_y;
