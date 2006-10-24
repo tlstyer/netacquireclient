@@ -9,8 +9,10 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
     private TextComponent tilerackbg;
     private TileRack tilerack;
     private MessageWindow lobby;
+    private PostMessageTextField lobbyPost;
     private ScoreSheet scoresheet;
     private MessageWindow gameroom;
+    private PostMessageTextField gameroomPost;
 	
 	public MainFrame() {
         //Set the look and feel.
@@ -33,16 +35,20 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
     	tilerackbg = new TextComponent(" ", new Color(255, 128, 0), TextComponent.ALIGN_CENTER);
     	tilerack = new TileRack();
     	lobby = new MessageWindow();
+    	lobbyPost = new PostMessageTextField();
     	scoresheet = new ScoreSheet(panel.getBackground());
     	gameroom = new MessageWindow();
+    	gameroomPost = new PostMessageTextField();
     	
     	// layout the components
 		panel.add(board);
 		panel.add(tilerackbg);
 		panel.add(tilerack);
 		panel.add(lobby);
+		panel.add(lobbyPost);
 		panel.add(scoresheet);
 		panel.add(gameroom);
+		panel.add(gameroomPost);
 
 		// don't know what to call these!
 		panel.addComponentListener(this);
@@ -94,9 +100,14 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
 		tilerack.validate();
 
 		int lobby_y = tile_rack_background_y + tile_rack_background_height + border_width;
-		int lobby_height = height - border_width - lobby_y;
+		int lobby_post_height = (int)lobbyPost.getPreferredSize().getHeight();
+		int lobby_height = height - border_width - lobby_y - lobby_post_height;
 		lobby.setBounds(border_width, lobby_y, game_board_width, lobby_height);
 		lobby.validate();
+		
+		int lobby_post_y = lobby_y + lobby_height;
+		lobbyPost.setBounds(border_width, lobby_post_y, game_board_width, lobby_post_height);
+		lobbyPost.validate();
 
 		int score_sheet_x = width / 2 + border_width / 2;
 		int score_sheet_height = game_board_width * 10 / 18;
@@ -104,9 +115,14 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
 		scoresheet.validate();
 
 		int game_room_y = border_width + score_sheet_height + border_width;
-		int game_room_height = height - border_width - game_room_y;
+		int game_room_post_height = (int)gameroomPost.getPreferredSize().getHeight();
+		int game_room_height = height - border_width - game_room_y - game_room_post_height;
 		gameroom.setBounds(score_sheet_x, game_room_y, game_board_width, game_room_height);
 		gameroom.validate();
+		
+		int game_room_post_y = game_room_y + game_room_height;
+		gameroomPost.setBounds(score_sheet_x, game_room_post_y, game_board_width, game_room_post_height);
+		gameroomPost.validate();
     }
     
     public void componentShown(ComponentEvent e) {
