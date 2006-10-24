@@ -16,6 +16,7 @@ public class NetworkConnection {
     private MessageWindow gameroom;
     
     private String dataRead;
+    private StringBuffer dataToWrite;
     
     private GameBoardData gameboarddata = new GameBoardData();
     private ScoreSheetCaptionData scoresheetcaptiondata = new ScoreSheetCaptionData();
@@ -31,15 +32,17 @@ public class NetworkConnection {
 		gameroom = g;
 		
 		dataRead = "";
-		ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-		Charset charsetDecoder = Charset.forName("US-ASCII"); 
+		ByteBuffer byteBuffer = ByteBuffer.allocate(10240);
+		Charset charsetDecoder = Charset.forName("US-ASCII");
+		
+		dataToWrite = new StringBuffer(10240);
 		
         try {
         	Selector selector = SelectorProvider.provider().openSelector();
-            InetSocketAddress isa = new InetSocketAddress("localhost", 1002);
+            InetSocketAddress isa = new InetSocketAddress("localhost", 1001);
             SocketChannel socketChannel = SocketChannel.open(isa);
             socketChannel.configureBlocking(false);
-            SelectionKey selectionKey = socketChannel.register(selector, SelectionKey.OP_READ);
+            SelectionKey selectionKey = socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
 
             int keysAdded = 0;
 
@@ -56,6 +59,14 @@ public class NetworkConnection {
 		        			byteBuffer.flip();
 		        			dataRead += charsetDecoder.decode(byteBuffer);
 		        			processDataRead();
+	        			} else if (sk.isWritable()) {
+	        				byteBuffer.clear();
+	        				byteBuffer.put(charsetDecoder.encode(dataToWrite.toString()));
+	        				byteBuffer.flip();
+	        				int numWritten = socketChannel.write(byteBuffer);
+	        				if (numWritten > 0) {
+	        					dataToWrite.delete(0, numWritten);
+	        				}
 	        			}
 	        		}
         	    }
@@ -106,6 +117,8 @@ public class NetworkConnection {
 				handleGM(command);
 			} else if (command[0].toString().equals("AT")) {
 				handleAT(command);
+			} else if (command[0].toString().equals("SP")) {
+				handleSP(command);
 			}
 		}
 		
@@ -174,5 +187,9 @@ public class NetworkConnection {
 		Color color = new Color(Util.networkColorToSwingColor(tileRackColor));
 		tilerack.setButtonLabel(index, label);
 		tilerack.setButtonColor(index, color);
+	}
+	
+	protected void handleSP(Object[] command) {
+		dataToWrite.append("PL;tlsJava,2,0,2;:");
 	}
 }
