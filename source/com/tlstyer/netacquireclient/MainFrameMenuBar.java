@@ -1,117 +1,217 @@
 import java.awt.event.*;
 import javax.swing.*;
 
+class MainFrameMenu extends JMenu {
+    public MainFrameMenu(String text, Integer mnemonic) {
+        if (text != null) {
+            setText(text);
+        }
+        if (mnemonic != null) {
+            setMnemonic(mnemonic);
+        }
+    }
+}
+
+class MainFrameMenuItem extends JMenuItem implements ActionListener {
+    public MainFrameMenuItem(String text,
+                             Integer mnemonic,
+                             Integer mnemonicIndex,
+                             Integer accelerator) {
+        if (text != null) {
+            setText(text);
+        }
+        if (mnemonic != null) {
+            setMnemonic(mnemonic);
+        }
+        if (mnemonicIndex != null) {
+            setDisplayedMnemonicIndex(mnemonicIndex);
+        }
+        if (accelerator != null) {
+            setAccelerator(KeyStroke.getKeyStroke(accelerator, ActionEvent.CTRL_MASK));
+        }
+        addActionListener(this);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+class MenuItemOptions extends MainFrameMenuItem {
+    public MenuItemOptions() {
+    	super("Options", KeyEvent.VK_O, null, KeyEvent.VK_O);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+class MenuItemQuit extends MainFrameMenuItem {
+    public MenuItemQuit() {
+    	super("Quit", KeyEvent.VK_Q, null, KeyEvent.VK_Q);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+class MenuItemTestConnections extends MainFrameMenuItem {
+    public MenuItemTestConnections() {
+    	super("Test Connections", KeyEvent.VK_C, null, KeyEvent.VK_C);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+class MenuItemReinitialize extends MainFrameMenuItem {
+    public MenuItemReinitialize() {
+    	super("Reinitialize", KeyEvent.VK_I, null, KeyEvent.VK_I);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+class MenuItemShowUsers extends MainFrameMenuItem {
+    public MenuItemShowUsers() {
+    	super("Show Users", KeyEvent.VK_U, null, KeyEvent.VK_U);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+class MenuItemShowGames extends MainFrameMenuItem {
+    public MenuItemShowGames() {
+    	super("Show Games", KeyEvent.VK_G, null, KeyEvent.VK_G);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+class MenuItemStartNewGame extends MainFrameMenuItem {
+    public MenuItemStartNewGame() {
+    	super("Start New Game", KeyEvent.VK_N, null, KeyEvent.VK_N);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+class MenuItemStartGamePlay extends MainFrameMenuItem {
+    public MenuItemStartGamePlay() {
+    	super("Start Game Play", KeyEvent.VK_P, null, KeyEvent.VK_P);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+class MenuItemJoinGame extends MainFrameMenuItem {
+    public MenuItemJoinGame() {
+    	super("Join Game", KeyEvent.VK_J, null, KeyEvent.VK_J);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+class MenuItemWatchGame extends MainFrameMenuItem {
+    public MenuItemWatchGame() {
+    	super("Watch Game", KeyEvent.VK_W, null, KeyEvent.VK_W);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+class MenuItemShowGameState extends MainFrameMenuItem {
+    public MenuItemShowGameState() {
+    	super("Show Game State", KeyEvent.VK_S, 10, KeyEvent.VK_S);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+class MenuItemLeaveGame extends MainFrameMenuItem {
+    public MenuItemLeaveGame() {
+    	super("Leave Game", KeyEvent.VK_L, null, null);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+class MenuItemAboutNetAcquire extends MainFrameMenuItem {
+    public MenuItemAboutNetAcquire() {
+    	super("About NetAcquire", KeyEvent.VK_A, null, KeyEvent.VK_A);
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
 public class MainFrameMenuBar extends JMenuBar {
 	// File
-	private JMenu menuFile;
-	private JMenuItem menuItemOptions;
-	private JMenuItem menuItemQuit;
+	private MainFrameMenu menuFile = new MainFrameMenu("File", KeyEvent.VK_F);
+	private MenuItemOptions menuItemOptions = new MenuItemOptions();
+	private MenuItemQuit menuItemQuit = new MenuItemQuit();
 	
 	// Communications
-	private JMenu menuCommunications;
-	private JMenuItem menuItemTestConnections;
-	private JMenuItem menuItemReinitialize;
+	private MainFrameMenu menuCommunications = new MainFrameMenu("Communications", KeyEvent.VK_C);
+	private MenuItemTestConnections menuItemTestConnections = new MenuItemTestConnections();
+	private MenuItemReinitialize menuItemReinitialize = new MenuItemReinitialize();
 
     // Lobby
-	private JMenu menuLobby;
-	private JMenuItem menuItemShowUsers;
-	private JMenuItem menuItemShowGames;
+	private MainFrameMenu menuLobby = new MainFrameMenu("Lobby", KeyEvent.VK_L);
+	private MenuItemShowUsers menuItemShowUsers = new MenuItemShowUsers();
+	private MenuItemShowGames menuItemShowGames = new MenuItemShowGames();
 	
     // Game
-	private JMenu menuGame;
-	private JMenuItem menuItemStartNewGame;
-	private JMenuItem menuItemStartGamePlay;
-	private JMenuItem menuItemJoinGame;
-	private JMenuItem menuItemWatchGame;
-	private JMenuItem menuItemShowGameState;
-	private JMenuItem menuItemLeaveGame;
+	private MainFrameMenu menuGame = new MainFrameMenu("Game", KeyEvent.VK_G);
+	private MenuItemStartNewGame menuItemStartNewGame = new MenuItemStartNewGame();
+	private MenuItemStartGamePlay menuItemStartGamePlay = new MenuItemStartGamePlay();
+	private MenuItemJoinGame menuItemJoinGame = new MenuItemJoinGame();
+	private MenuItemWatchGame menuItemWatchGame = new MenuItemWatchGame();
+	private MenuItemShowGameState menuItemShowGameState = new MenuItemShowGameState();
+	private MenuItemLeaveGame menuItemLeaveGame = new MenuItemLeaveGame();
 
     // Help
-	private JMenu menuHelp;
-	private JMenuItem menuItemAboutNetAcquire;
+	private MainFrameMenu menuHelp = new MainFrameMenu("Help", KeyEvent.VK_H);
+	private MenuItemAboutNetAcquire menuItemAboutNetAcquire = new MenuItemAboutNetAcquire();
 
 	public MainFrameMenuBar() {
 		// File
-		menuFile = new JMenu("File");
-		menuFile.setMnemonic(KeyEvent.VK_F);
 		add(menuFile);
-		
-		menuItemOptions = new JMenuItem("Options", KeyEvent.VK_O);
-		menuItemOptions.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 		menuFile.add(menuItemOptions);
-		
 		menuFile.addSeparator();
-		
-		menuItemQuit = new JMenuItem("Quit", KeyEvent.VK_Q);
-		menuItemQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
 		menuFile.add(menuItemQuit);
 		
 		// Communications
-		menuCommunications = new JMenu("Communications");
-		menuCommunications.setMnemonic(KeyEvent.VK_C);
 		add(menuCommunications);
-		
-		menuItemTestConnections = new JMenuItem("Test Connections", KeyEvent.VK_C);
-		menuItemTestConnections.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
 		menuCommunications.add(menuItemTestConnections);
-		
 		menuCommunications.addSeparator();
-		
-		menuItemReinitialize = new JMenuItem("Reinitialize", KeyEvent.VK_I);
-		menuItemReinitialize.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
 		menuCommunications.add(menuItemReinitialize);
 
 		// Lobby
-		menuLobby = new JMenu("Lobby");
-		menuLobby.setMnemonic(KeyEvent.VK_L);
 		add(menuLobby);
-		
-		menuItemShowUsers = new JMenuItem("Show Users", KeyEvent.VK_U);
-		menuItemShowUsers.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, ActionEvent.CTRL_MASK));
 		menuLobby.add(menuItemShowUsers);
-		
-		menuItemShowGames = new JMenuItem("Show Games", KeyEvent.VK_G);
-		menuItemShowGames.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, ActionEvent.CTRL_MASK));
 		menuLobby.add(menuItemShowGames);
 
 		// Game
-		menuGame = new JMenu("Game");
-		menuGame.setMnemonic(KeyEvent.VK_G);
 		add(menuGame);
-		
-		menuItemStartNewGame = new JMenuItem("Start New Game", KeyEvent.VK_N);
-		menuItemStartNewGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		menuGame.add(menuItemStartNewGame);
-		
-		menuItemStartGamePlay = new JMenuItem("Start Game Play", KeyEvent.VK_P);
-		menuItemStartGamePlay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
 		menuGame.add(menuItemStartGamePlay);
-		
-		menuItemJoinGame = new JMenuItem("Join Game", KeyEvent.VK_J);
-		menuItemJoinGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J, ActionEvent.CTRL_MASK));
 		menuGame.add(menuItemJoinGame);
-		
-		menuItemWatchGame = new JMenuItem("Watch Game", KeyEvent.VK_W);
-		menuItemWatchGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
 		menuGame.add(menuItemWatchGame);
-		
-		menuItemShowGameState = new JMenuItem("Show Game State", KeyEvent.VK_S);
-        menuItemShowGameState.setDisplayedMnemonicIndex(10);
-		menuItemShowGameState.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		menuGame.add(menuItemShowGameState);
-		
 		menuGame.addSeparator();
-
-		menuItemLeaveGame = new JMenuItem("Leave Game", KeyEvent.VK_L);
 		menuGame.add(menuItemLeaveGame);
 
 		// Help
-		menuHelp = new JMenu("Help");
-		menuHelp.setMnemonic(KeyEvent.VK_H);
 		add(menuHelp);
-		
-		menuItemAboutNetAcquire = new JMenuItem("About NetAcquire", KeyEvent.VK_A);
-		menuItemAboutNetAcquire.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
 		menuHelp.add(menuItemAboutNetAcquire);
 	}
 }
