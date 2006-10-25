@@ -222,19 +222,20 @@ public class MainFrameMenuBar extends JMenuBar {
 
     private int mode;
 
-	private static final boolean[] enablednessInModesMenuItemOptions         = { true,  true,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemQuit            = { true,  true,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemTestConnections = {false, false,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemReinitialize    = { true,  true,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemShowUsers       = {false, false,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemShowGames       = {false, false,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemStartNewGame    = {false, false,  true, false};
-	private static final boolean[] enablednessInModesMenuItemStartGamePlay   = {false, false, false, false};
-	private static final boolean[] enablednessInModesMenuItemJoinGame        = {false, false,  true, false};
-	private static final boolean[] enablednessInModesMenuItemWatchGame       = {false, false,  true, false};
-	private static final boolean[] enablednessInModesMenuItemShowGameState   = {false, false, false,  true};
-	private static final boolean[] enablednessInModesMenuItemLeaveGame       = {false, false, false,  true};
-	private static final boolean[] enablednessInModesMenuItemAboutNetAcquire = { true,  true,  true,  true};
+                                                                             // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
+	private static final boolean[] enablednessInModesMenuItemOptions         = {false,  true,  true,  true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemQuit            = {false,  true,  true,  true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemTestConnections = {false, false, false,  true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemReinitialize    = {false,  true,  true,  true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemShowUsers       = {false, false, false,  true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemShowGames       = {false, false, false,  true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemStartNewGame    = {false, false, false,  true, false, false, false};
+	private static final boolean[] enablednessInModesMenuItemStartGamePlay   = {false, false, false, false, false,  true, false};
+	private static final boolean[] enablednessInModesMenuItemJoinGame        = {false, false, false,  true, false, false, false};
+	private static final boolean[] enablednessInModesMenuItemWatchGame       = {false, false, false,  true, false, false, false};
+	private static final boolean[] enablednessInModesMenuItemShowGameState   = {false, false, false, false,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemLeaveGame       = {false, false, false, false,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemAboutNetAcquire = {false,  true,  true,  true,  true,  true,  true};
 
     public void setMode(int mode) {
 		this.mode = mode;
@@ -252,9 +253,5 @@ public class MainFrameMenuBar extends JMenuBar {
         menuItemShowGameState.setEnabled(enablednessInModesMenuItemShowGameState[mode]);
         menuItemLeaveGame.setEnabled(enablednessInModesMenuItemLeaveGame[mode]);
         menuItemAboutNetAcquire.setEnabled(enablednessInModesMenuItemAboutNetAcquire[mode]);
-    }
-
-    public void setEnabledMenuItemStartGamePlay(boolean enabled) {
-        menuItemStartGamePlay.setEnabled(enabled);
     }
 }

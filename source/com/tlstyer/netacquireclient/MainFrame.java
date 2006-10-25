@@ -78,19 +78,22 @@ public class MainFrame extends JFrame implements ComponentListener {
 
 	private int mode;
 
-	public static final int MODE_NOT_CONNECTED = 0;
-	public static final int MODE_CONNECTING = 1;
-	public static final int MODE_IN_LOBBY = 2;
-	public static final int MODE_IN_GAME = 3;
+	public static final int MODE_NOT_CONNECTED = 1;
+	public static final int MODE_CONNECTING = 2;
+	public static final int MODE_IN_LOBBY = 3;
+	public static final int MODE_WAITING_FOR_SOMEBODY_ELSE_TO_START_GAME = 4;
+	public static final int MODE_WAITING_FOR_ME_TO_START_GAME = 5;
+	public static final int MODE_PLAYING_GAME = 6;
 	
-    private static final boolean[] visibilityInModesGameBoard          = {false, false, false,  true};
-    private static final boolean[] visibilityInModesTileRackBackground = {false, false, false,  true};
-    private static final boolean[] visibilityInModesTileRack           = {false, false, false,  true};
-    private static final boolean[] visibilityInModesLobby              = {false,  true,  true,  true};
-    private static final boolean[] visibilityInModesLobbyPost          = {false, false,  true,  true};
-    private static final boolean[] visibilityInModesScoreSheet         = {false, false, false,  true};
-    private static final boolean[] visibilityInModesGameRoom           = {false, false, false,  true};
-    private static final boolean[] visibilityInModesGameRoomPost       = {false, false, false,  true};
+                                                                       // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
+    private static final boolean[] visibilityInModesGameBoard          = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesTileRackBackground = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesTileRack           = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesLobby              = {false, false,  true,  true,  true,  true,  true};
+    private static final boolean[] visibilityInModesLobbyPost          = {false, false, false,  true,  true,  true,  true};
+    private static final boolean[] visibilityInModesScoreSheet         = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesGameRoom           = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesGameRoomPost       = {false, false, false, false,  true,  true,  true};
 	
 	public void setMode(int mode) {
 		this.mode = mode;
