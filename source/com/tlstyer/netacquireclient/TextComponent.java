@@ -6,8 +6,8 @@ import javax.swing.*;
 /* A rectangle that has a fixed size. */
 class TextComponent extends JComponent {
     private String text;
-    private Color color_bg;
-    private Color color_fg;
+    private Color colorBackground;
+    private Color colorForeground;
     private int align;
 
     static final int ALIGN_LEFT = 0;
@@ -33,11 +33,11 @@ class TextComponent extends JComponent {
     }
     
     public void setBackgroundColor(Color c) {
-    	color_bg = c;
+    	colorBackground = c;
     	if (c.getRed() == 0 && c.getGreen() == 0 && c.getBlue() == 0) {
-    		color_fg = Color.white;
+    		colorForeground = Color.white;
     	} else {
-    		color_fg = Color.black;
+    		colorForeground = Color.black;
     	}
     }
     
@@ -52,12 +52,12 @@ class TextComponent extends JComponent {
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
         
-        g2d.setColor(color_bg);
+        g2d.setColor(colorBackground);
         g2d.fillRect(0, 0, getWidth(), getHeight());
         
         g2d.setFont(FontManager.getFont());
         
-        g2d.setColor(color_fg);
+        g2d.setColor(colorForeground);
         Font font = g2d.getFont();
         FontRenderContext frc = g2d.getFontRenderContext();
         TextLayout tl = new TextLayout(text, font, frc);

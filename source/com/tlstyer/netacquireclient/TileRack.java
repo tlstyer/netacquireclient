@@ -3,12 +3,12 @@ import javax.swing.*;
 
 public class TileRack extends JPanel {
 	private Button[] buttons = new Button[6];
-	private GridLayout gridlayout = new GridLayout(1, 6, spacing, spacing);
+	private GridLayout gridLayout = new GridLayout(1, 6, spacing, spacing);
 	
 	public static final int spacing = 10;
 	
 	public TileRack() {
-		setLayout(gridlayout);
+		setLayout(gridLayout);
 		for (int b=0; b<6; ++b) {
 			buttons[b] = new Button();
 			buttons[b].setFont(FontManager.getFont());

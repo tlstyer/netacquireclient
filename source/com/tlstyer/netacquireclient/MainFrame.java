@@ -5,14 +5,14 @@ import javax.swing.*;
 public class MainFrame extends JFrame implements ActionListener, ComponentListener {
 	private JPanel panel;
 	
-    private GameBoard board;
-    private TextComponent tilerackbg;
-    private TileRack tilerack;
+    private GameBoard gameBoard;
+    private TextComponent tileRackBackground;
+    private TileRack tileRack;
     private MessageWindow lobby;
     private PostMessageTextField lobbyPost;
-    private ScoreSheet scoresheet;
-    private MessageWindow gameroom;
-    private PostMessageTextField gameroomPost;
+    private ScoreSheet scoreSheet;
+    private MessageWindow gameRoom;
+    private PostMessageTextField gameRoomPost;
 	
 	public MainFrame() {
         //Set the look and feel.
@@ -31,24 +31,24 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
         
 		// create the components
         panel = new JPanel(null);
-    	board = new GameBoard();
-    	tilerackbg = new TextComponent(" ", new Color(255, 128, 0), TextComponent.ALIGN_CENTER);
-    	tilerack = new TileRack();
+    	gameBoard = new GameBoard();
+    	tileRackBackground = new TextComponent(" ", new Color(255, 128, 0), TextComponent.ALIGN_CENTER);
+    	tileRack = new TileRack();
     	lobby = new MessageWindow();
     	lobbyPost = new PostMessageTextField();
-    	scoresheet = new ScoreSheet(panel.getBackground());
-    	gameroom = new MessageWindow();
-    	gameroomPost = new PostMessageTextField();
+    	scoreSheet = new ScoreSheet(panel.getBackground());
+    	gameRoom = new MessageWindow();
+    	gameRoomPost = new PostMessageTextField();
     	
     	// layout the components
-		panel.add(board);
-		panel.add(tilerackbg);
-		panel.add(tilerack);
+		panel.add(gameBoard);
+		panel.add(tileRackBackground);
+		panel.add(tileRack);
 		panel.add(lobby);
 		panel.add(lobbyPost);
-		panel.add(scoresheet);
-		panel.add(gameroom);
-		panel.add(gameroomPost);
+		panel.add(scoreSheet);
+		panel.add(gameRoom);
+		panel.add(gameRoomPost);
 
 		// don't know what to call these!
 		panel.addComponentListener(this);
@@ -64,7 +64,7 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
             }
         });
 
-        new NetworkConnection(board, tilerack, lobby, scoresheet, gameroom);
+        new NetworkConnection(gameBoard, tileRack, lobby, scoreSheet, gameRoom);
         //new NetworkConnection(board, tilerack, lobby, scoresheet, gameroom, true);
     }
 
@@ -78,51 +78,51 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
     }
     
     public void componentResized(ComponentEvent e) {
-        int border_width = 4;
+        int borderWidth = 4;
 
         int width = panel.getWidth();
         int height = panel.getHeight();
 
-        int game_board_width = width / 2 - (border_width + border_width / 2);
-        int game_board_height = game_board_width * 3 / 4;
-        board.setBounds(border_width, border_width, game_board_width, game_board_height);
-        board.validate();
+        int gameBoardWidth = width / 2 - (borderWidth + borderWidth / 2);
+        int gameBoardHeight = gameBoardWidth * 3 / 4;
+        gameBoard.setBounds(borderWidth, borderWidth, gameBoardWidth, gameBoardHeight);
+        gameBoard.validate();
 
-		int tile_rack_background_y = border_width + game_board_height + border_width;
-		int tile_rack_background_height = game_board_height * 2 / 13;
-		tilerackbg.setBounds(border_width, tile_rack_background_y, game_board_width, tile_rack_background_height);
+		int tileRackBackgroundY = borderWidth + gameBoardHeight + borderWidth;
+		int tileRackBackgroundHeight = gameBoardHeight * 2 / 13;
+		tileRackBackground.setBounds(borderWidth, tileRackBackgroundY, gameBoardWidth, tileRackBackgroundHeight);
 
-		int tile_rack_h = tile_rack_background_height * 8 / 10;
-		int tile_rack_w = tile_rack_h * 6 + TileRack.spacing * 5;
-		int tile_rack_x = (width / 2 + border_width / 2 - tile_rack_w) / 2;
-		int tile_rack_y = tile_rack_background_y + (tile_rack_background_height - tile_rack_h) / 2;
-		tilerack.setBounds(tile_rack_x, tile_rack_y, tile_rack_w, tile_rack_h);
-		tilerack.validate();
+		int tileRackHeight = tileRackBackgroundHeight * 8 / 10;
+		int tileRackWidth = tileRackHeight * 6 + TileRack.spacing * 5;
+		int tileRackX = (width / 2 + borderWidth / 2 - tileRackWidth) / 2;
+		int tileRackY = tileRackBackgroundY + (tileRackBackgroundHeight - tileRackHeight) / 2;
+		tileRack.setBounds(tileRackX, tileRackY, tileRackWidth, tileRackHeight);
+		tileRack.validate();
 
-		int lobby_y = tile_rack_background_y + tile_rack_background_height + border_width;
-		int lobby_post_height = (int)lobbyPost.getPreferredSize().getHeight();
-		int lobby_height = height - border_width - lobby_y - lobby_post_height;
-		lobby.setBounds(border_width, lobby_y, game_board_width, lobby_height);
+		int lobbyY = tileRackBackgroundY + tileRackBackgroundHeight + borderWidth;
+		int lobbyPostHeight = (int)lobbyPost.getPreferredSize().getHeight();
+		int lobbyHeight = height - borderWidth - lobbyY - lobbyPostHeight;
+		lobby.setBounds(borderWidth, lobbyY, gameBoardWidth, lobbyHeight);
 		lobby.validate();
 		
-		int lobby_post_y = lobby_y + lobby_height;
-		lobbyPost.setBounds(border_width, lobby_post_y, game_board_width, lobby_post_height);
+		int lobbyPostY = lobbyY + lobbyHeight;
+		lobbyPost.setBounds(borderWidth, lobbyPostY, gameBoardWidth, lobbyPostHeight);
 		lobbyPost.validate();
 
-		int score_sheet_x = width / 2 + border_width / 2;
-		int score_sheet_height = game_board_width * 10 / 18;
-		scoresheet.setBounds(score_sheet_x, border_width, game_board_width, score_sheet_height);
-		scoresheet.validate();
+		int scoreSheetY = width / 2 + borderWidth / 2;
+		int scoreSheetHeight = gameBoardWidth * 10 / 18;
+		scoreSheet.setBounds(scoreSheetY, borderWidth, gameBoardWidth, scoreSheetHeight);
+		scoreSheet.validate();
 
-		int game_room_y = border_width + score_sheet_height + border_width;
-		int game_room_post_height = (int)gameroomPost.getPreferredSize().getHeight();
-		int game_room_height = height - border_width - game_room_y - game_room_post_height;
-		gameroom.setBounds(score_sheet_x, game_room_y, game_board_width, game_room_height);
-		gameroom.validate();
+		int gameRoomY = borderWidth + scoreSheetHeight + borderWidth;
+		int gameRoomPostHeight = (int)gameRoomPost.getPreferredSize().getHeight();
+		int gameRoomHeight = height - borderWidth - gameRoomY - gameRoomPostHeight;
+		gameRoom.setBounds(scoreSheetY, gameRoomY, gameBoardWidth, gameRoomHeight);
+		gameRoom.validate();
 		
-		int game_room_post_y = game_room_y + game_room_height;
-		gameroomPost.setBounds(score_sheet_x, game_room_post_y, game_board_width, game_room_post_height);
-		gameroomPost.validate();
+		int gameRoomPostY = gameRoomY + gameRoomHeight;
+		gameRoomPost.setBounds(scoreSheetY, gameRoomPostY, gameBoardWidth, gameRoomPostHeight);
+		gameRoomPost.validate();
     }
     
     public void componentShown(ComponentEvent e) {

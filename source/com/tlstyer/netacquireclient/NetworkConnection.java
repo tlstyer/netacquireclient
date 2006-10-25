@@ -9,11 +9,11 @@ import java.util.*;
 import java.util.regex.*;
 
 public class NetworkConnection {
-    private GameBoard board;
-    private TileRack tilerack;
+    private GameBoard gameBoard;
+    private TileRack tileRack;
     private MessageWindow lobby;
-    private ScoreSheet scoresheet;
-    private MessageWindow gameroom;
+    private ScoreSheet scoreSheet;
+    private MessageWindow gameRoom;
     
     private String dataRead;
     private StringBuffer dataToWrite;
@@ -23,18 +23,18 @@ public class NetworkConnection {
     private SelectionKey selectionkey;
     private boolean isWritable = false;
     
-    private GameBoardData gameboarddata = new GameBoardData();
-    private ScoreSheetCaptionData scoresheetcaptiondata = new ScoreSheetCaptionData();
-    private ScoreSheetBackColorData scoresheetbackcolordata = new ScoreSheetBackColorData();
+    private GameBoardData gameBoardData = new GameBoardData();
+    private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
+    private ScoreSheetBackColorData scoreSheetBackColorData = new ScoreSheetBackColorData();
 
     private static final Pattern pattern = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
 
 	public NetworkConnection(GameBoard b, TileRack t, MessageWindow l, ScoreSheet s, MessageWindow g) {
-		board = b;
-		tilerack = t;
+		gameBoard = b;
+		tileRack = t;
 		lobby = l;
-		scoresheet = s;
-		gameroom = g;
+		scoreSheet = s;
+		gameRoom = g;
 		
 		dataRead = "";
 		ByteBuffer byteBuffer = ByteBuffer.allocate(10240);
@@ -87,15 +87,15 @@ public class NetworkConnection {
 	}
 
     public NetworkConnection(GameBoard b, TileRack t, MessageWindow l, ScoreSheet s, MessageWindow g, boolean lala) {
-		board = b;
-		tilerack = t;
+		gameBoard = b;
+		tileRack = t;
 		lobby = l;
-		scoresheet = s;
-		gameroom = g;
+		scoreSheet = s;
+		gameRoom = g;
 		
 		try {
-			FileReader fr = new FileReader("C:/programming/eclipse/Acquire/input.log");
-			BufferedReader input = new BufferedReader(fr);
+			FileReader fileReader = new FileReader("C:/programming/eclipse/Acquire/input.log");
+			BufferedReader input = new BufferedReader(fileReader);
 			String str = input.readLine();
 			while(str instanceof String) {
 				if (str.charAt(0) == '+') {
@@ -132,17 +132,17 @@ public class NetworkConnection {
 			}
 		}
 		
-		if (gameboarddata.isDirty()) {
-			board.sync(gameboarddata);
-			gameboarddata.clean();
+		if (gameBoardData.isDirty()) {
+			gameBoard.sync(gameBoardData);
+			gameBoardData.clean();
 		}
-		if (scoresheetcaptiondata.isDirty() || scoresheetbackcolordata.isDirty()) {
-			if (scoresheetcaptiondata.isDirty()) {
-				Util.updateNetWorths(scoresheetcaptiondata, gameboarddata);
+		if (scoreSheetCaptionData.isDirty() || scoreSheetBackColorData.isDirty()) {
+			if (scoreSheetCaptionData.isDirty()) {
+				Util.updateNetWorths(scoreSheetCaptionData, gameBoardData);
 			}
-			scoresheet.sync(scoresheetcaptiondata, scoresheetbackcolordata);
-			scoresheetcaptiondata.clean();
-			scoresheetbackcolordata.clean();
+			scoreSheet.sync(scoreSheetCaptionData, scoreSheetBackColorData);
+			scoreSheetCaptionData.clean();
+			scoreSheetBackColorData.clean();
 		}
 	}
 	
@@ -162,7 +162,7 @@ public class NetworkConnection {
 		int color = (Integer)((Object[])command[1])[1];
 		Coordinate coord = Util.gameBoardIndexToCoordinate(index);
 		int hoteltype = ColorvalueToHoteltype.lookup(color);
-		gameboarddata.setHoteltype(coord.getY(), coord.getX(), hoteltype);
+		gameBoardData.setHoteltype(coord.getY(), coord.getX(), hoteltype);
 	}
 	
 	protected void handleSV(Object[] command) {
@@ -177,7 +177,7 @@ public class NetworkConnection {
 			}
 			Coordinate where = ScoreSheetIndexToCoordinate.lookup(index);
 			if (where != null) {
-				scoresheetcaptiondata.setCaption(where.getY(), where.getX(), what);
+				scoreSheetCaptionData.setCaption(where.getY(), where.getX(), what);
 			}
 		} else if (((String)((Object[])command[1])[3]).equals("BackColor")) {
 			int index = (Integer)((Object[])command[1])[2];
@@ -185,7 +185,7 @@ public class NetworkConnection {
 			color = Util.networkColorToSwingColor(color);
 			Coordinate where = ScoreSheetIndexToCoordinate.lookup(index);
 			if (where != null) {
-				scoresheetbackcolordata.setBackColor(where.getY(), where.getX(), color);
+				scoreSheetBackColorData.setBackColor(where.getY(), where.getX(), color);
 			}
 		}
 	}
@@ -195,7 +195,7 @@ public class NetworkConnection {
 	}
 	
 	protected void handleGM(Object[] command) {
-		gameroom.append(Util.commandToContainedMessage(command) + "\n");
+		gameRoom.append(Util.commandToContainedMessage(command) + "\n");
 	}
 	
 	protected void handleAT(Object[] command) {
@@ -206,8 +206,8 @@ public class NetworkConnection {
 		Coordinate coord = Util.gameBoardIndexToCoordinate(gameBoardIndex);
 		String label = Util.coordsToNumberAndLetter(coord.getY(), coord.getX());
 		Color color = new Color(Util.networkColorToSwingColor(tileRackColor));
-		tilerack.setButtonLabel(index, label);
-		tilerack.setButtonColor(index, color);
+		tileRack.setButtonLabel(index, label);
+		tileRack.setButtonColor(index, color);
 	}
 	
 	protected void handleSP(Object[] command) {

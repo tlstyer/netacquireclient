@@ -1,5 +1,5 @@
 public class ScoreSheetBackColorData {
-	private int[][] backcolors = new int[10][10];
+	private int[][] backgroundColors = new int[10][10];
 	private boolean dirty = true;
 	
 	private static final int colorvaluePlayer = HoteltypeToColorvalue.lookupSwing(BoardtypeEnum.CSSCLASS_NOT_MY_TURN.ordinal());
@@ -12,18 +12,18 @@ public class ScoreSheetBackColorData {
 	public void init() {
     	for (int y=0; y<10; ++y) {
     		for (int x=0; x<10; ++x) {
-    			backcolors[y][x] = (y<7 ? colorvaluePlayer : colorvalueStats);
+    			backgroundColors[y][x] = (y<7 ? colorvaluePlayer : colorvalueStats);
         	}
         }
     	dirty = true;
 	}
 	
 	public int getBackColor(int y, int x) {
-		return backcolors[y][x];
+		return backgroundColors[y][x];
 	}
 	
-	public void setBackColor(int y, int x, int backcolor) {
-		backcolors[y][x] = backcolor;
+	public void setBackColor(int y, int x, int backgroundColor) {
+		backgroundColors[y][x] = backgroundColor;
 		dirty = true;
 	}
 	
