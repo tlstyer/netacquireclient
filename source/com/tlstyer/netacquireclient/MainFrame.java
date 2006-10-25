@@ -3,6 +3,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class MainFrame extends JFrame implements ComponentListener {
+	public MainFrameMenuBar menuBar;
+	
 	private JPanel panel;
 
     public GameBoard gameBoard;
@@ -30,6 +32,9 @@ public class MainFrame extends JFrame implements ComponentListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
 		// create the components
+        menuBar = new MainFrameMenuBar();
+        setJMenuBar(menuBar);
+        
         panel = new JPanel(null);
         gameBoard = new GameBoard();
         tileRackBackground = new TextComponent(" ", new Color(255, 128, 0), TextComponent.ALIGN_CENTER);
