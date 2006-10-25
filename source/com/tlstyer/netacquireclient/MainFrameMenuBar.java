@@ -219,4 +219,42 @@ public class MainFrameMenuBar extends JMenuBar {
 		add(menuHelp);
 		menuHelp.add(menuItemAboutNetAcquire);
 	}
+
+    private int mode;
+
+	private static final boolean[] enablednessInModesMenuItemOptions         = { true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemQuit            = { true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemTestConnections = {false, false,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemReinitialize    = { true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemShowUsers       = {false, false,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemShowGames       = {false, false,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemStartNewGame    = {false, false,  true, false};
+	private static final boolean[] enablednessInModesMenuItemStartGamePlay   = {false, false, false, false};
+	private static final boolean[] enablednessInModesMenuItemJoinGame        = {false, false,  true, false};
+	private static final boolean[] enablednessInModesMenuItemWatchGame       = {false, false,  true, false};
+	private static final boolean[] enablednessInModesMenuItemShowGameState   = {false, false, false,  true};
+	private static final boolean[] enablednessInModesMenuItemLeaveGame       = {false, false, false,  true};
+	private static final boolean[] enablednessInModesMenuItemAboutNetAcquire = { true,  true,  true,  true};
+
+    public void setMode(int mode) {
+		this.mode = mode;
+
+        menuItemOptions.setEnabled(enablednessInModesMenuItemOptions[mode]);
+        menuItemQuit.setEnabled(enablednessInModesMenuItemQuit[mode]);
+        menuItemTestConnections.setEnabled(enablednessInModesMenuItemTestConnections[mode]);
+        menuItemReinitialize.setEnabled(enablednessInModesMenuItemReinitialize[mode]);
+        menuItemShowUsers.setEnabled(enablednessInModesMenuItemShowUsers[mode]);
+        menuItemShowGames.setEnabled(enablednessInModesMenuItemShowGames[mode]);
+        menuItemStartNewGame.setEnabled(enablednessInModesMenuItemStartNewGame[mode]);
+        menuItemStartGamePlay.setEnabled(enablednessInModesMenuItemStartGamePlay[mode]);
+        menuItemJoinGame.setEnabled(enablednessInModesMenuItemJoinGame[mode]);
+        menuItemWatchGame.setEnabled(enablednessInModesMenuItemWatchGame[mode]);
+        menuItemShowGameState.setEnabled(enablednessInModesMenuItemShowGameState[mode]);
+        menuItemLeaveGame.setEnabled(enablednessInModesMenuItemLeaveGame[mode]);
+        menuItemAboutNetAcquire.setEnabled(enablednessInModesMenuItemAboutNetAcquire[mode]);
+    }
+
+    public void setEnabledMenuItemStartGamePlay(boolean enabled) {
+        menuItemStartGamePlay.setEnabled(enabled);
+    }
 }

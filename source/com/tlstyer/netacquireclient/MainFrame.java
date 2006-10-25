@@ -70,10 +70,42 @@ public class MainFrame extends JFrame implements ComponentListener {
         		setVisible(true);
             }
         });
-
+        
+        setMode(MODE_CONNECTING);
         new NetworkConnection(this);
         //new NetworkConnection(this, true);
     }
+
+	private int mode;
+
+	public static final int MODE_NOT_CONNECTED = 0;
+	public static final int MODE_CONNECTING = 1;
+	public static final int MODE_IN_LOBBY = 2;
+	public static final int MODE_IN_GAME = 3;
+	
+    private static final boolean[] visibilityInModesGameBoard          = {false, false, false,  true};
+    private static final boolean[] visibilityInModesTileRackBackground = {false, false, false,  true};
+    private static final boolean[] visibilityInModesTileRack           = {false, false, false,  true};
+    private static final boolean[] visibilityInModesLobby              = {false,  true,  true,  true};
+    private static final boolean[] visibilityInModesLobbyPost          = {false, false,  true,  true};
+    private static final boolean[] visibilityInModesScoreSheet         = {false, false, false,  true};
+    private static final boolean[] visibilityInModesGameRoom           = {false, false, false,  true};
+    private static final boolean[] visibilityInModesGameRoomPost       = {false, false, false,  true};
+	
+	public void setMode(int mode) {
+		this.mode = mode;
+
+        gameBoard.setVisible(visibilityInModesGameBoard[mode]);
+        tileRackBackground.setVisible(visibilityInModesTileRackBackground[mode]);
+        tileRack.setVisible(visibilityInModesTileRack[mode]);
+        lobby.setVisible(visibilityInModesLobby[mode]);
+        lobbyPost.setVisible(visibilityInModesLobbyPost[mode]);
+        scoreSheet.setVisible(visibilityInModesScoreSheet[mode]);
+        gameRoom.setVisible(visibilityInModesGameRoom[mode]);
+        gameRoomPost.setVisible(visibilityInModesGameRoomPost[mode]);
+
+        menuBar.setMode(mode);
+	}
 
     public void componentHidden(ComponentEvent e) {
     }
