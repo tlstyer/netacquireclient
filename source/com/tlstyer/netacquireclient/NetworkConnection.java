@@ -9,12 +9,8 @@ import java.util.*;
 import java.util.regex.*;
 
 public class NetworkConnection {
-    private GameBoard gameBoard;
-    private TileRack tileRack;
-    private MessageWindow lobby;
-    private ScoreSheet scoreSheet;
-    private MessageWindow gameRoom;
-    
+	private MainFrameComponents mfc;
+	
     private String dataRead;
     private StringBuffer dataToWrite;
     
@@ -29,12 +25,11 @@ public class NetworkConnection {
 
     private static final Pattern pattern = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
 
-	public NetworkConnection(GameBoard b, TileRack t, MessageWindow l, ScoreSheet s, MessageWindow g) {
-		gameBoard = b;
-		tileRack = t;
-		lobby = l;
-		scoreSheet = s;
-		gameRoom = g;
+	public NetworkConnection(MainFrameComponents mfc) {
+		this.mfc = mfc;
+		
+		mfc.lobbyPost.setNetworkConnection(this, "Lobby");
+		mfc.gameRoomPost.setNetworkConnection(this, "Game Room");
 		
 		dataRead = "";
 		ByteBuffer byteBuffer = ByteBuffer.allocate(10240);
@@ -43,11 +38,13 @@ public class NetworkConnection {
 		dataToWrite = new StringBuffer(10240);
 		
         try {
-        	selector = SelectorProvider.provider().openSelector();
-            InetSocketAddress isa = new InetSocketAddress("localhost", 1001);
-            socketChannel = SocketChannel.open(isa);
-            socketChannel.configureBlocking(false);
-            selectionkey = socketChannel.register(selector, SelectionKey.OP_READ);
+			synchronized(dataToWrite) {
+	        	selector = SelectorProvider.provider().openSelector();
+	            InetSocketAddress isa = new InetSocketAddress("localhost", 1001);
+	            socketChannel = SocketChannel.open(isa);
+	            socketChannel.configureBlocking(false);
+	            selectionkey = socketChannel.register(selector, SelectionKey.OP_READ);
+			}
 
             int keysAdded = 0;
 
@@ -66,32 +63,30 @@ public class NetworkConnection {
     	        			dataRead += charsetDecoder.decode(byteBuffer);
     	        			processDataRead();
             			} else if (sk.isWritable()) {
-            				byteBuffer.clear();
-            				byteBuffer.put(charsetDecoder.encode(dataToWrite.toString()));
-            				byteBuffer.flip();
-            				int numWritten = socketChannel.write(byteBuffer);
-            				if (numWritten > 0) {
-            					dataToWrite.delete(0, numWritten);
-            				}
-            				if (dataToWrite.length() == 0) {
-            		            selectionkey = socketChannel.register(selector, SelectionKey.OP_READ);
-            					isWritable = false;
+            				synchronized(dataToWrite) {
+                				byteBuffer.clear();
+                				byteBuffer.put(charsetDecoder.encode(dataToWrite.toString()));
+                				byteBuffer.flip();
+                				int numWritten = socketChannel.write(byteBuffer);
+                				if (numWritten > 0) {
+                					dataToWrite.delete(0, numWritten);
+                				}
+                				if (dataToWrite.length() == 0) {
+                		            selectionkey = socketChannel.register(selector, SelectionKey.OP_READ);
+                					isWritable = false;
+                				}
             				}
             			}
             	    }            		
             	}
             }
         } catch (IOException e) {
-        	lobby.append(e.getMessage());
+        	mfc.lobby.append(e.getMessage());
         }
 	}
 
-    public NetworkConnection(GameBoard b, TileRack t, MessageWindow l, ScoreSheet s, MessageWindow g, boolean lala) {
-		gameBoard = b;
-		tileRack = t;
-		lobby = l;
-		scoreSheet = s;
-		gameRoom = g;
+    public NetworkConnection(MainFrameComponents mfc, boolean lala) {
+    	this.mfc = mfc;
 		
 		try {
 			FileReader fileReader = new FileReader("C:/programming/eclipse/Acquire/input.log");
@@ -133,26 +128,28 @@ public class NetworkConnection {
 		}
 		
 		if (gameBoardData.isDirty()) {
-			gameBoard.sync(gameBoardData);
+			mfc.gameBoard.sync(gameBoardData);
 			gameBoardData.clean();
 		}
 		if (scoreSheetCaptionData.isDirty() || scoreSheetBackColorData.isDirty()) {
 			if (scoreSheetCaptionData.isDirty()) {
 				Util.updateNetWorths(scoreSheetCaptionData, gameBoardData);
 			}
-			scoreSheet.sync(scoreSheetCaptionData, scoreSheetBackColorData);
+			mfc.scoreSheet.sync(scoreSheetCaptionData, scoreSheetBackColorData);
 			scoreSheetCaptionData.clean();
 			scoreSheetBackColorData.clean();
 		}
 	}
 	
 	protected void writeMessage(String message) {
-		dataToWrite.append(message + ";:");
-		if (!isWritable) {
-			try {
-				selectionkey = socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
-				isWritable = true;
-			} catch (ClosedChannelException cce) {
+		synchronized(dataToWrite) {
+			dataToWrite.append(message + ";:");
+			if (!isWritable) {
+				try {
+					selectionkey = socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+					isWritable = true;
+				} catch (ClosedChannelException cce) {
+				}
 			}
 		}
 	}
@@ -191,11 +188,11 @@ public class NetworkConnection {
 	}
 	
 	protected void handleLM(Object[] command) {
-		lobby.append(Util.commandToContainedMessage(command) + "\n");
+		mfc.lobby.append(Util.commandToContainedMessage(command) + "\n");
 	}
 	
 	protected void handleGM(Object[] command) {
-		gameRoom.append(Util.commandToContainedMessage(command) + "\n");
+		mfc.gameRoom.append(Util.commandToContainedMessage(command) + "\n");
 	}
 	
 	protected void handleAT(Object[] command) {
@@ -206,8 +203,8 @@ public class NetworkConnection {
 		Coordinate coord = Util.gameBoardIndexToCoordinate(gameBoardIndex);
 		String label = Util.coordsToNumberAndLetter(coord.getY(), coord.getX());
 		Color color = new Color(Util.networkColorToSwingColor(tileRackColor));
-		tileRack.setButtonLabel(index, label);
-		tileRack.setButtonColor(index, color);
+		mfc.tileRack.setButtonLabel(index, label);
+		mfc.tileRack.setButtonColor(index, color);
 	}
 	
 	protected void handleSP(Object[] command) {

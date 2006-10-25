@@ -2,17 +2,11 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MainFrame extends JFrame implements ActionListener, ComponentListener {
+public class MainFrame extends JFrame implements ComponentListener {
 	private JPanel panel;
-	
-    private GameBoard gameBoard;
-    private TextComponent tileRackBackground;
-    private TileRack tileRack;
-    private MessageWindow lobby;
-    private PostMessageTextField lobbyPost;
-    private ScoreSheet scoreSheet;
-    private MessageWindow gameRoom;
-    private PostMessageTextField gameRoomPost;
+
+	private MainFrameComponents mfc = new MainFrameComponents();
+	private TextComponent tileRackBackground;
 	
 	public MainFrame() {
         //Set the look and feel.
@@ -31,24 +25,24 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
         
 		// create the components
         panel = new JPanel(null);
-    	gameBoard = new GameBoard();
-    	tileRackBackground = new TextComponent(" ", new Color(255, 128, 0), TextComponent.ALIGN_CENTER);
-    	tileRack = new TileRack();
-    	lobby = new MessageWindow();
-    	lobbyPost = new PostMessageTextField();
-    	scoreSheet = new ScoreSheet(panel.getBackground());
-    	gameRoom = new MessageWindow();
-    	gameRoomPost = new PostMessageTextField();
+        mfc.gameBoard = new GameBoard();
+        tileRackBackground = new TextComponent(" ", new Color(255, 128, 0), TextComponent.ALIGN_CENTER);
+        mfc.tileRack = new TileRack();
+        mfc.lobby = new MessageWindow();
+        mfc.lobbyPost = new PostMessageTextField();
+        mfc.scoreSheet = new ScoreSheet(panel.getBackground());
+        mfc.gameRoom = new MessageWindow();
+        mfc.gameRoomPost = new PostMessageTextField();
     	
     	// layout the components
-		panel.add(gameBoard);
+		panel.add(mfc.gameBoard);
 		panel.add(tileRackBackground);
-		panel.add(tileRack);
-		panel.add(lobby);
-		panel.add(lobbyPost);
-		panel.add(scoreSheet);
-		panel.add(gameRoom);
-		panel.add(gameRoomPost);
+		panel.add(mfc.tileRack);
+		panel.add(mfc.lobby);
+		panel.add(mfc.lobbyPost);
+		panel.add(mfc.scoreSheet);
+		panel.add(mfc.gameRoom);
+		panel.add(mfc.gameRoomPost);
 
 		// don't know what to call these!
 		panel.addComponentListener(this);
@@ -64,13 +58,10 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
             }
         });
 
-        new NetworkConnection(gameBoard, tileRack, lobby, scoreSheet, gameRoom);
-        //new NetworkConnection(board, tilerack, lobby, scoresheet, gameroom, true);
+        new NetworkConnection(mfc);
+        //new NetworkConnection(mvc, true);
     }
 
-    public void actionPerformed(ActionEvent e) {
-    }
-    
     public void componentHidden(ComponentEvent e) {
     }
     
@@ -85,8 +76,8 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
 
         int gameBoardWidth = width / 2 - (borderWidth + borderWidth / 2);
         int gameBoardHeight = gameBoardWidth * 3 / 4;
-        gameBoard.setBounds(borderWidth, borderWidth, gameBoardWidth, gameBoardHeight);
-        gameBoard.validate();
+        mfc.gameBoard.setBounds(borderWidth, borderWidth, gameBoardWidth, gameBoardHeight);
+        mfc.gameBoard.validate();
 
 		int tileRackBackgroundY = borderWidth + gameBoardHeight + borderWidth;
 		int tileRackBackgroundHeight = gameBoardHeight * 2 / 13;
@@ -96,33 +87,33 @@ public class MainFrame extends JFrame implements ActionListener, ComponentListen
 		int tileRackWidth = tileRackHeight * 6 + TileRack.spacing * 5;
 		int tileRackX = (width / 2 + borderWidth / 2 - tileRackWidth) / 2;
 		int tileRackY = tileRackBackgroundY + (tileRackBackgroundHeight - tileRackHeight) / 2;
-		tileRack.setBounds(tileRackX, tileRackY, tileRackWidth, tileRackHeight);
-		tileRack.validate();
+		mfc.tileRack.setBounds(tileRackX, tileRackY, tileRackWidth, tileRackHeight);
+		mfc.tileRack.validate();
 
 		int lobbyY = tileRackBackgroundY + tileRackBackgroundHeight + borderWidth;
-		int lobbyPostHeight = (int)lobbyPost.getPreferredSize().getHeight();
+		int lobbyPostHeight = (int)mfc.lobbyPost.getPreferredSize().getHeight();
 		int lobbyHeight = height - borderWidth - lobbyY - lobbyPostHeight;
-		lobby.setBounds(borderWidth, lobbyY, gameBoardWidth, lobbyHeight);
-		lobby.validate();
+		mfc.lobby.setBounds(borderWidth, lobbyY, gameBoardWidth, lobbyHeight);
+		mfc.lobby.validate();
 		
 		int lobbyPostY = lobbyY + lobbyHeight;
-		lobbyPost.setBounds(borderWidth, lobbyPostY, gameBoardWidth, lobbyPostHeight);
-		lobbyPost.validate();
+		mfc.lobbyPost.setBounds(borderWidth, lobbyPostY, gameBoardWidth, lobbyPostHeight);
+		mfc.lobbyPost.validate();
 
 		int scoreSheetY = width / 2 + borderWidth / 2;
 		int scoreSheetHeight = gameBoardWidth * 10 / 18;
-		scoreSheet.setBounds(scoreSheetY, borderWidth, gameBoardWidth, scoreSheetHeight);
-		scoreSheet.validate();
+		mfc.scoreSheet.setBounds(scoreSheetY, borderWidth, gameBoardWidth, scoreSheetHeight);
+		mfc.scoreSheet.validate();
 
 		int gameRoomY = borderWidth + scoreSheetHeight + borderWidth;
-		int gameRoomPostHeight = (int)gameRoomPost.getPreferredSize().getHeight();
+		int gameRoomPostHeight = (int)mfc.gameRoomPost.getPreferredSize().getHeight();
 		int gameRoomHeight = height - borderWidth - gameRoomY - gameRoomPostHeight;
-		gameRoom.setBounds(scoreSheetY, gameRoomY, gameBoardWidth, gameRoomHeight);
-		gameRoom.validate();
+		mfc.gameRoom.setBounds(scoreSheetY, gameRoomY, gameBoardWidth, gameRoomHeight);
+		mfc.gameRoom.validate();
 		
 		int gameRoomPostY = gameRoomY + gameRoomHeight;
-		gameRoomPost.setBounds(scoreSheetY, gameRoomPostY, gameBoardWidth, gameRoomPostHeight);
-		gameRoomPost.validate();
+		mfc.gameRoomPost.setBounds(scoreSheetY, gameRoomPostY, gameBoardWidth, gameRoomPostHeight);
+		mfc.gameRoomPost.validate();
     }
     
     public void componentShown(ComponentEvent e) {
