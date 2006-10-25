@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.regex.*;
 
 public class NetworkConnection {
-	private MainFrameComponents mfc;
+	private MainFrame mainFrame;
 	
     private String dataRead;
     private StringBuffer dataToWrite;
@@ -25,11 +25,11 @@ public class NetworkConnection {
 
     private static final Pattern pattern = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
 
-	public NetworkConnection(MainFrameComponents mfc) {
-		this.mfc = mfc;
+	public NetworkConnection(MainFrame mainFrame) {
+		this.mainFrame = mainFrame;
 		
-		mfc.lobbyPost.setNetworkConnection(this, "Lobby");
-		mfc.gameRoomPost.setNetworkConnection(this, "Game Room");
+		mainFrame.lobbyPost.setNetworkConnection(this, "Lobby");
+		mainFrame.gameRoomPost.setNetworkConnection(this, "Game Room");
 		
 		dataRead = "";
 		ByteBuffer byteBuffer = ByteBuffer.allocate(10240);
@@ -81,12 +81,12 @@ public class NetworkConnection {
             	}
             }
         } catch (IOException e) {
-        	mfc.lobby.append(e.getMessage());
+        	mainFrame.lobby.append(e.getMessage());
         }
 	}
 
-    public NetworkConnection(MainFrameComponents mfc, boolean lala) {
-    	this.mfc = mfc;
+    public NetworkConnection(MainFrame mainFrame, boolean lala) {
+    	this.mainFrame = mainFrame;
 		
 		try {
 			FileReader fileReader = new FileReader("C:/programming/eclipse/Acquire/input.log");
@@ -128,14 +128,14 @@ public class NetworkConnection {
 		}
 		
 		if (gameBoardData.isDirty()) {
-			mfc.gameBoard.sync(gameBoardData);
+			mainFrame.gameBoard.sync(gameBoardData);
 			gameBoardData.clean();
 		}
 		if (scoreSheetCaptionData.isDirty() || scoreSheetBackColorData.isDirty()) {
 			if (scoreSheetCaptionData.isDirty()) {
 				Util.updateNetWorths(scoreSheetCaptionData, gameBoardData);
 			}
-			mfc.scoreSheet.sync(scoreSheetCaptionData, scoreSheetBackColorData);
+			mainFrame.scoreSheet.sync(scoreSheetCaptionData, scoreSheetBackColorData);
 			scoreSheetCaptionData.clean();
 			scoreSheetBackColorData.clean();
 		}
@@ -188,11 +188,11 @@ public class NetworkConnection {
 	}
 	
 	protected void handleLM(Object[] command) {
-		mfc.lobby.append(Util.commandToContainedMessage(command) + "\n");
+		mainFrame.lobby.append(Util.commandToContainedMessage(command) + "\n");
 	}
 	
 	protected void handleGM(Object[] command) {
-		mfc.gameRoom.append(Util.commandToContainedMessage(command) + "\n");
+		mainFrame.gameRoom.append(Util.commandToContainedMessage(command) + "\n");
 	}
 	
 	protected void handleAT(Object[] command) {
@@ -203,8 +203,8 @@ public class NetworkConnection {
 		Coordinate coord = Util.gameBoardIndexToCoordinate(gameBoardIndex);
 		String label = Util.coordsToNumberAndLetter(coord.getY(), coord.getX());
 		Color color = new Color(Util.networkColorToSwingColor(tileRackColor));
-		mfc.tileRack.setButtonLabel(index, label);
-		mfc.tileRack.setButtonColor(index, color);
+		mainFrame.tileRack.setButtonLabel(index, label);
+		mainFrame.tileRack.setButtonColor(index, color);
 	}
 	
 	protected void handleSP(Object[] command) {
