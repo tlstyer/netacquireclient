@@ -72,8 +72,8 @@ public class MainFrame extends JFrame implements ComponentListener {
         });
         
         setMode(MODE_CONNECTING);
-        new NetworkConnection(this);
-        //new NetworkConnection(this, true);
+        new NetworkConnection();
+        //new NetworkConnection(true);
     }
 
 	private int mode;
