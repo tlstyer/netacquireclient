@@ -17,6 +17,8 @@ public class MainFrame extends JFrame implements ComponentListener {
     public PostMessageTextField gameRoomPost;
 	
 	public MainFrame() {
+		Main.setMainFrame(this);
+		
         //Set the look and feel.
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
