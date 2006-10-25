@@ -34,6 +34,10 @@ class MainFrameMenuItem extends JMenuItem implements ActionListener {
     
     public void actionPerformed(ActionEvent e) {
     	Main.getMainFrame().lobby.append(this.getText() + "\n");
+    	doAction();
+    }
+    
+    public void doAction() {
     }
 }
 
@@ -42,8 +46,7 @@ class MenuItemOptions extends MainFrameMenuItem {
     	super("Options", KeyEvent.VK_O, null, KeyEvent.VK_O);
     }
     
-    public void actionPerformed(ActionEvent e) {
-    	super.actionPerformed(e);
+    public void doAction() {
     }
 }
 
@@ -52,8 +55,7 @@ class MenuItemQuit extends MainFrameMenuItem {
     	super("Quit", KeyEvent.VK_Q, null, KeyEvent.VK_Q);
     }
     
-    public void actionPerformed(ActionEvent e) {
-    	super.actionPerformed(e);
+    public void doAction() {
     }
 }
 
@@ -62,8 +64,7 @@ class MenuItemTestConnections extends MainFrameMenuItem {
     	super("Test Connections", KeyEvent.VK_T, null, KeyEvent.VK_T);
     }
     
-    public void actionPerformed(ActionEvent e) {
-    	super.actionPerformed(e);
+    public void doAction() {
     }
 }
 
@@ -72,8 +73,7 @@ class MenuItemReinitialize extends MainFrameMenuItem {
     	super("Reinitialize", KeyEvent.VK_I, null, KeyEvent.VK_I);
     }
     
-    public void actionPerformed(ActionEvent e) {
-    	super.actionPerformed(e);
+    public void doAction() {
     }
 }
 
@@ -82,8 +82,7 @@ class MenuItemShowUsers extends MainFrameMenuItem {
     	super("Show Users", KeyEvent.VK_U, null, KeyEvent.VK_U);
     }
     
-    public void actionPerformed(ActionEvent e) {
-    	super.actionPerformed(e);
+    public void doAction() {
     }
 }
 
@@ -92,8 +91,7 @@ class MenuItemShowGames extends MainFrameMenuItem {
     	super("Show Games", KeyEvent.VK_G, null, KeyEvent.VK_G);
     }
     
-    public void actionPerformed(ActionEvent e) {
-    	super.actionPerformed(e);
+    public void doAction() {
     }
 }
 
@@ -102,8 +100,7 @@ class MenuItemStartNewGame extends MainFrameMenuItem {
     	super("Start New Game", KeyEvent.VK_N, null, KeyEvent.VK_N);
     }
     
-    public void actionPerformed(ActionEvent e) {
-    	super.actionPerformed(e);
+    public void doAction() {
     }
 }
 
@@ -112,8 +109,7 @@ class MenuItemStartGamePlay extends MainFrameMenuItem {
     	super("Start Game Play", KeyEvent.VK_P, null, KeyEvent.VK_P);
     }
     
-    public void actionPerformed(ActionEvent e) {
-    	super.actionPerformed(e);
+    public void doAction() {
     }
 }
 
@@ -122,8 +118,7 @@ class MenuItemJoinGame extends MainFrameMenuItem {
     	super("Join Game", KeyEvent.VK_J, null, KeyEvent.VK_J);
     }
     
-    public void actionPerformed(ActionEvent e) {
-    	super.actionPerformed(e);
+    public void doAction() {
     }
 }
 
@@ -132,8 +127,7 @@ class MenuItemWatchGame extends MainFrameMenuItem {
     	super("Watch Game", KeyEvent.VK_W, null, KeyEvent.VK_W);
     }
     
-    public void actionPerformed(ActionEvent e) {
-    	super.actionPerformed(e);
+    public void doAction() {
     }
 }
 
@@ -142,8 +136,7 @@ class MenuItemShowGameState extends MainFrameMenuItem {
     	super("Show Game State", KeyEvent.VK_S, 10, KeyEvent.VK_S);
     }
     
-    public void actionPerformed(ActionEvent e) {
-    	super.actionPerformed(e);
+    public void doAction() {
     }
 }
 
@@ -152,8 +145,7 @@ class MenuItemLeaveGame extends MainFrameMenuItem {
     	super("Leave Game", KeyEvent.VK_L, null, null);
     }
     
-    public void actionPerformed(ActionEvent e) {
-    	super.actionPerformed(e);
+    public void doAction() {
     }
 }
 
@@ -162,8 +154,7 @@ class MenuItemAboutNetAcquire extends MainFrameMenuItem {
     	super("About NetAcquire", KeyEvent.VK_A, null, null);
     }
     
-    public void actionPerformed(ActionEvent e) {
-    	super.actionPerformed(e);
+    public void doAction() {
     }
 }
 
