@@ -128,6 +128,35 @@ class MenuItemWatchGame extends MainFrameMenuItem {
     }
     
     public void doAction() {
+        String input = (String)JOptionPane.showInputDialog(
+        		Main.getMainFrame(),
+                "What game do you want to watch?",
+                "Watch game",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                "");
+        
+        if (input == null) {
+        	return;
+        }
+        
+        Integer value = 0;
+        try {
+			value = Integer.decode(input);
+		} catch (NumberFormatException e) {
+			value = 0;
+		}
+		
+		if (value >= 1 && value <= 32767) {
+			Main.getNetworkConnection().writeMessage("JG;" + value + ",0");
+		} else {
+			JOptionPane.showMessageDialog(
+					Main.getMainFrame(),
+					"Entered value must be a positive integer between 1 and 32767",
+					"Invalid value",
+					JOptionPane.ERROR_MESSAGE);
+		}
     }
 }
 
