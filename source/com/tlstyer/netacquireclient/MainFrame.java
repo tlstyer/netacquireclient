@@ -42,10 +42,10 @@ public class MainFrame extends JFrame implements ComponentListener {
         tileRackBackground = new TextComponent(" ", new Color(255, 128, 0), TextComponent.ALIGN_CENTER);
         tileRack = new TileRack();
         lobby = new MessageWindow();
-        lobbyPost = new PostMessageTextField();
+        lobbyPost = new PostMessageTextField("Lobby");
         scoreSheet = new ScoreSheet(panel.getBackground());
         gameRoom = new MessageWindow();
-        gameRoomPost = new PostMessageTextField();
+        gameRoomPost = new PostMessageTextField("Game Room");
     	
     	// layout the components
 		panel.add(gameBoard);

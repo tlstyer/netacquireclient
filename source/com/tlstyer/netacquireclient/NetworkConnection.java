@@ -24,8 +24,7 @@ public class NetworkConnection {
     private static final Pattern pattern = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
 
 	public NetworkConnection() {
-		Main.getMainFrame().lobbyPost.setNetworkConnection(this, "Lobby");
-		Main.getMainFrame().gameRoomPost.setNetworkConnection(this, "Game Room");
+		Main.setNetworkConnection(this);
 		
 		dataRead = "";
 		ByteBuffer byteBuffer = ByteBuffer.allocate(10240);
