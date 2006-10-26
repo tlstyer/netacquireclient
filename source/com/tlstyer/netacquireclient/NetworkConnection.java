@@ -119,6 +119,8 @@ public class NetworkConnection {
 				handleSP(command);
 			} else if (command[0].toString().equals("SS")) {
 				handleSS(command);
+			} else {
+				Main.getMainFrame().lobby.append("Unhandled command: " + matcher.group(1) + "\n");
 			}
 		}
 		
