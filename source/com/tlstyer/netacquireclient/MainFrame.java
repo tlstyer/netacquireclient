@@ -43,7 +43,7 @@ public class MainFrame extends JFrame implements ComponentListener {
         tileRack = new TileRack();
         lobby = new MessageWindow();
         lobbyPost = new PostMessageTextField("Lobby");
-        scoreSheet = new ScoreSheet(panel.getBackground());
+        scoreSheet = new ScoreSheet();
         gameRoom = new MessageWindow();
         gameRoomPost = new PostMessageTextField("Game Room");
     	

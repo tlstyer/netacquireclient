@@ -1,12 +1,9 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
-public class ScoreSheet extends JPanel {
+public class ScoreSheet extends JPanel implements ComponentListener {
 	private TextComponent[][] scoreSheet;
-	private TextComponent[] blankRows;
-	private GridBagLayout gridBagLayout;
-	private GridBagConstraints gridBagConstraints;
-	private Color colorBackground;
     private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
     private ScoreSheetBackColorData scoreSheetBackColorData = new ScoreSheetBackColorData();
     private int usedRows = 6;
@@ -14,20 +11,13 @@ public class ScoreSheet extends JPanel {
     private static final String hotelTypeCharacters = "LTAFWCI";
     private static final int[] columnWidths = {5, 1, 1, 1, 1, 1, 1, 1, 3, 3};
     private static final int[] columnStartX = {0, 5, 6, 7, 8, 9, 10, 11, 12, 15};
-    private static final Insets insets = new Insets(0, 0, 2, 2);
 	
-	public ScoreSheet(Color color_bg) {
+	public ScoreSheet() {
+		super(null);
+		
+		addComponentListener(this);
+		
 		scoreSheet = new TextComponent[10][10];
-		blankRows = new TextComponent[6];
-        gridBagLayout = new GridBagLayout();
-        gridBagConstraints = new GridBagConstraints();
-        setLayout(gridBagLayout);
-        colorBackground = color_bg;
-
-        gridBagConstraints.fill = GridBagConstraints.BOTH;
-    	gridBagConstraints.gridheight = 1;
-    	gridBagConstraints.insets = insets;
-        gridBagConstraints.weighty = 1;
 
         int y = 0;
         int x = 0;
@@ -69,11 +59,6 @@ public class ScoreSheet extends JPanel {
         scoreSheet[7][0].setText("Available");
 		scoreSheet[8][0].setText("Chain Size");
 		scoreSheet[9][0].setText("Price ($00)");
-		
-		// add blank rows
-		for (int row=0; row<6; ++row) {
-			addBlankTC(row);
-		}
 	}
 
     protected void addTC(int y, int x, int hotelType, String text) {
@@ -81,53 +66,71 @@ public class ScoreSheet extends JPanel {
     	textComponent.setBackgroundColor(new Color(HoteltypeToColorvalue.lookupSwing(hotelType)));
     	textComponent.setText(text);
     	textComponent.setTextAlign(HoteltypeToTextalign.lookup(hotelType));
-    	gridBagConstraints.gridy = y;
-    	gridBagConstraints.gridx = columnStartX[x];
-    	gridBagConstraints.gridwidth = columnWidths[x];
-        gridBagConstraints.weightx = columnWidths[x];
-    	
-    	gridBagLayout.setConstraints(textComponent, gridBagConstraints);
+
     	add(textComponent);
     	scoreSheet[y][x] = textComponent;
-	}
-    
-    protected void addBlankTC(int row) {
-    	int y = row + 10;
-    	int x = 1;
-    	TextComponent tc = new TextComponent();
-    	tc.setBackgroundColor(colorBackground);
-    	tc.setText(" ");
-        tc.setVisible(false);
-    	gridBagConstraints.gridy = y;
-    	gridBagConstraints.gridx = columnStartX[x];
-    	gridBagConstraints.gridwidth = columnWidths[x];
-        gridBagConstraints.weightx = columnWidths[x];
-    	
-    	gridBagLayout.setConstraints(tc, gridBagConstraints);
-    	add(tc);
-    	blankRows[row] = tc;
 	}
     
     private void setRowVisible(int row, boolean visible) {
     	for (int x=0; x<10; ++x) {
     		scoreSheet[row][x].setVisible(visible);
     	}
-    	blankRows[(row - 1)].setVisible(!visible);
     }
     
     private void makeOnlyUsedRowsVisible(ScoreSheetCaptionData sscd) {
     	int numPlayers = Util.getNumberOfPlayers(sscd);
-    	if (numPlayers < usedRows) {
-    		for (int y=numPlayers+1; y<=usedRows; ++y) {
-    			setRowVisible(y, false);
-    		}
+    	if (numPlayers != usedRows) {
+        	if (numPlayers < usedRows) {
+        		for (int y=numPlayers+1; y<=usedRows; ++y) {
+        			setRowVisible(y, false);
+        		}
+        	} else {
+        		for (int y=usedRows+1; y<=numPlayers; ++y) {
+        			setRowVisible(y, true);
+        		}
+        	}
     		usedRows = numPlayers;
-    	} else if (usedRows < numPlayers) {
-    		for (int y=usedRows+1; y<=numPlayers; ++y) {
-    			setRowVisible(y, true);
-    		}
-    		usedRows = numPlayers;
+    		layoutTextComponents();
     	}
+    }
+    
+    private void layoutTextComponents() {
+    	int panelWidth = getWidth();
+    	int panelHeight = getHeight();
+
+        int componentHeight = panelHeight / 10;
+        int componentWidth = panelWidth / 18;
+
+        int displayY = 0;
+        for (int tcY=0; tcY<10; ++tcY) {
+            if (usedRows<tcY && tcY<=6) {
+                continue;
+            }
+            for (int tcX=0; tcX<10; ++tcX) {
+            	if (tcY>=7 && tcX>=8) {
+            		break;
+            	}
+            	int x = columnStartX[tcX] * componentWidth;
+            	int y = displayY * componentHeight;
+            	int width = columnWidths[tcX] * componentWidth - 2;
+            	int height = componentHeight - 2;
+                scoreSheet[tcY][tcX].setBounds(x, y, width, height);
+            }
+            ++displayY;
+        }
+    }
+    
+    public void componentHidden(ComponentEvent e) {
+    }
+    
+    public void componentMoved(ComponentEvent e) {
+    }
+    
+    public void componentResized(ComponentEvent e) {
+    	layoutTextComponents();
+    }
+    
+    public void componentShown(ComponentEvent e) {
     }
 
     public void sync(ScoreSheetCaptionData sscd, ScoreSheetBackColorData ssbcd) {
