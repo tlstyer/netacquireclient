@@ -113,25 +113,25 @@ class MenuItemStartGamePlay extends MainFrameMenuItem {
     }
 }
 
-class MenuItemJoinGame extends MainFrameMenuItem {
-    public MenuItemJoinGame() {
-    	super("Join Game", KeyEvent.VK_J, null, KeyEvent.VK_J);
-    }
-    
-    public void doAction() {
-    }
-}
+class MenuItemEnterGame extends MainFrameMenuItem {
+    private String enterType;
+    private String enterTypeLowercase;
+    private Integer messageCode;
 
-class MenuItemWatchGame extends MainFrameMenuItem {
-    public MenuItemWatchGame() {
-    	super("Watch Game", KeyEvent.VK_W, null, KeyEvent.VK_W);
+    public MenuItemEnterGame(String enterType,
+                             Integer mnemonicAndAccelerator,
+                             Integer messageCode) {
+    	super(enterType + " Game", mnemonicAndAccelerator, null, mnemonicAndAccelerator);
+        this.enterType = enterType;
+        this.enterTypeLowercase = enterType.toLowerCase();
+        this.messageCode = messageCode;
     }
     
     public void doAction() {
         String input = (String)JOptionPane.showInputDialog(
         		Main.getMainFrame(),
-                "What game do you want to watch?",
-                "Watch game",
+                "What game do you want to " + enterTypeLowercase + "?",
+                enterType + " game",
                 JOptionPane.PLAIN_MESSAGE,
                 null,
                 null,
@@ -149,7 +149,7 @@ class MenuItemWatchGame extends MainFrameMenuItem {
 		}
 		
 		if (value >= 1 && value <= 32767) {
-			Main.getNetworkConnection().writeMessage("JG;" + value + ",0");
+			Main.getNetworkConnection().writeMessage("JG;" + value + "," + messageCode);
 		} else {
 			JOptionPane.showMessageDialog(
 					Main.getMainFrame(),
@@ -157,6 +157,18 @@ class MenuItemWatchGame extends MainFrameMenuItem {
 					"Invalid value",
 					JOptionPane.ERROR_MESSAGE);
 		}
+    }
+}
+
+class MenuItemJoinGame extends MenuItemEnterGame {
+    public MenuItemJoinGame() {
+    	super("Join", KeyEvent.VK_J, -1);
+    }
+}
+
+class MenuItemWatchGame extends MenuItemEnterGame {
+    public MenuItemWatchGame() {
+    	super("Watch", KeyEvent.VK_W, 0);
     }
 }
 
