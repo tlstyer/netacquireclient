@@ -83,6 +83,7 @@ class MenuItemShowUsers extends MainFrameMenuItem {
     }
     
     public void doAction() {
+    	Main.getNetworkConnection().writeMessage("LU;");
     }
 }
 
@@ -92,6 +93,7 @@ class MenuItemShowGames extends MainFrameMenuItem {
     }
     
     public void doAction() {
+    	Main.getNetworkConnection().writeMessage("LG;");
     }
 }
 
@@ -178,6 +180,7 @@ class MenuItemShowGameState extends MainFrameMenuItem {
     }
     
     public void doAction() {
+    	Main.getNetworkConnection().writeMessage("GS;");
     }
 }
 
@@ -187,6 +190,7 @@ class MenuItemLeaveGame extends MainFrameMenuItem {
     }
     
     public void doAction() {
+    	Main.getNetworkConnection().writeMessage("LV;");
     }
 }
 
