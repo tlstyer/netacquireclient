@@ -157,7 +157,7 @@ public class Util {
 
 	public static class playerOwnsAmountComparator implements Comparator<playerOwnsAmount> {
 		 public int compare(playerOwnsAmount o1, playerOwnsAmount o2) {
-			 return o1.getAmount() - o2.getAmount();
+			 return o2.getAmount() - o1.getAmount();
 		 }
 	}
 
@@ -202,6 +202,7 @@ public class Util {
     		for (int player=0; player<numTying; ++player) {
     			bonuses[poaArray[player].getPlayer()] = bonus;
     		}
+    		return bonuses;
     	}
     	
         // pay largest shareholder
