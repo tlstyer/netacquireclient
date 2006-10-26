@@ -33,7 +33,7 @@ class MainFrameMenuItem extends JMenuItem implements ActionListener {
     }
     
     public void actionPerformed(ActionEvent e) {
-    	Main.getMainFrame().lobby.append("Menu command: " + this.getText() + "\n");
+    	Main.getMainFrame().lobby.append("Menu command: " + this.getText());
     	doAction();
     }
     

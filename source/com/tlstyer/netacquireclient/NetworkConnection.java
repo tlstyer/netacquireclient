@@ -120,7 +120,7 @@ public class NetworkConnection {
 			} else if (command[0].toString().equals("SS")) {
 				handleSS(command);
 			} else {
-				Main.getMainFrame().lobby.append("Unhandled command: " + matcher.group(1) + "\n");
+				Main.getMainFrame().lobby.append("Unhandled command: " + matcher.group(1));
 			}
 		}
 		
@@ -185,11 +185,11 @@ public class NetworkConnection {
 	}
 	
 	protected void handleLM(Object[] command) {
-		Main.getMainFrame().lobby.append(Util.commandToContainedMessage(command) + "\n");
+		Main.getMainFrame().lobby.append(Util.commandToContainedMessage(command));
 	}
 	
 	protected void handleGM(Object[] command) {
-		Main.getMainFrame().gameRoom.append(Util.commandToContainedMessage(command) + "\n");
+		Main.getMainFrame().gameRoom.append(Util.commandToContainedMessage(command));
 	}
 	
 	protected void handleAT(Object[] command) {
