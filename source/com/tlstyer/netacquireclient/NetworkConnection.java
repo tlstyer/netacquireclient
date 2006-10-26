@@ -118,6 +118,8 @@ public class NetworkConnection {
 				handleAT(command);
 			} else if (command[0].toString().equals("SP")) {
 				handleSP(command);
+			} else if (command[0].toString().equals("SS")) {
+				handleSS(command);
 			}
 		}
 		
@@ -203,5 +205,10 @@ public class NetworkConnection {
 	
 	protected void handleSP(Object[] command) {
 		writeMessage("PL;tlsJava,2,0,2");
+	}
+	
+	protected void handleSS(Object[] command) {
+		int state = (Integer)command[1];
+		Main.getMainFrame().setMode(state);
 	}
 }
