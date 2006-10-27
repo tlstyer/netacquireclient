@@ -141,6 +141,9 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     			Object caption = sscd.getCaption(y, x);
     			if (scoreSheetCaptionData.getCaption(y, x) != caption) {
     				scoreSheetCaptionData.setCaption(y, x, caption);
+    				if (caption == null) {
+    					caption = 0;
+    				}
     				if (caption.getClass().getSimpleName().equals("Integer")) {
     					if (((Integer)caption) == 0) {
         					if (x >= 1 && x <= 7) {

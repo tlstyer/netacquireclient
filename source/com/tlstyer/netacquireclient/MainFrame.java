@@ -108,7 +108,19 @@ public class MainFrame extends JFrame implements ComponentListener {
         gameRoomPost.setVisible(visibilityInModesGameRoomPost[mode]);
 
         menuBar.setMode(mode);
-	}
+        NetworkConnection networkConnection = Main.getNetworkConnection();
+        if (networkConnection != null) {
+            Main.getNetworkConnection().setMode(mode);
+        }
+        
+        if (mode <= MODE_CONNECTING) {
+        	lobby.clear();
+        }
+        
+        if (mode <= MODE_IN_LOBBY) {
+        	gameRoom.clear();
+        }
+}
 
     public void componentHidden(ComponentEvent e) {
     }

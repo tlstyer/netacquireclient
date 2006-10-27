@@ -20,4 +20,8 @@ public class MessageWindow extends JScrollPane {
 		textArea.append(str + "\n");
 		textArea.setCaretPosition(textArea.getDocument().getLength());
 	}
+	
+	public void clear() {
+		textArea.setText(null);
+	}
 }

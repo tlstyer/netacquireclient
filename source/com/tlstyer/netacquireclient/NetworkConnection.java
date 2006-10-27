@@ -95,7 +95,19 @@ public class NetworkConnection {
 		} catch(IOException e) {
 		}
     }
-
+    
+    private int mode;
+    
+	public void setMode(int mode) {
+		this.mode = mode;
+		
+		if (mode <= MainFrame.MODE_IN_LOBBY) {
+			gameBoardData.init();
+		    scoreSheetCaptionData.init();
+		    scoreSheetBackColorData.init();
+		}
+	}
+	
 	protected void processDataRead() {
 		while (true) {
 			Matcher matcher = pattern.matcher(dataRead);
