@@ -96,11 +96,7 @@ public class NetworkConnection {
 		}
     }
     
-    private int mode;
-    
 	public void setMode(int mode) {
-		this.mode = mode;
-		
 		if (mode <= MainFrame.MODE_IN_LOBBY) {
 			gameBoardData.init();
 		    scoreSheetCaptionData.init();

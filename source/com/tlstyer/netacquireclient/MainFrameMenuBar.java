@@ -265,8 +265,6 @@ public class MainFrameMenuBar extends JMenuBar {
 		menuHelp.add(menuItemAboutNetAcquire);
 	}
 
-    private int mode;
-
                                                                              // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
 	private static final boolean[] enablednessInModesMenuItemOptions         = {false,  true,  true,  true,  true,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemQuit            = {false,  true,  true,  true,  true,  true,  true};
@@ -283,8 +281,6 @@ public class MainFrameMenuBar extends JMenuBar {
 	private static final boolean[] enablednessInModesMenuItemAboutNetAcquire = {false,  true,  true,  true,  true,  true,  true};
 
     public void setMode(int mode) {
-		this.mode = mode;
-
         menuItemOptions.setEnabled(enablednessInModesMenuItemOptions[mode]);
         menuItemQuit.setEnabled(enablednessInModesMenuItemQuit[mode]);
         menuItemTestConnections.setEnabled(enablednessInModesMenuItemTestConnections[mode]);
