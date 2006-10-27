@@ -48,6 +48,10 @@ class TextComponent extends JComponent {
     public boolean isOpaque() {
         return true;
     }
+    
+    private static double fontHeight;
+    private static double fontY;
+    private static boolean gotFontHeight = false;
 
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
@@ -60,17 +64,23 @@ class TextComponent extends JComponent {
         g2d.setColor(colorForeground);
         Font font = g2d.getFont();
         FontRenderContext frc = g2d.getFontRenderContext();
+        if (!gotFontHeight) {
+        	TextLayout tl = new TextLayout("I", font, frc);
+        	fontHeight = tl.getBounds().getHeight();
+        	fontY = tl.getBounds().getY();
+        	gotFontHeight = true;
+        }
         TextLayout tl = new TextLayout(text, font, frc);
         Rectangle2D r = tl.getBounds();
         int x;
         if (align == ALIGN_LEFT) {
         	x = PADDING;
         } else if (align == ALIGN_CENTER) {
-            x = (int)((getWidth() - r.getWidth()) / 2 - r.getX());
+            x = (int)((getWidth() - r.getWidth()) / 2);
         } else { // align == ALIGN_RIGHT
         	x = (int)(getWidth() - r.getWidth() - PADDING);
         }
-        int y = (int)((getHeight() - r.getHeight()) / 2  - r.getY());
+        int y = (int)((getHeight() - fontHeight) / 2 - fontY);
         g2d.drawString(text, x, y);
     }
 }
