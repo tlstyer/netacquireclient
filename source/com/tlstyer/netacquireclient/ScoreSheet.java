@@ -39,8 +39,8 @@ public class ScoreSheet extends JPanel implements ComponentListener {
             for (int hotelType=1; hotelType<=7; ++hotelType) {
                 addTC(y, x++, BoardtypeEnum.CSSCLASS_HOLDINGS.ordinal(), " ");
             }
-            addTC(y, x++, BoardtypeEnum.CSSCLASS_CASH.ordinal(), " ");
-            addTC(y, x++, BoardtypeEnum.CSSCLASS_CASH.ordinal(), " ");
+            addTC(y, x++, BoardtypeEnum.CSSCLASS_CASH.ordinal(), "0");
+            addTC(y, x++, BoardtypeEnum.CSSCLASS_CASH.ordinal(), "0");
             
         	++y;
         	x = 0;
