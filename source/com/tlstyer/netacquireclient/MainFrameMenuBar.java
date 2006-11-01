@@ -103,6 +103,7 @@ class MenuItemStartNewGame extends MainFrameMenuItem {
     }
     
     public void doAction() {
+    	Main.getNetworkConnection().writeMessage("SG;4");
     }
 }
 
@@ -112,6 +113,7 @@ class MenuItemStartGamePlay extends MainFrameMenuItem {
     }
     
     public void doAction() {
+    	Main.getNetworkConnection().writeMessage("PG;");
     }
 }
 
@@ -186,7 +188,7 @@ class MenuItemShowGameState extends MainFrameMenuItem {
 
 class MenuItemLeaveGame extends MainFrameMenuItem {
     public MenuItemLeaveGame() {
-    	super("Leave Game", KeyEvent.VK_L, null, null);
+    	super("Leave Game", KeyEvent.VK_L, null, KeyEvent.VK_L);
     }
     
     public void doAction() {
