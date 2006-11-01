@@ -279,4 +279,12 @@ public class Util {
 	public static String coordsToNumberAndLetter(int y, int x) {
 		return Integer.toString(x + 1) + letters.charAt(y);
 	}
+	
+	public static int[] getHotelDataAsIntegers(ScoreSheetCaptionData sscd, int row) {
+		int[] hotelData = new int[7];
+		for (int column=1; column<=7; ++column) {
+			hotelData[column - 1] = Util.getAsInteger(sscd.getCaption(row, column));
+		}
+		return hotelData;
+	}
 }

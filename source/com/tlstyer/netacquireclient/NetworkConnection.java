@@ -135,6 +135,8 @@ public class NetworkConnection {
 				handleGT(command);
 			} else if (command[0].toString().equals("GC")) {
 				handleGC(command);
+			} else if (command[0].toString().equals("GP")) {
+				handleGP(command);
 			} else {
 				commandHandled = false;
 			}
@@ -258,5 +260,14 @@ public class NetworkConnection {
 		}
 		
 		new SelectChainDialog(type, hotelOptions);
+	}
+	
+	protected void handleGP(Object[] command) {
+		boolean canEndGame = ((Integer)((Object[])command[1])[0] != 0 ? true : false);
+		int howMuchMoney = (Integer)((Object[])command[1])[1];
+		int[] available = Util.getHotelDataAsIntegers(scoreSheetCaptionData, 7);
+		int[] chainSize = Util.getHotelDataAsIntegers(scoreSheetCaptionData, 8);
+		int[] price = Util.getHotelDataAsIntegers(scoreSheetCaptionData, 9);
+		new PurchaseDialog(canEndGame, howMuchMoney, available, chainSize, price);
 	}
 }
