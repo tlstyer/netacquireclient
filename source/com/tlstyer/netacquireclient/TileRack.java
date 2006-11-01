@@ -1,36 +1,53 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
-public class TileRack extends JPanel {
+public class TileRack extends JPanel implements ActionListener {
 	private Button[] buttons = new Button[6];
 	private GridLayout gridLayout = new GridLayout(1, 6, spacing, spacing);
+	private boolean canPlayTile = false;
 	
 	public static final int spacing = 10;
 	
 	public TileRack() {
 		setLayout(gridLayout);
-		for (int b=0; b<6; ++b) {
-			buttons[b] = new Button();
-			buttons[b].setFont(FontManager.getFont());
-			add(buttons[b]);
+		for (int buttonIndex=0; buttonIndex<6; ++buttonIndex) {
+			buttons[buttonIndex] = new Button();
+			buttons[buttonIndex].setFont(FontManager.getFont());
+			buttons[buttonIndex].addActionListener(this);
+			buttons[buttonIndex].setActionCommand(((Integer)(buttonIndex+1)).toString());
+			add(buttons[buttonIndex]);
 		}
 	}
 	
-	public void setButtonLabel(int button, String label) {
-		buttons[button].setLabel(label);
+	public void setButtonLabel(int buttonIndex, String label) {
+		buttons[buttonIndex].setLabel(label);
 	}
 	
-	public void setButtonColor(int button, Color color) {
-		buttons[button].setBackground(color);
+	public void setButtonColor(int buttonIndex, Color color) {
+		buttons[buttonIndex].setBackground(color);
 	}
 	
-	public void setButtonVisible(int button, boolean visible) {
-		buttons[button].setVisible(visible);
+	public void setButtonVisible(int buttonIndex, boolean visible) {
+		buttons[buttonIndex].setVisible(visible);
 	}
 	
 	public void setButtonsVisible(boolean visible) {
-		for (int b=0; b<6; ++b) {
-			buttons[b].setVisible(visible);
+		for (int buttonIndex=0; buttonIndex<6; ++buttonIndex) {
+			buttons[buttonIndex].setVisible(visible);
 		}
 	}
+	
+	public void setCanPlayTile(boolean canPlayTile) {
+		this.canPlayTile = canPlayTile;
+	}
+	
+    public void actionPerformed(ActionEvent e) {
+    	int buttonIndexPlusOne = Integer.decode(e.getActionCommand());
+    	if (canPlayTile) {
+    		Main.getNetworkConnection().writeMessage("PT;" + buttonIndexPlusOne);
+    		setButtonVisible(buttonIndexPlusOne - 1, false);
+    		canPlayTile = false;
+    	}
+    }
 }

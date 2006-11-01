@@ -127,6 +127,8 @@ public class NetworkConnection {
 				handleSP(command);
 			} else if (command[0].toString().equals("SS")) {
 				handleSS(command);
+			} else if (command[0].toString().equals("GT")) {
+				handleGT(command);
 			} else {
 				Main.getMainFrame().lobby.append("Unhandled command: " + matcher.group(1));
 			}
@@ -210,6 +212,7 @@ public class NetworkConnection {
 		Color color = new Color(Util.networkColorToSwingColor(tileRackColor));
 		Main.getMainFrame().tileRack.setButtonLabel(index, label);
 		Main.getMainFrame().tileRack.setButtonColor(index, color);
+		Main.getMainFrame().tileRack.setButtonVisible(index, true);
 	}
 	
 	protected void handleSP(Object[] command) {
@@ -219,5 +222,9 @@ public class NetworkConnection {
 	protected void handleSS(Object[] command) {
 		int state = (Integer)command[1];
 		Main.getMainFrame().setMode(state);
+	}
+	
+	protected void handleGT(Object[] command) {
+		Main.getMainFrame().tileRack.setCanPlayTile(true);
 	}
 }

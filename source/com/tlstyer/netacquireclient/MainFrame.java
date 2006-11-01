@@ -88,7 +88,7 @@ public class MainFrame extends JFrame implements ComponentListener {
                                                                        // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
     private static final boolean[] visibilityInModesGameBoard          = {false, false, false, false,  true,  true,  true};
     private static final boolean[] visibilityInModesTileRackBackground = {false, false, false, false,  true,  true,  true};
-    private static final boolean[] visibilityInModesTileRack           = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesTileRack           = {false, false, false, false, false, false,  true};
     private static final boolean[] visibilityInModesLobby              = {false, false,  true,  true,  true,  true,  true};
     private static final boolean[] visibilityInModesLobbyPost          = {false, false, false,  true,  true,  true,  true};
     private static final boolean[] visibilityInModesScoreSheet         = {false, false, false, false,  true,  true,  true};
@@ -113,14 +113,19 @@ public class MainFrame extends JFrame implements ComponentListener {
             Main.getNetworkConnection().setMode(mode);
         }
         
-        if (mode <= MODE_CONNECTING) {
+        if (mode < MODE_IN_LOBBY) {
         	lobby.clear();
         }
         
-        if (mode <= MODE_IN_LOBBY) {
+        if (mode < MODE_WAITING_FOR_SOMEBODY_ELSE_TO_START_GAME) {
         	gameRoom.clear();
         }
-}
+        
+        if (mode < MODE_PLAYING_GAME) {
+        	tileRack.setButtonsVisible(false);
+        	tileRack.setCanPlayTile(false);
+        }
+	}
 
     public void componentHidden(ComponentEvent e) {
     }
