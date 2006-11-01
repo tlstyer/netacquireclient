@@ -198,7 +198,8 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
     		for (int index=0; index<7; ++index) {
                 cc[index] = chainCounts[index];
             }
-    		Main.getNetworkConnection().writeMessage("P;" + Util.join(cc, ",") + ",0");
+    		int endGameCode = (checkboxEndTheGame.isSelected() ? 1 : 0);
+    		Main.getNetworkConnection().writeMessage("P;" + Util.join(cc, ",") + "," + endGameCode);
 			setVisible(false);
 			return;
 		}
