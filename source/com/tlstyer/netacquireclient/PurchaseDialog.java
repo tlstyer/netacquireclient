@@ -166,7 +166,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 			if (selectedForPurchase[index] != -1) {
                 int chainIndex = selectedForPurchase[index];
                 int colorvalue = HoteltypeToColorvalue.lookupSwing(chainIndex + 1);
-                buttonsPurchased[index].setText(((Integer)(price[chainIndex] * 100)).toString());
+                buttonsPurchased[index].setText(((Integer)price[chainIndex]).toString());
                 buttonsPurchased[index].setBackground(new Color(colorvalue));
                 buttonsPurchased[index].setEnabled(true);
             } else {
