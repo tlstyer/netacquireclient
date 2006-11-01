@@ -5,7 +5,7 @@ import javax.swing.*;
 public class TileRack extends JPanel implements ActionListener {
 	private Button[] buttons = new Button[6];
 	private GridLayout gridLayout = new GridLayout(1, 6, spacing, spacing);
-	private boolean canPlayTile = false;
+	private Boolean canPlayTile = false;
 	
 	public static final int spacing = 10;
 	
@@ -38,16 +38,20 @@ public class TileRack extends JPanel implements ActionListener {
 		}
 	}
 	
-	public void setCanPlayTile(boolean canPlayTile) {
-		this.canPlayTile = canPlayTile;
+	public void setCanPlayTile(boolean canPlayTile_) {
+		synchronized (canPlayTile) {
+			canPlayTile = canPlayTile_;
+		}
 	}
 	
     public void actionPerformed(ActionEvent e) {
     	int buttonIndexPlusOne = Integer.decode(e.getActionCommand());
     	if (canPlayTile) {
-    		Main.getNetworkConnection().writeMessage("PT;" + buttonIndexPlusOne);
-    		setButtonVisible(buttonIndexPlusOne - 1, false);
-    		canPlayTile = false;
+    		synchronized (canPlayTile) {
+        		Main.getNetworkConnection().writeMessage("PT;" + buttonIndexPlusOne);
+        		setButtonVisible(buttonIndexPlusOne - 1, false);
+        		canPlayTile = false;
+    		}
     	}
     }
 }
