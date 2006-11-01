@@ -266,8 +266,7 @@ public class NetworkConnection {
 		boolean canEndGame = ((Integer)((Object[])command[1])[0] != 0 ? true : false);
 		int howMuchMoney = (Integer)((Object[])command[1])[1];
 		int[] available = Util.getHotelDataAsIntegers(scoreSheetCaptionData, 7);
-		int[] chainSize = Util.getHotelDataAsIntegers(scoreSheetCaptionData, 8);
 		int[] price = Util.getHotelDataAsIntegers(scoreSheetCaptionData, 9);
-		new PurchaseDialog(canEndGame, howMuchMoney, available, chainSize, price);
+		new PurchaseDialog(canEndGame, howMuchMoney, available, price);
 	}
 }
