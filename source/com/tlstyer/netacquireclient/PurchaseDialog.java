@@ -142,6 +142,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 	}
 	
 	private void updateComponents() {
+        // calculate moneySpent and moneyLeft
 		int moneySpent = 0;
 		for (int index=0; index<3; ++index) {
 			if (selectedForPurchase[index] != -1) {
@@ -150,11 +151,13 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		}
         int moneyLeft = howMuchMoney - moneySpent;
 
-        // enable/disable chains that i can afford
+        // enable/disable chains that i can afford and that are still available
+        int[] chainCounts = getSelectedChainCounts();
 		for (int index=0; index<7; ++index) {
             if (isAvailable[index]) {
                 boolean haveEnoughMoney = (moneyLeft >= price[index]);
-                buttonsAvailable[index].setEnabled(haveEnoughMoney);
+                boolean stillAvailable = (available[index] > chainCounts[index]);
+                buttonsAvailable[index].setEnabled(haveEnoughMoney && stillAvailable);
             }
         }
 
@@ -190,21 +193,29 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
     	} else if (buttonIndexPressed >= 7 && buttonIndexPressed <= 9) {
             selectedForPurchase[buttonIndexPressed - 7] = -1;
     	} else if (buttonIndexPressed == 10) {
-            Object[] chainCounts = new Object[7];
+    		int[] chainCounts = getSelectedChainCounts();
+    		Object[] cc = new Object[7];
     		for (int index=0; index<7; ++index) {
-                chainCounts[index] = 0;
+                cc[index] = chainCounts[index];
             }
-    		for (int index=0; index<3; ++index) {
-                if (selectedForPurchase[index] != -1) {
-                	int chainCount = (Integer)chainCounts[selectedForPurchase[index]];
-                	chainCounts[selectedForPurchase[index]] = chainCount + 1;
-                }
-    		}
-    		Main.getNetworkConnection().writeMessage("P;" + Util.join(chainCounts, ",") + ",0");
+    		Main.getNetworkConnection().writeMessage("P;" + Util.join(cc, ",") + ",0");
 			setVisible(false);
 			return;
 		}
     	
     	updateComponents();
     }
+    
+    private int[] getSelectedChainCounts() {
+        int[] chainCounts = new int[7];
+		for (int index=0; index<7; ++index) {
+            chainCounts[index] = 0;
+        }
+		for (int index=0; index<3; ++index) {
+            if (selectedForPurchase[index] != -1) {
+            	++chainCounts[selectedForPurchase[index]];
+            }
+		}
+		return chainCounts;
+	}
 }
