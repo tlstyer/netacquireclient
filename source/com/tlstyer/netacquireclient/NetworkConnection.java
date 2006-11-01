@@ -225,6 +225,9 @@ public class NetworkConnection {
 	
 	protected void handleSS(Object[] command) {
 		int state = (Integer)command[1];
+		if (state == 6) {
+			state = MainFrame.MODE_IN_GAME;
+		}
 		Main.getMainFrame().setMode(state);
 	}
 	
