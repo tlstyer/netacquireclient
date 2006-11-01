@@ -104,6 +104,8 @@ public class NetworkConnection {
 		}
 	}
 	
+	private boolean commandHandled;
+	
 	protected void processDataRead() {
 		while (true) {
 			Matcher matcher = pattern.matcher(dataRead);
@@ -112,6 +114,8 @@ public class NetworkConnection {
 			}
 			dataRead = dataRead.substring(matcher.end(), dataRead.length());
 			Object[] command = Util.commandTextToJava(matcher.group(1));
+			
+			commandHandled = true;
 			
 			if (command[0].toString().equals("SB")) {
 				handleSB(command);
@@ -132,6 +136,10 @@ public class NetworkConnection {
 			} else if (command[0].toString().equals("GC")) {
 				handleGC(command);
 			} else {
+				commandHandled = false;
+			}
+			
+			if (!commandHandled) {
 				Main.getMainFrame().lobby.append("Unhandled command: " + matcher.group(1));
 			}
 		}
@@ -193,6 +201,8 @@ public class NetworkConnection {
 			if (where != null) {
 				scoreSheetBackColorData.setBackColor(where.getY(), where.getX(), color);
 			}
+		} else {
+			commandHandled = false;
 		}
 	}
 	
