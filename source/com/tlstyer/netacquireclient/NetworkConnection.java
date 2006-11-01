@@ -129,6 +129,8 @@ public class NetworkConnection {
 				handleSS(command);
 			} else if (command[0].toString().equals("GT")) {
 				handleGT(command);
+			} else if (command[0].toString().equals("GC")) {
+				handleGC(command);
 			} else {
 				Main.getMainFrame().lobby.append("Unhandled command: " + matcher.group(1));
 			}
@@ -226,5 +228,20 @@ public class NetworkConnection {
 	
 	protected void handleGT(Object[] command) {
 		Main.getMainFrame().tileRack.setCanPlayTile(true);
+	}
+	
+	protected void handleGC(Object[] command) {
+		int type = (Integer)((Object[])command[1])[0];
+		
+		boolean[] hotelOptions = new boolean[7];
+		for (int hotelOption=0; hotelOption<7; ++hotelOption) {
+			hotelOptions[hotelOption] = false;
+		}
+		for (int index=1; index<((Object[])command[1]).length; ++index) {
+			int hotelOptionPlusOne = (Integer)((Object[])command[1])[index];
+			hotelOptions[hotelOptionPlusOne - 1] = true;
+		}
+		
+		new SelectChainDialog(type, hotelOptions);
 	}
 }
