@@ -7,6 +7,21 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 	private int howMuchMoney;
     private int[] available;
     private int[] price;
+
+    private JButton[] buttonsAvailable;
+    private boolean[] isAvailable;
+    private boolean[] canAfford;
+
+    private JButton[] buttonsPurchased;
+    private int[] selectedForPurchase;
+
+    private JTextField tfPurchase;
+
+    private JTextField tfCashLeft;
+
+    private JCheckBox checkboxEndTheGame;
+
+    private JButton buttonOK;
 	
 	public PurchaseDialog(boolean canEndGame_,
                           int howMuchMoney_,
@@ -21,10 +36,27 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 
 		setTitle("Purchase");
 		
+		// initialize arrays
+		isAvailable = new boolean[7];
+		for (int index=0; index<7; ++index) {
+			if (available[index] == 0 || price[index] == 0) {
+				isAvailable[index] = false;
+			} else {
+				isAvailable[index] = true;
+			}
+		}
+		
+		canAfford = new boolean[7];
+		
+		selectedForPurchase = new int[3];
+		for (int index=0; index<3; ++index) {
+			selectedForPurchase[index] = -1;
+		}
+		
 		// "Available" panel
 		JPanel panelAvailable = new JPanel(new GridLayout(0, 1));
 		panelAvailable.setBorder(BorderFactory.createTitledBorder("Available"));
-		JButton[] buttonsAvailable = new JButton[7];
+		buttonsAvailable = new JButton[7];
 		for (int index=0; index<7; ++index) {
 			String name = HoteltypeToName.lookup(index + 1);
 			int colorvalue = HoteltypeToColorvalue.lookupSwing(index + 1);
@@ -33,16 +65,14 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 			button.setFont(FontManager.getFont());
 			button.setBackground(new Color(colorvalue));
 			button.setForeground(Color.black);
-			if (available[index] == 0 || price[index] == 0) {
-				button.setVisible(false);
-			}
+			button.setVisible(isAvailable[index]);
 			panelAvailable.add(button);
 		}
 		
 		// "Purchased" panel
 		JPanel panelPurchased = new JPanel(new GridLayout(1, 0));
 		panelPurchased.setBorder(BorderFactory.createTitledBorder("Purchased"));
-		JButton[] buttonsPurchased = new JButton[3];
+		buttonsPurchased = new JButton[3];
 		for (int index=0; index<3; ++index) {
 			JButton button = new JButton();
 			buttonsPurchased[index] = button;
@@ -60,7 +90,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		labelPurchase.setFont(FontManager.getFont());
 		panelCost.add(labelPurchase);
 		
-		JTextField tfPurchase = new JTextField("0");
+		tfPurchase = new JTextField("0");
 		tfPurchase.setFont(FontManager.getFont());
 		tfPurchase.setHorizontalAlignment(JTextField.RIGHT);
 		tfPurchase.setEditable(false);
@@ -70,7 +100,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		labelCashLeft.setFont(FontManager.getFont());
 		panelCost.add(labelCashLeft);
 		
-		JTextField tfCashLeft = new JTextField(((Integer)howMuchMoney).toString());
+		tfCashLeft = new JTextField(((Integer)howMuchMoney).toString());
 		tfCashLeft.setFont(FontManager.getFont());
 		tfCashLeft.setHorizontalAlignment(JTextField.RIGHT);
 		tfCashLeft.setEditable(false);
@@ -79,13 +109,13 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		// "End the game and OK" panel
 		JPanel panelETGOK= new JPanel(new GridLayout(0, 1));
 		
-		JCheckBox checkboxEndTheGame = new JCheckBox("End the game");
+		checkboxEndTheGame = new JCheckBox("End the game");
 		if (!canEndGame) {
 			checkboxEndTheGame.setEnabled(false);
 		}
 		panelETGOK.add(checkboxEndTheGame);
 		
-		JButton buttonOK = new JButton("Ok");
+		buttonOK = new JButton("Ok");
 		panelETGOK.add(buttonOK);
 		
 		// put them all together
@@ -98,7 +128,12 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		panel.add(panelAvailable);
 		panel.add(panelRightSide);
 		
+		updateComponents();
+		
 		showGameDialog();
+	}
+	
+	private void updateComponents() {
 	}
 
     public void actionPerformed(ActionEvent e) {
