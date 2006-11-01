@@ -1,17 +1,15 @@
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
-public class SelectChainDialog extends JDialog implements ActionListener {
-	private JPanel panel;
+public class SelectChainDialog extends GameDialog implements ActionListener {
 	private ButtonGroup radioButtonGroup;
 	private JRadioButton[] radioButtons;
 	private JButton buttonOK;
 	private int type;
 	
 	public SelectChainDialog(int type, boolean[] hotelOptions) {
-		super(Main.getMainFrame());
+		super();
 		this.type = type;
 		
 		String title;
@@ -60,14 +58,7 @@ public class SelectChainDialog extends JDialog implements ActionListener {
 		buttonOK.addActionListener(this);
 		panel.add(buttonOK);
 		
-		panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-		
-		setContentPane(panel);
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		setResizable(false);
-		setAlwaysOnTop(true);
-		pack();
-		setVisible(true);
+		showGameDialog();
 	}
 	
     public void actionPerformed(ActionEvent e) {
@@ -79,6 +70,5 @@ public class SelectChainDialog extends JDialog implements ActionListener {
 				return;
 			}
 		}
-		
     }
 }
