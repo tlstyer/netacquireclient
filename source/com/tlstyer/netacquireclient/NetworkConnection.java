@@ -137,6 +137,8 @@ public class NetworkConnection {
 				handleGC(command);
 			} else if (command[0].toString().equals("GP")) {
 				handleGP(command);
+			} else if (command[0].toString().equals("GD")) {
+				handleGD(command);
 			} else {
 				commandHandled = false;
 			}
@@ -268,5 +270,10 @@ public class NetworkConnection {
 		int[] available = Util.getHotelDataAsIntegers(scoreSheetCaptionData, 7);
 		int[] price = Util.getHotelDataAsIntegers(scoreSheetCaptionData, 9);
 		new PurchaseDialog(canEndGame, howMuchMoney, available, price);
+	}
+	
+	protected void handleGD(Object[] command) {
+		writeMessage("MD;0,0");
+		commandHandled = false;
 	}
 }
