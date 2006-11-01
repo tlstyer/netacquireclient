@@ -12,7 +12,6 @@ public class GameDialog extends JDialog {
 		setContentPane(panel);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setResizable(false);
-		setAlwaysOnTop(true);
 		pack();
 		setVisible(true);
 	}
