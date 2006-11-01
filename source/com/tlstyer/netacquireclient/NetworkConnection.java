@@ -273,7 +273,10 @@ public class NetworkConnection {
 	}
 	
 	protected void handleGD(Object[] command) {
-		writeMessage("MD;0,0");
-		commandHandled = false;
+        new ShareDispositionDialog((String)((Object[])command[1])[1],
+                                   (Integer)((Object[])command[1])[2],
+                                   (Integer)((Object[])command[1])[3],
+                                   (Integer)((Object[])command[1])[4],
+                                   (Integer)((Object[])command[1])[5]);
 	}
 }
