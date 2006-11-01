@@ -215,6 +215,8 @@ public class NetworkConnection {
 		Main.getMainFrame().tileRack.setButtonLabel(index, label);
 		Main.getMainFrame().tileRack.setButtonColor(index, color);
 		Main.getMainFrame().tileRack.setButtonVisible(index, true);
+		int hoteltype = BoardtypeEnum.BOARDTYPE_I_HAVE_THIS.ordinal();
+		gameBoardData.setHoteltype(coord.getY(), coord.getX(), hoteltype);
 	}
 	
 	protected void handleSP(Object[] command) {
