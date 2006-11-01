@@ -35,7 +35,7 @@ public class Util {
 		return splitObjectArray;
 	}
 	
-    private static String join(Object object, String separator) {
+    public static String join(Object object, String separator) {
     	if (object.getClass().getSimpleName().equals("Object[]")) {
     		Object[] objects = (Object[])object;
             StringBuffer buffer = new StringBuffer();

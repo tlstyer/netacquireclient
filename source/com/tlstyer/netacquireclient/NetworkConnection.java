@@ -264,7 +264,7 @@ public class NetworkConnection {
 	
 	protected void handleGP(Object[] command) {
 		boolean canEndGame = ((Integer)((Object[])command[1])[0] != 0 ? true : false);
-		int howMuchMoney = (Integer)((Object[])command[1])[1];
+		int howMuchMoney = (Integer)((Object[])command[1])[1] / 100;
 		int[] available = Util.getHotelDataAsIntegers(scoreSheetCaptionData, 7);
 		int[] price = Util.getHotelDataAsIntegers(scoreSheetCaptionData, 9);
 		new PurchaseDialog(canEndGame, howMuchMoney, available, price);
