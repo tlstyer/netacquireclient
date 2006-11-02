@@ -200,7 +200,7 @@ public class NetworkConnection {
 			if (index >= 82 && index <= 88) {
 				what = ((Integer)what) / 100;
 			}
-			Coordinate where = ScoreSheetIndexToCoordinate.lookup(index);
+			Coordinate where = Util.scoreSheetIndexToCoordinate(index);
 			if (where != null) {
 				scoreSheetCaptionData.setCaption(where.getY(), where.getX(), what);
 			}
@@ -208,7 +208,7 @@ public class NetworkConnection {
 			int index = (Integer)((Object[])command[1])[2];
 			int color = (Integer)((Object[])command[1])[4];
 			color = Util.networkColorToSwingColor(color);
-			Coordinate where = ScoreSheetIndexToCoordinate.lookup(index);
+			Coordinate where = Util.scoreSheetIndexToCoordinate(index);
 			if (where != null) {
 				scoreSheetBackColorData.setBackColor(where.getY(), where.getX(), color);
 			}
