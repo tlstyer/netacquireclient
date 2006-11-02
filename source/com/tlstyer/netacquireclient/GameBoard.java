@@ -6,7 +6,7 @@ public class GameBoard extends JPanel {
 	private GridLayout gridLayout = new GridLayout(9, 12, 2, 2);
 	private GameBoardData gameBoardData = new GameBoardData();
 	
-	private static final Color color_def = new Color(HoteltypeToColorvalue.lookupSwing(BoardtypeEnum.BOARDTYPE_NONE.ordinal()));
+	private static final Color color_def = Util.hoteltypeToColor(BoardtypeEnum.BOARDTYPE_NONE.ordinal());
     
     public GameBoard() {
         setLayout(gridLayout);
@@ -36,7 +36,7 @@ public class GameBoard extends JPanel {
     			int hoteltype = gbd.getHoteltype(y, x);
     			if (gameBoardData.getHoteltype(y, x) != hoteltype) {
     				gameBoardData.setHoteltype(y, x, hoteltype);
-    				board[y][x].setBackgroundColor(new Color(HoteltypeToColorvalue.lookupSwing(hoteltype)));
+    				board[y][x].setBackgroundColor(Util.hoteltypeToColor(hoteltype));
     				board[y][x].repaint();
     			}
         	}

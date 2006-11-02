@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.*;
 
 public class Util {
@@ -286,5 +287,75 @@ public class Util {
 			hotelData[column - 1] = Util.getAsInteger(sscd.getCaption(row, column));
 		}
 		return hotelData;
+	}
+	
+	private static final Map<Integer, Integer> hashmapColorvalueToHoteltype = new HashMap<Integer, Integer>();
+    static {
+        hashmapColorvalueToHoteltype.put(12648447, BoardtypeEnum.BOARDTYPE_NONE.ordinal());
+        hashmapColorvalueToHoteltype.put(255, BoardtypeEnum.BOARDTYPE_LUXOR.ordinal());
+        hashmapColorvalueToHoteltype.put(65535, BoardtypeEnum.BOARDTYPE_TOWER.ordinal());
+        hashmapColorvalueToHoteltype.put(16711680, BoardtypeEnum.BOARDTYPE_AMERICAN.ordinal());
+        hashmapColorvalueToHoteltype.put(65280, BoardtypeEnum.BOARDTYPE_FESTIVAL.ordinal());
+        hashmapColorvalueToHoteltype.put(16512, BoardtypeEnum.BOARDTYPE_WORLDWIDE.ordinal());
+        hashmapColorvalueToHoteltype.put(16776960, BoardtypeEnum.BOARDTYPE_CONTINENTAL.ordinal());
+        hashmapColorvalueToHoteltype.put(16711935, BoardtypeEnum.BOARDTYPE_IMPERIAL.ordinal());
+        hashmapColorvalueToHoteltype.put(0, BoardtypeEnum.BOARDTYPE_NOTHING_YET.ordinal());
+        hashmapColorvalueToHoteltype.put(8421504, BoardtypeEnum.BOARDTYPE_CANT_PLAY_EVER.ordinal());
+        hashmapColorvalueToHoteltype.put(10543359, BoardtypeEnum.BOARDTYPE_I_HAVE_THIS.ordinal());
+        hashmapColorvalueToHoteltype.put(12632256, BoardtypeEnum.BOARDTYPE_WILL_PUT_LONELY_TILE_DOWN.ordinal());
+        hashmapColorvalueToHoteltype.put(12648384, BoardtypeEnum.BOARDTYPE_HAVE_NEIGHBORING_TILE_TOO.ordinal());
+        hashmapColorvalueToHoteltype.put(16777215, BoardtypeEnum.BOARDTYPE_WILL_FORM_NEW_CHAIN.ordinal());
+        hashmapColorvalueToHoteltype.put(6316128, BoardtypeEnum.BOARDTYPE_CANT_PLAY_NOW.ordinal());
+	}
+
+	public static int colorvalueToHoteltype(int colorvalue) {
+		return hashmapColorvalueToHoteltype.get(colorvalue);
+	}
+
+	private static final int[] arrayHoteltypeToColorvalue = {
+        12648447, // BOARDTYPE_NONE
+        255,      // BOARDTYPE_LUXOR
+        65535,    // BOARDTYPE_TOWER
+        16711680, // BOARDTYPE_AMERICAN
+        65280,    // BOARDTYPE_FESTIVAL
+        16512,    // BOARDTYPE_WORLDWIDE
+        16776960, // BOARDTYPE_CONTINENTAL
+        16711935, // BOARDTYPE_IMPERIAL
+        0,        // BOARDTYPE_NOTHING_YET
+        8421504,  // BOARDTYPE_CANT_PLAY_EVER
+        10543359, // BOARDTYPE_I_HAVE_THIS
+        12632256, // BOARDTYPE_WILL_PUT_LONELY_TILE_DOWN
+        12648384, // BOARDTYPE_HAVE_NEIGHBORING_TILE_TOO
+        16777215, // BOARDTYPE_WILL_FORM_NEW_CHAIN
+        6316128,  // BOARDTYPE_CANT_PLAY_NOW
+        -1,       // CSSCLASS_EMPTY
+        16761024, // CSSCLASS_PLAYER
+        12632319, // CSSCLASS_MY_TURN
+        16777215, // CSSCLASS_NOT_MY_TURN
+        16777215, // CSSCLASS_HOLDINGS
+        8438015,  // CSSCLASS_HOLDINGS_SAFE
+        32768,    // CSSCLASS_CASH_TITLE
+        16777215, // CSSCLASS_CASH
+        16777152, // CSSCLASS_HCS_TITLE
+        16777152, // CSSCLASS_HCS
+	};
+	
+	public static int hoteltypeToColorvalueNetwork(int hoteltype) {
+		return arrayHoteltypeToColorvalue[hoteltype];
+	}
+	
+	public static int hoteltypeToColorvalueSwing(int hoteltype) {
+		return Util.networkColorToSwingColor(arrayHoteltypeToColorvalue[hoteltype]);
+	}
+
+	private static final Color[] arrayHoteltypeToColor = new Color[arrayHoteltypeToColorvalue.length];
+    static {
+        for (int index=0; index<arrayHoteltypeToColorvalue.length; ++index) {
+            arrayHoteltypeToColor[index] = new Color(Util.hoteltypeToColorvalueSwing(index));
+        }
+    }
+
+	public static Color hoteltypeToColor(int hoteltype) {
+		return arrayHoteltypeToColor[hoteltype];
 	}
 }

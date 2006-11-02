@@ -60,11 +60,10 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		buttonsAvailable = new JButton[7];
 		for (int index=0; index<7; ++index) {
 			String name = HoteltypeToName.lookup(index + 1);
-			int colorvalue = HoteltypeToColorvalue.lookupSwing(index + 1);
 			JButton button = new JButton(name);
 			buttonsAvailable[index] = button;
 			button.setFont(FontManager.getFont());
-			button.setBackground(new Color(colorvalue));
+			button.setBackground(Util.hoteltypeToColor(index + 1));
 			button.setForeground(Color.black);
 			button.setVisible(isAvailable[index]);
             button.setActionCommand(((Integer)index).toString());
@@ -165,9 +164,8 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		for (int index=0; index<3; ++index) {
 			if (selectedForPurchase[index] != -1) {
                 int chainIndex = selectedForPurchase[index];
-                int colorvalue = HoteltypeToColorvalue.lookupSwing(chainIndex + 1);
                 buttonsPurchased[index].setText(((Integer)price[chainIndex]).toString());
-                buttonsPurchased[index].setBackground(new Color(colorvalue));
+                buttonsPurchased[index].setBackground(Util.hoteltypeToColor(chainIndex + 1));
                 buttonsPurchased[index].setEnabled(true);
             } else {
                 buttonsPurchased[index].setText("");

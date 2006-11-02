@@ -35,12 +35,11 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 		
 		for (int index=0; index<7; ++index) {
 			String name = HoteltypeToName.lookup(index + 1);
-			int colorvalue = HoteltypeToColorvalue.lookupSwing(index + 1);
 			JRadioButton radioButton = new JRadioButton(name);
 			radioButtons[index] = radioButton;
 			radioButtonGroup.add(radioButton);
 			radioButton.setFont(FontManager.getFont());
-			radioButton.setForeground(new Color(colorvalue));
+			radioButton.setForeground(Util.hoteltypeToColor(index + 1));
 			if (!hotelOptions[index]) {
 				radioButton.setEnabled(false);
 			}
@@ -64,7 +63,7 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 		for (int index=0; index<7; ++index) {
 			if (radioButtons[index].isSelected()) {
-				int colorvalue = HoteltypeToColorvalue.lookupNetwork(index + 1);
+				int colorvalue = Util.hoteltypeToColorvalueNetwork(index + 1);
 				Main.getNetworkConnection().writeMessage("CS;" + colorvalue + "," + type);
 				setVisible(false);
 				return;

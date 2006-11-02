@@ -186,7 +186,7 @@ public class NetworkConnection {
 		int index = (Integer)((Object[])command[1])[0];
 		int color = (Integer)((Object[])command[1])[1];
 		Coordinate coord = Util.gameBoardIndexToCoordinate(index);
-		int hoteltype = ColorvalueToHoteltype.lookup(color);
+		int hoteltype = Util.colorvalueToHoteltype(color);
 		gameBoardData.setHoteltype(coord.getY(), coord.getX(), hoteltype);
 	}
 	
