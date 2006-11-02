@@ -358,4 +358,19 @@ public class Util {
 	public static Color hoteltypeToColor(int hoteltype) {
 		return arrayHoteltypeToColor[hoteltype];
 	}
+
+	private static final String[] arrayHoteltypeToName = {
+		null,          // BOARDTYPE_NONE
+		"Luxor",       // BOARDTYPE_LUXOR
+		"Tower",       // BOARDTYPE_TOWER
+		"American",    // BOARDTYPE_AMERICAN
+		"Festival",    // BOARDTYPE_FESTIVAL
+		"Worldwide",   // BOARDTYPE_WORLDWIDE
+		"Continental", // BOARDTYPE_CONTINENTAL
+		"Imperial",    // BOARDTYPE_IMPERIAL
+	};
+	
+	public static String hoteltypeToName(int hoteltype) {
+		return arrayHoteltypeToName[hoteltype];
+	}
 }

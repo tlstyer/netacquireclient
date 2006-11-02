@@ -34,7 +34,7 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 		radioButtons = new JRadioButton[7];
 		
 		for (int index=0; index<7; ++index) {
-			String name = HoteltypeToName.lookup(index + 1);
+			String name = Util.hoteltypeToName(index + 1);
 			JRadioButton radioButton = new JRadioButton(name);
 			radioButtons[index] = radioButton;
 			radioButtonGroup.add(radioButton);
