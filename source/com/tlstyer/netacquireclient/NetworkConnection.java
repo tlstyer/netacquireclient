@@ -225,6 +225,8 @@ public class NetworkConnection {
 		Main.getMainFrame().gameRoom.append(Util.commandToContainedMessage(command));
 	}
 	
+	private int hoteltypeIHaveThis = BoardtypeEnum.BOARDTYPE_I_HAVE_THIS.ordinal();
+	
 	protected void handleAT(Object[] command) {
 		int tileRackIndex = (Integer)((Object[])command[1])[0];
 		int gameBoardIndex = (Integer)((Object[])command[1])[1];
@@ -232,12 +234,9 @@ public class NetworkConnection {
         int index = tileRackIndex - 1;
 		Coordinate coord = Util.gameBoardIndexToCoordinate(gameBoardIndex);
 		String label = Util.coordsToNumberAndLetter(coord.getY(), coord.getX());
-		Color color = new Color(Util.networkColorToSwingColor(tileRackColor));
-		Main.getMainFrame().tileRack.setButtonLabel(index, label);
-		Main.getMainFrame().tileRack.setButtonColor(index, color);
-		Main.getMainFrame().tileRack.setButtonVisible(index, true);
-		int hoteltype = BoardtypeEnum.BOARDTYPE_I_HAVE_THIS.ordinal();
-		gameBoardData.setHoteltype(coord.getY(), coord.getX(), hoteltype);
+		int hoteltype = Util.colorvalueToHoteltype(tileRackColor);
+		Main.getMainFrame().tileRack.setButton(index, label, hoteltype);
+		gameBoardData.setHoteltype(coord.getY(), coord.getX(), hoteltypeIHaveThis);
 	}
 	
 	protected void handleSP(Object[] command) {

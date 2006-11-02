@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class TileRack extends JPanel implements ActionListener {
 	private Button[] buttons = new Button[6];
+	private int[] hoteltypes = new int[6];
 	private GridLayout gridLayout = new GridLayout(1, 6, spacing, spacing);
 	private Boolean canPlayTile = false;
 	
@@ -20,12 +21,11 @@ public class TileRack extends JPanel implements ActionListener {
 		}
 	}
 	
-	public void setButtonLabel(int buttonIndex, String label) {
+	public void setButton(int buttonIndex, String label, int hoteltype) {
 		buttons[buttonIndex].setLabel(label);
-	}
-	
-	public void setButtonColor(int buttonIndex, Color color) {
-		buttons[buttonIndex].setBackground(color);
+		buttons[buttonIndex].setBackground(Util.hoteltypeToColor(hoteltype));
+		hoteltypes[buttonIndex] = hoteltype;
+		buttons[buttonIndex].setVisible(true);
 	}
 	
 	public void setButtonVisible(int buttonIndex, boolean visible) {
