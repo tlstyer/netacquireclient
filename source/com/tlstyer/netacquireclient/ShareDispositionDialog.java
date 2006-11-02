@@ -14,12 +14,14 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 
     // "Trade" panel
     private Integer numTrade;
+    private Integer maxTrade;
     private SpinnerNumberModel spinnerNumberModelTrade;
     private JSpinner spinnerTrade;
     private JButton buttonMaximum;
 
     // "Sell" panel
     private Integer numSell;
+    private Integer maxSell;
     private SpinnerNumberModel spinnerNumberModelSell;
     private JSpinner spinnerSell;
     private JButton buttonRemaining;
@@ -120,9 +122,15 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
         labelKeep.setText(numKeep.toString());
 		spinnerNumberModelTrade.setValue(numTrade);
 		spinnerNumberModelSell.setValue(numSell);
-		
-		spinnerNumberModelTrade.setMaximum(numTrade + numKeep / 2 * 2);
-		spinnerNumberModelSell.setMaximum(numSell + numKeep);
+
+        maxTrade = numTrade + numKeep / 2 * 2;
+        if (maxTrade > numAvailableOfSurvivor * 2) {
+            maxTrade = numAvailableOfSurvivor * 2;
+        }
+		spinnerNumberModelTrade.setMaximum(maxTrade);
+
+        maxSell = numSell + numKeep;
+		spinnerNumberModelSell.setMaximum(maxSell);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -131,9 +139,9 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
             numTrade = 0;
             numSell = 0;
         } else if (object == buttonMaximum) {
-            numTrade += numKeep / 2 * 2;
+            numTrade = maxTrade;
         } else if (object == buttonRemaining) {
-            numSell += numKeep;
+            numSell = maxSell;
         } else if (object == buttonOK) {
     		Main.getNetworkConnection().writeMessage("MD;" + numSell + "," + numTrade);
 			setVisible(false);
