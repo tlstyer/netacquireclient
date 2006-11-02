@@ -116,10 +116,13 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 
 	private void updateComponents() {
         numKeep = numSharesOfTakenOverHotelIHave - numTrade - numSell;
-        String str = "KTS: " + numKeep + " " + numTrade + " " + numSell;
-		Main.getMainFrame().lobby.append(str);
 
         labelKeep.setText(numKeep.toString());
+		spinnerNumberModelTrade.setValue(numTrade);
+		spinnerNumberModelSell.setValue(numSell);
+		
+		spinnerNumberModelTrade.setMaximum(numTrade + numKeep / 2 * 2);
+		spinnerNumberModelSell.setMaximum(numSell + numKeep);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -143,7 +146,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 	public void stateChanged(ChangeEvent e) {
         Object object = e.getSource();
         if (object == spinnerTrade) {
-        	numTrade = spinnerNumberModelTrade.getNumber().intValue();
+        	numTrade = spinnerNumberModelTrade.getNumber().intValue() / 2 * 2;
         } else if (object == spinnerSell) {
         	numSell = spinnerNumberModelSell.getNumber().intValue();
         }
