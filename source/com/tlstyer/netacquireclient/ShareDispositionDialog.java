@@ -8,17 +8,19 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
     private int numAvailableOfSurvivor;
 
     // "Keep" panel
-    private int numKeep;
+    private Integer numKeep;
     private JLabel labelKeep;
     private JButton buttonAll;
 
     // "Trade" panel
-    private int numTrade;
+    private Integer numTrade;
+    private SpinnerNumberModel spinnerNumberModelTrade;
     private JSpinner spinnerTrade;
     private JButton buttonMaximum;
 
     // "Sell" panel
-    private int numSell;
+    private Integer numSell;
+    private SpinnerNumberModel spinnerNumberModelSell;
     private JSpinner spinnerSell;
     private JButton buttonRemaining;
 
@@ -52,6 +54,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
         panelKeep.add(panelKeepInternal);
 
         labelKeep = new JLabel();
+        labelKeep.setHorizontalAlignment(JLabel.RIGHT);
         panelKeepInternal.add(labelKeep);
 		buttonAll = new JButton("All");
 		buttonAll.addActionListener(this);
@@ -67,7 +70,10 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 		panelTradeInternal.setBackground(new Color(Util.networkColorToSwingColor(colorvalueOfTakenOver)));
         panelTrade.add(panelTradeInternal);
 
-        spinnerTrade = new JSpinner(new SpinnerNumberModel());
+        spinnerNumberModelTrade = new SpinnerNumberModel();
+        spinnerNumberModelTrade.setMinimum(0);
+        spinnerNumberModelTrade.setStepSize(2);
+        spinnerTrade = new JSpinner(spinnerNumberModelTrade);
         spinnerTrade.addChangeListener(this);
         panelTradeInternal.add(spinnerTrade);
 		buttonMaximum = new JButton("Maximum");
@@ -83,7 +89,9 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
                                                                        BorderFactory.createEmptyBorder(3,10,3,10)));
         panelSell.add(panelSellInternal);
 
-        spinnerSell = new JSpinner(new SpinnerNumberModel());
+        spinnerNumberModelSell = new SpinnerNumberModel();
+        spinnerNumberModelSell.setMinimum(0);
+        spinnerSell = new JSpinner(spinnerNumberModelSell);
         spinnerSell.addChangeListener(this);
         panelSellInternal.add(spinnerSell);
 		buttonRemaining = new JButton("Remaining");
@@ -107,11 +115,39 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
     }
 
 	private void updateComponents() {
+        numKeep = numSharesOfTakenOverHotelIHave - numTrade - numSell;
+        String str = "KTS: " + numKeep + " " + numTrade + " " + numSell;
+		Main.getMainFrame().lobby.append(str);
+
+        labelKeep.setText(numKeep.toString());
     }
 
     public void actionPerformed(ActionEvent e) {
+        Object object = e.getSource();
+        if (object == buttonAll) {
+            numTrade = 0;
+            numSell = 0;
+        } else if (object == buttonMaximum) {
+            numTrade += numKeep / 2 * 2;
+        } else if (object == buttonRemaining) {
+            numSell += numKeep;
+        } else if (object == buttonOK) {
+    		Main.getNetworkConnection().writeMessage("MD;" + numSell + "," + numTrade);
+			setVisible(false);
+			return;
+        }
+        
+        updateComponents();
     }
 
 	public void stateChanged(ChangeEvent e) {
+        Object object = e.getSource();
+        if (object == spinnerTrade) {
+        	numTrade = spinnerNumberModelTrade.getNumber().intValue();
+        } else if (object == spinnerSell) {
+        	numSell = spinnerNumberModelSell.getNumber().intValue();
+        }
+        
+        updateComponents();
 	}
 }
