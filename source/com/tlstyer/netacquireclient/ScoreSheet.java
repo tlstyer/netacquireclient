@@ -65,7 +65,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     	TextComponent textComponent = new TextComponent();
     	textComponent.setBackgroundColor(Util.hoteltypeToColor(hotelType));
     	textComponent.setText(text);
-    	textComponent.setTextAlign(HoteltypeToTextalign.lookup(hotelType));
+    	textComponent.setTextAlign(Util.hoteltypeToTextalign(hotelType));
 
     	add(textComponent);
     	scoreSheet[y][x] = textComponent;
