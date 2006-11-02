@@ -2,7 +2,8 @@ import java.awt.*;
 import java.util.*;
 
 public class Util {
-	private static Object[] splitCommandHelper(String command, String separator) {
+	// network command munging functions
+	public static Object[] split(String command, String separator) {
 		String[] splitStringArray = command.split(separator, -1);
 		Object[] splitObjectArray = new Object[splitStringArray.length];
 		for (int index=0; index<splitObjectArray.length; ++index) {
@@ -22,11 +23,11 @@ public class Util {
 	}
 
 	public static Object[] commandTextToJava(String command) {
-		Object[] splitObjectArray = splitCommandHelper(command, ";");
+		Object[] splitObjectArray = split(command, ";");
 		for (int index=0; index<splitObjectArray.length; ++index) {
 			Object o = splitObjectArray[index]; 
 			if (o.getClass().getSimpleName().equals("String")) {
-				Object[] splitObjectArray2 = splitCommandHelper((String)o, ",");
+				Object[] splitObjectArray2 = split((String)o, ",");
 				splitObjectArray[index] = splitObjectArray2;
 				if (splitObjectArray2.length == 1) {
 					splitObjectArray[index] = splitObjectArray2[0]; 
@@ -60,27 +61,6 @@ public class Util {
 		return Util.join(strings, ";");
 	}
 	
-	private static void printSplitCommandHelper(Object object, int indent) {
-		for (int i=0; i<indent; ++i) {
-			System.out.print("  ");
-		}
-		System.out.println(object + " : " + object.getClass().getSimpleName());
-		if (object.getClass().getSimpleName().equals("Object[]")) {
-			for (Object o : (Object[])object) {
-				printSplitCommandHelper(o, indent + 1);
-			}
-		}
-	}
-	
-	public static void printSplitCommand(Object splitCommand) {
-		printSplitCommandHelper(splitCommand, 0);
-		System.out.println();
-	}
-	
-	public static Coordinate gameBoardIndexToCoordinate(int index) {
-		return new Coordinate((index - 1) % 9, (index - 1) / 9);
-	}
-	
 	public static String commandToContainedMessage(Object[] command) {
 		Object[] objects_message = new Object[command.length - 1];
 		System.arraycopy(command, 1, objects_message, 0, objects_message.length);
@@ -90,23 +70,8 @@ public class Util {
 		return message;
 	}
 	
-	public static int networkColorToSwingColor(int color) {
-		int red = color % 256;
-		int green = (color >> 8) % 256;
-		int blue = (color >> 16) % 256;
-		return (red << 16) + (green << 8) + (blue);
-	}
-	
-	public static int getNumberOfPlayers(ScoreSheetCaptionData sscd) {
-		for (int index=1; index<=6; ++index) {
-			if (sscd.getCaption(index, 0) == null) {
-				return index - 1;
-			}
-		}
-		return 6;
-	}
-	
-	public static boolean[] getExistingHotelsOnGameBoard(GameBoardData gbd) {
+	// update net worths functions
+	private static boolean[] getExistingHotelsOnGameBoard(GameBoardData gbd) {
 		boolean[] existing = new boolean[7];
 		for (int hoteltype=1; hoteltype<=7; ++hoteltype) {
 			existing[hoteltype - 1] = false;
@@ -138,7 +103,7 @@ public class Util {
 		return playerData;
 	}
 
-	public static class playerOwnsAmount {
+	private static class playerOwnsAmount {
 		private int player;
 		private int amount;
 		
@@ -156,13 +121,13 @@ public class Util {
 		}
 	}
 
-	public static class playerOwnsAmountComparator implements Comparator<playerOwnsAmount> {
+	private static class playerOwnsAmountComparator implements Comparator<playerOwnsAmount> {
 		 public int compare(playerOwnsAmount o1, playerOwnsAmount o2) {
 			 return o2.getAmount() - o1.getAmount();
 		 }
 	}
 
-    public static int[] getBonuses(int[] holdings, int price) {
+    private static int[] getBonuses(int[] holdings, int price) {
     	playerOwnsAmount[] poaArray = new playerOwnsAmount[holdings.length];
     	for (int player=0; player<holdings.length; ++player) {
     		poaArray[player] = new playerOwnsAmount(player, holdings[player]);
@@ -233,20 +198,20 @@ public class Util {
    		return bonuses;
     }
     
-    public static int[] addMoney(int[] money1, int[] money2) {
-    	int[] moneySum = new int[money1.length];
-    	for (int i=0; i<money1.length; ++i) {
-    		moneySum[i] = money1[i] + money2[i];
-    	}
-    	return moneySum;
-    }
-    
-    public static int[] calculateSellingPrices(int[] holdings, int price) {
+    private static int[] calculateSellingPrices(int[] holdings, int price) {
     	int[] sellingPrices = new int[holdings.length];
     	for (int player=0; player<holdings.length; ++player) {
     		sellingPrices[player] = holdings[player] * price;
     	}
     	return sellingPrices;
+    }
+    
+    private static int[] addMoney(int[] money1, int[] money2) {
+    	int[] moneySum = new int[money1.length];
+    	for (int i=0; i<money1.length; ++i) {
+    		moneySum[i] = money1[i] + money2[i];
+    	}
+    	return moneySum;
     }
     
 	public static void updateNetWorths(ScoreSheetCaptionData sscd, GameBoardData gbd) {
@@ -274,19 +239,13 @@ public class Util {
 			sscd.setCaption(player + 1, 9, (Integer)money[player]);
 		}
 	}
-	
-	private static final String letters = "ABCDEFGHI";
 
-	public static String coordsToNumberAndLetter(int y, int x) {
-		return Integer.toString(x + 1) + letters.charAt(y);
-	}
-	
-	public static int[] getHotelDataAsIntegers(ScoreSheetCaptionData sscd, int row) {
-		int[] hotelData = new int[7];
-		for (int column=1; column<=7; ++column) {
-			hotelData[column - 1] = Util.getAsInteger(sscd.getCaption(row, column));
-		}
-		return hotelData;
+    // color and colorvalue functions
+	public static int networkColorToSwingColor(int color) {
+		int red = color % 256;
+		int green = (color >> 8) % 256;
+		int blue = (color >> 16) % 256;
+		return (red << 16) + (green << 8) + (blue);
 	}
 	
 	private static final Map<Integer, Integer> hashmapColorvalueToHoteltype = new HashMap<Integer, Integer>();
@@ -359,6 +318,7 @@ public class Util {
 		return arrayHoteltypeToColor[hoteltype];
 	}
 
+    // hoteltype to name
 	private static final String[] arrayHoteltypeToName = {
 		null,          // BOARDTYPE_NONE
 		"Luxor",       // BOARDTYPE_LUXOR
@@ -374,9 +334,10 @@ public class Util {
 		return arrayHoteltypeToName[hoteltype];
 	}
 
-    static final int ALIGN_LEFT = 0;
-    static final int ALIGN_CENTER = 1;
-    static final int ALIGN_RIGHT = 2;
+    // hoteltype to textalign
+    public static final int ALIGN_LEFT = 0;
+    public static final int ALIGN_CENTER = 1;
+    public static final int ALIGN_RIGHT = 2;
 
 	private static final int[] arrayHoteltypeToTextalign = {
 		ALIGN_CENTER, // BOARDTYPE_NONE
@@ -410,6 +371,7 @@ public class Util {
 		return arrayHoteltypeToTextalign[hoteltype];
 	}
 
+    // score sheet index to coordinate
 	private static final Coordinate[] arrayScoreSheetIndexToCoordinate = {
         null,
         new Coordinate(1, 0), new Coordinate(2, 0), new Coordinate(3, 0), new Coordinate(4, 0), new Coordinate(5, 0), new Coordinate(6, 0), null,                 // 01-07 Players
@@ -432,5 +394,33 @@ public class Util {
 	
 	public static Coordinate scoreSheetIndexToCoordinate(int index) {
 		return arrayScoreSheetIndexToCoordinate[index];
+	}
+	
+	// misc. functions
+	private static final String letters = "ABCDEFGHI";
+
+	public static String coordsToNumberAndLetter(int y, int x) {
+		return Integer.toString(x + 1) + letters.charAt(y);
+	}
+	
+	public static int[] getHotelDataAsIntegers(ScoreSheetCaptionData sscd, int row) {
+		int[] hotelData = new int[7];
+		for (int column=1; column<=7; ++column) {
+			hotelData[column - 1] = Util.getAsInteger(sscd.getCaption(row, column));
+		}
+		return hotelData;
+	}
+
+	public static Coordinate gameBoardIndexToCoordinate(int index) {
+		return new Coordinate((index - 1) % 9, (index - 1) / 9);
+	}
+	
+	public static int getNumberOfPlayers(ScoreSheetCaptionData sscd) {
+		for (int index=1; index<=6; ++index) {
+			if (sscd.getCaption(index, 0) == null) {
+				return index - 1;
+			}
+		}
+		return 6;
 	}
 }
