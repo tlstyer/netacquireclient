@@ -73,7 +73,6 @@ public class MainFrame extends JFrame implements ComponentListener {
         
         setMode(MODE_CONNECTING);
         new NetworkConnection();
-        //new NetworkConnection(true);
     }
 
 	private int mode;

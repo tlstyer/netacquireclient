@@ -80,22 +80,6 @@ public class NetworkConnection {
         }
 	}
 
-    public NetworkConnection(boolean lala) {
-		try {
-			FileReader fileReader = new FileReader("C:/programming/eclipse/Acquire/input.log");
-			BufferedReader input = new BufferedReader(fileReader);
-			String str = input.readLine();
-			while(str instanceof String) {
-				if (str.charAt(0) == '+') {
-					dataRead = str.substring(1) + ";:";
-					processDataRead();
-				}
-				str = input.readLine();
-			}
-		} catch(IOException e) {
-		}
-    }
-    
 	public void setMode(int mode) {
 		if (mode <= MainFrame.MODE_IN_LOBBY) {
 			gameBoardData.init();
