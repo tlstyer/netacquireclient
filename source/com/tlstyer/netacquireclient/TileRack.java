@@ -16,7 +16,7 @@ public class TileRack extends JPanel implements ActionListener {
 			buttons[buttonIndex] = new Button();
 			buttons[buttonIndex].setFont(FontManager.getFont());
 			buttons[buttonIndex].addActionListener(this);
-			buttons[buttonIndex].setActionCommand(((Integer)(buttonIndex+1)).toString());
+			buttons[buttonIndex].setActionCommand(((Integer)buttonIndex).toString());
 			add(buttons[buttonIndex]);
 		}
 	}
@@ -45,11 +45,14 @@ public class TileRack extends JPanel implements ActionListener {
 	}
 	
     public void actionPerformed(ActionEvent e) {
-    	int buttonIndexPlusOne = Integer.decode(e.getActionCommand());
-    	if (canPlayTile) {
-    		synchronized (canPlayTile) {
-        		Main.getNetworkConnection().writeMessage("PT;" + buttonIndexPlusOne);
-        		setButtonVisible(buttonIndexPlusOne - 1, false);
+    	int buttonIndex = Integer.decode(e.getActionCommand());
+		synchronized (canPlayTile) {
+            boolean canPlayTileNow = canPlayTile;
+            canPlayTileNow &= (hoteltypes[buttonIndex] != Hoteltype.CANT_PLAY_EVER);
+            canPlayTileNow &= (hoteltypes[buttonIndex] != Hoteltype.CANT_PLAY_NOW);
+			if (canPlayTileNow) {
+        		Main.getNetworkConnection().writeMessage("PT;" + (buttonIndex + 1));
+        		setButtonVisible(buttonIndex, false);
         		canPlayTile = false;
     		}
     	}
