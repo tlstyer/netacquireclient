@@ -9,7 +9,7 @@ public class GameBoardData {
 	public void init() {
     	for (int y=0; y<9; ++y) {
     		for (int x=0; x<12; ++x) {
-    			hotelTypes[y][x] = BoardtypeEnum.BOARDTYPE_NONE.ordinal();
+    			hotelTypes[y][x] = Hoteltype.NONE;
         	}
         }
     	dirty = true;

@@ -23,24 +23,24 @@ public class ScoreSheet extends JPanel implements ComponentListener {
         int x = 0;
         
         // header (row 0)
-        addTC(y, x++, BoardtypeEnum.CSSCLASS_PLAYER.ordinal(), "Player");
+        addTC(y, x++, Hoteltype.PLAYER, "Player");
         for (int hotelType=1; hotelType<=7; ++hotelType) {
             addTC(y, x++, hotelType, "" + hotelTypeCharacters.charAt(hotelType - 1));
         }
-        addTC(y, x++, BoardtypeEnum.CSSCLASS_CASH_TITLE.ordinal(), "Cash");
-        addTC(y, x++, BoardtypeEnum.CSSCLASS_CASH_TITLE.ordinal(), "Net");
+        addTC(y, x++, Hoteltype.CASH_TITLE, "Cash");
+        addTC(y, x++, Hoteltype.CASH_TITLE, "Net");
 
         ++y;
         x = 0;
         
         // player data (rows 1-6)
         for (int row=1; row<=6; ++row) {
-            addTC(y, x++, BoardtypeEnum.CSSCLASS_NOT_MY_TURN.ordinal(), " ");
+            addTC(y, x++, Hoteltype.NOT_MY_TURN, " ");
             for (int hotelType=1; hotelType<=7; ++hotelType) {
-                addTC(y, x++, BoardtypeEnum.CSSCLASS_HOLDINGS.ordinal(), " ");
+                addTC(y, x++, Hoteltype.HOLDINGS, " ");
             }
-            addTC(y, x++, BoardtypeEnum.CSSCLASS_CASH.ordinal(), "0");
-            addTC(y, x++, BoardtypeEnum.CSSCLASS_CASH.ordinal(), "0");
+            addTC(y, x++, Hoteltype.CASH, "0");
+            addTC(y, x++, Hoteltype.CASH, "0");
             
         	++y;
         	x = 0;
@@ -48,9 +48,9 @@ public class ScoreSheet extends JPanel implements ComponentListener {
         
         // hotel data (rows 7-9)
         for (int row=7; row<=9; ++row) {
-            addTC(y, x++, BoardtypeEnum.CSSCLASS_HCS_TITLE.ordinal(), " ");
+            addTC(y, x++, Hoteltype.HCS_TITLE, " ");
             for (int hotelType=1; hotelType<=7; ++hotelType) {
-                addTC(y, x++, BoardtypeEnum.CSSCLASS_HCS.ordinal(), " ");
+                addTC(y, x++, Hoteltype.HCS, " ");
             }
             
         	++y;

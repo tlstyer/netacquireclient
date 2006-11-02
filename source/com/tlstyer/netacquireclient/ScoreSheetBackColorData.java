@@ -2,8 +2,8 @@ public class ScoreSheetBackColorData {
 	private int[][] backgroundColors = new int[10][10];
 	private boolean dirty = true;
 	
-	private static final int colorvaluePlayer = Util.hoteltypeToColorvalueSwing(BoardtypeEnum.CSSCLASS_NOT_MY_TURN.ordinal());
-	private static final int colorvalueStats = Util.hoteltypeToColorvalueSwing(BoardtypeEnum.CSSCLASS_HCS.ordinal());
+	private static final int colorvaluePlayer = Util.hoteltypeToColorvalueSwing(Hoteltype.NOT_MY_TURN);
+	private static final int colorvalueStats = Util.hoteltypeToColorvalueSwing(Hoteltype.HCS);
 
 	public ScoreSheetBackColorData() {
 		init();

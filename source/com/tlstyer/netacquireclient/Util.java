@@ -250,21 +250,21 @@ public class Util {
 	
 	private static final Map<Integer, Integer> hashmapColorvalueToHoteltype = new HashMap<Integer, Integer>();
     static {
-        hashmapColorvalueToHoteltype.put(12648447, BoardtypeEnum.BOARDTYPE_NONE.ordinal());
-        hashmapColorvalueToHoteltype.put(255, BoardtypeEnum.BOARDTYPE_LUXOR.ordinal());
-        hashmapColorvalueToHoteltype.put(65535, BoardtypeEnum.BOARDTYPE_TOWER.ordinal());
-        hashmapColorvalueToHoteltype.put(16711680, BoardtypeEnum.BOARDTYPE_AMERICAN.ordinal());
-        hashmapColorvalueToHoteltype.put(65280, BoardtypeEnum.BOARDTYPE_FESTIVAL.ordinal());
-        hashmapColorvalueToHoteltype.put(16512, BoardtypeEnum.BOARDTYPE_WORLDWIDE.ordinal());
-        hashmapColorvalueToHoteltype.put(16776960, BoardtypeEnum.BOARDTYPE_CONTINENTAL.ordinal());
-        hashmapColorvalueToHoteltype.put(16711935, BoardtypeEnum.BOARDTYPE_IMPERIAL.ordinal());
-        hashmapColorvalueToHoteltype.put(0, BoardtypeEnum.BOARDTYPE_NOTHING_YET.ordinal());
-        hashmapColorvalueToHoteltype.put(8421504, BoardtypeEnum.BOARDTYPE_CANT_PLAY_EVER.ordinal());
-        hashmapColorvalueToHoteltype.put(10543359, BoardtypeEnum.BOARDTYPE_I_HAVE_THIS.ordinal());
-        hashmapColorvalueToHoteltype.put(12632256, BoardtypeEnum.BOARDTYPE_WILL_PUT_LONELY_TILE_DOWN.ordinal());
-        hashmapColorvalueToHoteltype.put(12648384, BoardtypeEnum.BOARDTYPE_HAVE_NEIGHBORING_TILE_TOO.ordinal());
-        hashmapColorvalueToHoteltype.put(16777215, BoardtypeEnum.BOARDTYPE_WILL_FORM_NEW_CHAIN.ordinal());
-        hashmapColorvalueToHoteltype.put(6316128, BoardtypeEnum.BOARDTYPE_CANT_PLAY_NOW.ordinal());
+        hashmapColorvalueToHoteltype.put(12648447, Hoteltype.NONE);
+        hashmapColorvalueToHoteltype.put(255, Hoteltype.LUXOR);
+        hashmapColorvalueToHoteltype.put(65535, Hoteltype.TOWER);
+        hashmapColorvalueToHoteltype.put(16711680, Hoteltype.AMERICAN);
+        hashmapColorvalueToHoteltype.put(65280, Hoteltype.FESTIVAL);
+        hashmapColorvalueToHoteltype.put(16512, Hoteltype.WORLDWIDE);
+        hashmapColorvalueToHoteltype.put(16776960, Hoteltype.CONTINENTAL);
+        hashmapColorvalueToHoteltype.put(16711935, Hoteltype.IMPERIAL);
+        hashmapColorvalueToHoteltype.put(0, Hoteltype.NOTHING_YET);
+        hashmapColorvalueToHoteltype.put(8421504, Hoteltype.CANT_PLAY_EVER);
+        hashmapColorvalueToHoteltype.put(10543359, Hoteltype.I_HAVE_THIS);
+        hashmapColorvalueToHoteltype.put(12632256, Hoteltype.WILL_PUT_LONELY_TILE_DOWN);
+        hashmapColorvalueToHoteltype.put(12648384, Hoteltype.HAVE_NEIGHBORING_TILE_TOO);
+        hashmapColorvalueToHoteltype.put(16777215, Hoteltype.WILL_FORM_NEW_CHAIN);
+        hashmapColorvalueToHoteltype.put(6316128, Hoteltype.CANT_PLAY_NOW);
 	}
 
 	public static int colorvalueToHoteltype(int colorvalue) {

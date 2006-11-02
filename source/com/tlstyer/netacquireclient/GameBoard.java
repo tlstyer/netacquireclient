@@ -6,7 +6,7 @@ public class GameBoard extends JPanel {
 	private GridLayout gridLayout = new GridLayout(9, 12, 2, 2);
 	private GameBoardData gameBoardData = new GameBoardData();
 	
-	private static final Color color_def = Util.hoteltypeToColor(BoardtypeEnum.BOARDTYPE_NONE.ordinal());
+	private static final Color color_def = Util.hoteltypeToColor(Hoteltype.NONE);
     
     public GameBoard() {
         setLayout(gridLayout);
