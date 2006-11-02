@@ -87,6 +87,35 @@ public class NetworkConnection {
 		    scoreSheetBackColorData.init();
 		}
 	}
+
+    private static final int COMMAND_AT = 1;
+    private static final int COMMAND_GC = 2;
+    private static final int COMMAND_GD = 3;
+    private static final int COMMAND_GM = 4;
+    private static final int COMMAND_GP = 5;
+    private static final int COMMAND_GT = 6;
+    private static final int COMMAND_LM = 7;
+    private static final int COMMAND_M  = 8;
+    private static final int COMMAND_SB = 9;
+    private static final int COMMAND_SP = 10;
+    private static final int COMMAND_SS = 11;
+    private static final int COMMAND_SV = 12;
+
+    private static final Map<String, Integer> hashmapCommand = new HashMap<String, Integer>();
+    static {
+        hashmapCommand.put("AT", COMMAND_AT);
+        hashmapCommand.put("GC", COMMAND_GC);
+        hashmapCommand.put("GD", COMMAND_GD);
+        hashmapCommand.put("GM", COMMAND_GM);
+        hashmapCommand.put("GP", COMMAND_GP);
+        hashmapCommand.put("GT", COMMAND_GT);
+        hashmapCommand.put("LM", COMMAND_LM);
+        hashmapCommand.put("M",  COMMAND_M );
+        hashmapCommand.put("SB", COMMAND_SB);
+        hashmapCommand.put("SP", COMMAND_SP);
+        hashmapCommand.put("SS", COMMAND_SS);
+        hashmapCommand.put("SV", COMMAND_SV);
+    }
 	
 	private boolean commandHandled;
 	
@@ -99,34 +128,28 @@ public class NetworkConnection {
 			dataRead = dataRead.substring(matcher.end(), dataRead.length());
 			Object[] command = Util.commandTextToJava(matcher.group(1));
 			
-			commandHandled = true;
-			
-			if (command[0].toString().equals("SB")) {
-				handleSB(command);
-			} else if (command[0].toString().equals("SV")) {
-				handleSV(command);
-			} else if (command[0].toString().equals("LM")) {
-				handleLM(command);
-			} else if (command[0].toString().equals("GM")) {
-				handleGM(command);
-			} else if (command[0].toString().equals("AT")) {
-				handleAT(command);
-			} else if (command[0].toString().equals("SP")) {
-				handleSP(command);
-			} else if (command[0].toString().equals("SS")) {
-				handleSS(command);
-			} else if (command[0].toString().equals("GT")) {
-				handleGT(command);
-			} else if (command[0].toString().equals("GC")) {
-				handleGC(command);
-			} else if (command[0].toString().equals("GP")) {
-				handleGP(command);
-			} else if (command[0].toString().equals("GD")) {
-				handleGD(command);
-			} else {
-				commandHandled = false;
-			}
-			
+            Integer commandInt = hashmapCommand.get(command[0].toString());
+            if (commandInt != null) {
+                commandHandled = true;
+                switch (commandInt) {
+                    case COMMAND_AT: handleAT(command); break;
+                    case COMMAND_GC: handleGC(command); break;
+                    case COMMAND_GD: handleGD(command); break;
+                    case COMMAND_GM: handleGM(command); break;
+                    case COMMAND_GP: handleGP(command); break;
+                    case COMMAND_GT: handleGT(command); break;
+                    case COMMAND_LM: handleLM(command); break;
+                    //case COMMAND_M: handleM(command); break;
+                    case COMMAND_SB: handleSB(command); break;
+                    case COMMAND_SP: handleSP(command); break;
+                    case COMMAND_SS: handleSS(command); break;
+                    case COMMAND_SV: handleSV(command); break;
+                    default: commandHandled = false; break;
+                }
+            } else {
+                commandHandled = false;
+            }
+
 			if (!commandHandled) {
 				Main.getMainFrame().lobby.append("Unhandled command: " + matcher.group(1));
 			}
