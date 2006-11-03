@@ -75,9 +75,14 @@ public class MainFrame extends JFrame implements ComponentListener {
         
         NetworkConnection networkConnection = new NetworkConnection();
 		Main.setNetworkConnection(networkConnection);
-        setMode(MODE_CONNECTING);
-		networkConnection.connect("localhost", 1001);
-		networkConnection.communicationLoop("tlstyer");
+        for (;;) {
+        	lobby.append("LOOP STARTING!");
+            //setMode(MODE_CONNECTING);
+    		boolean connected = networkConnection.connect("localhost", 1001);
+    		if (connected) {
+    			networkConnection.communicationLoop("tlstyer");
+    		}
+        }
     }
 
 	private int mode;

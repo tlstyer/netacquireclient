@@ -11,6 +11,8 @@ public class NetworkConnection {
 	private String ipOrURL;
 	private int port;
 	private String nickname;
+	
+	private Boolean connected = false;
 
     private String dataRead;
     private StringBuilder dataToWrite = new StringBuilder(10240);
@@ -29,7 +31,7 @@ public class NetworkConnection {
 	public NetworkConnection() {
 	}
 
-	public void connect(String ipOrURL_, int port_) {
+	public boolean connect(String ipOrURL_, int port_) {
 		ipOrURL = ipOrURL_;
 		port = port_;
 		
@@ -39,12 +41,35 @@ public class NetworkConnection {
 			socketChannel = SocketChannel.open(isa);
 			socketChannel.configureBlocking(false);
 			socketChannel.register(selector, SelectionKey.OP_READ);
+			setConnected(true);
 		} catch (IOException e) {
 			Main.getMainFrame().lobby.append(e.getMessage());
+			setConnected(false);
 		}
+		return isConnected();
 	}
 	
 	public void disconnect() {
+		synchronized(connected) {
+			if (connected) {
+				try {
+					socketChannel.close();
+			    } catch (IOException e) {
+			    	Main.getMainFrame().lobby.append(e.getMessage());
+			    }
+				connected = false;
+			}
+		}
+	}
+	
+	public boolean isConnected() {
+		return connected;
+	}
+	
+	private void setConnected(boolean connected_) {
+		synchronized(connected) {
+			connected = connected_;
+		}
 	}
 
 	public void communicationLoop(String nickname_) {
@@ -61,6 +86,9 @@ public class NetworkConnection {
             int keysAdded = 0;
 
             while (true) {
+            	if (!isConnected()) {
+            		return;
+            	}
             	keysAdded = selector.select(50);
             	if (keysAdded > 0) {
             	    Set readyKeys = selector.selectedKeys();
@@ -70,7 +98,10 @@ public class NetworkConnection {
     	        		i.remove();
             			if (sk.isReadable()) {
     	        			byteBuffer.clear();
-    	        			socketChannel.read(byteBuffer);
+    	        			int numRead = socketChannel.read(byteBuffer);
+    	        			if (numRead == -1) {
+    	        				setConnected(false);
+    	        			}
     	        			byteBuffer.flip();
     	        			dataRead += charsetDecoder.decode(byteBuffer);
     	        			processDataRead();
@@ -277,6 +308,10 @@ public class NetworkConnection {
 		int state = (Integer)command[1];
 		if (state == 6) {
 			state = MainFrame.MODE_IN_GAME;
+		}
+		if (state > 6) {
+			commandHandled = false;
+			return;
 		}
 		Main.getMainFrame().setMode(state);
 	}

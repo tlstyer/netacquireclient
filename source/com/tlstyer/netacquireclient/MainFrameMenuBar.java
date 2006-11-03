@@ -86,6 +86,7 @@ class MenuItemReinitialize extends MainFrameMenuItem {
     }
     
     public void doAction() {
+    	Main.getNetworkConnection().disconnect();
     }
 }
 
