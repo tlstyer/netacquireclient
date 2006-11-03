@@ -5,7 +5,9 @@ import javax.swing.*;
 
 /* A rectangle that has a fixed size. */
 class TextComponent extends JComponent {
-    private String text;
+	private static final long serialVersionUID = 8310329275352927342L;
+	
+	private String text;
     private Color colorBackground;
     private Color colorForeground;
     private int align;

@@ -3,6 +3,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class PurchaseDialog extends GameDialog implements ActionListener {
+	private static final long serialVersionUID = 5139854320030992006L;
+	
 	private boolean canEndGame;
 	private int howMuchMoney;
     private int[] available;
@@ -10,7 +12,6 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 
     private JButton[] buttonsAvailable;
     private boolean[] isAvailable;
-    private boolean[] canAfford;
 
     private JButton[] buttonsPurchased;
     private int[] selectedForPurchase;
@@ -46,8 +47,6 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 				isAvailable[index] = true;
 			}
 		}
-		
-		canAfford = new boolean[7];
 		
 		selectedForPurchase = new int[3];
 		for (int index=0; index<3; ++index) {

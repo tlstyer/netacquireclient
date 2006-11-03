@@ -2,6 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class MessageWindow extends JScrollPane {
+	private static final long serialVersionUID = 89083236981415606L;
+
 	private JTextArea textArea = new JTextArea();
 	
 	private static final Color colorBackground = new Color(192, 192, 255);

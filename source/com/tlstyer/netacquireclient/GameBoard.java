@@ -2,6 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class GameBoard extends JPanel {
+	private static final long serialVersionUID = -520919107548745846L;
+	
 	private TextComponent[][] board = new TextComponent[9][12];
 	private GridLayout gridLayout = new GridLayout(9, 12, 2, 2);
 	private GameBoardData gameBoardData = new GameBoardData();

@@ -3,6 +3,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class MainFrame extends JFrame implements ComponentListener {
+	private static final long serialVersionUID = 494783141808469259L;
+
 	public MainFrameMenuBar menuBar;
 	
 	private JPanel panel;

@@ -2,6 +2,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class PostMessageTextField extends JTextField implements ActionListener {
+	private static final long serialVersionUID = 8604009977121656758L;
+	
 	NetworkConnection networkConnection = null;
 	String type = null;
 	

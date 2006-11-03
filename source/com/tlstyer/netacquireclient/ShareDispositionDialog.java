@@ -4,7 +4,9 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 public class ShareDispositionDialog extends GameDialog implements ActionListener, ChangeListener {
-    private int numSharesOfTakenOverHotelIHave;
+	private static final long serialVersionUID = 5149132406543033949L;
+	
+	private int numSharesOfTakenOverHotelIHave;
     private int numAvailableOfSurvivor;
 
     // "Keep" panel
