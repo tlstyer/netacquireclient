@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
 
 public class Util {
@@ -332,6 +333,22 @@ public class Util {
 	
 	public static String hoteltypeToName(int hoteltype) {
 		return arrayHoteltypeToName[hoteltype];
+	}
+
+    // hoteltype to mnemonic
+	private static final int[] arrayHoteltypeToMnemonic = {
+		-1,            // BOARDTYPE_NONE
+		KeyEvent.VK_L, // BOARDTYPE_LUXOR
+		KeyEvent.VK_T, // BOARDTYPE_TOWER
+		KeyEvent.VK_A, // BOARDTYPE_AMERICAN
+		KeyEvent.VK_F, // BOARDTYPE_FESTIVAL
+		KeyEvent.VK_W, // BOARDTYPE_WORLDWIDE
+		KeyEvent.VK_C, // BOARDTYPE_CONTINENTAL
+		KeyEvent.VK_I, // BOARDTYPE_IMPERIAL
+	};
+	
+	public static int hoteltypeToMnemonic(int hoteltype) {
+		return arrayHoteltypeToMnemonic[hoteltype];
 	}
 
     // hoteltype to textalign

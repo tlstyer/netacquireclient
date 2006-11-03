@@ -62,6 +62,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 			String name = Util.hoteltypeToName(index + 1);
 			JButton button = new JButton(name);
 			buttonsAvailable[index] = button;
+			button.setMnemonic(Util.hoteltypeToMnemonic(index + 1));
 			button.setFont(FontManager.getFont());
 			button.setBackground(Util.hoteltypeToColor(index + 1));
 			button.setForeground(Color.black);
@@ -115,12 +116,14 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		JPanel panelETGOK= new JPanel(new GridLayout(0, 1));
 		
 		checkboxEndTheGame = new JCheckBox("End the game");
+		checkboxEndTheGame.setMnemonic(KeyEvent.VK_E);
 		if (!canEndGame) {
 			checkboxEndTheGame.setEnabled(false);
 		}
 		panelETGOK.add(checkboxEndTheGame);
 		
 		buttonOK = new JButton("Ok");
+		buttonOK.setMnemonic(KeyEvent.VK_O);
 		buttonOK.setActionCommand("10");
 		buttonOK.addActionListener(this);
 		panelETGOK.add(buttonOK);
