@@ -14,7 +14,7 @@ public class NetworkConnection {
 	
 	private Boolean connected = false;
 
-    private String dataRead;
+    private StringBuilder dataRead = new StringBuilder(10240);
     private StringBuilder dataToWrite = new StringBuilder(10240);
     
     private Selector selector;
@@ -75,7 +75,7 @@ public class NetworkConnection {
 	public void communicationLoop(String nickname_) {
 		nickname = nickname_;
 		
-		dataRead = "";
+		dataRead.delete(0, dataRead.length());
 		ByteBuffer byteBuffer = ByteBuffer.allocate(10240);
 		
 		synchronized(dataToWrite) {
@@ -103,7 +103,7 @@ public class NetworkConnection {
     	        				setConnected(false);
     	        			}
     	        			byteBuffer.flip();
-    	        			dataRead += charsetDecoder.decode(byteBuffer);
+    	        			dataRead.append(charsetDecoder.decode(byteBuffer));
     	        			processDataRead();
             			} else if (sk.isWritable()) {
             				synchronized(dataToWrite) {
@@ -173,8 +173,9 @@ public class NetworkConnection {
 			if (!matcher.find()) {
 				break;
 			}
-			dataRead = dataRead.substring(matcher.end(), dataRead.length());
-			Object[] command = Util.commandTextToJava(matcher.group(1));
+			String commandStr = matcher.group(1);
+			dataRead.delete(0, matcher.end());
+			Object[] command = Util.commandTextToJava(commandStr);
 			
             Integer commandInt = hashmapCommand.get(command[0].toString());
             if (commandInt != null) {
@@ -199,7 +200,7 @@ public class NetworkConnection {
             }
 
 			if (!commandHandled) {
-				Main.getMainFrame().lobby.append("Unhandled command: " + matcher.group(1));
+				Main.getMainFrame().lobby.append("Unhandled command: " + commandStr);
 			}
 		}
 		
