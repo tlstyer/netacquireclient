@@ -26,4 +26,8 @@ public class MessageWindow extends JScrollPane {
 	public void clear() {
 		textArea.setText(null);
 	}
+	
+	public Font getTextAreaFont() {
+		return textArea.getFont();
+	}
 }

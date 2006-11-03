@@ -48,6 +48,10 @@ public class MainFrame extends JFrame implements ComponentListener {
         scoreSheet = new ScoreSheet();
         gameRoom = new MessageWindow();
         gameRoomPost = new PostMessageTextField("Game Room");
+        
+        // use the same font in the entry areas as in the display areas
+        lobbyPost.setFont(lobby.getTextAreaFont());
+        gameRoomPost.setFont(gameRoom.getTextAreaFont());
     	
     	// layout the components
 		panel.add(gameBoard);
