@@ -13,7 +13,6 @@ public class NetworkConnection {
     
     private Selector selector;
     private SocketChannel socketChannel;
-    private SelectionKey selectionkey;
     private boolean isWritable = false;
     
     private GameBoardData gameBoardData = new GameBoardData();
@@ -37,7 +36,7 @@ public class NetworkConnection {
 	            InetSocketAddress isa = new InetSocketAddress("localhost", 1001);
 	            socketChannel = SocketChannel.open(isa);
 	            socketChannel.configureBlocking(false);
-	            selectionkey = socketChannel.register(selector, SelectionKey.OP_READ);
+	            socketChannel.register(selector, SelectionKey.OP_READ);
 			}
 
             int keysAdded = 0;
@@ -66,7 +65,7 @@ public class NetworkConnection {
                 					dataToWrite.delete(0, numWritten);
                 				}
                 				if (dataToWrite.length() == 0) {
-                		            selectionkey = socketChannel.register(selector, SelectionKey.OP_READ);
+                		            socketChannel.register(selector, SelectionKey.OP_READ);
                 					isWritable = false;
                 				}
             				}
@@ -173,7 +172,7 @@ public class NetworkConnection {
 			dataToWrite.append(message + ";:");
 			if (!isWritable) {
 				try {
-					selectionkey = socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+					socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
 					isWritable = true;
 				} catch (ClosedChannelException cce) {
 				}
