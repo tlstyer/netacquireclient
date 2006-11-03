@@ -40,6 +40,7 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 			JRadioButton radioButton = new JRadioButton(name);
 			radioButtons[index] = radioButton;
 			radioButtonGroup.add(radioButton);
+			radioButton.setMnemonic(Util.hoteltypeToMnemonic(index + 1));
 			radioButton.setFont(FontManager.getFont());
 			radioButton.setForeground(Util.hoteltypeToColor(index + 1));
 			if (!hotelOptions[index]) {
@@ -56,6 +57,7 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 		}
 		
 		buttonOK = new JButton("Ok");
+		buttonOK.setMnemonic(KeyEvent.VK_O);
 		buttonOK.addActionListener(this);
 		panel.add(buttonOK);
 		
