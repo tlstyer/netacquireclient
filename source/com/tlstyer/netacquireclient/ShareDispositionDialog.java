@@ -34,8 +34,8 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
     public ShareDispositionDialog(String nameOfTakenOverChain,
                                   int numSharesOfTakenOverHotelIHave_,
                                   int numAvailableOfSurvivor_,
-                                  int colorvalueOfSurvivor,
-                                  int colorvalueOfTakenOver) {
+                                  int hoteltypeOfSurvivor,
+                                  int hoteltypeOfTakenOver) {
 		super();
 
         numSharesOfTakenOverHotelIHave = numSharesOfTakenOverHotelIHave_;
@@ -54,7 +54,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 		JPanel panelKeepInternal = new JPanel(new GridLayout(1, 0));
 		panelKeepInternal.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black),
                                                                        BorderFactory.createEmptyBorder(3,10,3,10)));
-		panelKeepInternal.setBackground(new Color(Util.networkColorToSwingColor(colorvalueOfSurvivor)));
+		panelKeepInternal.setBackground(Util.hoteltypeToColor(hoteltypeOfSurvivor));
         panelKeep.add(panelKeepInternal);
 
         labelKeep = new JLabel();
@@ -73,7 +73,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 		JPanel panelTradeInternal = new JPanel(new GridLayout(1, 0));
 		panelTradeInternal.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black),
                                                                         BorderFactory.createEmptyBorder(3,10,3,10)));
-		panelTradeInternal.setBackground(new Color(Util.networkColorToSwingColor(colorvalueOfTakenOver)));
+		panelTradeInternal.setBackground(Util.hoteltypeToColor(hoteltypeOfTakenOver));
         panelTrade.add(panelTradeInternal);
 
         spinnerNumberModelTrade = new SpinnerNumberModel();

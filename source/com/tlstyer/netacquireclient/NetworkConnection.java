@@ -291,10 +291,19 @@ public class NetworkConnection {
 	}
 	
 	protected void handleGD(Object[] command) {
-        new ShareDispositionDialog((String)((Object[])command[1])[1],
-                                   (Integer)((Object[])command[1])[2],
-                                   (Integer)((Object[])command[1])[3],
-                                   (Integer)((Object[])command[1])[4],
-                                   (Integer)((Object[])command[1])[5]);
+		String nameOfTakenOverChain = (String)((Object[])command[1])[1]; 
+		int numSharesOfTakenOverHotelIHave = (Integer)((Object[])command[1])[2];
+		int numAvailableOfSurvivor = (Integer)((Object[])command[1])[3];
+		int colorvalueOfSurvivor = (Integer)((Object[])command[1])[4];
+		int colorvalueOfTakenOver = (Integer)((Object[])command[1])[5];
+
+		int hoteltypeOfSurvivor = Util.colorvalueToHoteltype(colorvalueOfSurvivor);
+		int hoteltypeOfTakenOver = Util.colorvalueToHoteltype(colorvalueOfTakenOver);
+
+        new ShareDispositionDialog(nameOfTakenOverChain,
+								   numSharesOfTakenOverHotelIHave,
+								   numAvailableOfSurvivor,
+								   hoteltypeOfSurvivor,
+								   hoteltypeOfTakenOver);
 	}
 }
