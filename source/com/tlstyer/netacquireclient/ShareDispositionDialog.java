@@ -56,6 +56,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
         panelKeep.add(panelKeepInternal);
 
         labelKeep = new JLabel();
+        labelKeep.setFont(FontManager.getBigFont());
         labelKeep.setHorizontalAlignment(JLabel.RIGHT);
         panelKeepInternal.add(labelKeep);
 		buttonAll = new JButton("All");
@@ -76,6 +77,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
         spinnerNumberModelTrade.setMinimum(0);
         spinnerNumberModelTrade.setStepSize(2);
         spinnerTrade = new JSpinner(spinnerNumberModelTrade);
+        spinnerTrade.setFont(FontManager.getBigFont());
         spinnerTrade.addChangeListener(this);
         panelTradeInternal.add(spinnerTrade);
 		buttonMaximum = new JButton("Maximum");
@@ -94,6 +96,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
         spinnerNumberModelSell = new SpinnerNumberModel();
         spinnerNumberModelSell.setMinimum(0);
         spinnerSell = new JSpinner(spinnerNumberModelSell);
+        spinnerSell.setFont(FontManager.getBigFont());
         spinnerSell.addChangeListener(this);
         panelSellInternal.add(spinnerSell);
 		buttonRemaining = new JButton("Remaining");
@@ -119,7 +122,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 	private void updateComponents() {
         numKeep = numSharesOfTakenOverHotelIHave - numTrade - numSell;
 
-        labelKeep.setText(numKeep.toString());
+        labelKeep.setText(numKeep.toString() + " ");
 		spinnerNumberModelTrade.setValue(numTrade);
 		spinnerNumberModelSell.setValue(numSell);
 
