@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -7,7 +6,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 	
 	private TextComponent[][] scoreSheet;
     private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
-    private ScoreSheetBackColorData scoreSheetBackColorData = new ScoreSheetBackColorData();
+    private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
     private int usedRows = 6;
 
     private static final String hotelTypeCharacters = "LTAFWCI";
@@ -135,7 +134,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     public void componentShown(ComponentEvent e) {
     }
 
-    public void sync(ScoreSheetCaptionData sscd, ScoreSheetBackColorData ssbcd) {
+    public void sync(ScoreSheetCaptionData sscd, ScoreSheetHoteltypeData sshtd) {
     	makeOnlyUsedRowsVisible(sscd);
     	for (int y=0; y<10; ++y) {
     		for (int x=0; x<10; ++x) {
@@ -163,10 +162,10 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     				scoreSheet[y][x].setText(caption.toString());
     				repaint = true;
     			}
-    			int backgroundColor = ssbcd.getBackColor(y, x);
-    			if (scoreSheetBackColorData.getBackColor(y, x) != backgroundColor) {
-    				scoreSheetBackColorData.setBackColor(y, x, backgroundColor);
-    				scoreSheet[y][x].setBackgroundColor(new Color(backgroundColor));
+    			int hoteltype = sshtd.getHoteltype(y, x);
+    			if (scoreSheetHoteltypeData.getHoteltype(y, x) != hoteltype) {
+    				scoreSheetHoteltypeData.setHoteltype(y, x, hoteltype);
+    				scoreSheet[y][x].setBackgroundColor(Util.hoteltypeToColor(hoteltype));
     				repaint = true;
     			}
     			if (repaint) {

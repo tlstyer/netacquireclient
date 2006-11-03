@@ -252,20 +252,30 @@ public class Util {
 	private static final Map<Integer, Integer> hashmapColorvalueToHoteltype = new HashMap<Integer, Integer>();
     static {
         hashmapColorvalueToHoteltype.put(12648447, Hoteltype.NONE);
-        hashmapColorvalueToHoteltype.put(255, Hoteltype.LUXOR);
-        hashmapColorvalueToHoteltype.put(65535, Hoteltype.TOWER);
+        hashmapColorvalueToHoteltype.put(255,      Hoteltype.LUXOR);
+        hashmapColorvalueToHoteltype.put(65535,    Hoteltype.TOWER);
         hashmapColorvalueToHoteltype.put(16711680, Hoteltype.AMERICAN);
-        hashmapColorvalueToHoteltype.put(65280, Hoteltype.FESTIVAL);
-        hashmapColorvalueToHoteltype.put(16512, Hoteltype.WORLDWIDE);
+        hashmapColorvalueToHoteltype.put(65280,    Hoteltype.FESTIVAL);
+        hashmapColorvalueToHoteltype.put(16512,    Hoteltype.WORLDWIDE);
         hashmapColorvalueToHoteltype.put(16776960, Hoteltype.CONTINENTAL);
         hashmapColorvalueToHoteltype.put(16711935, Hoteltype.IMPERIAL);
-        hashmapColorvalueToHoteltype.put(0, Hoteltype.NOTHING_YET);
-        hashmapColorvalueToHoteltype.put(8421504, Hoteltype.CANT_PLAY_EVER);
+        hashmapColorvalueToHoteltype.put(0,        Hoteltype.NOTHING_YET);
+        hashmapColorvalueToHoteltype.put(8421504,  Hoteltype.CANT_PLAY_EVER);
         hashmapColorvalueToHoteltype.put(10543359, Hoteltype.I_HAVE_THIS);
         hashmapColorvalueToHoteltype.put(12632256, Hoteltype.WILL_PUT_LONELY_TILE_DOWN);
         hashmapColorvalueToHoteltype.put(12648384, Hoteltype.HAVE_NEIGHBORING_TILE_TOO);
         hashmapColorvalueToHoteltype.put(16777215, Hoteltype.WILL_FORM_NEW_CHAIN);
-        hashmapColorvalueToHoteltype.put(6316128, Hoteltype.CANT_PLAY_NOW);
+        hashmapColorvalueToHoteltype.put(6316128,  Hoteltype.CANT_PLAY_NOW);
+        hashmapColorvalueToHoteltype.put(-1,       Hoteltype.EMPTY);
+        hashmapColorvalueToHoteltype.put(16761024, Hoteltype.PLAYER);
+        hashmapColorvalueToHoteltype.put(12632319, Hoteltype.MY_TURN);
+		//hashmapColorvalueToHoteltype.put(16777215, Hoteltype.NOT_MY_TURN);
+		//hashmapColorvalueToHoteltype.put(16777215, Hoteltype.HOLDINGS);
+        hashmapColorvalueToHoteltype.put(8438015,  Hoteltype.HOLDINGS_SAFE);
+        hashmapColorvalueToHoteltype.put(32768,    Hoteltype.CASH_TITLE);
+		//hashmapColorvalueToHoteltype.put(16777215, Hoteltype.CASH);
+        hashmapColorvalueToHoteltype.put(16777152, Hoteltype.HCS_TITLE);
+		//hashmapColorvalueToHoteltype.put(16777152, Hoteltype.HCS);
 	}
 
 	public static int colorvalueToHoteltype(int colorvalue) {

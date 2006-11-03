@@ -17,7 +17,7 @@ public class NetworkConnection {
     
     private GameBoardData gameBoardData = new GameBoardData();
     private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
-    private ScoreSheetBackColorData scoreSheetBackColorData = new ScoreSheetBackColorData();
+    private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
 
     private static final Pattern pattern = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
 
@@ -82,7 +82,7 @@ public class NetworkConnection {
 		if (mode <= MainFrame.MODE_IN_LOBBY) {
 			gameBoardData.init();
 		    scoreSheetCaptionData.init();
-		    scoreSheetBackColorData.init();
+		    scoreSheetHoteltypeData.init();
 		}
 	}
 
@@ -157,13 +157,13 @@ public class NetworkConnection {
 			Main.getMainFrame().gameBoard.sync(gameBoardData);
 			gameBoardData.clean();
 		}
-		if (scoreSheetCaptionData.isDirty() || scoreSheetBackColorData.isDirty()) {
+		if (scoreSheetCaptionData.isDirty() || scoreSheetHoteltypeData.isDirty()) {
 			if (scoreSheetCaptionData.isDirty()) {
 				Util.updateNetWorths(scoreSheetCaptionData, gameBoardData);
 			}
-			Main.getMainFrame().scoreSheet.sync(scoreSheetCaptionData, scoreSheetBackColorData);
+			Main.getMainFrame().scoreSheet.sync(scoreSheetCaptionData, scoreSheetHoteltypeData);
 			scoreSheetCaptionData.clean();
-			scoreSheetBackColorData.clean();
+			scoreSheetHoteltypeData.clean();
 		}
 	}
 	
@@ -207,10 +207,10 @@ public class NetworkConnection {
 			} else if (((String)((Object[])command[1])[3]).equals("BackColor")) {
 				int index = (Integer)((Object[])command[1])[2];
 				int color = (Integer)((Object[])command[1])[4];
-				color = Util.networkColorToSwingColor(color);
+				int hoteltype = Util.colorvalueToHoteltype(color);
 				Coordinate where = Util.scoreSheetIndexToCoordinate(index);
 				if (where != null) {
-					scoreSheetBackColorData.setBackColor(where.getY(), where.getX(), color);
+					scoreSheetHoteltypeData.setHoteltype(where.getY(), where.getX(), hoteltype);
 				}
 			} else {
 				commandHandled = false;
