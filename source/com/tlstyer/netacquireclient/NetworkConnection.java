@@ -13,7 +13,7 @@ public class NetworkConnection {
 	private String nickname;
 
     private String dataRead;
-    private StringBuffer dataToWrite;
+    private StringBuffer dataToWrite = new StringBuffer(10240);
     
     private Selector selector;
     private SocketChannel socketChannel;
@@ -24,29 +24,40 @@ public class NetworkConnection {
     private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
 
     private static final Pattern pattern = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
+	private static final Charset charsetDecoder = Charset.forName("US-ASCII");
 
-	public NetworkConnection(String ipOrURL_, int port_, String nickname_) {
-		Main.setNetworkConnection(this);
+	public NetworkConnection() {
+	}
 
+	public void connect(String ipOrURL_, int port_) {
 		ipOrURL = ipOrURL_;
 		port = port_;
+		
+		try {
+			selector = SelectorProvider.provider().openSelector();
+			InetSocketAddress isa = new InetSocketAddress(ipOrURL, port);
+			socketChannel = SocketChannel.open(isa);
+			socketChannel.configureBlocking(false);
+			socketChannel.register(selector, SelectionKey.OP_READ);
+		} catch (IOException e) {
+			Main.getMainFrame().lobby.append(e.getMessage());
+		}
+	}
+	
+	public void disconnect() {
+	}
+
+	public void communicationLoop(String nickname_) {
 		nickname = nickname_;
 		
 		dataRead = "";
 		ByteBuffer byteBuffer = ByteBuffer.allocate(10240);
-		Charset charsetDecoder = Charset.forName("US-ASCII");
 		
-		dataToWrite = new StringBuffer(10240);
+		synchronized(dataToWrite) {
+			dataToWrite.delete(0, dataToWrite.length());
+		}
 		
         try {
-			synchronized(dataToWrite) {
-	        	selector = SelectorProvider.provider().openSelector();
-	            InetSocketAddress isa = new InetSocketAddress(ipOrURL, port);
-	            socketChannel = SocketChannel.open(isa);
-	            socketChannel.configureBlocking(false);
-	            socketChannel.register(selector, SelectionKey.OP_READ);
-			}
-
             int keysAdded = 0;
 
             while (true) {
