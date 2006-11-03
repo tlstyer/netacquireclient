@@ -251,7 +251,7 @@ public class NetworkConnection {
 	}
 	
 	protected void handleSP(Object[] command) {
-		writeMessage("PL;tlsJava,2,0,2");
+		writeMessage("PL;tlstyer,2,0,2");
 	}
 	
 	protected void handleSS(Object[] command) {
