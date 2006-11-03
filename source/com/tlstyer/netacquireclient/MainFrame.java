@@ -74,7 +74,7 @@ public class MainFrame extends JFrame implements ComponentListener {
         });
         
         setMode(MODE_CONNECTING);
-        new NetworkConnection();
+        new NetworkConnection("localhost", 1001, "tlstyer");
     }
 
 	private int mode;

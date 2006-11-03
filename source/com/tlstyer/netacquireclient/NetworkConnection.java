@@ -8,6 +8,10 @@ import java.util.*;
 import java.util.regex.*;
 
 public class NetworkConnection {
+	private String ipOrURL;
+	private int port;
+	private String nickname;
+
     private String dataRead;
     private StringBuffer dataToWrite;
     
@@ -21,8 +25,12 @@ public class NetworkConnection {
 
     private static final Pattern pattern = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
 
-	public NetworkConnection() {
+	public NetworkConnection(String ipOrURL_, int port_, String nickname_) {
 		Main.setNetworkConnection(this);
+
+		ipOrURL = ipOrURL_;
+		port = port_;
+		nickname = nickname_;
 		
 		dataRead = "";
 		ByteBuffer byteBuffer = ByteBuffer.allocate(10240);
@@ -33,7 +41,7 @@ public class NetworkConnection {
         try {
 			synchronized(dataToWrite) {
 	        	selector = SelectorProvider.provider().openSelector();
-	            InetSocketAddress isa = new InetSocketAddress("localhost", 1001);
+	            InetSocketAddress isa = new InetSocketAddress(ipOrURL, port);
 	            socketChannel = SocketChannel.open(isa);
 	            socketChannel.configureBlocking(false);
 	            socketChannel.register(selector, SelectionKey.OP_READ);
@@ -251,7 +259,7 @@ public class NetworkConnection {
 	}
 	
 	protected void handleSP(Object[] command) {
-		writeMessage("PL;tlstyer,2,0,2");
+		writeMessage("PL;" + nickname + ",2,0,2");
 	}
 	
 	protected void handleSS(Object[] command) {
