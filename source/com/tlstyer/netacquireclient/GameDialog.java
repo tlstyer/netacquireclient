@@ -1,3 +1,4 @@
+import java.awt.*;
 import javax.swing.*;
 
 public class GameDialog extends JDialog {
@@ -15,6 +16,10 @@ public class GameDialog extends JDialog {
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setResizable(false);
 		pack();
+		ScoreSheet scoreSheet = Main.getMainFrame().scoreSheet;
+		Point location = scoreSheet.getLocationOnScreen();
+		location.translate(0, scoreSheet.getHeightOfAllRows());
+		setLocation(location);
 		setVisible(true);
 	}
 }

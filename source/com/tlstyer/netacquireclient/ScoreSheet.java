@@ -8,6 +8,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
     private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
     private int usedRows = 6;
+    private int heightOfAllRows = 0;
 
     private static final String hotelTypeCharacters = "LTAFWCI";
     private static final int[] columnWidths = {5, 1, 1, 1, 1, 1, 1, 1, 3, 3};
@@ -119,6 +120,12 @@ public class ScoreSheet extends JPanel implements ComponentListener {
             }
             ++displayY;
         }
+        
+        heightOfAllRows = componentHeight * (usedRows + 4);
+    }
+    
+    public int getHeightOfAllRows() {
+    	return heightOfAllRows;
     }
     
     public void componentHidden(ComponentEvent e) {
