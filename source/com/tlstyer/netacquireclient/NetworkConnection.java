@@ -173,9 +173,9 @@ public class NetworkConnection {
 			if (!matcher.find()) {
 				break;
 			}
-			String commandStr = matcher.group(1);
+			String commandString = matcher.group(1);
 			dataRead.delete(0, matcher.end());
-			Object[] command = Util.commandTextToJava(commandStr);
+			Object[] command = Util.commandTextToJava(commandString);
 			
             Integer commandInt = hashmapCommand.get(command[0].toString());
             if (commandInt != null) {
@@ -200,7 +200,7 @@ public class NetworkConnection {
             }
 
 			if (!commandHandled) {
-				Main.getMainFrame().lobby.append("Unhandled command: " + commandStr);
+				Main.getMainFrame().lobby.append("Unhandled command: " + commandString);
 			}
 		}
 		

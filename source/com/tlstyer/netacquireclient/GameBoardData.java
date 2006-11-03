@@ -1,5 +1,5 @@
 public class GameBoardData {
-	private int hotelTypes[][] = new int[9][12];
+	private int hoteltypes[][] = new int[9][12];
 	private boolean dirty = true;
 	
 	public GameBoardData() {
@@ -9,18 +9,18 @@ public class GameBoardData {
 	public void init() {
     	for (int y=0; y<9; ++y) {
     		for (int x=0; x<12; ++x) {
-    			hotelTypes[y][x] = Hoteltype.NONE;
+    			hoteltypes[y][x] = Hoteltype.NONE;
         	}
         }
     	dirty = true;
 	}
 	
 	public int getHoteltype(int y, int x) {
-		return hotelTypes[y][x];
+		return hoteltypes[y][x];
 	}
 	
 	public void setHoteltype(int y, int x, int hoteltype) {
-		hotelTypes[y][x] = hoteltype;
+		hoteltypes[y][x] = hoteltype;
 		dirty = true;
 	}
 	

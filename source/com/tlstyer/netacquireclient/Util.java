@@ -3,6 +3,9 @@ import java.awt.event.*;
 import java.util.*;
 
 public class Util {
+	private Util() {
+	}
+	
 	// network command munging functions
 	public static Object[] split(String command, String separator) {
 		String[] splitStringArray = command.split(separator, -1);
@@ -108,9 +111,9 @@ public class Util {
 		private int player;
 		private int amount;
 		
-		public playerOwnsAmount(int player, int amount) {
-			this.player = player;
-			this.amount = amount;
+		public playerOwnsAmount(int player_, int amount_) {
+			player = player_;
+			amount = amount_;
 		}
 		
 		public int getPlayer() {

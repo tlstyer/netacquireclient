@@ -37,7 +37,7 @@ class MainFrameMenuItem extends JMenuItem implements ActionListener {
     }
     
     public void actionPerformed(ActionEvent e) {
-    	Main.getMainFrame().lobby.append("Menu command: " + this.getText());
+    	Main.getMainFrame().lobby.append("Menu command: " + getText());
     	doAction();
     }
     
@@ -145,13 +145,13 @@ class MenuItemEnterGame extends MainFrameMenuItem {
     private String enterTypeLowercase;
     private Integer messageCode;
 
-    public MenuItemEnterGame(String enterType,
+    public MenuItemEnterGame(String enterType_,
                              Integer mnemonicAndAccelerator,
-                             Integer messageCode) {
-    	super(enterType + " Game", mnemonicAndAccelerator, null, mnemonicAndAccelerator);
-        this.enterType = enterType;
-        this.enterTypeLowercase = enterType.toLowerCase();
-        this.messageCode = messageCode;
+                             Integer messageCode_) {
+    	super(enterType_ + " Game", mnemonicAndAccelerator, null, mnemonicAndAccelerator);
+        enterType = enterType_;
+        enterTypeLowercase = enterType_.toLowerCase();
+        messageCode = messageCode_;
     }
     
     public void doAction() {

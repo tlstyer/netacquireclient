@@ -10,7 +10,7 @@ class TextComponent extends JComponent {
 	private String text;
     private Color colorBackground;
     private Color colorForeground;
-    private int align;
+    private int textAlign;
 
     static final int ALIGN_LEFT = 0;
     static final int ALIGN_CENTER = 1;
@@ -19,32 +19,30 @@ class TextComponent extends JComponent {
     static final int PADDING = 5;
     
     public TextComponent() {
-    	setText("text");
-    	setBackgroundColor(Color.black);
-    	setTextAlign(ALIGN_CENTER);
+    	this("text", Color.black, ALIGN_CENTER);
     }
     
-    public TextComponent(String t, Color c, int ta) {
-    	setText(t);
-    	setBackgroundColor(c);
-    	setTextAlign(ta);
+    public TextComponent(String text, Color colorBackground, int textAlign) {
+    	setText(text);
+    	setBackgroundColor(colorBackground);
+    	setTextAlign(textAlign);
     }
     
-    public void setText(String t) {
-    	text = t;
+    public void setText(String text_) {
+    	text = text_;
     }
     
-    public void setBackgroundColor(Color c) {
-    	colorBackground = c;
-    	if (c.getRed() == 0 && c.getGreen() == 0 && c.getBlue() == 0) {
+    public void setBackgroundColor(Color colorBackground_) {
+    	colorBackground = colorBackground_;
+    	if (colorBackground.getRed() == 0 && colorBackground.getGreen() == 0 && colorBackground.getBlue() == 0) {
     		colorForeground = Color.white;
     	} else {
     		colorForeground = Color.black;
     	}
     }
     
-    public void setTextAlign(int a) {
-    	align = a;
+    public void setTextAlign(int textAlign_) {
+    	textAlign = textAlign_;
     }
     
     public boolean isOpaque() {
@@ -72,15 +70,15 @@ class TextComponent extends JComponent {
         	fontY = tl.getBounds().getY();
         	gotFontHeight = true;
         }
-        TextLayout tl = new TextLayout(text, font, frc);
-        Rectangle2D r = tl.getBounds();
+        TextLayout textLayout = new TextLayout(text, font, frc);
+        Rectangle2D bounds = textLayout.getBounds();
         int x;
-        if (align == ALIGN_LEFT) {
+        if (textAlign == ALIGN_LEFT) {
         	x = PADDING;
-        } else if (align == ALIGN_CENTER) {
-            x = (int)((getWidth() - r.getWidth()) / 2);
+        } else if (textAlign == ALIGN_CENTER) {
+            x = (int)((getWidth() - bounds.getWidth()) / 2);
         } else { // align == ALIGN_RIGHT
-        	x = (int)(getWidth() - r.getWidth() - PADDING);
+        	x = (int)(getWidth() - bounds.getWidth() - PADDING);
         }
         int y = (int)((getHeight() - fontHeight) / 2 - fontY);
         g2d.drawString(text, x, y);

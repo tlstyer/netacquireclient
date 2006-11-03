@@ -65,16 +65,14 @@ public class MainFrame extends JFrame implements ComponentListener {
 		
         //Display the window.
 		pack();
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setVisible(true);
         
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-        		setExtendedState(JFrame.MAXIMIZED_BOTH);
-        		setVisible(true);
-            }
-        });
-        
+		// setup network connection
         NetworkConnection networkConnection = new NetworkConnection();
 		Main.setNetworkConnection(networkConnection);
+		
+		// main loop!
         for (;;) {
         	lobby.append("LOOP STARTING!");
             //setMode(MODE_CONNECTING);
@@ -103,8 +101,8 @@ public class MainFrame extends JFrame implements ComponentListener {
     private static final boolean[] visibilityInModesGameRoom           = {false, false, false, false,  true,  true};
     private static final boolean[] visibilityInModesGameRoomPost       = {false, false, false, false,  true,  true};
 	
-	public void setMode(int mode) {
-		this.mode = mode;
+	public void setMode(int mode_) {
+		mode = mode_;
 
         gameBoard.setVisible(visibilityInModesGameBoard[mode]);
         tileRackBackground.setVisible(visibilityInModesTileRackBackground[mode]);
@@ -118,7 +116,7 @@ public class MainFrame extends JFrame implements ComponentListener {
         menuBar.setMode(mode);
         NetworkConnection networkConnection = Main.getNetworkConnection();
         if (networkConnection != null) {
-            Main.getNetworkConnection().setMode(mode);
+        	networkConnection.setMode(mode);
         }
         
         if (mode <= MODE_CONNECTING) {

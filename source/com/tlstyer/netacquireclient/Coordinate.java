@@ -2,9 +2,9 @@ public class Coordinate {
 	private int y;
 	private int x;
 	
-	public Coordinate(int y, int x) {
-		this.y = y;
-		this.x = x;
+	public Coordinate(int y_, int x_) {
+		y = y_;
+		x = x_;
 	}
 	
 	public int getX() {

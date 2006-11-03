@@ -29,8 +29,6 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
                           int howMuchMoney_,
                           int[] available_,
                           int[] price_) {
-		super();
-		
 		canEndGame = canEndGame_;
 		howMuchMoney = howMuchMoney_;
         available = available_;
