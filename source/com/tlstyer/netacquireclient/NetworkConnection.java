@@ -190,26 +190,41 @@ public class NetworkConnection {
 	}
 	
 	protected void handleSV(Object[] command) {
-		if (((String)((Object[])command[1])[3]).equals("Caption")) {
-			int index = (Integer)((Object[])command[1])[2];
-			Object what = ((Object[])command[1])[4];
-			if (index > 7 && (what.toString().equals("") || what.toString().equals("-  "))) {
-				what = 0;
+		if (((String)((Object[])command[1])[0]).equals("frmScoreSheet") &&
+			((String)((Object[])command[1])[1]).equals("lblData")) {
+			if (((String)((Object[])command[1])[3]).equals("Caption")) {
+				int index = (Integer)((Object[])command[1])[2];
+				Object what = ((Object[])command[1])[4];
+				if (index > 7 && (what.toString().equals("") || what.toString().equals("-  "))) {
+					what = 0;
+				}
+				if (index >= 82 && index <= 88) {
+					what = ((Integer)what) / 100;
+				}
+				Coordinate where = Util.scoreSheetIndexToCoordinate(index);
+				if (where != null) {
+					scoreSheetCaptionData.setCaption(where.getY(), where.getX(), what);
+				}
+			} else if (((String)((Object[])command[1])[3]).equals("BackColor")) {
+				int index = (Integer)((Object[])command[1])[2];
+				int color = (Integer)((Object[])command[1])[4];
+				color = Util.networkColorToSwingColor(color);
+				Coordinate where = Util.scoreSheetIndexToCoordinate(index);
+				if (where != null) {
+					scoreSheetBackColorData.setBackColor(where.getY(), where.getX(), color);
+				}
+			} else {
+				commandHandled = false;
 			}
-			if (index >= 82 && index <= 88) {
-				what = ((Integer)what) / 100;
-			}
-			Coordinate where = Util.scoreSheetIndexToCoordinate(index);
-			if (where != null) {
-				scoreSheetCaptionData.setCaption(where.getY(), where.getX(), what);
-			}
-		} else if (((String)((Object[])command[1])[3]).equals("BackColor")) {
-			int index = (Integer)((Object[])command[1])[2];
-			int color = (Integer)((Object[])command[1])[4];
-			color = Util.networkColorToSwingColor(color);
-			Coordinate where = Util.scoreSheetIndexToCoordinate(index);
-			if (where != null) {
-				scoreSheetBackColorData.setBackColor(where.getY(), where.getX(), color);
+		} else if (((String)((Object[])command[1])[0]).equals("frmTileRack") &&
+				   ((String)((Object[])command[1])[1]).equals("cmdTile")) {
+			if (((String)((Object[])command[1])[3]).equals("Visible")) {
+				int tileRackIndex = (Integer)((Object[])command[1])[2];
+				boolean visible = ((Integer)((Object[])command[1])[4] != 0 ? true : false);
+		        int index = tileRackIndex - 1;
+		        Main.getMainFrame().tileRack.setButtonVisible(index, visible);
+			} else {
+				commandHandled = false;
 			}
 		} else {
 			commandHandled = false;
