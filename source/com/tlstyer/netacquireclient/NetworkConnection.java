@@ -13,7 +13,7 @@ public class NetworkConnection {
 	private String nickname;
 
     private String dataRead;
-    private StringBuffer dataToWrite = new StringBuffer(10240);
+    private StringBuilder dataToWrite = new StringBuilder(10240);
     
     private Selector selector;
     private SocketChannel socketChannel;
