@@ -60,6 +60,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
         labelKeep.setHorizontalAlignment(JLabel.RIGHT);
         panelKeepInternal.add(labelKeep);
 		buttonAll = new JButton("All");
+		buttonAll.setMnemonic(KeyEvent.VK_A);
 		buttonAll.addActionListener(this);
         panelKeepInternal.add(buttonAll);
 
@@ -81,6 +82,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
         spinnerTrade.addChangeListener(this);
         panelTradeInternal.add(spinnerTrade);
 		buttonMaximum = new JButton("Maximum");
+		buttonMaximum.setMnemonic(KeyEvent.VK_M);
 		buttonMaximum.addActionListener(this);
         panelTradeInternal.add(buttonMaximum);
 
@@ -100,11 +102,13 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
         spinnerSell.addChangeListener(this);
         panelSellInternal.add(spinnerSell);
 		buttonRemaining = new JButton("Remaining");
+		buttonRemaining.setMnemonic(KeyEvent.VK_R);
 		buttonRemaining.addActionListener(this);
         panelSellInternal.add(buttonRemaining);
 
         // OK button
 		buttonOK = new JButton("Ok");
+		buttonOK.setMnemonic(KeyEvent.VK_O);
 		buttonOK.addActionListener(this);
 
 		// put them all together
