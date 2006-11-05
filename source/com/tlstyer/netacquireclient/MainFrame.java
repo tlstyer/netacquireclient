@@ -7,7 +7,7 @@ public class MainFrame extends JFrame implements ComponentListener {
 
 	public MainFrameMenuBar menuBar;
 	
-	private JPanel panel;
+	public JPanel panel;
 
     public GameBoard gameBoard;
     public TextComponent tileRackBackground;
@@ -18,6 +18,11 @@ public class MainFrame extends JFrame implements ComponentListener {
     public MessageWindow gameRoom;
     public PostMessageTextField gameRoomPost;
 	
+	private String nickname;
+	private String ipurl;
+	private int port;
+	private boolean gotConnectionParams;
+
 	public MainFrame() {
 		Main.setMainFrame(this);
 		
@@ -70,6 +75,7 @@ public class MainFrame extends JFrame implements ComponentListener {
         //Display the window.
 		pack();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setMode(MODE_NOT_CONNECTED);
 		setVisible(true);
         
 		// setup network connection
@@ -78,14 +84,30 @@ public class MainFrame extends JFrame implements ComponentListener {
 		
 		// main loop!
         for (;;) {
-        	lobby.append("LOOP STARTING!");
-            //setMode(MODE_CONNECTING);
-    		boolean connected = networkConnection.connect("localhost", 1001);
+    		setMode(MODE_NOT_CONNECTED);
+        	gotConnectionParams = false;
+        	new CommunicationsDialog();
+        	do {
+        		try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+				}
+        	} while (!gotConnectionParams);
+            setMode(MODE_CONNECTING);
+            lobby.append("# connecting to " + ipurl + ":" + port + " as " + nickname + " ...");
+    		boolean connected = networkConnection.connect(ipurl, port);
     		if (connected) {
-    			networkConnection.communicationLoop("tlstyer");
+    			networkConnection.communicationLoop(nickname);
     		}
         }
     }
+	
+	public void setConnectionParams(String nickname_, String ipurl_, int port_) {
+		nickname = nickname_;
+		ipurl = ipurl_;
+		port = port_;
+		gotConnectionParams = true;
+	}
 
 	private int mode;
 

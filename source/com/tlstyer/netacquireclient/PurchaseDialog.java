@@ -137,7 +137,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		
 		updateComponents();
 		
-		showGameDialog();
+		showGameDialog(GameDialog.POSITION_BELOW_SCORE_SHEET);
 	}
 	
 	private void updateComponents() {

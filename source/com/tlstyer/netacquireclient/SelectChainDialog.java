@@ -60,7 +60,7 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 		buttonOK.addActionListener(this);
 		panel.add(buttonOK);
 		
-		showGameDialog();
+		showGameDialog(GameDialog.POSITION_BELOW_SCORE_SHEET);
 	}
 	
     public void actionPerformed(ActionEvent e) {

@@ -10,16 +10,25 @@ public class GameDialog extends JDialog {
 		super(Main.getMainFrame());
 	}
 	
-	public void showGameDialog() {
+	public static final int POSITION_0_0 = 1;
+	public static final int POSITION_BELOW_SCORE_SHEET = 2;
+	
+	public void showGameDialog(int position) {
 		panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		setContentPane(panel);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setResizable(false);
 		pack();
-		ScoreSheet scoreSheet = Main.getMainFrame().scoreSheet;
-		Point location = scoreSheet.getLocationOnScreen();
-		location.translate(0, scoreSheet.getHeightOfAllRows());
-		setLocation(location);
+		if (position == POSITION_0_0) {
+			JPanel panel = Main.getMainFrame().panel;
+			Point location = panel.getLocationOnScreen();
+			setLocation(location);
+		} else if (position == POSITION_BELOW_SCORE_SHEET) {
+			ScoreSheet scoreSheet = Main.getMainFrame().scoreSheet;
+			Point location = scoreSheet.getLocationOnScreen();
+			location.translate(0, scoreSheet.getHeightOfAllRows());
+			setLocation(location);
+		}
 		setVisible(true);
 	}
 }
