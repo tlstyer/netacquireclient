@@ -82,7 +82,7 @@ public class Util {
 		}
     	for (int y=0; y<9; ++y) {
     		for (int x=0; x<12; ++x) {
-    			int hoteltype = gbd.getHoteltype(y, x);
+    			int hoteltype = gbd.getHoteltype(x, y);
     			if (hoteltype >= 1 && hoteltype <= 7) {
     				existing[hoteltype - 1] = true;
     			}
@@ -102,7 +102,7 @@ public class Util {
 	private static int[] getPlayerDataAsIntegers(ScoreSheetCaptionData sscd, int numPlayers, int column) {
 		int[] playerData = new int[numPlayers];
 		for (int player=1; player<=numPlayers; ++player) {
-			playerData[player - 1] = Util.getAsInteger(sscd.getCaption(player, column));
+			playerData[player - 1] = Util.getAsInteger(sscd.getCaption(column, player));
 		}
 		return playerData;
 	}
@@ -228,7 +228,7 @@ public class Util {
 		int[] moreMoney;
 		for (int chain=1; chain<=7; ++chain) {
 			int[] holdings = Util.getPlayerDataAsIntegers(sscd, numPlayers, chain);
-			int price = Util.getAsInteger(sscd.getCaption(9, chain));
+			int price = Util.getAsInteger(sscd.getCaption(chain, 9));
 			
 			if (existingHotels[chain - 1]) {
 				moreMoney = Util.getBonuses(holdings, price);
@@ -240,7 +240,7 @@ public class Util {
 		}
 		
 		for (int player=0; player<money.length; ++player) {
-			sscd.setCaption(player + 1, 9, (Integer)money[player]);
+			sscd.setCaption(9, player + 1, (Integer)money[player]);
 		}
 	}
 
@@ -404,22 +404,22 @@ public class Util {
     // score sheet index to point
 	private static final Point[] arrayScoreSheetIndexToPoint = {
         null,
-        new Point(0, 1), new Point(0, 2), new Point(0, 3), new Point(0, 4), new Point(0, 5), new Point(0, 6), null,                 // 01-07 Players
+        new Point(0, 1), new Point(0, 2), new Point(0, 3), new Point(0, 4), new Point(0, 5), new Point(0, 6), null,            // 01-07 Players
         null,
         new Point(1, 7), new Point(2, 7), new Point(3, 7), new Point(4, 7), new Point(5, 7), new Point(6, 7), new Point(7, 7), // 09-15 Available
         null,                                                                                                                                                                          
         new Point(1, 8), new Point(2, 8), new Point(3, 8), new Point(4, 8), new Point(5, 8), new Point(6, 8), new Point(7, 8), // 17-23 Chain Size
         null,                                                                                                                                                                          
         new Point(1, 9), new Point(2, 9), new Point(3, 9), new Point(4, 9), new Point(5, 9), new Point(6, 9), new Point(7, 9), // 25-31 Price ($00)
-        null,                                                                                                                                                                          
-        new Point(1, 1), new Point(1, 2), new Point(1, 3), new Point(1, 4), new Point(1, 5), new Point(1, 6), null,                 // 33-39 Luxor
-        new Point(2, 1), new Point(2, 2), new Point(2, 3), new Point(2, 4), new Point(2, 5), new Point(2, 6), null,                 // 40-46 Tower
-        new Point(3, 1), new Point(3, 2), new Point(3, 3), new Point(3, 4), new Point(3, 5), new Point(3, 6), null,                 // 47-53 American
-        new Point(4, 1), new Point(4, 2), new Point(4, 3), new Point(4, 4), new Point(4, 5), new Point(4, 6), null,                 // 54-60 Festival
-        new Point(5, 1), new Point(5, 2), new Point(5, 3), new Point(5, 4), new Point(5, 5), new Point(5, 6), null,                 // 61-67 Worldwide
-        new Point(6, 1), new Point(6, 2), new Point(6, 3), new Point(6, 4), new Point(6, 5), new Point(6, 6), null,                 // 68-74 Continental
-        new Point(7, 1), new Point(7, 2), new Point(7, 3), new Point(7, 4), new Point(7, 5), new Point(7, 6), null,                 // 75-81 Imperial
-        new Point(8, 1), new Point(8, 2), new Point(8, 3), new Point(8, 4), new Point(8, 5), new Point(8, 6), null,                 // 82-88 Cash
+        null,                                                                                                                                                                     
+        new Point(1, 1), new Point(1, 2), new Point(1, 3), new Point(1, 4), new Point(1, 5), new Point(1, 6), null,            // 33-39 Luxor
+        new Point(2, 1), new Point(2, 2), new Point(2, 3), new Point(2, 4), new Point(2, 5), new Point(2, 6), null,            // 40-46 Tower
+        new Point(3, 1), new Point(3, 2), new Point(3, 3), new Point(3, 4), new Point(3, 5), new Point(3, 6), null,            // 47-53 American
+        new Point(4, 1), new Point(4, 2), new Point(4, 3), new Point(4, 4), new Point(4, 5), new Point(4, 6), null,            // 54-60 Festival
+        new Point(5, 1), new Point(5, 2), new Point(5, 3), new Point(5, 4), new Point(5, 5), new Point(5, 6), null,            // 61-67 Worldwide
+        new Point(6, 1), new Point(6, 2), new Point(6, 3), new Point(6, 4), new Point(6, 5), new Point(6, 6), null,            // 68-74 Continental
+        new Point(7, 1), new Point(7, 2), new Point(7, 3), new Point(7, 4), new Point(7, 5), new Point(7, 6), null,            // 75-81 Imperial
+        new Point(8, 1), new Point(8, 2), new Point(8, 3), new Point(8, 4), new Point(8, 5), new Point(8, 6), null,            // 82-88 Cash
 	};
 	
 	public static Point scoreSheetIndexToPoint(int index) {
@@ -429,14 +429,14 @@ public class Util {
 	// misc. functions
 	private static final String letters = "ABCDEFGHI";
 
-	public static String pointToNumberAndLetter(int y, int x) {
+	public static String pointToNumberAndLetter(int x, int y) {
 		return Integer.toString(x + 1) + letters.charAt(y);
 	}
 	
 	public static int[] getHotelDataAsIntegers(ScoreSheetCaptionData sscd, int row) {
 		int[] hotelData = new int[7];
 		for (int column=1; column<=7; ++column) {
-			hotelData[column - 1] = Util.getAsInteger(sscd.getCaption(row, column));
+			hotelData[column - 1] = Util.getAsInteger(sscd.getCaption(column, row));
 		}
 		return hotelData;
 	}
@@ -447,7 +447,7 @@ public class Util {
 	
 	public static int getNumberOfPlayers(ScoreSheetCaptionData sscd) {
 		for (int index=1; index<=6; ++index) {
-			if (sscd.getCaption(index, 0) == null) {
+			if (sscd.getCaption(0, index) == null) {
 				return index - 1;
 			}
 		}

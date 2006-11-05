@@ -15,11 +15,11 @@ public class GameBoardData {
     	dirty = true;
 	}
 	
-	public int getHoteltype(int y, int x) {
+	public int getHoteltype(int x, int y) {
 		return hoteltypes[y][x];
 	}
 	
-	public void setHoteltype(int y, int x, int hoteltype) {
+	public void setHoteltype(int x, int y, int hoteltype) {
 		hoteltypes[y][x] = hoteltype;
 		dirty = true;
 	}

@@ -15,11 +15,11 @@ public class ScoreSheetCaptionData {
     	dirty = true;
 	}
 	
-	public Object getCaption(int y, int x) {
+	public Object getCaption(int x, int y) {
 		return captions[y][x];
 	}
 	
-	public void setCaption(int y, int x, Object caption) {
+	public void setCaption(int x, int y, Object caption) {
 		captions[y][x] = caption;
 		dirty = true;
 	}

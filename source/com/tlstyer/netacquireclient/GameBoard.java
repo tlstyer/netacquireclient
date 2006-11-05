@@ -25,7 +25,7 @@ public class GameBoard extends JPanel {
     	for (int y=0; y<9; ++y) {
     		for (int x=0; x<12; ++x) {
     			board[y][x].setBackgroundColor(color_def);
-    			board[y][x].setText(Util.pointToNumberAndLetter(y, x));
+    			board[y][x].setText(Util.pointToNumberAndLetter(x, y));
     			board[y][x].setTextAlign(TextComponent.ALIGN_CENTER);
         	}
         }
@@ -35,9 +35,9 @@ public class GameBoard extends JPanel {
     public void sync(GameBoardData gbd) {
     	for (int y=0; y<9; ++y) {
     		for (int x=0; x<12; ++x) {
-    			int hoteltype = gbd.getHoteltype(y, x);
-    			if (gameBoardData.getHoteltype(y, x) != hoteltype) {
-    				gameBoardData.setHoteltype(y, x, hoteltype);
+    			int hoteltype = gbd.getHoteltype(x, y);
+    			if (gameBoardData.getHoteltype(x, y) != hoteltype) {
+    				gameBoardData.setHoteltype(x, y, hoteltype);
     				board[y][x].setBackgroundColor(Util.hoteltypeToColor(hoteltype));
     				board[y][x].repaint();
     			}

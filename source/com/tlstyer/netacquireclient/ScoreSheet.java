@@ -25,24 +25,24 @@ public class ScoreSheet extends JPanel implements ComponentListener {
         int x = 0;
         
         // header (row 0)
-        addTC(y, x++, Hoteltype.PLAYER, "Player");
+        addTC(x++, y, Hoteltype.PLAYER, "Player");
         for (int hotelType=1; hotelType<=7; ++hotelType) {
-            addTC(y, x++, hotelType, "" + hotelTypeCharacters.charAt(hotelType - 1));
+            addTC(x++, y, hotelType, "" + hotelTypeCharacters.charAt(hotelType - 1));
         }
-        addTC(y, x++, Hoteltype.CASH_TITLE, "Cash");
-        addTC(y, x++, Hoteltype.CASH_TITLE, "Net");
+        addTC(x++, y, Hoteltype.CASH_TITLE, "Cash");
+        addTC(x++, y, Hoteltype.CASH_TITLE, "Net");
 
         ++y;
         x = 0;
         
         // player data (rows 1-6)
         for (int row=1; row<=6; ++row) {
-            addTC(y, x++, Hoteltype.NOT_MY_TURN, " ");
+            addTC(x++, y, Hoteltype.NOT_MY_TURN, " ");
             for (int hotelType=1; hotelType<=7; ++hotelType) {
-                addTC(y, x++, Hoteltype.HOLDINGS, " ");
+                addTC(x++, y, Hoteltype.HOLDINGS, " ");
             }
-            addTC(y, x++, Hoteltype.CASH, "0");
-            addTC(y, x++, Hoteltype.CASH, "0");
+            addTC(x++, y, Hoteltype.CASH, "0");
+            addTC(x++, y, Hoteltype.CASH, "0");
             
         	++y;
         	x = 0;
@@ -50,9 +50,9 @@ public class ScoreSheet extends JPanel implements ComponentListener {
         
         // hotel data (rows 7-9)
         for (int row=7; row<=9; ++row) {
-            addTC(y, x++, Hoteltype.HCS_TITLE, " ");
+            addTC(x++, y, Hoteltype.HCS_TITLE, " ");
             for (int hotelType=1; hotelType<=7; ++hotelType) {
-                addTC(y, x++, Hoteltype.HCS, " ");
+                addTC(x++, y, Hoteltype.HCS, " ");
             }
             
         	++y;
@@ -63,7 +63,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 		scoreSheet[9][0].setText("Price ($00)");
 	}
 
-    protected void addTC(int y, int x, int hotelType, String text) {
+    protected void addTC(int x, int y, int hotelType, String text) {
     	TextComponent textComponent = new TextComponent();
     	textComponent.setBackgroundColor(Util.hoteltypeToColor(hotelType));
     	textComponent.setText(text);
@@ -146,9 +146,9 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     	for (int y=0; y<10; ++y) {
     		for (int x=0; x<10; ++x) {
     			boolean repaint = false;
-    			Object caption = sscd.getCaption(y, x);
-    			if (scoreSheetCaptionData.getCaption(y, x) != caption) {
-    				scoreSheetCaptionData.setCaption(y, x, caption);
+    			Object caption = sscd.getCaption(x, y);
+    			if (scoreSheetCaptionData.getCaption(x, y) != caption) {
+    				scoreSheetCaptionData.setCaption(x, y, caption);
     				if (caption == null) {
     					caption = 0;
     				}
@@ -169,9 +169,9 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     				scoreSheet[y][x].setText(caption.toString());
     				repaint = true;
     			}
-    			int hoteltype = sshtd.getHoteltype(y, x);
-    			if (scoreSheetHoteltypeData.getHoteltype(y, x) != hoteltype) {
-    				scoreSheetHoteltypeData.setHoteltype(y, x, hoteltype);
+    			int hoteltype = sshtd.getHoteltype(x, y);
+    			if (scoreSheetHoteltypeData.getHoteltype(x, y) != hoteltype) {
+    				scoreSheetHoteltypeData.setHoteltype(x, y, hoteltype);
     				scoreSheet[y][x].setBackgroundColor(Util.hoteltypeToColor(hoteltype));
     				repaint = true;
     			}
