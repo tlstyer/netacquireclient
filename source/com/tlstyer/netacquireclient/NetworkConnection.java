@@ -1,3 +1,5 @@
+import java.awt.*;
+import java.awt.event.*;
 import java.io.*;
 import java.net.*;
 import java.nio.*;
@@ -234,9 +236,9 @@ public class NetworkConnection {
 	protected void handleSB(Object[] command) {
 		int index = (Integer)((Object[])command[1])[0];
 		int color = (Integer)((Object[])command[1])[1];
-		Coordinate coord = Util.gameBoardIndexToCoordinate(index);
+		Point point = Util.gameBoardIndexToPoint(index);
 		int hoteltype = Util.colorvalueToHoteltype(color);
-		gameBoardData.setHoteltype(coord.getY(), coord.getX(), hoteltype);
+		gameBoardData.setHoteltype(point.y, point.x, hoteltype);
 	}
 	
 	protected void handleSV(Object[] command) {
@@ -251,17 +253,17 @@ public class NetworkConnection {
 				if (index >= 82 && index <= 88) {
 					what = ((Integer)what) / 100;
 				}
-				Coordinate where = Util.scoreSheetIndexToCoordinate(index);
+				Point where = Util.scoreSheetIndexToPoint(index);
 				if (where != null) {
-					scoreSheetCaptionData.setCaption(where.getY(), where.getX(), what);
+					scoreSheetCaptionData.setCaption(where.y, where.x, what);
 				}
 			} else if (((String)((Object[])command[1])[3]).equals("BackColor")) {
 				int index = (Integer)((Object[])command[1])[2];
 				int color = (Integer)((Object[])command[1])[4];
 				int hoteltype = Util.colorvalueToHoteltype(color);
-				Coordinate where = Util.scoreSheetIndexToCoordinate(index);
+				Point where = Util.scoreSheetIndexToPoint(index);
 				if (where != null) {
-					scoreSheetHoteltypeData.setHoteltype(where.getY(), where.getX(), hoteltype);
+					scoreSheetHoteltypeData.setHoteltype(where.y, where.x, hoteltype);
 				}
 			} else {
 				commandHandled = false;
@@ -294,11 +296,11 @@ public class NetworkConnection {
 		int gameBoardIndex = (Integer)((Object[])command[1])[1];
 		int tileRackColor = (Integer)((Object[])command[1])[2];
         int index = tileRackIndex - 1;
-		Coordinate coord = Util.gameBoardIndexToCoordinate(gameBoardIndex);
-		String label = Util.coordsToNumberAndLetter(coord.getY(), coord.getX());
+		Point point = Util.gameBoardIndexToPoint(gameBoardIndex);
+		String label = Util.pointToNumberAndLetter(point.y, point.x);
 		int hoteltype = Util.colorvalueToHoteltype(tileRackColor);
 		Main.getMainFrame().tileRack.setButton(index, label, hoteltype);
-		gameBoardData.setHoteltype(coord.getY(), coord.getX(), Hoteltype.I_HAVE_THIS);
+		gameBoardData.setHoteltype(point.y, point.x, Hoteltype.I_HAVE_THIS);
 	}
 	
 	protected void handleSP(Object[] command) {

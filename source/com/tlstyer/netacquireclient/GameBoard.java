@@ -25,7 +25,7 @@ public class GameBoard extends JPanel {
     	for (int y=0; y<9; ++y) {
     		for (int x=0; x<12; ++x) {
     			board[y][x].setBackgroundColor(color_def);
-    			board[y][x].setText(Util.coordsToNumberAndLetter(y, x));
+    			board[y][x].setText(Util.pointToNumberAndLetter(y, x));
     			board[y][x].setTextAlign(TextComponent.ALIGN_CENTER);
         	}
         }

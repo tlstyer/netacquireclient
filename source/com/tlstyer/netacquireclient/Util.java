@@ -401,35 +401,35 @@ public class Util {
 		return arrayHoteltypeToTextalign[hoteltype];
 	}
 
-    // score sheet index to coordinate
-	private static final Coordinate[] arrayScoreSheetIndexToCoordinate = {
+    // score sheet index to point
+	private static final Point[] arrayScoreSheetIndexToPoint = {
         null,
-        new Coordinate(0, 1), new Coordinate(0, 2), new Coordinate(0, 3), new Coordinate(0, 4), new Coordinate(0, 5), new Coordinate(0, 6), null,                 // 01-07 Players
+        new Point(0, 1), new Point(0, 2), new Point(0, 3), new Point(0, 4), new Point(0, 5), new Point(0, 6), null,                 // 01-07 Players
         null,
-        new Coordinate(1, 7), new Coordinate(2, 7), new Coordinate(3, 7), new Coordinate(4, 7), new Coordinate(5, 7), new Coordinate(6, 7), new Coordinate(7, 7), // 09-15 Available
+        new Point(1, 7), new Point(2, 7), new Point(3, 7), new Point(4, 7), new Point(5, 7), new Point(6, 7), new Point(7, 7), // 09-15 Available
         null,                                                                                                                                                                          
-        new Coordinate(1, 8), new Coordinate(2, 8), new Coordinate(3, 8), new Coordinate(4, 8), new Coordinate(5, 8), new Coordinate(6, 8), new Coordinate(7, 8), // 17-23 Chain Size
+        new Point(1, 8), new Point(2, 8), new Point(3, 8), new Point(4, 8), new Point(5, 8), new Point(6, 8), new Point(7, 8), // 17-23 Chain Size
         null,                                                                                                                                                                          
-        new Coordinate(1, 9), new Coordinate(2, 9), new Coordinate(3, 9), new Coordinate(4, 9), new Coordinate(5, 9), new Coordinate(6, 9), new Coordinate(7, 9), // 25-31 Price ($00)
+        new Point(1, 9), new Point(2, 9), new Point(3, 9), new Point(4, 9), new Point(5, 9), new Point(6, 9), new Point(7, 9), // 25-31 Price ($00)
         null,                                                                                                                                                                          
-        new Coordinate(1, 1), new Coordinate(1, 2), new Coordinate(1, 3), new Coordinate(1, 4), new Coordinate(1, 5), new Coordinate(1, 6), null,                 // 33-39 Luxor
-        new Coordinate(2, 1), new Coordinate(2, 2), new Coordinate(2, 3), new Coordinate(2, 4), new Coordinate(2, 5), new Coordinate(2, 6), null,                 // 40-46 Tower
-        new Coordinate(3, 1), new Coordinate(3, 2), new Coordinate(3, 3), new Coordinate(3, 4), new Coordinate(3, 5), new Coordinate(3, 6), null,                 // 47-53 American
-        new Coordinate(4, 1), new Coordinate(4, 2), new Coordinate(4, 3), new Coordinate(4, 4), new Coordinate(4, 5), new Coordinate(4, 6), null,                 // 54-60 Festival
-        new Coordinate(5, 1), new Coordinate(5, 2), new Coordinate(5, 3), new Coordinate(5, 4), new Coordinate(5, 5), new Coordinate(5, 6), null,                 // 61-67 Worldwide
-        new Coordinate(6, 1), new Coordinate(6, 2), new Coordinate(6, 3), new Coordinate(6, 4), new Coordinate(6, 5), new Coordinate(6, 6), null,                 // 68-74 Continental
-        new Coordinate(7, 1), new Coordinate(7, 2), new Coordinate(7, 3), new Coordinate(7, 4), new Coordinate(7, 5), new Coordinate(7, 6), null,                 // 75-81 Imperial
-        new Coordinate(8, 1), new Coordinate(8, 2), new Coordinate(8, 3), new Coordinate(8, 4), new Coordinate(8, 5), new Coordinate(8, 6), null,                 // 82-88 Cash
+        new Point(1, 1), new Point(1, 2), new Point(1, 3), new Point(1, 4), new Point(1, 5), new Point(1, 6), null,                 // 33-39 Luxor
+        new Point(2, 1), new Point(2, 2), new Point(2, 3), new Point(2, 4), new Point(2, 5), new Point(2, 6), null,                 // 40-46 Tower
+        new Point(3, 1), new Point(3, 2), new Point(3, 3), new Point(3, 4), new Point(3, 5), new Point(3, 6), null,                 // 47-53 American
+        new Point(4, 1), new Point(4, 2), new Point(4, 3), new Point(4, 4), new Point(4, 5), new Point(4, 6), null,                 // 54-60 Festival
+        new Point(5, 1), new Point(5, 2), new Point(5, 3), new Point(5, 4), new Point(5, 5), new Point(5, 6), null,                 // 61-67 Worldwide
+        new Point(6, 1), new Point(6, 2), new Point(6, 3), new Point(6, 4), new Point(6, 5), new Point(6, 6), null,                 // 68-74 Continental
+        new Point(7, 1), new Point(7, 2), new Point(7, 3), new Point(7, 4), new Point(7, 5), new Point(7, 6), null,                 // 75-81 Imperial
+        new Point(8, 1), new Point(8, 2), new Point(8, 3), new Point(8, 4), new Point(8, 5), new Point(8, 6), null,                 // 82-88 Cash
 	};
 	
-	public static Coordinate scoreSheetIndexToCoordinate(int index) {
-		return arrayScoreSheetIndexToCoordinate[index];
+	public static Point scoreSheetIndexToPoint(int index) {
+		return arrayScoreSheetIndexToPoint[index];
 	}
 	
 	// misc. functions
 	private static final String letters = "ABCDEFGHI";
 
-	public static String coordsToNumberAndLetter(int y, int x) {
+	public static String pointToNumberAndLetter(int y, int x) {
 		return Integer.toString(x + 1) + letters.charAt(y);
 	}
 	
@@ -441,8 +441,8 @@ public class Util {
 		return hotelData;
 	}
 
-	public static Coordinate gameBoardIndexToCoordinate(int index) {
-		return new Coordinate((index - 1) / 9, (index - 1) % 9);
+	public static Point gameBoardIndexToPoint(int index) {
+		return new Point((index - 1) / 9, (index - 1) % 9);
 	}
 	
 	public static int getNumberOfPlayers(ScoreSheetCaptionData sscd) {
