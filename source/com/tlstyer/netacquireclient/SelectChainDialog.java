@@ -30,7 +30,8 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 		}
 		setTitle(title);
 
-		panel = new JPanel(new GridLayout(0, 1));
+		panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		radioButtonGroup = new ButtonGroup();
 		radioButtons = new JRadioButton[7];
 		
@@ -42,11 +43,18 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 			radioButton.setMnemonic(Util.hoteltypeToMnemonic(index + 1));
 			radioButton.setFont(FontManager.getFont());
 			radioButton.setForeground(Util.hoteltypeToColor(index + 1));
+			Dimension size = radioButton.getPreferredSize();
+			size.height -= 7;
+			radioButton.setPreferredSize(size);
 			if (!hotelOptions[index]) {
 				radioButton.setEnabled(false);
 			}
 			panel.add(radioButton);
+			if (index == 1 || index == 4) {
+				panel.add(Box.createRigidArea(new Dimension(0,10)));
+			}
 		}
+		panel.add(Box.createRigidArea(new Dimension(0,10)));
 		
 		for (int index=0; index<7; ++index) {
 			if (hotelOptions[index]) {
