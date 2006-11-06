@@ -49,26 +49,32 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 		JPanel panelKeep = new JPanel(new GridLayout(1, 0));
 		panelKeep.setBorder(BorderFactory.createTitledBorder("Keep"));
 
-		JPanel panelKeepInternal = new JPanel(new GridLayout(1, 0));
+		JPanel panelKeepInternal = new JPanel();
+		panelKeepInternal.setLayout(new BoxLayout(panelKeepInternal, BoxLayout.X_AXIS));
 		panelKeepInternal.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black),
                                                                        BorderFactory.createEmptyBorder(3,10,3,10)));
 		panelKeepInternal.setBackground(Util.hoteltypeToColor(hoteltypeOfSurvivor));
         panelKeep.add(panelKeepInternal);
 
-        labelKeep = new JLabel();
-        labelKeep.setFont(FontManager.getBigFont());
+        labelKeep = new JLabel("0");
+        labelKeep.setFont(FontManager.getFont());
         labelKeep.setHorizontalAlignment(JLabel.RIGHT);
-        panelKeepInternal.add(labelKeep);
+
 		buttonAll = new JButton("All");
 		buttonAll.setMnemonic(KeyEvent.VK_A);
 		buttonAll.addActionListener(this);
+
+        panelKeepInternal.add(Box.createHorizontalGlue());
+        panelKeepInternal.add(labelKeep);
+        panelKeepInternal.add(Box.createRigidArea(new Dimension(5, 0)));
         panelKeepInternal.add(buttonAll);
 
         // "Trade" panel
 		JPanel panelTrade = new JPanel(new GridLayout(1, 0));
 		panelTrade.setBorder(BorderFactory.createTitledBorder("Trade"));
 
-		JPanel panelTradeInternal = new JPanel(new GridLayout(1, 0));
+		JPanel panelTradeInternal = new JPanel();
+		panelTradeInternal.setLayout(new BoxLayout(panelTradeInternal, BoxLayout.X_AXIS));
 		panelTradeInternal.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black),
                                                                         BorderFactory.createEmptyBorder(3,10,3,10)));
 		panelTradeInternal.setBackground(Util.hoteltypeToColor(hoteltypeOfTakenOver));
@@ -78,19 +84,24 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
         spinnerNumberModelTrade.setMinimum(0);
         spinnerNumberModelTrade.setStepSize(2);
         spinnerTrade = new JSpinner(spinnerNumberModelTrade);
-        spinnerTrade.setFont(FontManager.getBigFont());
+        spinnerTrade.setFont(FontManager.getFont());
         spinnerTrade.addChangeListener(this);
-        panelTradeInternal.add(spinnerTrade);
+
 		buttonMaximum = new JButton("Maximum");
 		buttonMaximum.setMnemonic(KeyEvent.VK_M);
 		buttonMaximum.addActionListener(this);
+
+        panelTradeInternal.add(Box.createHorizontalGlue());
+		panelTradeInternal.add(spinnerTrade);
+        panelTradeInternal.add(Box.createRigidArea(new Dimension(5, 0)));
         panelTradeInternal.add(buttonMaximum);
 
         // "Sell" panel
 		JPanel panelSell = new JPanel(new GridLayout(1, 0));
 		panelSell.setBorder(BorderFactory.createTitledBorder("Sell"));
 
-		JPanel panelSellInternal = new JPanel(new GridLayout(1, 0));
+		JPanel panelSellInternal = new JPanel();
+		panelSellInternal.setLayout(new BoxLayout(panelSellInternal, BoxLayout.X_AXIS));
 		panelSellInternal.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black),
                                                                        BorderFactory.createEmptyBorder(3,10,3,10)));
         panelSell.add(panelSellInternal);
@@ -98,24 +109,64 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
         spinnerNumberModelSell = new SpinnerNumberModel();
         spinnerNumberModelSell.setMinimum(0);
         spinnerSell = new JSpinner(spinnerNumberModelSell);
-        spinnerSell.setFont(FontManager.getBigFont());
+        spinnerSell.setFont(FontManager.getFont());
         spinnerSell.addChangeListener(this);
-        panelSellInternal.add(spinnerSell);
+
 		buttonRemaining = new JButton("Remaining");
 		buttonRemaining.setMnemonic(KeyEvent.VK_R);
 		buttonRemaining.addActionListener(this);
+
+        panelSellInternal.add(Box.createHorizontalGlue());
+        panelSellInternal.add(spinnerSell);
+        panelSellInternal.add(Box.createRigidArea(new Dimension(5, 0)));
         panelSellInternal.add(buttonRemaining);
+
+		// make panel buttons the same width
+		Dimension dimensionButtonAll = buttonAll.getPreferredSize();
+		Dimension dimensionButtonMaximum = buttonMaximum.getPreferredSize();
+		Dimension dimensionButtonRemaining = buttonRemaining.getPreferredSize();
+
+		int maxWidth = dimensionButtonAll.width;
+		if (dimensionButtonMaximum.width > maxWidth) {
+			maxWidth = dimensionButtonMaximum.width;
+		}
+		if (dimensionButtonRemaining.width > maxWidth) {
+			maxWidth = dimensionButtonRemaining.width;
+		}
+
+		dimensionButtonAll.width = maxWidth;
+		buttonAll.setPreferredSize(dimensionButtonAll);
+		dimensionButtonMaximum.width = maxWidth;
+		buttonMaximum.setPreferredSize(dimensionButtonMaximum);
+		dimensionButtonRemaining.width = maxWidth;
+		buttonRemaining.setPreferredSize(dimensionButtonRemaining);
+
+		// make spinners two digits wider
+		int widthTwoDigits = labelKeep.getPreferredSize().width * 2;
+		Dimension dimensionSpinnerTrade = spinnerTrade.getPreferredSize();
+		Dimension dimensionSpinnerSell = spinnerSell.getPreferredSize();
+
+		dimensionSpinnerTrade.width += widthTwoDigits;
+		spinnerTrade.setPreferredSize(dimensionSpinnerTrade);
+
+		dimensionSpinnerSell.width += widthTwoDigits;
+		spinnerSell.setPreferredSize(dimensionSpinnerSell);
 
         // OK button
 		buttonOK = new JButton("Ok");
 		buttonOK.setMnemonic(KeyEvent.VK_O);
 		buttonOK.addActionListener(this);
+		buttonOK.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		// put them all together
-		panel.setLayout(new GridLayout(0, 1));
-		panel.add(panelKeep);
-		panel.add(panelTrade);
-		panel.add(panelSell);
+		JPanel panelPanels = new JPanel(new GridLayout(0, 1));
+		panelPanels.add(panelKeep);
+		panelPanels.add(panelTrade);
+		panelPanels.add(panelSell);
+
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(panelPanels);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(buttonOK);
 
 		updateComponents();
@@ -126,7 +177,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 	private void updateComponents() {
         numKeep = numSharesOfTakenOverHotelIHave - numTrade - numSell;
 
-        labelKeep.setText(numKeep.toString() + " ");
+        labelKeep.setText(numKeep.toString() + "  ");
 		spinnerNumberModelTrade.setValue(numTrade);
 		spinnerNumberModelSell.setValue(numSell);
 
