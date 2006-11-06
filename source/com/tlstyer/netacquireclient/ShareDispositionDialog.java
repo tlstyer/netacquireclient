@@ -112,7 +112,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 		buttonOK.addActionListener(this);
 
 		// put them all together
-		panel = new JPanel(new GridLayout(0, 1));
+		panel.setLayout(new GridLayout(0, 1));
 		panel.add(panelKeep);
 		panel.add(panelTrade);
 		panel.add(panelSell);

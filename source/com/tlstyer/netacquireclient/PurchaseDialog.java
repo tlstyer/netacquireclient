@@ -24,6 +24,8 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
     private JButton buttonOK;
     
     private Color colorButtonBackground;
+    
+    private int buttonIndexWithFocus;
 	
 	public PurchaseDialog(boolean canEndGame_,
                           int howMuchMoney_,
@@ -131,10 +133,11 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		panelRightSide.add(panelCost);
 		panelRightSide.add(panelETGOK);
 		
-		panel = new JPanel(new GridLayout(1, 0));
+		panel.setLayout(new GridLayout(1, 0));
 		panel.add(panelAvailable);
 		panel.add(panelRightSide);
 		
+		buttonIndexWithFocus = 0;
 		updateComponents();
 		
 		showGameDialog(GameDialog.POSITION_BELOW_SCORE_SHEET);
@@ -177,6 +180,31 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
         // update "Cost" panel text fields
         tfPurchase.setText(((Integer)(moneySpent * 100)).toString());
         tfCashLeft.setText(((Integer)(moneyLeft * 100)).toString());
+
+		// button focus
+		int origButtonIndexWithFocus = buttonIndexWithFocus;
+		boolean anAvailableButtonIsEnabled = false;
+		do {
+			if (buttonsAvailable[buttonIndexWithFocus].isEnabled()) {
+				anAvailableButtonIsEnabled = true;
+				break;
+			}
+			buttonIndexWithFocus = (buttonIndexWithFocus + 1) % 7;
+		} while (buttonIndexWithFocus != origButtonIndexWithFocus);
+
+		boolean purchaseSlotsAreFilled = true;
+		for (int index=0; index<3; ++index) {
+			if (selectedForPurchase[index] == -1) {
+				purchaseSlotsAreFilled = false;
+				break;
+			}
+		}
+
+		if (!anAvailableButtonIsEnabled || purchaseSlotsAreFilled) {
+			buttonOK.requestFocusInWindow();
+		} else {
+			buttonsAvailable[buttonIndexWithFocus].requestFocusInWindow();
+		}
 	}
 
     public void actionPerformed(ActionEvent e) {
@@ -188,6 +216,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
                     break;
                 }
     		}
+			buttonIndexWithFocus = buttonIndexPressed;
     	} else if (buttonIndexPressed >= 7 && buttonIndexPressed <= 9) {
             selectedForPurchase[buttonIndexPressed - 7] = -1;
     	} else if (buttonIndexPressed == 10) {

@@ -49,12 +49,14 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		buttonGo.addActionListener(this);
 
 		// put them all together
-		panel = new JPanel(new GridLayout(0, 1));
+		panel.setLayout(new GridLayout(0, 1));
 		panel.add(panelNickname);
 		panel.add(panelIPURL);
 		panel.add(panelPort);
 		panel.add(buttonGo);
 
+		getRootPane().setDefaultButton(buttonGo);
+		
 		showGameDialog(GameDialog.POSITION_0_0);
 	}
 

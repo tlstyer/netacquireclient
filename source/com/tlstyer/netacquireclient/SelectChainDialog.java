@@ -30,7 +30,6 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 		}
 		setTitle(title);
 
-		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		radioButtonGroup = new ButtonGroup();
 		radioButtons = new JRadioButton[7];
@@ -67,6 +66,8 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 		buttonOK.setMnemonic(KeyEvent.VK_O);
 		buttonOK.addActionListener(this);
 		panel.add(buttonOK);
+
+		getRootPane().setDefaultButton(buttonOK);
 		
 		showGameDialog(GameDialog.POSITION_BELOW_SCORE_SHEET);
 	}
