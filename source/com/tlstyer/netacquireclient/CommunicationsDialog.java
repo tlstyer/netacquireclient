@@ -20,7 +20,7 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		JPanel panelNickname = new JPanel(new FlowLayout());
 		JLabel labelNickname = new JLabel("Nickname:", JLabel.TRAILING);
 		labelNickname.setDisplayedMnemonic(KeyEvent.VK_N);
-		tfNickname = new JTextField(30);
+		tfNickname = new JTextField("tlstyer", 30);
 		labelNickname.setLabelFor(tfNickname);
 		panelNickname.add(labelNickname);
 		panelNickname.add(tfNickname);
@@ -29,7 +29,7 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		JPanel panelIPURL = new JPanel(new FlowLayout());
 		JLabel labelIPURL = new JLabel("IP/URL:", JLabel.TRAILING);
 		labelIPURL.setDisplayedMnemonic(KeyEvent.VK_I);
-		tfIPURL = new JTextField(30);
+		tfIPURL = new JTextField("localhost", 30);
 		labelIPURL.setLabelFor(tfIPURL);
 		panelIPURL.add(labelIPURL);
 		panelIPURL.add(tfIPURL);
@@ -38,7 +38,7 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		JPanel panelPort = new JPanel(new FlowLayout());
 		JLabel labelPort = new JLabel("Port:", JLabel.TRAILING);
 		labelPort.setDisplayedMnemonic(KeyEvent.VK_P);
-		tfPort = new JTextField(6);
+		tfPort = new JTextField("1001", 6);
 		labelPort.setLabelFor(tfPort);
 		panelPort.add(labelPort);
 		panelPort.add(tfPort);
