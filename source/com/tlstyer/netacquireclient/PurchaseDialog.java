@@ -74,9 +74,10 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		// "Purchased" panel
 		JPanel panelPurchased = new JPanel(new GridLayout(1, 0));
 		panelPurchased.setBorder(BorderFactory.createTitledBorder("Purchased"));
+		panelPurchased.setAlignmentX(Component.CENTER_ALIGNMENT);
 		buttonsPurchased = new JButton[3];
 		for (int index=0; index<3; ++index) {
-			JButton button = new JButton();
+			JButton button = new JButton("1200");
 			buttonsPurchased[index] = button;
 			button.setFont(FontManager.getFont());
 			button.setForeground(Color.black);
@@ -90,6 +91,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		// "Cost" panel
 		JPanel panelCost = new JPanel(new GridLayout(2, 2));
 		panelCost.setBorder(BorderFactory.createTitledBorder("Cost"));
+		panelCost.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		JLabel labelPurchase = new JLabel("Purchase");
 		labelPurchase.setFont(FontManager.getFont());
@@ -114,35 +116,54 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		panelCost.add(tfCashLeft);
 		
 		// "End the game and OK" panel
-		JPanel panelETGOK= new JPanel(new GridLayout(0, 1));
-		
 		checkboxEndTheGame = new JCheckBox("End the game");
 		checkboxEndTheGame.setMnemonic(KeyEvent.VK_E);
 		if (!canEndGame) {
 			checkboxEndTheGame.setEnabled(false);
 		}
-		panelETGOK.add(checkboxEndTheGame);
+		checkboxEndTheGame.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		buttonOK = new JButton("Ok");
 		buttonOK.setMnemonic(KeyEvent.VK_O);
 		buttonOK.setActionCommand("10");
 		buttonOK.addActionListener(this);
-		panelETGOK.add(buttonOK);
+		buttonOK.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		// put them all together
-		JPanel panelRightSide = new JPanel(new GridLayout(0, 1));
-		panelRightSide.add(panelPurchased);
-		panelRightSide.add(panelCost);
-		panelRightSide.add(panelETGOK);
-		
-		panel.setLayout(new GridLayout(1, 0));
+		JPanel panelRightTop = new JPanel(new GridLayout(0, 1));
+		panelRightTop.add(panelPurchased);
+		panelRightTop.add(panelCost);
+
+		JPanel panelRightSide = new JPanel();
+		panelRightSide.setLayout(new BoxLayout(panelRightSide, BoxLayout.Y_AXIS));
+		panelRightSide.add(panelRightTop);
+        panelRightSide.add(Box.createRigidArea(new Dimension(0, 5)));
+		panelRightSide.add(checkboxEndTheGame);
+        panelRightSide.add(Box.createRigidArea(new Dimension(0, 5)));
+		panelRightSide.add(buttonOK);
+
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		panel.add(panelAvailable);
 		panel.add(panelRightSide);
-		
+
+		// put everything in place
+		pack();
+		Point locationPanelCost = panelCost.getLocation();
+		Point locationCheckboxEndTheGame = checkboxEndTheGame.getLocation();
+		locationCheckboxEndTheGame.x = locationPanelCost.x;
+		checkboxEndTheGame.setLocation(locationCheckboxEndTheGame);
+
+		// don't let them move
+		panelRightSide.setLayout(null);
+		panel.setLayout(null);
+
+		// default values
 		buttonIndexWithFocus = 0;
 		updateComponents();
-		
-		showGameDialog(GameDialog.POSITION_BELOW_SCORE_SHEET);
+
+		// show it in the right place
+		setLocation(GameDialog.POSITION_BELOW_SCORE_SHEET);
+		setVisible(true);
 	}
 	
 	private void updateComponents() {
@@ -169,7 +190,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		for (int index=0; index<3; ++index) {
 			if (selectedForPurchase[index] != -1) {
                 int chainIndex = selectedForPurchase[index];
-                buttonsPurchased[index].setText(((Integer)price[chainIndex]).toString());
+                buttonsPurchased[index].setText("" + (price[chainIndex] * 100));
                 buttonsPurchased[index].setBackground(Util.hoteltypeToColor(chainIndex + 1));
                 buttonsPurchased[index].setEnabled(true);
             } else {
@@ -180,8 +201,8 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
         }
 
         // update "Cost" panel text fields
-        tfPurchase.setText(((Integer)(moneySpent * 100)).toString());
-        tfCashLeft.setText(((Integer)(moneyLeft * 100)).toString());
+        tfPurchase.setText("$" + (moneySpent * 100));
+        tfCashLeft.setText("$" + (moneyLeft * 100));
 
 		// button focus
 		int origButtonIndexWithFocus = buttonIndexWithFocus;

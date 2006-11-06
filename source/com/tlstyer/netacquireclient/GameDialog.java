@@ -16,9 +16,8 @@ public class GameDialog extends JDialog {
 	
 	public static final int POSITION_0_0 = 1;
 	public static final int POSITION_BELOW_SCORE_SHEET = 2;
-	
-	public void showGameDialog(int position) {
-		pack();
+
+	public void setLocation(int position) {
 		if (position == POSITION_0_0) {
 			JPanel panel = Main.getMainFrame().panel;
 			Point location = panel.getLocationOnScreen();
@@ -29,6 +28,11 @@ public class GameDialog extends JDialog {
 			location.translate(0, scoreSheet.getHeightOfAllRows());
 			setLocation(location);
 		}
+	}
+		
+	public void showGameDialog(int position) {
+		pack();
+		setLocation(position);
 		setVisible(true);
 	}
 }
