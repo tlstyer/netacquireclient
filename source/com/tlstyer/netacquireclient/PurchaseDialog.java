@@ -98,7 +98,8 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		tfPurchase = new JTextField();
 		tfPurchase.setFont(FontManager.getFont());
 		tfPurchase.setHorizontalAlignment(JTextField.RIGHT);
-		tfPurchase.setEditable(false);
+		tfPurchase.setEnabled(false);
+		tfPurchase.setDisabledTextColor(Color.black);
 		panelCost.add(tfPurchase);
 		
 		JLabel labelCashLeft = new JLabel("Cash Left");
@@ -108,7 +109,8 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		tfCashLeft = new JTextField();
 		tfCashLeft.setFont(FontManager.getFont());
 		tfCashLeft.setHorizontalAlignment(JTextField.RIGHT);
-		tfCashLeft.setEditable(false);
+		tfCashLeft.setEnabled(false);
+		tfCashLeft.setDisabledTextColor(Color.black);
 		panelCost.add(tfCashLeft);
 		
 		// "End the game and OK" panel
