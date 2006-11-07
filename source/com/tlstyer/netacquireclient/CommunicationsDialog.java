@@ -47,9 +47,13 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		buttonGo = new JButton("Go");
 		buttonGo.setMnemonic(KeyEvent.VK_G);
 		buttonGo.addActionListener(this);
+		Dimension dimensionButtonGo = buttonGo.getPreferredSize();
+		dimensionButtonGo.width *= 2;
+		dimensionButtonGo.height *= 2;
+		buttonGo.setPreferredSize(dimensionButtonGo);
 
 		// put them all together
-		panel.setLayout(new GridLayout(0, 1));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(panelNickname);
 		panel.add(panelIPURL);
 		panel.add(panelPort);

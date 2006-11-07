@@ -157,6 +157,10 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 		buttonOK.setMnemonic(KeyEvent.VK_O);
 		buttonOK.addActionListener(this);
 		buttonOK.setAlignmentX(Component.CENTER_ALIGNMENT);
+		Dimension dimensionButtonOk = buttonOK.getPreferredSize();
+		dimensionButtonOk.width *= 2;
+		dimensionButtonOk.height *= 2;
+		buttonOK.setPreferredSize(dimensionButtonOk);
 
 		// put them all together
 		JPanel panelPanels = new JPanel(new GridLayout(0, 1));

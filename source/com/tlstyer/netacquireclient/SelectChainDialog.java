@@ -65,6 +65,10 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 		buttonOK = new JButton("Ok");
 		buttonOK.setMnemonic(KeyEvent.VK_O);
 		buttonOK.addActionListener(this);
+		Dimension dimensionButtonOk = buttonOK.getPreferredSize();
+		dimensionButtonOk.width *= 2;
+		dimensionButtonOk.height *= 2;
+		buttonOK.setPreferredSize(dimensionButtonOk);
 		panel.add(buttonOK);
 
 		getRootPane().setDefaultButton(buttonOK);

@@ -128,6 +128,10 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		buttonOK.setActionCommand("10");
 		buttonOK.addActionListener(this);
 		buttonOK.setAlignmentX(Component.CENTER_ALIGNMENT);
+		Dimension dimensionButtonOk = buttonOK.getPreferredSize();
+		dimensionButtonOk.width *= 2;
+		dimensionButtonOk.height *= 2;
+		buttonOK.setPreferredSize(dimensionButtonOk);
 		
 		// put them all together
 		JPanel panelRightTop = new JPanel(new GridLayout(0, 1));
