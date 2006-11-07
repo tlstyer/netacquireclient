@@ -30,7 +30,9 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 		}
 		setTitle(title);
 
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		// radio buttons panel
+		JPanel panelRadioButtons = new JPanel();
+		panelRadioButtons.setLayout(new BoxLayout(panelRadioButtons, BoxLayout.Y_AXIS));
 		radioButtonGroup = new ButtonGroup();
 		radioButtons = new JRadioButton[7];
 		
@@ -48,12 +50,12 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 			if (!hotelOptions[index]) {
 				radioButton.setEnabled(false);
 			}
-			panel.add(radioButton);
+			panelRadioButtons.add(radioButton);
 			if (index == 1 || index == 4) {
-				panel.add(Box.createRigidArea(new Dimension(0,10)));
+				panelRadioButtons.add(Box.createRigidArea(new Dimension(0,10)));
 			}
 		}
-		panel.add(Box.createRigidArea(new Dimension(0,10)));
+		panelRadioButtons.add(Box.createRigidArea(new Dimension(0,10)));
 		
 		for (int index=0; index<7; ++index) {
 			if (hotelOptions[index]) {
@@ -62,6 +64,7 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 			}
 		}
 		
+		// "OK" button
 		buttonOK = new JButton("Ok");
 		buttonOK.setMnemonic(KeyEvent.VK_O);
 		buttonOK.addActionListener(this);
@@ -69,6 +72,12 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 		dimensionButtonOk.width *= 2;
 		dimensionButtonOk.height *= 2;
 		buttonOK.setPreferredSize(dimensionButtonOk);
+
+		// put them all together
+		panelRadioButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
+		buttonOK.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(panelRadioButtons);
 		panel.add(buttonOK);
 
 		getRootPane().setDefaultButton(buttonOK);
