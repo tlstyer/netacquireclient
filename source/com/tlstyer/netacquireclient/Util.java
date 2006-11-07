@@ -220,14 +220,14 @@ public class Util {
     
 	public static void updateNetWorths(ScoreSheetCaptionData sscd, GameBoardData gbd) {
 		int numPlayers = Util.getNumberOfPlayers(sscd);
-		if (numPlayers < 2) {
+		if (numPlayers < 1) {
 			return;
 		}
 		boolean[] existingHotels = Util.getExistingHotelsOnGameBoard(gbd);
 		int[] money = Util.getPlayerDataAsIntegers(sscd, numPlayers, 8);
 		int[] moreMoney;
 		for (int chain=1; chain<=7; ++chain) {
-			int[] holdings = Util.getPlayerDataAsIntegers(sscd, numPlayers, chain);
+			int[] holdings = Util.getPlayerDataAsIntegers(sscd, (numPlayers > 1 ? numPlayers : 2), chain);
 			int price = Util.getAsInteger(sscd.getCaption(chain, 9));
 			
 			if (existingHotels[chain - 1]) {
