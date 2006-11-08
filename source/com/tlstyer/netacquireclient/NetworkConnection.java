@@ -183,7 +183,11 @@ public class NetworkConnection {
         hashmapCommand.put("SV", COMMAND_SV);
     }
 	
-	private boolean commandHandled;
+    private static final int COMMAND_PROCESSED = 0;
+    private static final int COMMAND_NOT_PROCESSED = 1;
+    private static final int COMMAND_ERROR_WHILE_PROCESSING = 2;
+    
+	private int commandProcessingResult;
 	
 	protected void processDataRead() {
 		while (true) {
@@ -197,28 +201,35 @@ public class NetworkConnection {
 			
             Integer commandInt = hashmapCommand.get(command[0].toString());
             if (commandInt != null) {
-                commandHandled = true;
-                switch (commandInt) {
-                    case COMMAND_AT: handleAT(command); break;
-                    case COMMAND_GC: handleGC(command); break;
-                    case COMMAND_GD: handleGD(command); break;
-                    case COMMAND_GM: handleGM(command); break;
-                    case COMMAND_GP: handleGP(command); break;
-                    case COMMAND_GT: handleGT(command); break;
-                    case COMMAND_LM: handleLM(command); break;
-                    //case COMMAND_M: handleM(command); break;
-                    case COMMAND_SB: handleSB(command); break;
-                    case COMMAND_SP: handleSP(command); break;
-                    case COMMAND_SS: handleSS(command); break;
-                    case COMMAND_SV: handleSV(command); break;
-                    default: commandHandled = false; break;
-                }
+            	commandProcessingResult = COMMAND_PROCESSED;
+                try {
+					switch (commandInt) {
+					    case COMMAND_AT: handleAT(command); break;
+					    case COMMAND_GC: handleGC(command); break;
+					    case COMMAND_GD: handleGD(command); break;
+					    case COMMAND_GM: handleGM(command); break;
+					    case COMMAND_GP: handleGP(command); break;
+					    case COMMAND_GT: handleGT(command); break;
+					    case COMMAND_LM: handleLM(command); break;
+					    //case COMMAND_M: handleM(command); break;
+					    case COMMAND_SB: handleSB(command); break;
+					    case COMMAND_SP: handleSP(command); break;
+					    case COMMAND_SS: handleSS(command); break;
+					    case COMMAND_SV: handleSV(command); break;
+					    default: commandProcessingResult = COMMAND_NOT_PROCESSED; break;
+					}
+				} catch (RuntimeException e) {
+					e.printStackTrace();
+					commandProcessingResult = COMMAND_ERROR_WHILE_PROCESSING;
+				}
             } else {
-                commandHandled = false;
+            	commandProcessingResult = COMMAND_NOT_PROCESSED;
             }
 
-			if (!commandHandled) {
+			if (commandProcessingResult == COMMAND_NOT_PROCESSED) {
 				Main.getMainFrame().lobby.append("Unhandled command: " + commandString);
+			} else if (commandProcessingResult == COMMAND_ERROR_WHILE_PROCESSING) {
+				Main.getMainFrame().lobby.append("Error while processing command: " + commandString);
 			}
 		}
 		
@@ -282,7 +293,7 @@ public class NetworkConnection {
 					scoreSheetHoteltypeData.setHoteltype(where.x, where.y, hoteltype);
 				}
 			} else {
-				commandHandled = false;
+				commandProcessingResult = COMMAND_NOT_PROCESSED;
 			}
 		} else if (((String)((Object[])command[1])[0]).equals("frmTileRack") &&
 				   ((String)((Object[])command[1])[1]).equals("cmdTile")) {
@@ -292,10 +303,10 @@ public class NetworkConnection {
 		        int index = tileRackIndex - 1;
 		        Main.getMainFrame().tileRack.setButtonVisible(index, visible);
 			} else {
-				commandHandled = false;
+				commandProcessingResult = COMMAND_NOT_PROCESSED;
 			}
 		} else {
-			commandHandled = false;
+			commandProcessingResult = COMMAND_NOT_PROCESSED;
 		}
 	}
 	
@@ -329,7 +340,7 @@ public class NetworkConnection {
 			state = MainFrame.MODE_IN_GAME;
 		}
 		if (state > 6) {
-			commandHandled = false;
+			commandProcessingResult = COMMAND_NOT_PROCESSED;
 			return;
 		}
 		Main.getMainFrame().setMode(state);
