@@ -44,7 +44,6 @@ public class NetworkConnection {
 			socketChannel.register(selector, SelectionKey.OP_READ);
 			setConnected(true);
 		} catch (IOException e) {
-			Main.getMainFrame().lobby.append(e.getMessage());
 			setConnected(false);
 		}
 		return isConnected();
@@ -125,7 +124,6 @@ public class NetworkConnection {
             	}
             }
         } catch (IOException e) {
-        	Main.getMainFrame().lobby.append(e.getMessage());
         }
 	}
 	
