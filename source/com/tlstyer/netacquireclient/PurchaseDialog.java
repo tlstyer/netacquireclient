@@ -205,8 +205,8 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
         }
 
         // update "Cost" panel text fields
-        tfPurchase.setText("$" + (moneySpent * 100));
-        tfCashLeft.setText("$" + (moneyLeft * 100));
+        tfPurchase.setText("" + (moneySpent * 100));
+        tfCashLeft.setText("" + (moneyLeft * 100));
 
 		// button focus
 		int origButtonIndexWithFocus = buttonIndexWithFocus;
