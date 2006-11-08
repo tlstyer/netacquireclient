@@ -72,6 +72,12 @@ public class MainFrame extends JFrame implements ComponentListener {
 		panel.addComponentListener(this);
 		getContentPane().add(panel, BorderLayout.CENTER);
 		
+		// for whatever reason, constructing the first JSpinner causes gobs of
+		// fonts to be loaded. this makes ShareDispositionDialog take forever
+		// to show up the first time it's requested. load these fonts (for
+		// whatever reason they're loaded) during program seup.
+		new JSpinner();
+		
 		// setup network connection
         NetworkConnection networkConnection = new NetworkConnection();
 		Main.setNetworkConnection(networkConnection);
