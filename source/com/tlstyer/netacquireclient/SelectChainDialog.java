@@ -90,7 +90,7 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 			if (radioButtons[index].isSelected()) {
 				int colorvalue = Util.hoteltypeToColorvalueNetwork(index + 1);
 				Main.getNetworkConnection().writeMessage("CS;" + colorvalue + "," + type);
-				setVisible(false);
+				GameDialog.hideGameDialog();
 				return;
 			}
 		}

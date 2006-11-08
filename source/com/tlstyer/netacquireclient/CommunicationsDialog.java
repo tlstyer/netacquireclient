@@ -117,6 +117,6 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		}
 		
 		Main.getMainFrame().setConnectionParams(nickname, ipurl, portInt);
-		setVisible(false);
+		GameDialog.hideGameDialog();
 	}
 }
