@@ -28,7 +28,7 @@ public class GameDialog extends JDialog {
 		} else if (position == POSITION_BELOW_SCORE_SHEET) {
 			ScoreSheet scoreSheet = Main.getMainFrame().scoreSheet;
 			Point location = scoreSheet.getLocationOnScreen();
-			location.translate(0, scoreSheet.getHeightOfAllRows());
+			location.translate(0, Main.getMainFrame().getScoreSheetHeight());
 			setLocation(location);
 		}
 	}

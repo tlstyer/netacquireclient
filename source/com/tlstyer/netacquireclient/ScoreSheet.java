@@ -8,7 +8,6 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
     private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
     private int usedRows = 6;
-    private int heightOfAllRows = 0;
 	private int rowHeight = 0;
 
     private static final String hotelTypeCharacters = "LTAFWCI";
@@ -118,14 +117,8 @@ public class ScoreSheet extends JPanel implements ComponentListener {
             }
             ++displayY;
         }
-        
-        heightOfAllRows = rowHeight * (usedRows + 4);
     }
     
-    public int getHeightOfAllRows() {
-    	return heightOfAllRows;
-    }
-
 	public void setRowHeight(int rowHeight_) {
 		rowHeight = rowHeight_;
 	}

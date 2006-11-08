@@ -169,9 +169,9 @@ public class MainFrame extends JFrame implements ComponentListener {
 		}
 	}
 
-	public void setComponentsBounds() {
-        int borderWidth = 4;
+	private static final int borderWidth = 4;
 
+	public void setComponentsBounds() {
         int width = panel.getWidth();
         int height = panel.getHeight();
 
@@ -212,6 +212,14 @@ public class MainFrame extends JFrame implements ComponentListener {
 		int gameRoomPostY = gameRoomY + gameRoomHeight;
 		setComponentBounds(gameRoomPost, scoreSheetY, gameRoomPostY, gameBoardWidth, gameRoomPostHeight);
     }
+	
+	public int getScoreSheetHeight() {
+        int width = panel.getWidth();
+        int gameBoardWidth = width / 2 - (borderWidth + borderWidth / 2);
+		int scoreSheetRowHeight = gameBoardWidth * 10 / 18 / 10;
+		int numRowsInScoreSheet = Main.getNetworkConnection().getNumberOfPlayers() + 4;
+		return scoreSheetRowHeight * numRowsInScoreSheet;
+	}
     
     public void componentHidden(ComponentEvent e) {
     }
