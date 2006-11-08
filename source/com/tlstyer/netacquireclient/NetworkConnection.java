@@ -211,7 +211,7 @@ public class NetworkConnection {
 					    case COMMAND_GP: handleGP(command); break;
 					    case COMMAND_GT: handleGT(command); break;
 					    case COMMAND_LM: handleLM(command); break;
-					    //case COMMAND_M: handleM(command); break;
+					    case COMMAND_M:  handleM(command);  break;
 					    case COMMAND_SB: handleSB(command); break;
 					    case COMMAND_SP: handleSP(command); break;
 					    case COMMAND_SS: handleSS(command); break;
@@ -305,6 +305,9 @@ public class NetworkConnection {
 			} else {
 				commandProcessingResult = COMMAND_NOT_PROCESSED;
 			}
+		} else if (((String)((Object[])command[1])[0]).equals("frmNetAcquire") &&
+				   ((String)((Object[])command[1])[1]).equals("status")) {
+			// ignore status bar change messages
 		} else {
 			commandProcessingResult = COMMAND_NOT_PROCESSED;
 		}
@@ -388,5 +391,9 @@ public class NetworkConnection {
 								   numAvailableOfSurvivor,
 								   hoteltypeOfSurvivor,
 								   hoteltypeOfTakenOver);
+	}
+
+	protected void handleM(Object[] command) {
+		commandProcessingResult = COMMAND_NOT_PROCESSED;
 	}
 }
