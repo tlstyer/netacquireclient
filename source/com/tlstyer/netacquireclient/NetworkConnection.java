@@ -227,9 +227,9 @@ public class NetworkConnection {
             }
 
 			if (commandProcessingResult == COMMAND_NOT_PROCESSED) {
-				Main.getMainFrame().lobby.append("Unhandled command: " + commandString);
+				Main.getMainFrame().lobby.append("Unhandled command: " + commandString, MessageWindow.APPEND_ERROR);
 			} else if (commandProcessingResult == COMMAND_ERROR_WHILE_PROCESSING) {
-				Main.getMainFrame().lobby.append("Error while processing command: " + commandString);
+				Main.getMainFrame().lobby.append("Error while processing command: " + commandString, MessageWindow.APPEND_ERROR);
 			}
 		}
 		
@@ -311,11 +311,11 @@ public class NetworkConnection {
 	}
 	
 	protected void handleLM(Object[] command) {
-		Main.getMainFrame().lobby.append(Util.commandToContainedMessage(command));
+		Main.getMainFrame().lobby.append(Util.commandToContainedMessage(command), MessageWindow.APPEND_DEFAULT);
 	}
 	
 	protected void handleGM(Object[] command) {
-		Main.getMainFrame().gameRoom.append(Util.commandToContainedMessage(command));
+		Main.getMainFrame().gameRoom.append(Util.commandToContainedMessage(command), MessageWindow.APPEND_DEFAULT);
 	}
 	
 	protected void handleAT(Object[] command) {

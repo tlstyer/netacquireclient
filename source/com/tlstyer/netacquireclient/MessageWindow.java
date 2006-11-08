@@ -18,22 +18,34 @@ public class MessageWindow extends JScrollPane {
 		setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		styledDocument = textPane.getStyledDocument();
-		Style def = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
+		Style defaultStyleContext = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
 		Style s;
 		
-		s = styledDocument.addStyle("system", def);
+		s = styledDocument.addStyle("system", defaultStyleContext);
 		StyleConstants.setFontFamily(s, "Monospaced");
 		StyleConstants.setFontSize(s, 12);
         StyleConstants.setForeground(s, Color.black);
         
         s = styledDocument.addStyle("user", s);
+        StyleConstants.setForeground(s, Color.magenta);        
+        
+        s = styledDocument.addStyle("error", s);
         StyleConstants.setForeground(s, Color.red);
 	}
 	
-	public void append(String str) {
+	public static final int APPEND_DEFAULT = 0;
+	public static final int APPEND_ERROR = 1;
+	
+	public void append(String str, int type) {
 		String style;
-		if (str.length() >= 2 && str.substring(0, 2).equals("->")) {
-			style = "user";
+		if (type == APPEND_DEFAULT) {
+			if (str.length() >= 2 && str.substring(0, 2).equals("->")) {
+				style = "user";
+			} else {
+				style = "system";
+			}			
+		} else if (type == APPEND_ERROR) {
+			style = "error";
 		} else {
 			style = "system";
 		}

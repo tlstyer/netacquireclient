@@ -96,7 +96,7 @@ public class MainFrame extends JFrame implements ComponentListener {
 
             setMode(MODE_CONNECTING);
 
-            lobby.append("# connecting to " + ipurl + ":" + port + " as " + nickname + " ...");
+            lobby.append("# connecting to " + ipurl + ":" + port + " as " + nickname + " ...", MessageWindow.APPEND_DEFAULT);
 
     		boolean connected = networkConnection.connect(ipurl, port);
     		if (!connected) {
