@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.*;
 import javax.swing.*;
 
 public class GameDialog extends JDialog {
@@ -6,7 +7,7 @@ public class GameDialog extends JDialog {
 	
 	protected JPanel panel = new JPanel();
 	
-	private static GameDialog gameDialog = null;
+	private static Set<GameDialog> setOfGameDialogs = new HashSet<GameDialog>();
 	
 	public GameDialog() {
 		super(Main.getMainFrame());
@@ -14,7 +15,9 @@ public class GameDialog extends JDialog {
 		setContentPane(panel);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setResizable(false);
-		gameDialog = this;
+		synchronized (setOfGameDialogs) {
+			setOfGameDialogs.add(this);
+		}
 	}
 	
 	public static final int POSITION_0_0 = 1;
@@ -39,10 +42,19 @@ public class GameDialog extends JDialog {
 		setVisible(true);
 	}
 	
-	public static void hideGameDialog() {
-		if (gameDialog != null) {
-			gameDialog.setVisible(false);
-			gameDialog = null;
+	public void hideGameDialog() {
+		synchronized (setOfGameDialogs) {
+			setVisible(false);
+			setOfGameDialogs.remove(this);
+		}
+	}
+	
+	public static void hideGameDialogs() {
+		synchronized (setOfGameDialogs) {
+			for (GameDialog gameDialog : setOfGameDialogs) {
+				gameDialog.setVisible(false);
+			}
+			setOfGameDialogs.clear();
 		}
 	}
 }

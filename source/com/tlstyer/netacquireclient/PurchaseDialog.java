@@ -254,7 +254,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
             }
     		int endGameCode = (checkboxEndTheGame.isSelected() ? 1 : 0);
     		Main.getNetworkConnection().writeMessage("P;" + Util.join(cc, ",") + "," + endGameCode);
-    		GameDialog.hideGameDialog();
+    		hideGameDialog();
 			return;
 		}
     	

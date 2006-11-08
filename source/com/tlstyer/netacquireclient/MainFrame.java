@@ -173,7 +173,7 @@ public class MainFrame extends JFrame implements ComponentListener {
         }
         
         if (mode <= MODE_IN_LOBBY) {
-        	GameDialog.hideGameDialog();
+        	GameDialog.hideGameDialogs();
         	gameRoom.clear();
         	tileRack.setButtonsVisible(false);
         	tileRack.setCanPlayTile(false);

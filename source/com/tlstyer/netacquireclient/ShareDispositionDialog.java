@@ -206,7 +206,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
             numSell = maxSell;
         } else if (object == buttonOK) {
     		Main.getNetworkConnection().writeMessage("MD;" + numSell + "," + numTrade);
-    		GameDialog.hideGameDialog();
+    		hideGameDialog();
 			return;
         }
         
