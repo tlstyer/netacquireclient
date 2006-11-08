@@ -160,13 +160,15 @@ public class MainFrame extends JFrame implements ComponentListener {
 		return mode;
 	}
 
-    public void componentHidden(ComponentEvent e) {
-    }
-    
-    public void componentMoved(ComponentEvent e) {
-    }
-    
-    public void componentResized(ComponentEvent e) {
+	private void setComponentBounds(Component component, int x, int y, int width, int height) {
+		Rectangle bounds = component.getBounds();
+		if (bounds.x != x || bounds.y != y || bounds.width != width || bounds.height != height) {
+			component.setBounds(x, y, width, height);
+			component.validate();
+		}
+	}
+
+	public void setComponentsBounds() {
         int borderWidth = 4;
 
         int width = panel.getWidth();
@@ -174,46 +176,49 @@ public class MainFrame extends JFrame implements ComponentListener {
 
         int gameBoardWidth = width / 2 - (borderWidth + borderWidth / 2);
         int gameBoardHeight = gameBoardWidth * 3 / 4;
-        gameBoard.setBounds(borderWidth, borderWidth, gameBoardWidth, gameBoardHeight);
-        gameBoard.validate();
+        setComponentBounds(gameBoard, borderWidth, borderWidth, gameBoardWidth, gameBoardHeight);
 
 		int tileRackBackgroundY = borderWidth + gameBoardHeight + borderWidth;
 		int tileRackBackgroundHeight = gameBoardHeight * 2 / 13;
-		tileRackBackground.setBounds(borderWidth, tileRackBackgroundY, gameBoardWidth, tileRackBackgroundHeight);
+		setComponentBounds(tileRackBackground, borderWidth, tileRackBackgroundY, gameBoardWidth, tileRackBackgroundHeight);
 
 		int tileRackHeight = tileRackBackgroundHeight * 8 / 10;
 		int tileRackWidth = tileRackHeight * 6 + TileRack.spacing * 5;
 		int tileRackX = (width / 2 + borderWidth / 2 - tileRackWidth) / 2;
 		int tileRackY = tileRackBackgroundY + (tileRackBackgroundHeight - tileRackHeight) / 2;
-		tileRack.setBounds(tileRackX, tileRackY, tileRackWidth, tileRackHeight);
-		tileRack.validate();
+		setComponentBounds(tileRack, tileRackX, tileRackY, tileRackWidth, tileRackHeight);
 
 		int lobbyY = tileRackBackgroundY + tileRackBackgroundHeight + borderWidth;
 		int lobbyPostHeight = (int)lobbyPost.getPreferredSize().getHeight();
 		int lobbyHeight = height - borderWidth - lobbyY - lobbyPostHeight;
-		lobby.setBounds(borderWidth, lobbyY, gameBoardWidth, lobbyHeight);
-		lobby.validate();
+		setComponentBounds(lobby, borderWidth, lobbyY, gameBoardWidth, lobbyHeight);
 		
 		int lobbyPostY = lobbyY + lobbyHeight;
-		lobbyPost.setBounds(borderWidth, lobbyPostY, gameBoardWidth, lobbyPostHeight);
-		lobbyPost.validate();
+		setComponentBounds(lobbyPost, borderWidth, lobbyPostY, gameBoardWidth, lobbyPostHeight);
 
 		int scoreSheetY = width / 2 + borderWidth / 2;
 		int scoreSheetHeight = gameBoardWidth * 10 / 18;
-		scoreSheet.setBounds(scoreSheetY, borderWidth, gameBoardWidth, scoreSheetHeight);
-		scoreSheet.validate();
+		setComponentBounds(scoreSheet, scoreSheetY, borderWidth, gameBoardWidth, scoreSheetHeight);
 
 		int gameRoomY = borderWidth + scoreSheetHeight + borderWidth;
 		int gameRoomPostHeight = (int)gameRoomPost.getPreferredSize().getHeight();
 		int gameRoomHeight = height - borderWidth - gameRoomY - gameRoomPostHeight;
-		gameRoom.setBounds(scoreSheetY, gameRoomY, gameBoardWidth, gameRoomHeight);
-		gameRoom.validate();
+		setComponentBounds(gameRoom, scoreSheetY, gameRoomY, gameBoardWidth, gameRoomHeight);
 		
 		int gameRoomPostY = gameRoomY + gameRoomHeight;
-		gameRoomPost.setBounds(scoreSheetY, gameRoomPostY, gameBoardWidth, gameRoomPostHeight);
-		gameRoomPost.validate();
+		setComponentBounds(gameRoomPost, scoreSheetY, gameRoomPostY, gameBoardWidth, gameRoomPostHeight);
     }
     
+    public void componentHidden(ComponentEvent e) {
+    }
+    
+    public void componentMoved(ComponentEvent e) {
+    }
+    
+    public void componentResized(ComponentEvent e) {
+		setComponentsBounds();
+	}
+
     public void componentShown(ComponentEvent e) {
     }
 }
