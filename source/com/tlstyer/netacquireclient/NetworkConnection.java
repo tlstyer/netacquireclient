@@ -128,6 +128,10 @@ public class NetworkConnection {
         	Main.getMainFrame().lobby.append(e.getMessage());
         }
 	}
+	
+	public int getNumberOfPlayers() {
+		return Util.getNumberOfPlayers(scoreSheetCaptionData);
+	}
 
 	public void setMode(int mode) {
 		if (mode <= MainFrame.MODE_IN_LOBBY) {

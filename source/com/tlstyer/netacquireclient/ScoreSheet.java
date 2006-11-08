@@ -9,6 +9,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
     private int usedRows = 6;
     private int heightOfAllRows = 0;
+	private int rowHeight = 0;
 
     private static final String hotelTypeCharacters = "LTAFWCI";
     private static final int[] columnWidths = {5, 1, 1, 1, 1, 1, 1, 1, 3, 3};
@@ -93,15 +94,12 @@ public class ScoreSheet extends JPanel implements ComponentListener {
         	}
     		usedRows = numPlayers;
     		layoutTextComponents();
+    		Main.getMainFrame().setComponentsBounds();
     	}
     }
     
     private void layoutTextComponents() {
-    	int panelWidth = getWidth();
-    	int panelHeight = getHeight();
-
-        int componentHeight = panelHeight / 10;
-        int componentWidth = panelWidth / 18;
+        int componentWidth = getWidth() / 18;
 
         int displayY = 0;
         for (int tcY=0; tcY<10; ++tcY) {
@@ -113,20 +111,24 @@ public class ScoreSheet extends JPanel implements ComponentListener {
             		break;
             	}
             	int x = columnStartX[tcX] * componentWidth;
-            	int y = displayY * componentHeight;
+            	int y = displayY * rowHeight;
             	int width = columnWidths[tcX] * componentWidth - 2;
-            	int height = componentHeight - 2;
+            	int height = rowHeight - 2;
                 scoreSheet[tcY][tcX].setBounds(x, y, width, height);
             }
             ++displayY;
         }
         
-        heightOfAllRows = componentHeight * (usedRows + 4);
+        heightOfAllRows = rowHeight * (usedRows + 4);
     }
     
     public int getHeightOfAllRows() {
     	return heightOfAllRows;
     }
+
+	public void setRowHeight(int rowHeight_) {
+		rowHeight = rowHeight_;
+	}
     
     public void componentHidden(ComponentEvent e) {
     }

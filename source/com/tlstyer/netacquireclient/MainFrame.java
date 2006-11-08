@@ -72,16 +72,16 @@ public class MainFrame extends JFrame implements ComponentListener {
 		panel.addComponentListener(this);
 		getContentPane().add(panel, BorderLayout.CENTER);
 		
+		// setup network connection
+        NetworkConnection networkConnection = new NetworkConnection();
+		Main.setNetworkConnection(networkConnection);
+		
         //Display the window.
 		pack();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setMode(MODE_NOT_CONNECTED);
 		setVisible(true);
         
-		// setup network connection
-        NetworkConnection networkConnection = new NetworkConnection();
-		Main.setNetworkConnection(networkConnection);
-		
 		// main loop!
         for (;;) {
     		setMode(MODE_NOT_CONNECTED);
@@ -197,7 +197,10 @@ public class MainFrame extends JFrame implements ComponentListener {
 		setComponentBounds(lobbyPost, borderWidth, lobbyPostY, gameBoardWidth, lobbyPostHeight);
 
 		int scoreSheetY = width / 2 + borderWidth / 2;
-		int scoreSheetHeight = gameBoardWidth * 10 / 18;
+		int scoreSheetRowHeight = gameBoardWidth * 10 / 18 / 10;
+		int numRowsInScoreSheet = Main.getNetworkConnection().getNumberOfPlayers() + 4;
+		int scoreSheetHeight = scoreSheetRowHeight * numRowsInScoreSheet;
+		scoreSheet.setRowHeight(scoreSheetRowHeight);
 		setComponentBounds(scoreSheet, scoreSheetY, borderWidth, gameBoardWidth, scoreSheetHeight);
 
 		int gameRoomY = borderWidth + scoreSheetHeight + borderWidth;
