@@ -93,12 +93,35 @@ public class MainFrame extends JFrame implements ComponentListener {
 				} catch (InterruptedException e) {
 				}
         	} while (!gotConnectionParams);
+
             setMode(MODE_CONNECTING);
+
             lobby.append("# connecting to " + ipurl + ":" + port + " as " + nickname + " ...");
+
     		boolean connected = networkConnection.connect(ipurl, port);
-    		if (connected) {
-    			networkConnection.communicationLoop(nickname);
+    		if (!connected) {
+    			JOptionPane.showMessageDialog(this,
+											  "Could not connect to " + ipurl + ":" + port + ".",
+											  "Could not connect",
+											  JOptionPane.ERROR_MESSAGE);
+				continue;
     		}
+
+			int exitReason = networkConnection.communicationLoop(nickname);
+
+			if (exitReason == NetworkConnection.EXIT_LOST_CONNECTION) {
+    			JOptionPane.showMessageDialog(this,
+											  "Lost connection to " + ipurl + ":" + port + ".",
+											  "Lost connection",
+											  JOptionPane.ERROR_MESSAGE);
+				continue;
+			} else if (exitReason == NetworkConnection.EXIT_IO_EXCEPTION) {
+    			JOptionPane.showMessageDialog(this,
+											  "Unhandled exception. Please reconnect.",
+											  "Unhandled exception",
+											  JOptionPane.ERROR_MESSAGE);
+				continue;
+			}
         }
     }
 	

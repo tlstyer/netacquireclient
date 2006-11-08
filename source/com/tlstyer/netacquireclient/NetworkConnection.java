@@ -14,6 +14,7 @@ public class NetworkConnection {
 	private String nickname;
 	
 	private Boolean connected = false;
+	private boolean exitedNicely = false;
 
     private StringBuilder dataRead = new StringBuilder(10240);
     private StringBuilder dataToWrite = new StringBuilder(10240);
@@ -46,16 +47,17 @@ public class NetworkConnection {
 		} catch (IOException e) {
 			setConnected(false);
 		}
+		exitedNicely = false;
 		return isConnected();
 	}
 	
 	public void disconnect() {
 		synchronized(connected) {
 			if (connected) {
+				exitedNicely = true;
 				try {
 					socketChannel.close();
 			    } catch (IOException e) {
-			    	Main.getMainFrame().lobby.append(e.getMessage());
 			    }
 				connected = false;
 			}
@@ -71,8 +73,12 @@ public class NetworkConnection {
 			connected = connected_;
 		}
 	}
+	
+	public static final int EXIT_REQUESTED = 0;
+	public static final int EXIT_LOST_CONNECTION = 1;
+	public static final int EXIT_IO_EXCEPTION = 2;
 
-	public void communicationLoop(String nickname_) {
+	public int communicationLoop(String nickname_) {
 		nickname = nickname_;
 		
 		dataRead.delete(0, dataRead.length());
@@ -87,7 +93,7 @@ public class NetworkConnection {
 
             while (true) {
             	if (!isConnected()) {
-            		return;
+            		break;
             	}
             	keysAdded = selector.select(50);
             	if (keysAdded > 0) {
@@ -123,8 +129,17 @@ public class NetworkConnection {
             	    }            		
             	}
             }
+        } catch (ClosedChannelException cce) {
         } catch (IOException e) {
+        	e.printStackTrace();
+        	disconnect();
+        	return EXIT_IO_EXCEPTION;
         }
+        
+        if (exitedNicely) {
+        	return EXIT_REQUESTED;
+        }
+        return EXIT_LOST_CONNECTION;
 	}
 	
 	public int getNumberOfPlayers() {
