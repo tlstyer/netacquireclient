@@ -1,4 +1,6 @@
 import java.io.*;
+import java.net.*;
+import java.util.*;
 
 public class SerializedData implements Serializable {
 	private static final long serialVersionUID = -1818673008683293864L;
@@ -11,7 +13,12 @@ public class SerializedData implements Serializable {
 	private static final String filename = "SerializedData.ser";
 
 	private SerializedData() {
-		nickname = "tlstyer";
+		try {
+			nickname = InetAddress.getLocalHost().getHostName();
+		} catch (UnknownHostException e) {
+			Random random = new Random();
+			nickname = "" + random.nextInt();
+		}
 		maxPlayerCount = 4;
 	}
 
