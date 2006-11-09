@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MainFrame extends JFrame implements ComponentListener {
+public class MainFrame extends JFrame implements ComponentListener, WindowListener {
 	private static final long serialVersionUID = 494783141808469259L;
 
 	public MainFrameMenuBar menuBar;
@@ -38,7 +38,8 @@ public class MainFrame extends JFrame implements ComponentListener {
         
         //Create and set up the window.
         setTitle("Acquire");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(this);
         
 		// create the components
         menuBar = new MainFrameMenuBar();
@@ -250,6 +251,11 @@ public class MainFrame extends JFrame implements ComponentListener {
 		int numRowsInScoreSheet = Main.getNetworkConnection().getNumberOfPlayers() + 4;
 		return scoreSheetRowHeight * numRowsInScoreSheet;
 	}
+	
+	private void closeWindow() {
+		SerializedData.SaveSerializedData();
+		System.exit(0);
+	}
     
     public void componentHidden(ComponentEvent e) {
     }
@@ -263,4 +269,26 @@ public class MainFrame extends JFrame implements ComponentListener {
 
     public void componentShown(ComponentEvent e) {
     }
+
+	public void windowActivated(WindowEvent arg0) {
+	}
+
+	public void windowClosed(WindowEvent e) {
+	}
+
+	public void windowClosing(WindowEvent e) {
+		closeWindow();
+	}
+
+	public void windowDeactivated(WindowEvent e) {
+	}
+
+	public void windowDeiconified(WindowEvent e) {
+	}
+
+	public void windowIconified(WindowEvent e) {
+	}
+
+	public void windowOpened(WindowEvent e) {
+	}
 }
