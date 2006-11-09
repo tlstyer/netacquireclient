@@ -44,7 +44,7 @@ public class NetworkConnection {
 			socketChannel.configureBlocking(false);
 			socketChannel.register(selector, SelectionKey.OP_READ);
 			setConnected(true);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			setConnected(false);
 		}
 		exitedNicely = false;
