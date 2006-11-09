@@ -71,6 +71,7 @@ public class MainFrame extends JFrame implements ComponentListener {
 		// don't know what to call these!
 		panel.addComponentListener(this);
 		getContentPane().add(panel, BorderLayout.CENTER);
+		SerializedData.LoadSerializedData();
 		
 		// for whatever reason, constructing the first JSpinner causes gobs of
 		// fonts to be loaded. this makes ShareDispositionDialog take forever

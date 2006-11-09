@@ -122,7 +122,7 @@ class MenuItemStartNewGame extends MainFrameMenuItem {
     }
     
     public void doAction() {
-    	Main.getNetworkConnection().writeMessage("SG;4");
+    	Main.getNetworkConnection().writeMessage("SG;" + SerializedData.getSerializedData().getMaxPlayerCount());
     }
 }
 

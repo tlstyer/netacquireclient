@@ -20,7 +20,7 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		JPanel panelNickname = new JPanel(new FlowLayout());
 		JLabel labelNickname = new JLabel("Nickname:", JLabel.TRAILING);
 		labelNickname.setDisplayedMnemonic(KeyEvent.VK_N);
-		tfNickname = new JTextField("tlstyer", 30);
+		tfNickname = new JTextField(SerializedData.getSerializedData().getNickname(), 30);
 		labelNickname.setLabelFor(tfNickname);
 		panelNickname.add(labelNickname);
 		panelNickname.add(tfNickname);
