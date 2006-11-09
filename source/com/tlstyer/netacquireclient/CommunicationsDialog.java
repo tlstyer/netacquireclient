@@ -7,8 +7,7 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 	private static final long serialVersionUID = -9110080591988857670L;
 	
 	private JTextField tfNickname;
-	private JTextField tfIPURL;
-	private JTextField tfPort;
+	private JTextField tfIPURLPort;
 	private JButton buttonGo;
 
     private static final Pattern badNicknameChars = Pattern.compile(",|;|:|\"");
@@ -25,23 +24,14 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		panelNickname.add(labelNickname);
 		panelNickname.add(tfNickname);
 
-		// "IPURL" panel
-		JPanel panelIPURL = new JPanel(new FlowLayout());
-		JLabel labelIPURL = new JLabel("IP/URL:", JLabel.TRAILING);
-		labelIPURL.setDisplayedMnemonic(KeyEvent.VK_I);
-		tfIPURL = new JTextField("localhost", 30);
-		labelIPURL.setLabelFor(tfIPURL);
-		panelIPURL.add(labelIPURL);
-		panelIPURL.add(tfIPURL);
-
-		// "Port" panel
-		JPanel panelPort = new JPanel(new FlowLayout());
-		JLabel labelPort = new JLabel("Port:", JLabel.TRAILING);
-		labelPort.setDisplayedMnemonic(KeyEvent.VK_P);
-		tfPort = new JTextField("1001", 6);
-		labelPort.setLabelFor(tfPort);
-		panelPort.add(labelPort);
-		panelPort.add(tfPort);
+		// "IPURL:Port" panel
+		JPanel panelIPURLPort = new JPanel(new FlowLayout());
+		JLabel labelIPURLPort = new JLabel("IP/URL:Port:", JLabel.TRAILING);
+		labelIPURLPort.setDisplayedMnemonic(KeyEvent.VK_I);
+		tfIPURLPort = new JTextField("localhost:1001", 30);
+		labelIPURLPort.setLabelFor(tfIPURLPort);
+		panelIPURLPort.add(labelIPURLPort);
+		panelIPURLPort.add(tfIPURLPort);
 
 		// "Go" button
 		buttonGo = new JButton("Go");
@@ -55,8 +45,7 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		// put them all together
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(panelNickname);
-		panel.add(panelIPURL);
-		panel.add(panelPort);
+		panel.add(panelIPURLPort);
 		panel.add(buttonGo);
 
 		getRootPane().setDefaultButton(buttonGo);
@@ -64,41 +53,41 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		showGameDialog(GameDialog.POSITION_0_0);
 	}
 
+	private void ShowErrorMessage(String title, String message) {
+		JOptionPane.showMessageDialog(Main.getMainFrame(), message, title, JOptionPane.ERROR_MESSAGE);
+		toFront();
+	}
+
 	public void actionPerformed(ActionEvent e) {
+		String[] ipurlAndPort = tfIPURLPort.getText().split(":", -1);
+
+		if (ipurlAndPort.length != 2) {
+			ShowErrorMessage("Bad IP/URL:Port format", "IP/URL:Port format must be <IP/URL>:<Port>");
+			return;
+		}
+
 		String nickname = tfNickname.getText().trim();
-		String ipurl = tfIPURL.getText().trim();
-		String port = tfPort.getText().trim();
+		String ipurl = ipurlAndPort[0].trim();
+		String port = ipurlAndPort[1].trim();
 
 		if (nickname.equals("")) {
-			JOptionPane.showMessageDialog(Main.getMainFrame(),
-										  "Nickname must have at least one visible charater in it.",
-										  "Bad nickname",
-										  JOptionPane.ERROR_MESSAGE);
+			ShowErrorMessage("Bad Nickname", "Nickname must have at least one visible charater in it");
 			return;
 		}
 
 		if (ipurl.equals("")) {
-			JOptionPane.showMessageDialog(Main.getMainFrame(),
-										  "The IP/URL must have at least one visible charater in it.",
-										  "Bad IP/URL",
-										  JOptionPane.ERROR_MESSAGE);
+			ShowErrorMessage("Bad IP/URL", "The IP/URL must have at least one visible charater in it");
 			return;
 		}
 
 		if (port.equals("")) {
-			JOptionPane.showMessageDialog(Main.getMainFrame(),
-										  "Port must have at least one visible charater in it.",
-										  "Bad port",
-										  JOptionPane.ERROR_MESSAGE);
+			ShowErrorMessage("Bad Port", "Port must have at least one visible charater in it");
 			return;
 		}
 
 		Matcher matcher = badNicknameChars.matcher(nickname);
 		if (matcher.find()) {
-			JOptionPane.showMessageDialog(Main.getMainFrame(),
-										  "Nickname cannot contain a comma, semi-colon, colon, or double-quote.",
-										  "Bad nickname",
-										  JOptionPane.ERROR_MESSAGE);
+			ShowErrorMessage("Bad Nickname", "Nickname cannot contain a comma, semi-colon, colon, or double-quote");
 			return;
 		}
 
@@ -109,10 +98,7 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 			portInt = 0;
 		}
 		if (portInt < 1 || portInt > 65535) {
-			JOptionPane.showMessageDialog(Main.getMainFrame(),
-										  "Port must be a positive integer between 1 and 65535.",
-										  "Bad port",
-										  JOptionPane.ERROR_MESSAGE);
+			ShowErrorMessage("Bad Port", "Port must be a positive integer between 1 and 65535");
 			return;
 		}
 		
