@@ -5,21 +5,42 @@ import java.util.*;
 public class SerializedData implements Serializable {
 	private static final long serialVersionUID = -1818673008683293864L;
 	
-	private String nickname;
-	private Integer maxPlayerCount;
+	private Vector<String> nicknames = null;
+	private Vector<String> addressesAndPorts = null;
+	private Integer maxPlayerCount = 4;
 	
 	private static SerializedData serializedData = null;
 
 	private static final String filename = "SerializedData.ser";
 
 	private SerializedData() {
-		try {
-			nickname = InetAddress.getLocalHost().getHostName();
-		} catch (UnknownHostException e) {
-			Random random = new Random();
-			nickname = "" + random.nextInt();
+		initializeNullFields();
+	}
+	
+	private void initializeNullFields() {
+		if (nicknames == null) {
+			nicknames = new Vector<String>();
+			String nickname;
+			try {
+				nickname = InetAddress.getLocalHost().getHostName();
+			} catch (UnknownHostException e) {
+				Random random = new Random();
+				nickname = "" + random.nextInt();
+			}
+			nicknames.add(nickname);
 		}
-		maxPlayerCount = 4;
+		
+		if (addressesAndPorts == null) {
+			addressesAndPorts = new Vector<String>();
+			addressesAndPorts.add("localhost:1001");
+			addressesAndPorts.add("acquire.sbg.org:1001");
+			addressesAndPorts.add("acquire.sbg.org:1002");
+			addressesAndPorts.add("acquire2.sbg.org:1001");
+		}
+		
+		if (maxPlayerCount == null || maxPlayerCount < 2 || maxPlayerCount > 6) {
+			maxPlayerCount = 4;
+		}
 	}
 
 	public Object clone() throws CloneNotSupportedException {
@@ -50,22 +71,20 @@ public class SerializedData implements Serializable {
 			fileInputStream = new FileInputStream(filename);
 			objectInputStream = new ObjectInputStream(fileInputStream);
 			serializedData = (SerializedData)objectInputStream.readObject();
+			serializedData.initializeNullFields();
 			objectInputStream.close();
-			if (serializedData.maxPlayerCount < 2 || serializedData.maxPlayerCount > 6) {
-				serializedData.maxPlayerCount = 4;
-			}
 		} catch(Exception e) {
 			e.printStackTrace();
 			serializedData = new SerializedData();
 		}
 	}
 
-	public String getNickname() {
-		return nickname;
+	public Vector<String> getNicknames() {
+		return nicknames;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public Vector<String> getAddressesAndPorts() {
+		return addressesAndPorts;
 	}
 
 	public Integer getMaxPlayerCount() {

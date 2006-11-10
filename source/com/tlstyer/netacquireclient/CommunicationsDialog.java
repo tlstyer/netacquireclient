@@ -1,13 +1,14 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Vector;
 import java.util.regex.*;
 import javax.swing.*;
 
 public class CommunicationsDialog extends GameDialog implements ActionListener {
 	private static final long serialVersionUID = -9110080591988857670L;
 	
-	private JTextField tfNickname;
-	private JTextField tfIPURLPort;
+	private JComboBox cbNickname;
+	private JComboBox cbIPURLPort;
 	private JButton buttonGo;
 
     private static final Pattern badNicknameChars = Pattern.compile(",|;|:|\"");
@@ -19,19 +20,21 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		JPanel panelNickname = new JPanel(new FlowLayout());
 		JLabel labelNickname = new JLabel("Nickname:", JLabel.TRAILING);
 		labelNickname.setDisplayedMnemonic(KeyEvent.VK_N);
-		tfNickname = new JTextField(SerializedData.getSerializedData().getNickname(), 30);
-		labelNickname.setLabelFor(tfNickname);
+		cbNickname = new JComboBox(SerializedData.getSerializedData().getNicknames());
+		cbNickname.setEditable(true);
+		labelNickname.setLabelFor(cbNickname);
 		panelNickname.add(labelNickname);
-		panelNickname.add(tfNickname);
+		panelNickname.add(cbNickname);
 
 		// "IPURL:Port" panel
 		JPanel panelIPURLPort = new JPanel(new FlowLayout());
 		JLabel labelIPURLPort = new JLabel("IP/URL:Port:", JLabel.TRAILING);
 		labelIPURLPort.setDisplayedMnemonic(KeyEvent.VK_I);
-		tfIPURLPort = new JTextField("localhost:1001", 30);
-		labelIPURLPort.setLabelFor(tfIPURLPort);
+		cbIPURLPort = new JComboBox(SerializedData.getSerializedData().getAddressesAndPorts());
+		cbIPURLPort.setEditable(true);
+		labelIPURLPort.setLabelFor(cbIPURLPort);
 		panelIPURLPort.add(labelIPURLPort);
-		panelIPURLPort.add(tfIPURLPort);
+		panelIPURLPort.add(cbIPURLPort);
 
 		// "Go" button
 		buttonGo = new JButton("Go");
@@ -59,14 +62,15 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		String[] ipurlAndPort = tfIPURLPort.getText().split(":", -1);
+		// figure out input and check for bad input
+		String[] ipurlAndPort = ((String)cbIPURLPort.getSelectedItem()).split(":", -1);
 
 		if (ipurlAndPort.length != 2) {
 			ShowErrorMessage("Bad IP/URL:Port format", "IP/URL:Port format must be <IP/URL>:<Port>");
 			return;
 		}
 
-		String nickname = tfNickname.getText().trim();
+		String nickname = ((String)cbNickname.getSelectedItem()).trim();
 		String ipurl = ipurlAndPort[0].trim();
 		String port = ipurlAndPort[1].trim();
 
@@ -102,6 +106,17 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 			return;
 		}
 		
+		// tell SerializedData about the changes
+		Vector<String> nicknames = SerializedData.getSerializedData().getNicknames();
+		nicknames.remove(nickname);
+		nicknames.add(0, nickname);
+		
+		Vector<String> addressesAndPorts = SerializedData.getSerializedData().getAddressesAndPorts();
+		String addressAndPort = ipurl + ":" + portInt;
+		addressesAndPorts.remove(addressAndPort);
+		addressesAndPorts.add(0, addressAndPort);
+		
+		// input accepted, so leave this dialog
 		Main.getMainFrame().setConnectionParams(nickname, ipurl, portInt);
 		hideGameDialog();
 	}
