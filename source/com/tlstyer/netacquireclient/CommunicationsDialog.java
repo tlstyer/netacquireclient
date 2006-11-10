@@ -1,6 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Vector;
+import java.util.*;
 import java.util.regex.*;
 import javax.swing.*;
 
@@ -8,7 +8,9 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 	private static final long serialVersionUID = -9110080591988857670L;
 	
 	private JComboBox cbNickname;
+	private JButton buttonDeleteNickname;
 	private JComboBox cbIPURLPort;
+	private JButton buttonDeleteIPURLPort;
 	private JButton buttonGo;
 
     private static final Pattern badNicknameChars = Pattern.compile(",|;|:|\"");
@@ -17,38 +19,80 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		setTitle("Communications");
 
 		// "Nickname" panel
-		JPanel panelNickname = new JPanel(new FlowLayout());
 		JLabel labelNickname = new JLabel("Nickname:", JLabel.TRAILING);
 		labelNickname.setDisplayedMnemonic(KeyEvent.VK_N);
+		
 		cbNickname = new JComboBox(SerializedData.getSerializedData().getNicknames());
 		cbNickname.setEditable(true);
 		labelNickname.setLabelFor(cbNickname);
+		
+		buttonDeleteNickname = new JButton("X");
+		buttonDeleteNickname.addActionListener(this);
+		
+		JPanel panelNickname = new JPanel();
+		panelNickname.setLayout(new BoxLayout(panelNickname, BoxLayout.X_AXIS));
+		panelNickname.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		panelNickname.add(Box.createHorizontalGlue());
 		panelNickname.add(labelNickname);
+		panelNickname.add(Box.createRigidArea(new Dimension(5, 0)));
 		panelNickname.add(cbNickname);
+		panelNickname.add(Box.createRigidArea(new Dimension(5, 0)));
+		panelNickname.add(buttonDeleteNickname);
 
 		// "IPURL:Port" panel
-		JPanel panelIPURLPort = new JPanel(new FlowLayout());
 		JLabel labelIPURLPort = new JLabel("IP/URL:Port:", JLabel.TRAILING);
 		labelIPURLPort.setDisplayedMnemonic(KeyEvent.VK_I);
+		
 		cbIPURLPort = new JComboBox(SerializedData.getSerializedData().getAddressesAndPorts());
 		cbIPURLPort.setEditable(true);
 		labelIPURLPort.setLabelFor(cbIPURLPort);
+		
+		buttonDeleteIPURLPort = new JButton("X");
+		buttonDeleteIPURLPort.addActionListener(this);
+		
+		JPanel panelIPURLPort = new JPanel();
+		panelIPURLPort.setLayout(new BoxLayout(panelIPURLPort, BoxLayout.X_AXIS));
+		panelIPURLPort.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		panelIPURLPort.add(Box.createHorizontalGlue());
 		panelIPURLPort.add(labelIPURLPort);
+		panelIPURLPort.add(Box.createRigidArea(new Dimension(5, 0)));
 		panelIPURLPort.add(cbIPURLPort);
+		panelIPURLPort.add(Box.createRigidArea(new Dimension(5, 0)));
+		panelIPURLPort.add(buttonDeleteIPURLPort);
 
 		// "Go" button
 		buttonGo = new JButton("Go");
 		buttonGo.setMnemonic(KeyEvent.VK_G);
 		buttonGo.addActionListener(this);
 		Dimension dimensionButtonGo = buttonGo.getPreferredSize();
-		dimensionButtonGo.width *= 2;
 		dimensionButtonGo.height *= 2;
+		buttonGo.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		buttonGo.setMinimumSize(dimensionButtonGo);
 		buttonGo.setPreferredSize(dimensionButtonGo);
-
+		buttonGo.setMaximumSize(dimensionButtonGo);
+		
+		// make the combo boxes the same width
+		int width = labelIPURLPort.getPreferredSize().width * 3;
+		Dimension dimension;
+		
+		dimension = cbNickname.getPreferredSize();
+		dimension.width = width;
+		cbNickname.setMinimumSize(dimension);
+		cbNickname.setPreferredSize(dimension);
+		cbNickname.setMaximumSize(dimension);
+		
+		dimension = cbIPURLPort.getPreferredSize();
+		dimension.width = width;
+		cbIPURLPort.setMinimumSize(dimension);
+		cbIPURLPort.setPreferredSize(dimension);
+		cbIPURLPort.setMaximumSize(dimension);
+		
 		// put them all together
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(panelNickname);
+		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelIPURLPort);
+		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(buttonGo);
 
 		getRootPane().setDefaultButton(buttonGo);
@@ -60,8 +104,34 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		JOptionPane.showMessageDialog(Main.getMainFrame(), message, title, JOptionPane.ERROR_MESSAGE);
 		toFront();
 	}
+	
+	private void processButtonDelete(Vector<String> strings, JComboBox comboBox) {
+		String nickname = ((String)comboBox.getSelectedItem());
+		strings.remove(nickname);
+		
+		int selectedIndex = comboBox.getSelectedIndex();
+		if (selectedIndex >= 0) {
+			comboBox.removeItemAt(selectedIndex);
+			int itemCount = comboBox.getItemCount();
+			if (itemCount > 0) {
+				if (selectedIndex >= itemCount) {
+					selectedIndex = itemCount - 1; 
+				}
+				comboBox.setSelectedIndex(selectedIndex);
+			} else {
+				comboBox.setSelectedItem("");
+			}
+		} else {
+			int itemCount = comboBox.getItemCount();
+			if (itemCount > 0) {
+				comboBox.setSelectedIndex(0);
+			} else {
+				comboBox.setSelectedItem("");
+			}
+		}
+	}
 
-	public void actionPerformed(ActionEvent e) {
+	private void buttonGoPressed() {
 		// figure out input and check for bad input
 		String[] ipurlAndPort = ((String)cbIPURLPort.getSelectedItem()).split(":", -1);
 
@@ -119,5 +189,16 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		// input accepted, so leave this dialog
 		Main.getMainFrame().setConnectionParams(nickname, ipurl, portInt);
 		hideGameDialog();
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		Object object = e.getSource();
+		if (object == buttonDeleteNickname) {
+			processButtonDelete(SerializedData.getSerializedData().getNicknames(), cbNickname);
+		} else if (object == buttonDeleteIPURLPort) {
+			processButtonDelete(SerializedData.getSerializedData().getAddressesAndPorts(), cbIPURLPort);
+		} else if (object == buttonGo) {
+			buttonGoPressed();
+		}
 	}
 }
