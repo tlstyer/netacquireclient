@@ -123,6 +123,9 @@ class MenuItemStartNewGame extends MainFrameMenuItem {
     }
     
     public void doAction() {
+		if (Main.getMainFrame().getMode() >= MainFrame.MODE_IN_GAME) {
+			Main.getNetworkConnection().writeMessage("LV;");
+		}
     	Main.getNetworkConnection().writeMessage("SG;" + SerializedData.getSerializedData().getMaxPlayerCount());
     }
 }
@@ -177,6 +180,9 @@ class MenuItemEnterGame extends MainFrameMenuItem {
 		}
 		
 		if (value >= 1 && value <= 32767) {
+			if (Main.getMainFrame().getMode() >= MainFrame.MODE_IN_GAME) {
+				Main.getNetworkConnection().writeMessage("LV;");
+			}
 			Main.getNetworkConnection().writeMessage("JG;" + value + "," + messageCode);
 		} else {
 			JOptionPane.showMessageDialog(
@@ -310,10 +316,10 @@ public class MainFrameMenuBar extends JMenuBar {
 	private static final boolean[] enablednessInModesMenuItemReinitialize    = {false,  true,  true,  true,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemShowUsers       = {false, false, false,  true,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemShowGames       = {false, false, false,  true,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemStartNewGame    = {false, false, false,  true, false, false};
+	private static final boolean[] enablednessInModesMenuItemStartNewGame    = {false, false, false,  true,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemStartGamePlay   = {false, false, false, false, false,  true};
-	private static final boolean[] enablednessInModesMenuItemJoinGame        = {false, false, false,  true, false, false};
-	private static final boolean[] enablednessInModesMenuItemWatchGame       = {false, false, false,  true, false, false};
+	private static final boolean[] enablednessInModesMenuItemJoinGame        = {false, false, false,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemWatchGame       = {false, false, false,  true,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemShowGameState   = {false, false, false, false,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemLeaveGame       = {false, false, false, false,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemAboutNetAcquire = {false,  true,  true,  true,  true,  true};
