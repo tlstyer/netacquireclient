@@ -7,7 +7,7 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 	
 	private ButtonGroup radioButtonGroup;
 	private JRadioButton[] radioButtons;
-	private JButton buttonOK;
+	private JButton buttonOk;
 	private int type;
 	
 	public SelectChainDialog(int type_, boolean[] hotelOptions) {
@@ -67,22 +67,17 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 		}
 		
 		// "OK" button
-		buttonOK = new JButton("Ok");
-		buttonOK.setMnemonic(KeyEvent.VK_O);
-		buttonOK.addActionListener(this);
-		Dimension dimensionButtonOk = buttonOK.getPreferredSize();
-		dimensionButtonOk.width *= 2;
-		dimensionButtonOk.height *= 2;
-		buttonOK.setPreferredSize(dimensionButtonOk);
+		buttonOk = Util.getButton3d2("Ok", KeyEvent.VK_O);
+		buttonOk.addActionListener(this);
 
 		// put them all together
 		panelRadioButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
-		buttonOK.setAlignmentX(Component.CENTER_ALIGNMENT);
+		buttonOk.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(panelRadioButtons);
-		panel.add(buttonOK);
+		panel.add(buttonOk);
 
-		getRootPane().setDefaultButton(buttonOK);
+		getRootPane().setDefaultButton(buttonOk);
 		
 		showGameDialog(GameDialog.POSITION_BELOW_SCORE_SHEET);
 	}

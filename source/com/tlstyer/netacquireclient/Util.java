@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import javax.swing.*;
 
 public class Util {
 	private Util() {
@@ -452,5 +453,17 @@ public class Util {
 			}
 		}
 		return 6;
+	}
+	
+	public static JButton getButton3d2(String text, int keyevent) {
+		JButton button = new JButton(text);
+		button.setMnemonic(keyevent);
+		Dimension dimension = button.getPreferredSize();
+		dimension.height = dimension.height * 3 / 2;
+		dimension.width = dimension.width * 3 / 2;
+		button.setMinimumSize(dimension);
+		button.setPreferredSize(dimension);
+		button.setMaximumSize(dimension);
+		return button;
 	}
 }

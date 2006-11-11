@@ -36,12 +36,10 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		panelMaxPlayerCount.add(Box.createHorizontalGlue());
 
 		// "Ok/Cancel" panel
-		buttonOk = new JButton("Ok");
-		buttonOk.setMnemonic(KeyEvent.VK_O);
+		buttonOk = Util.getButton3d2("Ok", KeyEvent.VK_O);
 		buttonOk.addActionListener(this);
 
-		buttonCancel = new JButton("Cancel");
-		buttonCancel.setMnemonic(KeyEvent.VK_C);
+		buttonCancel = Util.getButton3d2("Cancel", KeyEvent.VK_C);
 		buttonCancel.addActionListener(this);
 
 		JPanel panelOkCancel = new JPanel();

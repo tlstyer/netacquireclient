@@ -29,7 +29,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
     private JButton buttonRemaining;
 
     // OK button
-    private JButton buttonOK;
+    private JButton buttonOk;
 
     public ShareDispositionDialog(String nameOfTakenOverChain,
                                   int numSharesOfTakenOverHotelIHave_,
@@ -155,14 +155,9 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 		spinnerSell.setPreferredSize(dimensionSpinnerSell);
 
         // OK button
-		buttonOK = new JButton("Ok");
-		buttonOK.setMnemonic(KeyEvent.VK_O);
-		buttonOK.addActionListener(this);
-		buttonOK.setAlignmentX(Component.CENTER_ALIGNMENT);
-		Dimension dimensionButtonOk = buttonOK.getPreferredSize();
-		dimensionButtonOk.width *= 2;
-		dimensionButtonOk.height *= 2;
-		buttonOK.setPreferredSize(dimensionButtonOk);
+		buttonOk = Util.getButton3d2("Ok", KeyEvent.VK_O);
+		buttonOk.setAlignmentX(Component.CENTER_ALIGNMENT);
+		buttonOk.addActionListener(this);
 
 		// put them all together
 		JPanel panelPanels = new JPanel(new GridLayout(0, 1));
@@ -173,7 +168,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(panelPanels);
         panel.add(Box.createRigidArea(new Dimension(0, 5)));
-		panel.add(buttonOK);
+		panel.add(buttonOk);
 
 		updateComponents();
 
@@ -206,7 +201,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
             numTrade = maxTrade;
         } else if (object == buttonRemaining) {
             numSell = maxSell;
-        } else if (object == buttonOK) {
+        } else if (object == buttonOk) {
     		Main.getNetworkConnection().writeMessage("MD;" + numSell + "," + numTrade);
     		hideGameDialog();
 			return;

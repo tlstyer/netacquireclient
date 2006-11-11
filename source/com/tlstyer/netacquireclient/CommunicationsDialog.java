@@ -63,15 +63,9 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		panelIPURLPort.add(buttonDeleteIPURLPort);
 
 		// "Go" button
-		buttonGo = new JButton("Go");
-		buttonGo.setMnemonic(KeyEvent.VK_G);
-		buttonGo.addActionListener(this);
-		Dimension dimensionButtonGo = buttonGo.getPreferredSize();
-		dimensionButtonGo.height *= 2;
+		buttonGo = Util.getButton3d2("Go", KeyEvent.VK_G);
 		buttonGo.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		buttonGo.setMinimumSize(dimensionButtonGo);
-		buttonGo.setPreferredSize(dimensionButtonGo);
-		buttonGo.setMaximumSize(dimensionButtonGo);
+		buttonGo.addActionListener(this);
 		
 		// make the combo boxes the same width
 		int width = labelIPURLPort.getPreferredSize().width * 3;
