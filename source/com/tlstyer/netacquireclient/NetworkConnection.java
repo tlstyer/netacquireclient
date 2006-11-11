@@ -27,9 +27,16 @@ public class NetworkConnection {
     private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
     private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
 
-    private Pattern patternWaitingForUser;
-
-    private static final Pattern pattern = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
+    private static final Pattern patternCommand = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
+	private static final Pattern patternWaiting = Pattern.compile(
+		"\\A\\*Waiting for " +
+		"(.*?)" +
+		" to (?:" +
+		"play tile" +
+		"|make purchase" +
+		"|select (?:chain to merge|merger survivor|new chain)" +
+		"|dispose of (?:Luxor|Tower|American|Festival|Worldwide|Continental|Imperial) shares" +
+		")\\.\\z");
 	private static final Charset charsetDecoder = Charset.forName("US-ASCII");
 
 	public NetworkConnection() {
@@ -82,15 +89,6 @@ public class NetworkConnection {
 
 	public int communicationLoop(String nickname_) {
 		nickname = nickname_;
-
-		patternWaitingForUser = Pattern.compile("\\A\\*Waiting for " +
-												nickname +
-												" to (?:" +
-												"play tile" +
-												"|make purchase" +
-												"|select (?:chain to merge|merger survivor|new chain)" +
-												"|dispose of (?:Luxor|Tower|American|Festival|Worldwide|Continental|Imperial) shares" +
-												")\\.\\z", Pattern.CASE_INSENSITIVE);
 
 		dataRead.delete(0, dataRead.length());
 		ByteBuffer byteBuffer = ByteBuffer.allocate(10240);
@@ -202,7 +200,7 @@ public class NetworkConnection {
 	
 	protected void processDataRead() {
 		while (true) {
-			Matcher matcher = pattern.matcher(dataRead);
+			Matcher matcher = patternCommand.matcher(dataRead);
 			if (!matcher.find()) {
 				break;
 			}
@@ -331,8 +329,8 @@ public class NetworkConnection {
 	protected void handleGM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
 		Main.getMainFrame().gameRoom.append(message, MessageWindow.APPEND_DEFAULT);
-		Matcher matcher = patternWaitingForUser.matcher(message);
-		if (matcher.find()) {
+		Matcher matcher = patternWaiting.matcher(message);
+		if (matcher.find() && matcher.group(1).toLowerCase().equals(nickname.toLowerCase())) {
 			Main.getMainFrame().gameRoom.append("It's your turn.", MessageWindow.APPEND_ERROR);
 		}
 	}
