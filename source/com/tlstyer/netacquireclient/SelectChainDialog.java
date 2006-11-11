@@ -11,6 +11,8 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 	private int type;
 	
 	public SelectChainDialog(int type_, boolean[] hotelOptions) {
+		super(true);
+		
 		type = type_;
 		
 		String title;

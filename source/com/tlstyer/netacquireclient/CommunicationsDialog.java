@@ -16,6 +16,8 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
     private static final Pattern badNicknameChars = Pattern.compile(",|;|:|\"");
 
 	public CommunicationsDialog() {
+		super(false);
+		
 		setTitle("Communications");
 
 		// "Nickname" panel
