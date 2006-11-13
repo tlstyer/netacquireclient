@@ -13,6 +13,12 @@ class ListEntry {
 	}
 }
 
+class ComparatorListEntryAlphabetically implements Comparator<ListEntry> {
+	 public int compare(ListEntry le1, ListEntry le2) {
+		 return le1.messageLowercase.compareTo(le2.messageLowercase);
+	 }
+}
+
 class ComparatorListEntryGameNumber implements Comparator<ListEntry> {
 	 public int compare(ListEntry le1, ListEntry le2) {
 		 int diff;
@@ -20,12 +26,6 @@ class ComparatorListEntryGameNumber implements Comparator<ListEntry> {
 		 if (diff != 0) {
 			 return diff;
 		 }
-		 return le1.messageLowercase.compareTo(le2.messageLowercase);
-	 }
-}
-
-class ComparatorListEntryAlphabetically implements Comparator<ListEntry> {
-	 public int compare(ListEntry le1, ListEntry le2) {
 		 return le1.messageLowercase.compareTo(le2.messageLowercase);
 	 }
 }
@@ -92,8 +92,8 @@ public class UserListPresenter {
 	}
 
 	public static final int SORT_NONE = 0;
-	public static final int SORT_GAME_NUMBER = 1;
-	public static final int SORT_ALPHABETICALLY = 2;
+	public static final int SORT_ALPHABETICALLY = 1;
+	public static final int SORT_GAME_NUMBER = 2;
 	public static final int SORT_END = 2;
 
 	public void outputLines() {
@@ -104,10 +104,10 @@ public class UserListPresenter {
 		}
 		
 		int sortingMethod = SerializedData.getSerializedData().getUserListSortingMethod();
-		if (sortingMethod == SORT_GAME_NUMBER) {
-			Arrays.sort(listEntries, comparatorListEntryGameNumber);
-		} else if (sortingMethod == SORT_ALPHABETICALLY) {
+		if (sortingMethod == SORT_ALPHABETICALLY) {
 			Arrays.sort(listEntries, comparatorListEntryAlphabetically);
+		} else if (sortingMethod == SORT_GAME_NUMBER) {
+			Arrays.sort(listEntries, comparatorListEntryGameNumber);
 		}
 
         MessageWindow lobby = Main.getMainFrame().lobby;

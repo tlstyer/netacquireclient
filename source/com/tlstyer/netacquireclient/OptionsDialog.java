@@ -52,12 +52,12 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 			panelRadioButtonsUserListSortingMethod.add(radioButton);
 		}
 
-		radioButtons[0].setText("Don't sort");
+		radioButtons[0].setText("Don't Sort");
 		radioButtons[0].setMnemonic(KeyEvent.VK_D);
-		radioButtons[1].setText("Sort by game number");
-		radioButtons[1].setMnemonic(KeyEvent.VK_G);
-		radioButtons[2].setText("Sort alphabetically");
-		radioButtons[2].setMnemonic(KeyEvent.VK_A);
+		radioButtons[1].setText("Sort Alphabetically");
+		radioButtons[1].setMnemonic(KeyEvent.VK_A);
+		radioButtons[2].setText("Sort by Game Number");
+		radioButtons[2].setMnemonic(KeyEvent.VK_G);
 
 		radioButtons[SerializedData.getSerializedData().getUserListSortingMethod()].setSelected(true);
 		
