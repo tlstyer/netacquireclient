@@ -126,18 +126,20 @@ public class Util {
 		}
 	}
 
-	private static class playerOwnsAmountComparator implements Comparator<playerOwnsAmount> {
+	private static class PlayerOwnsAmountComparator implements Comparator<playerOwnsAmount> {
 		 public int compare(playerOwnsAmount o1, playerOwnsAmount o2) {
 			 return o2.getAmount() - o1.getAmount();
 		 }
 	}
+	
+	private static final PlayerOwnsAmountComparator playerOwnsAmountComparator = new PlayerOwnsAmountComparator();
 
     private static int[] getBonuses(int[] holdings, int price) {
     	playerOwnsAmount[] poaArray = new playerOwnsAmount[holdings.length];
     	for (int player=0; player<holdings.length; ++player) {
     		poaArray[player] = new playerOwnsAmount(player, holdings[player]);
     	}
-    	Arrays.sort(poaArray, new playerOwnsAmountComparator());
+    	Arrays.sort(poaArray, playerOwnsAmountComparator);
     	
     	int[] bonuses = new int[holdings.length];
     	for (int player=0; player<holdings.length; ++player) {
