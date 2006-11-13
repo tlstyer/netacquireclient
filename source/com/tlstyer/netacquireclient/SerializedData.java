@@ -8,6 +8,7 @@ public class SerializedData implements Serializable {
 	private Vector<String> nicknames = null;
 	private Vector<String> addressesAndPorts = null;
 	private Integer maxPlayerCount = 4;
+	private Integer userListSortingMethod = UserListPresenter.SORT_GAME_NUMBER;
 	
 	private static SerializedData serializedData = null;
 
@@ -40,6 +41,10 @@ public class SerializedData implements Serializable {
 		
 		if (maxPlayerCount == null || maxPlayerCount < 2 || maxPlayerCount > 6) {
 			maxPlayerCount = 4;
+		}
+		
+		if (userListSortingMethod == null || userListSortingMethod < 0 || userListSortingMethod > UserListPresenter.SORT_END) {
+			userListSortingMethod = UserListPresenter.SORT_GAME_NUMBER;
 		}
 	}
 
@@ -93,5 +98,13 @@ public class SerializedData implements Serializable {
 
 	public void setMaxPlayerCount(Integer maxPlayerCount) {
 		this.maxPlayerCount = maxPlayerCount;
+	}
+
+	public Integer getUserListSortingMethod() {
+		return userListSortingMethod;
+	}
+
+	public void setUserListSortingMethod(Integer userListSortingMethod) {
+		this.userListSortingMethod = userListSortingMethod;
 	}
 }

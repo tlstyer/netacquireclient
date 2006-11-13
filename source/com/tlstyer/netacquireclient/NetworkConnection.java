@@ -26,6 +26,8 @@ public class NetworkConnection {
     private GameBoardData gameBoardData = new GameBoardData();
     private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
     private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
+    
+    private UserListPresenter userListPresenter = new UserListPresenter();
 
     private static final Pattern patternCommand = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
 	private static final Pattern patternWaiting = Pattern.compile(
@@ -160,6 +162,10 @@ public class NetworkConnection {
 			gameBoardData.init();
 		    scoreSheetCaptionData.init();
 		    scoreSheetHoteltypeData.init();
+		}
+		
+		if (mode < MainFrame.MODE_IN_LOBBY) {
+			userListPresenter.init();
 		}
 	}
 
@@ -323,7 +329,13 @@ public class NetworkConnection {
 	}
 	
 	protected void handleLM(Object[] command) {
-		Main.getMainFrame().lobby.append(Util.commandToContainedMessage(command), MessageWindow.APPEND_DEFAULT);
+		String message = Util.commandToContainedMessage(command);
+		int result = userListPresenter.processMessage(message);
+		if (result == UserListPresenter.DO_AS_USUAL) {
+			Main.getMainFrame().lobby.append(message, MessageWindow.APPEND_DEFAULT);
+		} else if (result == UserListPresenter.READY_TO_OUTPUT_LINES) {
+			userListPresenter.outputLines();
+		}
 	}
 	
 	protected void handleGM(Object[] command) {
