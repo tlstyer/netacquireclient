@@ -12,6 +12,7 @@ public class NetworkConnection {
 	private String ipOrURL;
 	private int port;
 	private String nickname;
+	private String nicknameLowercase;
 	
 	private Boolean connected = false;
 	private boolean exitedNicely = false;
@@ -91,6 +92,7 @@ public class NetworkConnection {
 
 	public int communicationLoop(String nickname_) {
 		nickname = nickname_;
+		nicknameLowercase = nickname.toLowerCase();
 
 		dataRead.delete(0, dataRead.length());
 		ByteBuffer byteBuffer = ByteBuffer.allocate(10240);
@@ -342,7 +344,7 @@ public class NetworkConnection {
 		String message = Util.commandToContainedMessage(command);
 		Main.getMainFrame().gameRoom.append(message, MessageWindow.APPEND_DEFAULT);
 		Matcher matcher = patternWaiting.matcher(message);
-		if (matcher.find() && matcher.group(1).toLowerCase().equals(nickname.toLowerCase())) {
+		if (matcher.find() && matcher.group(1).toLowerCase().equals(nicknameLowercase)) {
 			Main.getMainFrame().gameRoom.append("It's your turn.", MessageWindow.APPEND_ERROR);
 		}
 	}
