@@ -31,14 +31,10 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		buttonDeleteNickname = new JButton("X");
 		buttonDeleteNickname.addActionListener(this);
 		
-		JPanel panelNickname = new JPanel();
-		panelNickname.setLayout(new BoxLayout(panelNickname, BoxLayout.X_AXIS));
+		JPanel panelNickname = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		panelNickname.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		panelNickname.add(Box.createHorizontalGlue());
 		panelNickname.add(labelNickname);
-		panelNickname.add(Box.createRigidArea(new Dimension(5, 0)));
 		panelNickname.add(cbNickname);
-		panelNickname.add(Box.createRigidArea(new Dimension(5, 0)));
 		panelNickname.add(buttonDeleteNickname);
 
 		// "IPURL:Port" panel
@@ -52,14 +48,10 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		buttonDeleteIPURLPort = new JButton("X");
 		buttonDeleteIPURLPort.addActionListener(this);
 		
-		JPanel panelIPURLPort = new JPanel();
-		panelIPURLPort.setLayout(new BoxLayout(panelIPURLPort, BoxLayout.X_AXIS));
+		JPanel panelIPURLPort = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		panelIPURLPort.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		panelIPURLPort.add(Box.createHorizontalGlue());
 		panelIPURLPort.add(labelIPURLPort);
-		panelIPURLPort.add(Box.createRigidArea(new Dimension(5, 0)));
 		panelIPURLPort.add(cbIPURLPort);
-		panelIPURLPort.add(Box.createRigidArea(new Dimension(5, 0)));
 		panelIPURLPort.add(buttonDeleteIPURLPort);
 
 		// "Go" button
