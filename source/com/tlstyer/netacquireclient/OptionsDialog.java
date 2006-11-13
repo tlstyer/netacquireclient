@@ -90,6 +90,8 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelOkCancel);
 		
+		getRootPane().setDefaultButton(buttonOk);
+		
 		showGameDialog(GameDialog.POSITION_0_0);
 	}
 
