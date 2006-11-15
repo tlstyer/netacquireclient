@@ -345,7 +345,7 @@ public class NetworkConnection {
 		Main.getMainFrame().gameRoom.append(message, MessageWindow.APPEND_DEFAULT);
 		Matcher matcher = patternWaiting.matcher(message);
 		if (matcher.find() && matcher.group(1).toLowerCase().equals(nicknameLowercase)) {
-			Main.getMainFrame().gameRoom.append("It's your turn.", MessageWindow.APPEND_ERROR);
+			Main.getSoundManager().playSound();
 		}
 	}
 	

@@ -80,6 +80,10 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		// whatever reason they're loaded) during program seup.
 		new JSpinner();
 		
+		// setup sound manager
+		SoundManager soundManager = new SoundManager();
+		Main.setSoundManager(soundManager);
+		
 		// setup network connection
         NetworkConnection networkConnection = new NetworkConnection();
 		Main.setNetworkConnection(networkConnection);
