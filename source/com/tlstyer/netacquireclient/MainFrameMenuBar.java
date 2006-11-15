@@ -53,7 +53,7 @@ class MenuItemOptions extends MainFrameMenuItem {
     }
     
     public void doAction() {
-    	OptionsDialog.ShowOptionsDialog();
+    	OptionsDialog.showOptionsDialog();
     }
 }
 

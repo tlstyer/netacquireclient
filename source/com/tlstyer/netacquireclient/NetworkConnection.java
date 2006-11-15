@@ -345,7 +345,9 @@ public class NetworkConnection {
 		Main.getMainFrame().gameRoom.append(message, MessageWindow.APPEND_DEFAULT);
 		Matcher matcher = patternWaiting.matcher(message);
 		if (matcher.find() && matcher.group(1).toLowerCase().equals(nicknameLowercase)) {
-			Main.getSoundManager().playSound();
+			if (SerializedData.getSerializedData().getPlaySoundWhenWaitingForMe()) {
+				Main.getSoundManager().playSound(SoundManager.CLIP_WAITING_FOR_ME);
+			}
 		}
 	}
 	

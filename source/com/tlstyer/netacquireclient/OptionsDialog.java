@@ -7,6 +7,9 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 	
 	private SpinnerNumberModel spinnerNumberModelMaxPlayerCount;
     private ButtonGroup radioButtonGroupUserListSortingMethod;
+    private JCheckBox checkboxPlaySoundWhenWaitingForMe;
+    private JTextField tfPathToSound;
+	private JButton buttonTestSound;
 	private JButton buttonOk;
 	private JButton buttonCancel;
 
@@ -63,6 +66,36 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		
 		panelRadioButtonsUserListSortingMethod.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
+		// "When waiting for me" panel
+		checkboxPlaySoundWhenWaitingForMe = new JCheckBox("Play Sound");
+		checkboxPlaySoundWhenWaitingForMe.setMnemonic(KeyEvent.VK_P);
+		checkboxPlaySoundWhenWaitingForMe.setSelected(SerializedData.getSerializedData().getPlaySoundWhenWaitingForMe());
+
+		JLabel labelSoundPath = new JLabel("Path to Sound:");
+		labelSoundPath.setDisplayedMnemonic(KeyEvent.VK_S);
+		
+		tfPathToSound = new JTextField(SerializedData.getSerializedData().getPathToSound(), 20);
+		labelSoundPath.setLabelFor(tfPathToSound);
+
+		JPanel panelSoundPath = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		panelSoundPath.add(labelSoundPath);
+		panelSoundPath.add(tfPathToSound);
+
+		buttonTestSound = new JButton("Test Sound");
+		buttonTestSound.setMnemonic(KeyEvent.VK_T);
+		buttonTestSound.addActionListener(this);
+
+		checkboxPlaySoundWhenWaitingForMe.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panelSoundPath.setAlignmentX(Component.LEFT_ALIGNMENT);
+		buttonTestSound.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JPanel panelWhenWaitingForMe = new JPanel();
+		panelWhenWaitingForMe.setBorder(BorderFactory.createTitledBorder("When waiting for me"));
+		panelWhenWaitingForMe.setLayout(new BoxLayout(panelWhenWaitingForMe, BoxLayout.Y_AXIS));
+		panelWhenWaitingForMe.add(checkboxPlaySoundWhenWaitingForMe);
+		panelWhenWaitingForMe.add(panelSoundPath);
+		panelWhenWaitingForMe.add(buttonTestSound);
+
 		// "Ok/Cancel" panel
 		buttonOk = Util.getButton3d2("Ok", KeyEvent.VK_O);
 		buttonOk.addActionListener(this);
@@ -80,6 +113,7 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		// give all panels left alignment
 		panelMaxPlayerCount.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panelRadioButtonsUserListSortingMethod.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panelWhenWaitingForMe.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panelOkCancel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 		// put them all together
@@ -88,6 +122,8 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelRadioButtonsUserListSortingMethod);
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(panelWhenWaitingForMe);
+		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelOkCancel);
 		
 		getRootPane().setDefaultButton(buttonOk);
@@ -95,7 +131,7 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		showGameDialog(GameDialog.POSITION_0_0);
 	}
 
-	public static void ShowOptionsDialog() {
+	public static void showOptionsDialog() {
 		synchronized (optionsDialogShowing) {
 			if (!optionsDialogShowing) {
 				new OptionsDialog();
@@ -104,9 +140,19 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		}
 	}
 	
+	private void hideOptionsDialog() {
+		synchronized (optionsDialogShowing) {
+			hideGameDialog();
+			optionsDialogShowing = false;		
+		}
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		Object object = e.getSource();
-		if (object == buttonOk) {
+		if (object == buttonTestSound) {
+			Main.getSoundManager().openSound(tfPathToSound.getText(), SoundManager.CLIP_TEST);
+			Main.getSoundManager().playSound(SoundManager.CLIP_TEST);
+		} else if (object == buttonOk) {
 			SerializedData.getSerializedData().setMaxPlayerCount(spinnerNumberModelMaxPlayerCount.getNumber().intValue());
 
 			try {
@@ -114,10 +160,18 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 				SerializedData.getSerializedData().setUserListSortingMethod(userListSortingMethod);
 			} catch (NumberFormatException nfe) {
 			}
+			
+			boolean playSoundWhenWaitingForMe = checkboxPlaySoundWhenWaitingForMe.isSelected();
+			SerializedData.getSerializedData().setPlaySoundWhenWaitingForMe(playSoundWhenWaitingForMe);
+			if (playSoundWhenWaitingForMe) {
+				String pathToSound = tfPathToSound.getText();
+				SerializedData.getSerializedData().setPathToSound(pathToSound);
+				Main.getSoundManager().openSound(pathToSound, SoundManager.CLIP_WAITING_FOR_ME);
+			}
+			
+			hideOptionsDialog();
 		} else if (object == buttonCancel) {
+			hideOptionsDialog();
 		}
-		
-		hideGameDialog();
-		optionsDialogShowing = false;
 	}
 }

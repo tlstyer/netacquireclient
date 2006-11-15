@@ -9,6 +9,8 @@ public class SerializedData implements Serializable {
 	private Vector<String> addressesAndPorts = null;
 	private Integer maxPlayerCount = 4;
 	private Integer userListSortingMethod = UserListPresenter.SORT_GAME_NUMBER;
+	private Boolean playSoundWhenWaitingForMe = false;
+	private String pathToSound = null;
 	
 	private static SerializedData serializedData = null;
 
@@ -45,6 +47,14 @@ public class SerializedData implements Serializable {
 		
 		if (userListSortingMethod == null || userListSortingMethod < 0 || userListSortingMethod > UserListPresenter.SORT_END) {
 			userListSortingMethod = UserListPresenter.SORT_GAME_NUMBER;
+		}
+
+		if (playSoundWhenWaitingForMe == null) {
+			playSoundWhenWaitingForMe = false;
+		}
+		
+		if (pathToSound == null) {
+			pathToSound = "";
 		}
 	}
 
@@ -106,5 +116,21 @@ public class SerializedData implements Serializable {
 
 	public void setUserListSortingMethod(Integer userListSortingMethod) {
 		this.userListSortingMethod = userListSortingMethod;
+	}
+
+	public Boolean getPlaySoundWhenWaitingForMe() {
+		return playSoundWhenWaitingForMe;
+	}
+
+	public void setPlaySoundWhenWaitingForMe(Boolean playSoundWhenWaitingForMe) {
+		this.playSoundWhenWaitingForMe = playSoundWhenWaitingForMe;
+	}
+	
+	public String getPathToSound() {
+		return pathToSound;
+	}
+
+	public void setPathToSound(String pathToSound) {
+		this.pathToSound = pathToSound;
 	}
 }
