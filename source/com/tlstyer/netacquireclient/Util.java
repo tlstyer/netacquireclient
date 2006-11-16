@@ -475,7 +475,7 @@ public class Util {
 		StringBuilder timeString = new StringBuilder(32);
 
 		fields[0] = calendar.get(Calendar.YEAR) - 2000;
-		fields[1] = calendar.get(Calendar.MONTH);
+		fields[1] = calendar.get(Calendar.MONTH) + 1;
 		fields[2] = calendar.get(Calendar.DAY_OF_MONTH);
 		fields[3] = calendar.get(Calendar.HOUR_OF_DAY);
 		fields[4] = calendar.get(Calendar.MINUTE);
