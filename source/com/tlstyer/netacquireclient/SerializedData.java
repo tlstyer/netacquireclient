@@ -11,6 +11,8 @@ public class SerializedData implements Serializable {
 	private Integer userListSortingMethod = UserListPresenter.SORT_GAME_NUMBER;
 	private Boolean playSoundWhenWaitingForMe = false;
 	private String pathToSound = null;
+	private Boolean writeToLogFiles = null;
+	private String pathToLogFiles = null;
 	
 	private static SerializedData serializedData = null;
 
@@ -55,6 +57,14 @@ public class SerializedData implements Serializable {
 		
 		if (pathToSound == null) {
 			pathToSound = "";
+		}
+		
+		if (writeToLogFiles == null) {
+			writeToLogFiles = true;
+		}
+		
+		if (pathToLogFiles == null) {
+			pathToLogFiles = "C:\\programming\\acquire\\logs";
 		}
 	}
 
@@ -132,5 +142,21 @@ public class SerializedData implements Serializable {
 
 	public void setPathToSound(String pathToSound) {
 		this.pathToSound = pathToSound;
+	}
+
+	public Boolean getWriteToLogFiles() {
+		return writeToLogFiles;
+	}
+
+	public void setWriteToLogFiles(Boolean writeToLogFiles) {
+		this.writeToLogFiles = writeToLogFiles;
+	}
+	
+	public String getPathToLogFiles() {
+		return pathToLogFiles;
+	}
+
+	public void setPathToLogFiles(String pathToLogFiles) {
+		this.pathToLogFiles = pathToLogFiles;
 	}
 }

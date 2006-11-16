@@ -215,6 +215,8 @@ public class NetworkConnection {
 			String commandString = matcher.group(1);
 			dataRead.delete(0, matcher.end());
 			Object[] command = Util.commandTextToJava(commandString);
+
+			Main.getLogFileWriter().writeMessage(LogFileWriter.MESSAGE_INCOMING, commandString);
 			
             Integer commandInt = hashmapCommand.get(command[0].toString());
             if (commandInt != null) {
@@ -266,6 +268,7 @@ public class NetworkConnection {
 	
 	protected void writeMessage(String message) {
 		synchronized(dataToWrite) {
+			Main.getLogFileWriter().writeMessage(LogFileWriter.MESSAGE_OUTGOING, message);
 			dataToWrite.append(message + ";:");
 			if (!isWritable) {
 				try {

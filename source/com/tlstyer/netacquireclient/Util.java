@@ -468,4 +468,32 @@ public class Util {
 		button.setMaximumSize(dimension);
 		return button;
 	}
+	
+	public static String getTimeString() {
+		Calendar calendar = Calendar.getInstance();
+		int[] fields = new int[6];
+		StringBuilder timeString = new StringBuilder(32);
+
+		fields[0] = calendar.get(Calendar.YEAR) - 2000;
+		fields[1] = calendar.get(Calendar.MONTH);
+		fields[2] = calendar.get(Calendar.DAY_OF_MONTH);
+		fields[3] = calendar.get(Calendar.HOUR_OF_DAY);
+		fields[4] = calendar.get(Calendar.MINUTE);
+		fields[5] = calendar.get(Calendar.SECOND);
+
+		for (int index=0; index<6; ++index) {
+			if (fields[index] < 10) {
+				timeString.append("0");
+			}
+			timeString.append("" + fields[index]);
+
+			if (index == 2) {
+				timeString.append("-");
+			} else if (index < 5) {
+				timeString.append(".");
+			}
+		}
+
+		return timeString.toString();
+	}
 }

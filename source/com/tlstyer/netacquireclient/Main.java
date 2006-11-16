@@ -4,6 +4,7 @@ public class Main {
     private static MainFrame mainFrame;
     private static NetworkConnection networkConnection;
     private static SoundManager soundManager;
+    private static LogFileWriter logFileWriter;
     private static Main main;
 
 	private String nickname;
@@ -21,6 +22,7 @@ public class Main {
     	SerializedData.LoadSerializedData();
     	
     	soundManager = new SoundManager();
+    	logFileWriter = new LogFileWriter();
     	networkConnection = new NetworkConnection();
     	mainFrame = new MainFrame();
     	
@@ -78,6 +80,7 @@ public class Main {
 	public void setMode(int mode_) {
 		mode = mode_;
 		
+		logFileWriter.setMode(mode);
         networkConnection.setMode(mode);
         mainFrame.setMode(mode);
 	}
@@ -103,6 +106,10 @@ public class Main {
 
 	public static SoundManager getSoundManager() {
 		return soundManager;
+	}
+
+	public static LogFileWriter getLogFileWriter() {
+		return logFileWriter;
 	}
 
 	public static Main getMain() {
