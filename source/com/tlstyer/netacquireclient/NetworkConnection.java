@@ -160,13 +160,13 @@ public class NetworkConnection {
 	}
 
 	public void setMode(int mode) {
-		if (mode <= MainFrame.MODE_IN_LOBBY) {
+		if (mode <= Main.MODE_IN_LOBBY) {
 			gameBoardData.init();
 		    scoreSheetCaptionData.init();
 		    scoreSheetHoteltypeData.init();
 		}
 		
-		if (mode < MainFrame.MODE_IN_LOBBY) {
+		if (mode < Main.MODE_IN_LOBBY) {
 			userListPresenter.init();
 		}
 	}
@@ -370,13 +370,13 @@ public class NetworkConnection {
 	protected void handleSS(Object[] command) {
 		int state = (Integer)command[1];
 		if (state == 6) {
-			state = MainFrame.MODE_IN_GAME;
+			state = Main.MODE_IN_GAME;
 		}
 		if (state > 6) {
 			commandProcessingResult = COMMAND_NOT_PROCESSED;
 			return;
 		}
-		Main.getMainFrame().setMode(state);
+		Main.getMain().setMode(state);
 	}
 	
 	protected void handleGT(Object[] command) {

@@ -175,7 +175,7 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		addressesAndPorts.add(0, addressAndPort);
 		
 		// input accepted, so leave this dialog
-		Main.getMainFrame().setConnectionParams(nickname, ipurl, portInt);
+		Main.getMain().setConnectionParams(nickname, ipurl, portInt);
 		hideGameDialog();
 	}
 

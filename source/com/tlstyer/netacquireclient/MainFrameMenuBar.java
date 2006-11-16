@@ -123,7 +123,7 @@ class MenuItemStartNewGame extends MainFrameMenuItem {
     }
     
     public void doAction() {
-		if (Main.getMainFrame().getMode() >= MainFrame.MODE_IN_GAME) {
+		if (Main.getMain().getMode() >= Main.MODE_IN_GAME) {
 			Main.getNetworkConnection().writeMessage("LV;");
 		}
     	Main.getNetworkConnection().writeMessage("SG;" + SerializedData.getSerializedData().getMaxPlayerCount());
@@ -180,7 +180,7 @@ class MenuItemEnterGame extends MainFrameMenuItem {
 		}
 		
 		if (value >= 1 && value <= 32767) {
-			if (Main.getMainFrame().getMode() >= MainFrame.MODE_IN_GAME) {
+			if (Main.getMain().getMode() >= Main.MODE_IN_GAME) {
 				Main.getNetworkConnection().writeMessage("LV;");
 			}
 			Main.getNetworkConnection().writeMessage("JG;" + value + "," + messageCode);

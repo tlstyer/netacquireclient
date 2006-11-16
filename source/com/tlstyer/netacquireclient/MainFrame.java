@@ -18,14 +18,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
     public MessageWindow gameRoom;
     public PostMessageTextField gameRoomPost;
 	
-	private String nickname;
-	private String ipurl;
-	private int port;
-	private boolean gotConnectionParams;
-
 	public MainFrame() {
-		Main.setMainFrame(this);
-		
         //Set the look and feel.
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -72,7 +65,6 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		// don't know what to call these!
 		panel.addComponentListener(this);
 		getContentPane().add(panel, BorderLayout.CENTER);
-		SerializedData.LoadSerializedData();
 		
 		// for whatever reason, constructing the first JSpinner causes gobs of
 		// fonts to be loaded. this makes ShareDispositionDialog take forever
@@ -80,77 +72,12 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		// whatever reason they're loaded) during program seup.
 		new JSpinner();
 		
-		// setup sound manager
-		SoundManager soundManager = new SoundManager();
-		Main.setSoundManager(soundManager);
-		
-		// setup network connection
-        NetworkConnection networkConnection = new NetworkConnection();
-		Main.setNetworkConnection(networkConnection);
-		
         //Display the window.
 		pack();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setMode(MODE_NOT_CONNECTED);
+		setMode(Main.MODE_NOT_CONNECTED);
 		setVisible(true);
-        
-		// main loop!
-        for (;;) {
-    		setMode(MODE_NOT_CONNECTED);
-        	gotConnectionParams = false;
-        	new CommunicationsDialog();
-        	do {
-        		try {
-					Thread.sleep(50);
-				} catch (InterruptedException e) {
-				}
-        	} while (!gotConnectionParams);
-
-            setMode(MODE_CONNECTING);
-
-            lobby.append("# connecting to " + ipurl + ":" + port + " as " + nickname + " ...", MessageWindow.APPEND_DEFAULT);
-
-    		boolean connected = networkConnection.connect(ipurl, port);
-    		if (!connected) {
-    			JOptionPane.showMessageDialog(this,
-											  "Could not connect to " + ipurl + ":" + port + ".",
-											  "Could not connect",
-											  JOptionPane.ERROR_MESSAGE);
-				continue;
-    		}
-
-			int exitReason = networkConnection.communicationLoop(nickname);
-
-			if (exitReason == NetworkConnection.EXIT_LOST_CONNECTION) {
-    			JOptionPane.showMessageDialog(this,
-											  "Lost connection to " + ipurl + ":" + port + ".",
-											  "Lost connection",
-											  JOptionPane.ERROR_MESSAGE);
-				continue;
-			} else if (exitReason == NetworkConnection.EXIT_IO_EXCEPTION) {
-    			JOptionPane.showMessageDialog(this,
-											  "Unhandled exception. Please reconnect.",
-											  "Unhandled exception",
-											  JOptionPane.ERROR_MESSAGE);
-				continue;
-			}
-        }
     }
-	
-	public void setConnectionParams(String nickname_, String ipurl_, int port_) {
-		nickname = nickname_;
-		ipurl = ipurl_;
-		port = port_;
-		gotConnectionParams = true;
-	}
-
-	private int mode;
-
-	public static final int MODE_NOT_CONNECTED = 1;
-	public static final int MODE_CONNECTING = 2;
-	public static final int MODE_IN_LOBBY = 3;
-	public static final int MODE_IN_GAME = 4;
-	public static final int MODE_IN_GAME_WAITING_FOR_ME_TO_START_GAME = 5;
 	
                                                                        // XXXXX, mode1, mode2, mode3, mode4, mode5
     private static final boolean[] visibilityInModesGameBoard          = {false, false, false, false,  true,  true};
@@ -162,9 +89,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
     private static final boolean[] visibilityInModesGameRoom           = {false, false, false, false,  true,  true};
     private static final boolean[] visibilityInModesGameRoomPost       = {false, false, false, false,  true,  true};
 	
-	public void setMode(int mode_) {
-		mode = mode_;
-
+	public void setMode(int mode) {
         gameBoard.setVisible(visibilityInModesGameBoard[mode]);
         tileRackBackground.setVisible(visibilityInModesTileRackBackground[mode]);
         tileRack.setVisible(visibilityInModesTileRack[mode]);
@@ -175,16 +100,12 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
         gameRoomPost.setVisible(visibilityInModesGameRoomPost[mode]);
 
         menuBar.setMode(mode);
-        NetworkConnection networkConnection = Main.getNetworkConnection();
-        if (networkConnection != null) {
-        	networkConnection.setMode(mode);
-        }
         
-        if (mode <= MODE_CONNECTING) {
+        if (mode <= Main.MODE_CONNECTING) {
         	lobby.clear();
         }
         
-        if (mode <= MODE_IN_LOBBY) {
+        if (mode <= Main.MODE_IN_LOBBY) {
         	GameDialog.hideGameDialogs();
         	gameRoom.clear();
         	tileRack.setButtonsVisible(false);
@@ -192,10 +113,6 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
         }
 	}
 	
-	public int getMode() {
-		return mode;
-	}
-
 	private void setComponentBounds(Component component, int x, int y, int width, int height) {
 		Rectangle bounds = component.getBounds();
 		if (bounds.x != x || bounds.y != y || bounds.width != width || bounds.height != height) {
