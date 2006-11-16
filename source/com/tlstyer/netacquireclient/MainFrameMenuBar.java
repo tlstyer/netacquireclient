@@ -123,9 +123,6 @@ class MenuItemStartNewGame extends MainFrameMenuItem {
     }
     
     public void doAction() {
-		if (Main.getMain().getMode() >= Main.MODE_IN_GAME) {
-			Main.getNetworkConnection().writeMessage("LV;");
-		}
     	Main.getNetworkConnection().writeMessage("SG;" + SerializedData.getSerializedData().getMaxPlayerCount());
     }
 }
@@ -316,7 +313,7 @@ public class MainFrameMenuBar extends JMenuBar {
 	private static final boolean[] enablednessInModesMenuItemReinitialize    = {false,  true,  true,  true,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemShowUsers       = {false, false, false,  true,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemShowGames       = {false, false, false,  true,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemStartNewGame    = {false, false, false,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemStartNewGame    = {false, false, false,  true, false, false};
 	private static final boolean[] enablednessInModesMenuItemStartGamePlay   = {false, false, false, false, false,  true};
 	private static final boolean[] enablednessInModesMenuItemJoinGame        = {false, false, false,  true,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemWatchGame       = {false, false, false,  true,  true,  true};
