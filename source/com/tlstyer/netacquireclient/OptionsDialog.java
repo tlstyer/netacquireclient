@@ -5,11 +5,22 @@ import javax.swing.*;
 public class OptionsDialog extends GameDialog implements ActionListener {
 	private static final long serialVersionUID = -8370913711548370855L;
 	
+	// "max player count" panel
 	private SpinnerNumberModel spinnerNumberModelMaxPlayerCount;
+
+	// "User List sorting method" panel
     private ButtonGroup radioButtonGroupUserListSortingMethod;
+
+	// "When waiting for me" panel
     private JCheckBox checkboxPlaySoundWhenWaitingForMe;
     private JTextField tfPathToSound;
 	private JButton buttonTestSound;
+
+	// "Log Files" panel
+    private JCheckBox checkboxLogGamesToFiles;
+    private JTextField tfDirectoryToSaveIn;
+
+	// "Ok/Cancel" panel
 	private JButton buttonOk;
 	private JButton buttonCancel;
 
@@ -96,6 +107,30 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		panelWhenWaitingForMe.add(panelSoundPath);
 		panelWhenWaitingForMe.add(buttonTestSound);
 
+		// "Log Files" panel
+		checkboxLogGamesToFiles = new JCheckBox("Log games to files");
+		checkboxLogGamesToFiles.setMnemonic(KeyEvent.VK_L);
+		checkboxLogGamesToFiles.setSelected(SerializedData.getSerializedData().getWriteToLogFiles());
+
+		JLabel labelDirectoryToSaveIn = new JLabel("Directory to save in:");
+		labelDirectoryToSaveIn.setDisplayedMnemonic(KeyEvent.VK_D);
+		
+		tfDirectoryToSaveIn = new JTextField(SerializedData.getSerializedData().getPathToLogFiles(), 20);
+		labelDirectoryToSaveIn.setLabelFor(tfDirectoryToSaveIn);
+
+		JPanel panelDirectoryToSaveIn = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		panelDirectoryToSaveIn.add(labelDirectoryToSaveIn);
+		panelDirectoryToSaveIn.add(tfDirectoryToSaveIn);
+
+		checkboxLogGamesToFiles.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panelDirectoryToSaveIn.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JPanel panelLogFiles = new JPanel();
+		panelLogFiles.setBorder(BorderFactory.createTitledBorder("Log Files"));
+		panelLogFiles.setLayout(new BoxLayout(panelLogFiles, BoxLayout.Y_AXIS));
+		panelLogFiles.add(checkboxLogGamesToFiles);
+		panelLogFiles.add(panelDirectoryToSaveIn);
+
 		// "Ok/Cancel" panel
 		buttonOk = Util.getButton3d2("Ok", KeyEvent.VK_O);
 		buttonOk.addActionListener(this);
@@ -123,6 +158,8 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		panel.add(panelRadioButtonsUserListSortingMethod);
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelWhenWaitingForMe);
+		panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(panelLogFiles	);
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelOkCancel);
 		
@@ -153,14 +190,17 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 			Main.getSoundManager().openSound(tfPathToSound.getText(), SoundManager.CLIP_TEST);
 			Main.getSoundManager().playSound(SoundManager.CLIP_TEST);
 		} else if (object == buttonOk) {
+			// "max player count" panel
 			SerializedData.getSerializedData().setMaxPlayerCount(spinnerNumberModelMaxPlayerCount.getNumber().intValue());
 
+			// "User List sorting method" panel
 			try {
 				int userListSortingMethod = Integer.decode(radioButtonGroupUserListSortingMethod.getSelection().getActionCommand());
 				SerializedData.getSerializedData().setUserListSortingMethod(userListSortingMethod);
 			} catch (NumberFormatException nfe) {
 			}
 			
+			// "When waiting for me" panel
 			boolean playSoundWhenWaitingForMe = checkboxPlaySoundWhenWaitingForMe.isSelected();
 			SerializedData.getSerializedData().setPlaySoundWhenWaitingForMe(playSoundWhenWaitingForMe);
 			if (playSoundWhenWaitingForMe) {
@@ -169,6 +209,22 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 				Main.getSoundManager().openSound(pathToSound, SoundManager.CLIP_WAITING_FOR_ME);
 			}
 			
+			// "Log Files" panel
+			String pathOld = SerializedData.getSerializedData().getPathToLogFiles();
+			String pathNew = tfDirectoryToSaveIn.getText();
+			if (!pathOld.equals(pathNew)) {
+				SerializedData.getSerializedData().setPathToLogFiles(pathNew);
+				Main.getLogFileWriter().closeLogFile();
+			}
+			
+			boolean logGamesToFiles = checkboxLogGamesToFiles.isSelected();
+			SerializedData.getSerializedData().setWriteToLogFiles(logGamesToFiles);
+			if (logGamesToFiles) {
+				Main.getLogFileWriter().writeMessages();
+			} else {
+				Main.getLogFileWriter().closeLogFile();
+			}
+
 			hideOptionsDialog();
 		} else if (object == buttonCancel) {
 			hideOptionsDialog();
