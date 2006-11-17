@@ -31,12 +31,15 @@ public class Main {
     		setMode(MODE_NOT_CONNECTED);
         	gotConnectionParams = false;
         	new CommunicationsDialog();
-        	do {
-        		try {
-					Thread.sleep(50);
-				} catch (InterruptedException e) {
-				}
-        	} while (!gotConnectionParams);
+        	synchronized (this) {
+            	while (!gotConnectionParams) {
+            		try {
+    					wait();
+    				} catch (InterruptedException e) {
+    					e.printStackTrace();
+    				}
+            	}
+        	}
 
             setMode(MODE_CONNECTING);
 
@@ -94,6 +97,9 @@ public class Main {
 		ipurl = ipurl_;
 		port = port_;
 		gotConnectionParams = true;
+		synchronized (this) {
+			notifyAll();
+		}
 	}
 
 	public static MainFrame getMainFrame() {
