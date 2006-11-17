@@ -204,6 +204,9 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 			SerializedData.getSerializedData().setPlaySoundWhenWaitingForMe(playSoundWhenWaitingForMe);
 			String pathToSound = tfPathToSound.getText();
 			SerializedData.getSerializedData().setPathToSound(pathToSound);
+			if (playSoundWhenWaitingForMe) {
+				Main.getSoundManager().loadSound(pathToSound);
+			}
 			
 			// "Log Files" panel
 			String pathOld = SerializedData.getSerializedData().getPathToLogFiles();
