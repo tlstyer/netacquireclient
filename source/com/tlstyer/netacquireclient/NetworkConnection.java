@@ -426,7 +426,42 @@ public class NetworkConnection {
 								   hoteltypeOfTakenOver);
 	}
 
+	private static class ModalMessage {
+		public String messageFromServer;
+		public String messageToUser;
+
+		public ModalMessage(String messageFromServer_, String messageToUser_) {
+			messageFromServer = messageFromServer_;
+			messageToUser = messageToUser_;
+		}
+	}
+
+	private static final ModalMessage[] modalMessages = {
+		new ModalMessage("I;Game ended;The game has ended, click OK to view final game results.",
+						 null),
+		new ModalMessage("I;Tile bag empty;The last tile has been drawn from the tile bag.",
+						 null),
+		new ModalMessage("E;Duplicate user Nickname;You cannot connect using the Nickname you have chosen as it is already in use.",
+						 "Duplicate user Nickname: You cannot connect using the Nickname you have chosen as it is already in use."),
+	};
+
 	protected void handleM(Object[] command) {
-		commandProcessingResult = COMMAND_NOT_PROCESSED;
+		String message = Util.commandToContainedMessage(command);
+
+		boolean recognizedMessage = false;
+
+		for (int index=0; index<modalMessages.length; ++index) {
+			if (message.equals(modalMessages[index].messageFromServer)) {
+				if (modalMessages[index].messageToUser != null) {
+					Main.getMainFrame().lobby.append(modalMessages[index].messageToUser, MessageWindow.APPEND_ERROR);
+				}
+				recognizedMessage = true;
+				break;
+			}
+		}
+
+		if (!recognizedMessage) {
+			commandProcessingResult = COMMAND_NOT_PROCESSED;
+		}
 	}
 }
