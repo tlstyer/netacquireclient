@@ -5,8 +5,8 @@ import java.util.*;
 public class SerializedData implements Serializable {
 	private static final long serialVersionUID = -1818673008683293864L;
 	
-	private Vector<String> nicknames = null;
-	private Vector<String> addressesAndPorts = null;
+	private ArrayList<String> nicknames = null;
+	private ArrayList<String> addressesAndPorts = null;
 	private Integer maxPlayerCount = 4;
 	private Integer userListSortingMethod = UserListPresenter.SORT_GAME_NUMBER;
 	private Boolean playSoundWhenWaitingForMe = false;
@@ -24,7 +24,7 @@ public class SerializedData implements Serializable {
 	
 	private void initializeNullFields() {
 		if (nicknames == null) {
-			nicknames = new Vector<String>();
+			nicknames = new ArrayList<String>();
 			String nickname;
 			try {
 				nickname = InetAddress.getLocalHost().getHostName();
@@ -36,7 +36,7 @@ public class SerializedData implements Serializable {
 		}
 		
 		if (addressesAndPorts == null) {
-			addressesAndPorts = new Vector<String>();
+			addressesAndPorts = new ArrayList<String>();
 			addressesAndPorts.add("localhost:1001");
 			addressesAndPorts.add("acquire.sbg.org:1001");
 			addressesAndPorts.add("acquire.sbg.org:1002");
@@ -104,11 +104,11 @@ public class SerializedData implements Serializable {
 		}
 	}
 
-	public Vector<String> getNicknames() {
+	public ArrayList<String> getNicknames() {
 		return nicknames;
 	}
 
-	public Vector<String> getAddressesAndPorts() {
+	public ArrayList<String> getAddressesAndPorts() {
 		return addressesAndPorts;
 	}
 

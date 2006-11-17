@@ -24,7 +24,7 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		JLabel labelNickname = new JLabel("Nickname:", JLabel.TRAILING);
 		labelNickname.setDisplayedMnemonic(KeyEvent.VK_N);
 		
-		cbNickname = new JComboBox(SerializedData.getSerializedData().getNicknames());
+		cbNickname = new JComboBox(SerializedData.getSerializedData().getNicknames().toArray());
 		cbNickname.setEditable(true);
 		labelNickname.setLabelFor(cbNickname);
 		
@@ -41,7 +41,7 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		JLabel labelIPURLPort = new JLabel("IP/URL:Port:", JLabel.TRAILING);
 		labelIPURLPort.setDisplayedMnemonic(KeyEvent.VK_I);
 		
-		cbIPURLPort = new JComboBox(SerializedData.getSerializedData().getAddressesAndPorts());
+		cbIPURLPort = new JComboBox(SerializedData.getSerializedData().getAddressesAndPorts().toArray());
 		cbIPURLPort.setEditable(true);
 		labelIPURLPort.setLabelFor(cbIPURLPort);
 		
@@ -93,7 +93,7 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		toFront();
 	}
 	
-	private void processButtonDelete(Vector<String> strings, JComboBox comboBox) {
+	private void processButtonDelete(ArrayList<String> strings, JComboBox comboBox) {
 		String nickname = ((String)comboBox.getSelectedItem());
 		strings.remove(nickname);
 		
@@ -165,11 +165,11 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 		}
 		
 		// tell SerializedData about the changes
-		Vector<String> nicknames = SerializedData.getSerializedData().getNicknames();
+		ArrayList<String> nicknames = SerializedData.getSerializedData().getNicknames();
 		nicknames.remove(nickname);
 		nicknames.add(0, nickname);
 		
-		Vector<String> addressesAndPorts = SerializedData.getSerializedData().getAddressesAndPorts();
+		ArrayList<String> addressesAndPorts = SerializedData.getSerializedData().getAddressesAndPorts();
 		String addressAndPort = ipurl + ":" + portInt;
 		addressesAndPorts.remove(addressAndPort);
 		addressesAndPorts.add(0, addressAndPort);

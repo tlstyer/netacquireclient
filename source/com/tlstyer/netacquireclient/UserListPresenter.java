@@ -34,7 +34,7 @@ public class UserListPresenter {
 	private boolean processingList;
 
 	private String messageStart;
-	private Vector<ListEntry> listEntries = new Vector<ListEntry>();
+	private ArrayList<ListEntry> listEntries = new ArrayList<ListEntry>();
 
     private static final Pattern patternListStart = Pattern.compile("\\A# Users: \\d*? \\.\\.\\.\\z");
     private static final Pattern patternListEntry = Pattern.compile("\\A# -> (.+?) (in lobby|\\(playing in game #(\\d*?)\\)|\\(watching game #(\\d*?)\\)) \\.\\.\\.\\z");
