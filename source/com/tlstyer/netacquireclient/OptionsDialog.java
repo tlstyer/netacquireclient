@@ -187,8 +187,7 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object object = e.getSource();
 		if (object == buttonTestSound) {
-			Main.getSoundManager().openSound(tfPathToSound.getText(), SoundManager.CLIP_TEST);
-			Main.getSoundManager().playSound(SoundManager.CLIP_TEST);
+			Main.getSoundManager().playSound(tfPathToSound.getText());
 		} else if (object == buttonOk) {
 			// "max player count" panel
 			SerializedData.getSerializedData().setMaxPlayerCount(spinnerNumberModelMaxPlayerCount.getNumber().intValue());
@@ -203,11 +202,8 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 			// "When waiting for me" panel
 			boolean playSoundWhenWaitingForMe = checkboxPlaySoundWhenWaitingForMe.isSelected();
 			SerializedData.getSerializedData().setPlaySoundWhenWaitingForMe(playSoundWhenWaitingForMe);
-			if (playSoundWhenWaitingForMe) {
-				String pathToSound = tfPathToSound.getText();
-				SerializedData.getSerializedData().setPathToSound(pathToSound);
-				Main.getSoundManager().openSound(pathToSound, SoundManager.CLIP_WAITING_FOR_ME);
-			}
+			String pathToSound = tfPathToSound.getText();
+			SerializedData.getSerializedData().setPathToSound(pathToSound);
 			
 			// "Log Files" panel
 			String pathOld = SerializedData.getSerializedData().getPathToLogFiles();

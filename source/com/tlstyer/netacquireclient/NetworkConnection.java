@@ -349,7 +349,7 @@ public class NetworkConnection {
 		Matcher matcher = patternWaiting.matcher(message);
 		if (matcher.find() && matcher.group(1).toLowerCase().equals(nicknameLowercase)) {
 			if (SerializedData.getSerializedData().getPlaySoundWhenWaitingForMe()) {
-				Main.getSoundManager().playSound(SoundManager.CLIP_WAITING_FOR_ME);
+				Main.getSoundManager().playSound(SerializedData.getSerializedData().getPathToSound());
 			}
 		}
 	}

@@ -2,21 +2,10 @@ import java.io.*;
 import javax.sound.sampled.*;
 
 public class SoundManager {
-	public static int CLIP_WAITING_FOR_ME = 0;
-	public static int CLIP_TEST = 1;
-	public static int CLIP_COUNT = 2;
-
-	private Clip[] clips = new Clip[CLIP_COUNT];
-
 	public SoundManager() {
-		if (SerializedData.getSerializedData().getPlaySoundWhenWaitingForMe()) {
-			openSound(SerializedData.getSerializedData().getPathToSound(), CLIP_WAITING_FOR_ME);
-		}
 	}
 
-	public boolean openSound(String pathname, int clipType) {
-		clips[clipType] = null;
-		
+	public boolean playSound(String pathname) {
 		Clip clip = null;
 		try {
 			clip = AudioSystem.getClip();
@@ -48,16 +37,8 @@ public class SoundManager {
 			return false;
 		}
 
-		clips[clipType] = clip;
+		clip.start();
+		
 		return true;
-	}
-
-	public void playSound(int clipType) {
-		Clip clip = clips[clipType];
-		if (clip != null) {
-			clip.stop();
-			clip.setFramePosition(0);
-			clip.start();
-		}
 	}
 }
