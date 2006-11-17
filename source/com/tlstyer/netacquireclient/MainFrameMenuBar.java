@@ -65,6 +65,7 @@ class MenuItemQuit extends MainFrameMenuItem {
     }
     
     public void doAction() {
+    	Main.getMainFrame().closeWindow();
     }
 }
 

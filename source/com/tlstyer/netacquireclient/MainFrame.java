@@ -173,7 +173,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		return scoreSheetRowHeight * numRowsInScoreSheet;
 	}
 	
-	private void closeWindow() {
+	public void closeWindow() {
 		SerializedData.SaveSerializedData();
 		System.exit(0);
 	}
