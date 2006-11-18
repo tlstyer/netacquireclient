@@ -31,7 +31,7 @@ public class Util {
 		Object[] splitObjectArray = split(command, ";");
 		for (int index=0; index<splitObjectArray.length; ++index) {
 			Object o = splitObjectArray[index]; 
-			if (o.getClass().getSimpleName().equals("String")) {
+			if (o.getClass() == String.class) {
 				Object[] splitObjectArray2 = split((String)o, ",");
 				splitObjectArray[index] = splitObjectArray2;
 				if (splitObjectArray2.length == 1) {
@@ -43,7 +43,7 @@ public class Util {
 	}
 	
     public static String join(Object object, String separator) {
-    	if (object.getClass().getSimpleName().equals("Object[]")) {
+    	if (object.getClass() == Object[].class) {
     		Object[] objects = (Object[])object;
             StringBuffer buffer = new StringBuffer();
     		for (int i=0; i<objects.length; ++i) {
@@ -93,7 +93,7 @@ public class Util {
 	}
 
 	private static int getAsInteger(Object value) {
-		if (value != null && value.getClass().getSimpleName().equals("Integer")) {
+		if (value != null && value.getClass() == Integer.class) {
 			return (Integer)value;
 		} else {
 			return 0;
