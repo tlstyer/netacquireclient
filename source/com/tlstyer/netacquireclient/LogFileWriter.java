@@ -17,7 +17,7 @@ public class LogFileWriter {
 	public static final int MESSAGE_INCOMING = 1;
 	public static final int MESSAGE_OUTGOING = 2;
 	
-	public void writeMessage(int type, String message) {
+	private void writeMessage_(int type, String message) {
 		if (mode < Main.MODE_IN_GAME) {
 			return;
 		}
@@ -30,10 +30,10 @@ public class LogFileWriter {
 		}
 		messages.add(messageFull);
 		
-		writeMessages();
+		writeMessages_();
 	}
 	
-	public void writeMessages() {
+	private void writeMessages_() {
 		if (mode < Main.MODE_IN_GAME) {
 			return;
 		}
@@ -59,7 +59,7 @@ public class LogFileWriter {
 		}
 	}
 	
-	public void closeLogFile() {
+	private void closeLogFile_() {
 		if (fileOutputStream != null) {
 			try {
 				fileOutputStream.close();
@@ -69,12 +69,36 @@ public class LogFileWriter {
 		}
 	}
 	
-	public void setMode(int mode_) {
+	private void setMode_(int mode_) {
 		mode = mode_;
 		
 		if (mode < Main.MODE_IN_GAME) {
 			messages.clear();
-			closeLogFile();
+			closeLogFile_();
+		}
+	}
+	
+	public void writeMessage(int type, String message) {
+		synchronized (this) {
+			writeMessage_(type, message);
+		}
+	}
+	
+	public void writeMessages() {
+		synchronized (this) {
+			writeMessages_();
+		}
+	}
+	
+	public void closeLogFile() {
+		synchronized (this) {
+			closeLogFile_();
+		}
+	}
+	
+	public void setMode(int mode_) {
+		synchronized (this) {
+			setMode_(mode_);
 		}
 	}
 }
