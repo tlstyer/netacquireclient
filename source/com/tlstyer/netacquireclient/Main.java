@@ -40,36 +40,40 @@ public class Main {
     				}
             	}
         	}
-
-            setMode(MODE_CONNECTING);
-
-            mainFrame.lobby.append("# connecting to " + ipurl + ":" + port + " as " + nickname + " ...", MessageWindow.APPEND_DEFAULT);
-
-    		boolean connected = networkConnection.connect(ipurl, port);
-    		if (!connected) {
-    			JOptionPane.showMessageDialog(mainFrame,
-											  "Could not connect to " + ipurl + ":" + port + ".",
-											  "Could not connect",
-											  JOptionPane.ERROR_MESSAGE);
-				continue;
-    		}
-
-			int exitReason = networkConnection.communicationLoop(nickname);
-
-			if (exitReason == NetworkConnection.EXIT_LOST_CONNECTION) {
-    			JOptionPane.showMessageDialog(mainFrame,
-											  "Lost connection to " + ipurl + ":" + port + ".",
-											  "Lost connection",
-											  JOptionPane.ERROR_MESSAGE);
-				continue;
-			} else if (exitReason == NetworkConnection.EXIT_IO_EXCEPTION) {
-    			JOptionPane.showMessageDialog(mainFrame,
-											  "Unhandled exception. Please reconnect.",
-											  "Unhandled exception",
-											  JOptionPane.ERROR_MESSAGE);
-				continue;
-			}
+        	
+        	networkMode();
         }
+    }
+    
+    private void networkMode() {
+        setMode(MODE_CONNECTING);
+
+        mainFrame.lobby.append("# connecting to " + ipurl + ":" + port + " as " + nickname + " ...", MessageWindow.APPEND_DEFAULT);
+
+		boolean connected = networkConnection.connect(ipurl, port);
+		if (!connected) {
+			JOptionPane.showMessageDialog(mainFrame,
+										  "Could not connect to " + ipurl + ":" + port + ".",
+										  "Could not connect",
+										  JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		int exitReason = networkConnection.communicationLoop(nickname);
+
+		if (exitReason == NetworkConnection.EXIT_LOST_CONNECTION) {
+			JOptionPane.showMessageDialog(mainFrame,
+										  "Lost connection to " + ipurl + ":" + port + ".",
+										  "Lost connection",
+										  JOptionPane.ERROR_MESSAGE);
+			return;
+		} else if (exitReason == NetworkConnection.EXIT_IO_EXCEPTION) {
+			JOptionPane.showMessageDialog(mainFrame,
+										  "Unhandled exception. Please reconnect.",
+										  "Unhandled exception",
+										  JOptionPane.ERROR_MESSAGE);
+			return;
+		}
     }
     
 	private int mode;
