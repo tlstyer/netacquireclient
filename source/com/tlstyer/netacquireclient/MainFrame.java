@@ -79,15 +79,15 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		setVisible(true);
     }
 	
-                                                                       // XXXXX, mode1, mode2, mode3, mode4, mode5
-    private static final boolean[] visibilityInModesGameBoard          = {false, false, false, false,  true,  true};
-    private static final boolean[] visibilityInModesTileRackBackground = {false, false, false, false,  true,  true};
-    private static final boolean[] visibilityInModesTileRack           = {false, false, false, false,  true,  true};
-    private static final boolean[] visibilityInModesLobby              = {false, false,  true,  true,  true,  true};
-    private static final boolean[] visibilityInModesLobbyPost          = {false, false, false,  true,  true,  true};
-    private static final boolean[] visibilityInModesScoreSheet         = {false, false, false, false,  true,  true};
-    private static final boolean[] visibilityInModesGameRoom           = {false, false, false, false,  true,  true};
-    private static final boolean[] visibilityInModesGameRoomPost       = {false, false, false, false,  true,  true};
+                                                                       // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
+    private static final boolean[] visibilityInModesGameBoard          = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesTileRackBackground = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesTileRack           = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesLobby              = {false, false,  true,  true,  true,  true,  true};
+    private static final boolean[] visibilityInModesLobbyPost          = {false, false, false,  true,  true,  true,  true};
+    private static final boolean[] visibilityInModesScoreSheet         = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesGameRoom           = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesGameRoomPost       = {false, false, false, false,  true,  true,  true};
 	
 	public void setMode(int mode) {
         gameBoard.setVisible(visibilityInModesGameBoard[mode]);
@@ -151,7 +151,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 
 		int scoreSheetY = width / 2 + borderWidth / 2;
 		int scoreSheetRowHeight = gameBoardWidth * 10 / 18 / 10;
-		int numRowsInScoreSheet = Main.getNetworkConnection().getNumberOfPlayers() + 4;
+		int numRowsInScoreSheet = Main.getMain().getNumberOfPlayers() + 4;
 		int scoreSheetHeight = scoreSheetRowHeight * numRowsInScoreSheet;
 		scoreSheet.setRowHeight(scoreSheetRowHeight);
 		setComponentBounds(scoreSheet, scoreSheetY, borderWidth, gameBoardWidth, scoreSheetHeight);
@@ -169,7 +169,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
         int width = panel.getWidth();
         int gameBoardWidth = width / 2 - (borderWidth + borderWidth / 2);
 		int scoreSheetRowHeight = gameBoardWidth * 10 / 18 / 10;
-		int numRowsInScoreSheet = Main.getNetworkConnection().getNumberOfPlayers() + 4;
+		int numRowsInScoreSheet = Main.getMain().getNumberOfPlayers() + 4;
 		return scoreSheetRowHeight * numRowsInScoreSheet;
 	}
 	

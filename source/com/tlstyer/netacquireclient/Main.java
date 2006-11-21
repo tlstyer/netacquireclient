@@ -58,7 +58,7 @@ public class Main {
     	mainFrame = new MainFrame();
     	
     	review.loadLogFile("C:/programming/acquire/logs/06.11.18-17.10.46 - 940 - tlstyer (501), Marnie (462), Chumba (446), trump (344).log");
-    	setMode(MODE_IN_GAME);
+    	setMode(MODE_REVIEW);
     	review.show();
     }
     
@@ -100,6 +100,7 @@ public class Main {
 	public static final int MODE_IN_LOBBY = 3;
 	public static final int MODE_IN_GAME = 4;
 	public static final int MODE_IN_GAME_WAITING_FOR_ME_TO_START_GAME = 5;
+	public static final int MODE_REVIEW = 6;
 	
 	public void setMode(int mode_) {
 		mode = mode_;
@@ -120,6 +121,14 @@ public class Main {
 		gotConnectionParams = true;
 		synchronized (this) {
 			notifyAll();
+		}
+	}
+	
+	public int getNumberOfPlayers() {
+		if (mode < MODE_REVIEW) {
+			return networkConnection.getNumberOfPlayers();
+		} else {
+			return review.getNumberOfPlayers();
 		}
 	}
 
