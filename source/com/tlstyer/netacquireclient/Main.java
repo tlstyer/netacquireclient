@@ -5,6 +5,7 @@ public class Main {
     private static NetworkConnection networkConnection;
     private static SoundManager soundManager;
     private static LogFileWriter logFileWriter;
+    private static Review review;
     private static Main main;
 
 	private String nickname;
@@ -13,10 +14,7 @@ public class Main {
 	private boolean gotConnectionParams;
 
     public static void main(String[] args) {
-//    	new Main();
-    	Review review = new Review();
-    	review.loadLogFile("C:/programming/acquire/logs/06.11.18-17.10.46 - 940 - tlstyer (501), Marnie (462), Chumba (446), trump (344).log");
-    	review.show();
+    	new Main(true);
     }
     
     private Main() {
@@ -46,6 +44,22 @@ public class Main {
         	
         	networkMode();
         }
+    }
+    
+    private Main(boolean dummy) {
+    	main = this;
+    	
+    	SerializedData.LoadSerializedData();
+    	
+    	soundManager = new SoundManager();
+    	logFileWriter = new LogFileWriter();
+    	networkConnection = new NetworkConnection();
+    	review = new Review();
+    	mainFrame = new MainFrame();
+    	
+    	review.loadLogFile("C:/programming/acquire/logs/06.11.18-17.10.46 - 940 - tlstyer (501), Marnie (462), Chumba (446), trump (344).log");
+    	setMode(MODE_IN_GAME);
+    	review.show();
     }
     
     private void networkMode() {

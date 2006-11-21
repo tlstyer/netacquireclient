@@ -110,8 +110,14 @@ public class Review {
     private GameBoardData gameBoardData = new GameBoardData();
     private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
     private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
-	private String[] tileRackLabels = new String[6];
-	private int[] tileRackHoteltypes = new int[6];
+	private ArrayList<String> tileRackLabels = new ArrayList<String>();
+	private ArrayList<Integer> tileRackHoteltypes = new ArrayList<Integer>();
+	{
+		for (int index=0; index<6; ++index) {
+			tileRackLabels.add(null);
+			tileRackHoteltypes.add(null);
+		}
+	}
 
 	private ArrayList<ReviewMessage> reviewMessages = new ArrayList<ReviewMessage>();
 	
@@ -139,11 +145,16 @@ public class Review {
         hashmapCommand.put("-PT", COMMAND_PT);
     }
 
-	public void loadLogFile(String filename) {
+	private void initData() {
 		gameBoardData.init();
 		scoreSheetCaptionData.init();
 		scoreSheetHoteltypeData.init();
+		Collections.fill(tileRackLabels, null);
+		Collections.fill(tileRackHoteltypes, null);
+	}
 
+	public void loadLogFile(String filename) {
+		initData();
 		reviewMessages.clear();
 
 		try {
@@ -280,8 +291,14 @@ public class Review {
 
 	private void handlePT(Object[] command) {
 	}
+	
+	public int getNumberOfPlayers() {
+		return Util.getNumberOfPlayers(scoreSheetCaptionData);
+	}
 
 	public void show() {
+		initData();
+
         FileOutputStream fileOutputStream = null;
 		try {
 			File file = new File("outputShow.txt");
@@ -313,24 +330,42 @@ public class Review {
 			}
 		}
 
+		if (gameBoardData.isDirty()) {
+			Main.getMainFrame().gameBoard.sync(gameBoardData);
+			gameBoardData.clean();
+		}
+		if (scoreSheetCaptionData.isDirty() || scoreSheetHoteltypeData.isDirty()) {
+			if (scoreSheetCaptionData.isDirty()) {
+				Util.updateNetWorths(scoreSheetCaptionData, gameBoardData);
+			}
+			Main.getMainFrame().scoreSheet.sync(scoreSheetCaptionData, scoreSheetHoteltypeData);
+			scoreSheetCaptionData.clean();
+			scoreSheetHoteltypeData.clean();
+		}
+
 		try {
 			fileOutputStream.close();
 		} catch (IOException e) {
 		}
 	}
 
-	private void handleReviewGameBoard(ReviewGameBoard reviewGameBoard) {
+	private void handleReviewGameBoard(ReviewGameBoard msg) {
+		gameBoardData.setHoteltype(msg.point.x, msg.point.y, msg.hoteltype);
 	}
 
-	private void handleReviewScoreSheetCaption(ReviewScoreSheetCaption reviewScoreSheetCaption) {
+	private void handleReviewScoreSheetCaption(ReviewScoreSheetCaption msg) {
+		scoreSheetCaptionData.setCaption(msg.point.x, msg.point.y, msg.caption);
 	}
 
-	private void handleReviewScoreSheetHoteltype(ReviewScoreSheetHoteltype reviewScoreSheetHoteltype) {
+	private void handleReviewScoreSheetHoteltype(ReviewScoreSheetHoteltype msg) {
+		scoreSheetHoteltypeData.setHoteltype(msg.point.x, msg.point.y, msg.hoteltype);
 	}
 
-	private void handleReviewLobbyMessage(ReviewLobbyMessage reviewLobbyMessage) {
+	private void handleReviewLobbyMessage(ReviewLobbyMessage msg) {
+		Main.getMainFrame().lobby.append(msg.message, MessageWindow.APPEND_DEFAULT);
 	}
 
-	private void handleReviewGameRoomMessage(ReviewGameRoomMessage reviewGameRoomMessage) {
+	private void handleReviewGameRoomMessage(ReviewGameRoomMessage msg) {
+		Main.getMainFrame().gameRoom.append(msg.message, MessageWindow.APPEND_DEFAULT);
 	}
 }
