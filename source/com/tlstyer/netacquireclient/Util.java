@@ -502,7 +502,7 @@ public class Util {
 			"\\A\\*Waiting for " +
 			"(.*?)" +
 			" to (?:" +
-			"play tile" +
+			"(play tile)" +
 			"|make purchase" +
 			"|select (?:chain to merge|merger survivor|new chain)" +
 			"|dispose of (?:Luxor|Tower|American|Festival|Worldwide|Continental|Imperial) shares" +

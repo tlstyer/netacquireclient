@@ -11,6 +11,7 @@ abstract class ReviewMessage {
 	public static final int TYPE_ReviewGameRoomMessage = 5;
 	public static final int TYPE_ReviewTileRackButton = 6;
 	public static final int TYPE_ReviewTileRackButtonVisibility = 7;
+	public static final int TYPE_ReviewBreakPoint = 8;
 
 	public abstract int getType();
 }
@@ -120,6 +121,21 @@ class ReviewTileRackButtonVisibility extends ReviewMessage {
 	
 	public int getType() {
 		return TYPE_ReviewTileRackButtonVisibility;
+	}
+}
+
+class ReviewBreakPoint extends ReviewMessage {
+	public Integer bpType;
+
+	public static final int TURN_BEGINNING = 1;
+	public static final int TURN_MIDDLE = 2;
+
+	ReviewBreakPoint(Integer bpType_) {
+		bpType = bpType_;
+	}
+	
+	public int getType() {
+		return TYPE_ReviewBreakPoint;
 	}
 }
 
@@ -280,6 +296,18 @@ public class Review {
 	private void handleGM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
 		reviewMessages.add(new ReviewGameRoomMessage(message));
+		
+		Matcher matcher = Util.patternWaiting.matcher(message);
+		if (matcher.find()) {
+			int bpType;
+			if (matcher.group(2) != null) {
+				bpType = ReviewBreakPoint.TURN_BEGINNING;
+			} else {
+				bpType = ReviewBreakPoint.TURN_MIDDLE;
+			}
+
+			reviewMessages.add(new ReviewBreakPoint(bpType));
+		}
 	}
 	
 	private void handleAT(Object[] command) {
@@ -351,20 +379,34 @@ public class Review {
 				case ReviewMessage.TYPE_ReviewTileRackButtonVisibility:
 					handleReviewTileRackButtonVisibility((ReviewTileRackButtonVisibility)reviewMessage);
 					break;
+				case ReviewMessage.TYPE_ReviewBreakPoint:
+					ReviewBreakPoint reviewBreakPoint = (ReviewBreakPoint)reviewMessage;
+					if (reviewBreakPoint.bpType == ReviewBreakPoint.TURN_BEGINNING) {
+						sync();
+						try {
+							Thread.sleep(250);
+						} catch (InterruptedException e) {
+						}
+					}
+					break;
 			}
+		}
 
-			if (gameBoardData.isDirty()) {
-				Main.getMainFrame().gameBoard.sync(gameBoardData);
-				gameBoardData.clean();
+		sync();
+	}
+	
+	private void sync() {
+		if (gameBoardData.isDirty()) {
+			Main.getMainFrame().gameBoard.sync(gameBoardData);
+			gameBoardData.clean();
+		}
+		if (scoreSheetCaptionData.isDirty() || scoreSheetHoteltypeData.isDirty()) {
+			if (scoreSheetCaptionData.isDirty()) {
+				Util.updateNetWorths(scoreSheetCaptionData, gameBoardData);
 			}
-			if (scoreSheetCaptionData.isDirty() || scoreSheetHoteltypeData.isDirty()) {
-				if (scoreSheetCaptionData.isDirty()) {
-					Util.updateNetWorths(scoreSheetCaptionData, gameBoardData);
-				}
-				Main.getMainFrame().scoreSheet.sync(scoreSheetCaptionData, scoreSheetHoteltypeData);
-				scoreSheetCaptionData.clean();
-				scoreSheetHoteltypeData.clean();
-			}
+			Main.getMainFrame().scoreSheet.sync(scoreSheetCaptionData, scoreSheetHoteltypeData);
+			scoreSheetCaptionData.clean();
+			scoreSheetHoteltypeData.clean();
 		}
 	}
 
