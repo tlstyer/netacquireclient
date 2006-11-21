@@ -4,7 +4,17 @@ import java.nio.charset.*;
 import java.util.*;
 import java.util.regex.*;
 
-class ReviewGameBoard {
+abstract class ReviewMessage {
+	public static final int TYPE_ReviewGameBoard = 1;
+	public static final int TYPE_ReviewScoreSheetCaption = 2;
+	public static final int TYPE_ReviewScoreSheetHoteltype = 3;
+	public static final int TYPE_ReviewLobbyMessage = 4;
+	public static final int TYPE_ReviewGameRoomMessage = 5;
+
+	public abstract int getType();
+}
+
+class ReviewGameBoard extends ReviewMessage {
 	public Point point;
 	public int hoteltype;
 	public int hoteltypeBefore;
@@ -18,9 +28,13 @@ class ReviewGameBoard {
 	public String toString() {
 		return this.getClass().getName() + ": " + point + ", " + hoteltype + ", " + hoteltypeBefore;
 	}
+
+	public int getType() {
+		return TYPE_ReviewGameBoard;
+	}
 }
 
-class ReviewScoreSheetCaption {
+class ReviewScoreSheetCaption extends ReviewMessage {
 	public Point point;
 	public Object caption;
 	public Object captionBefore;
@@ -34,9 +48,13 @@ class ReviewScoreSheetCaption {
 	public String toString() {
 		return this.getClass().getName() + ": " + point + ", " + caption + ", " + captionBefore;
 	}
+
+	public int getType() {
+		return TYPE_ReviewScoreSheetCaption;
+	}
 }
 
-class ReviewScoreSheetHoteltype {
+class ReviewScoreSheetHoteltype extends ReviewMessage {
 	public Point point;
 	public int hoteltype;
 	public int hoteltypeBefore;
@@ -50,9 +68,13 @@ class ReviewScoreSheetHoteltype {
 	public String toString() {
 		return this.getClass().getName() + ": " + point + ", " + hoteltype + ", " + hoteltypeBefore;
 	}
+
+	public int getType() {
+		return TYPE_ReviewScoreSheetHoteltype;
+	}
 }
 
-class ReviewLobbyMessage {
+class ReviewLobbyMessage extends ReviewMessage {
 	public String message;
 
 	ReviewLobbyMessage(String message_) {
@@ -62,9 +84,13 @@ class ReviewLobbyMessage {
 	public String toString() {
 		return this.getClass().getName() + ": " + message;
 	}
+
+	public int getType() {
+		return TYPE_ReviewLobbyMessage;
+	}
 }
 
-class ReviewGameRoomMessage {
+class ReviewGameRoomMessage extends ReviewMessage {
 	public String message;
 
 	ReviewGameRoomMessage(String message_) {
@@ -74,14 +100,20 @@ class ReviewGameRoomMessage {
 	public String toString() {
 		return this.getClass().getName() + ": " + message;
 	}
+
+	public int getType() {
+		return TYPE_ReviewGameRoomMessage;
+	}
 }
 
 public class Review {
     private GameBoardData gameBoardData = new GameBoardData();
     private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
     private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
+	private String[] tileRackLabels = new String[6];
+	private int[] tileRackHoteltypes = new int[6];
 
-	private ArrayList<Object> commands = new ArrayList<Object>();
+	private ArrayList<ReviewMessage> reviewMessages = new ArrayList<ReviewMessage>();
 	
     private static final Pattern patternCommand = Pattern.compile("\\A[^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?\\z");
 
@@ -112,7 +144,7 @@ public class Review {
 		scoreSheetCaptionData.init();
 		scoreSheetHoteltypeData.init();
 
-		commands.clear();
+		reviewMessages.clear();
 
 		try {
 			FileReader fileReader = new FileReader(filename);
@@ -163,9 +195,13 @@ public class Review {
 		} catch (FileNotFoundException e) {
 		}
 		try {
-			for (Object obj : commands) {
-				fileOutputStream.write(charset.encode("" + obj + "\n").array());
+			for (ReviewMessage reviewMessage : reviewMessages) {
+				fileOutputStream.write(charset.encode("" + reviewMessage + "\n").array());
 			}
+		} catch (IOException e) {
+		}
+		try {
+			fileOutputStream.close();
 		} catch (IOException e) {
 		}
 	}
@@ -177,7 +213,7 @@ public class Review {
 		int hoteltype = Util.colorvalueToHoteltype(color);
 		int hoteltypeBefore = gameBoardData.getHoteltype(point.x, point.y);
 		gameBoardData.setHoteltype(point.x, point.y, hoteltype);
-		commands.add(new ReviewGameBoard(point, hoteltype, hoteltypeBefore));
+		reviewMessages.add(new ReviewGameBoard(point, hoteltype, hoteltypeBefore));
 	}
 	
 	private void handleSV(Object[] command) {
@@ -196,7 +232,7 @@ public class Review {
 				if (where != null) {
 					Object whatBefore = scoreSheetCaptionData.getCaption(where.x, where.y);
 					scoreSheetCaptionData.setCaption(where.x, where.y, what);
-					commands.add(new ReviewScoreSheetCaption(where, what, whatBefore));
+					reviewMessages.add(new ReviewScoreSheetCaption(where, what, whatBefore));
 				}
 			} else if (((String)((Object[])command[1])[3]).equals("BackColor")) {
 				int index = (Integer)((Object[])command[1])[2];
@@ -206,7 +242,7 @@ public class Review {
 				if (where != null) {
 					int hoteltypeBefore = scoreSheetHoteltypeData.getHoteltype(where.x, where.y);
 					scoreSheetHoteltypeData.setHoteltype(where.x, where.y, hoteltype);
-					commands.add(new ReviewScoreSheetHoteltype(where, hoteltype, hoteltypeBefore));
+					reviewMessages.add(new ReviewScoreSheetHoteltype(where, hoteltype, hoteltypeBefore));
 				}
 			}
 		} else if (((String)((Object[])command[1])[0]).equals("frmTileRack") &&
@@ -222,12 +258,12 @@ public class Review {
 	
 	private void handleLM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
-		commands.add(new ReviewLobbyMessage(message));
+		reviewMessages.add(new ReviewLobbyMessage(message));
 	}
 	
 	private void handleGM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
-		commands.add(new ReviewGameRoomMessage(message));
+		reviewMessages.add(new ReviewGameRoomMessage(message));
 	}
 	
 	private void handleAT(Object[] command) {
@@ -243,5 +279,58 @@ public class Review {
 	}
 
 	private void handlePT(Object[] command) {
+	}
+
+	public void show() {
+        FileOutputStream fileOutputStream = null;
+		try {
+			File file = new File("outputShow.txt");
+			fileOutputStream = new FileOutputStream(file);
+		} catch (FileNotFoundException e) {
+		}
+
+		for (ReviewMessage reviewMessage : reviewMessages) {
+			try {
+				fileOutputStream.write(charset.encode("" + reviewMessage.getType() + ", " + reviewMessage + "\n").array());
+			} catch (IOException e) {
+			}
+			switch (reviewMessage.getType()) {
+				case ReviewMessage.TYPE_ReviewGameBoard:
+					handleReviewGameBoard((ReviewGameBoard)reviewMessage);
+					break;
+				case ReviewMessage.TYPE_ReviewScoreSheetCaption:
+					handleReviewScoreSheetCaption((ReviewScoreSheetCaption)reviewMessage);
+					break;
+				case ReviewMessage.TYPE_ReviewScoreSheetHoteltype:
+					handleReviewScoreSheetHoteltype((ReviewScoreSheetHoteltype)reviewMessage);
+					break;
+				case ReviewMessage.TYPE_ReviewLobbyMessage:
+					handleReviewLobbyMessage((ReviewLobbyMessage)reviewMessage);
+					break;
+				case ReviewMessage.TYPE_ReviewGameRoomMessage:
+					handleReviewGameRoomMessage((ReviewGameRoomMessage)reviewMessage);
+					break;
+			}
+		}
+
+		try {
+			fileOutputStream.close();
+		} catch (IOException e) {
+		}
+	}
+
+	private void handleReviewGameBoard(ReviewGameBoard reviewGameBoard) {
+	}
+
+	private void handleReviewScoreSheetCaption(ReviewScoreSheetCaption reviewScoreSheetCaption) {
+	}
+
+	private void handleReviewScoreSheetHoteltype(ReviewScoreSheetHoteltype reviewScoreSheetHoteltype) {
+	}
+
+	private void handleReviewLobbyMessage(ReviewLobbyMessage reviewLobbyMessage) {
+	}
+
+	private void handleReviewGameRoomMessage(ReviewGameRoomMessage reviewGameRoomMessage) {
 	}
 }

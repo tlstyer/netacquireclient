@@ -16,6 +16,7 @@ public class Main {
 //    	new Main();
     	Review review = new Review();
     	review.loadLogFile("C:/programming/acquire/logs/06.11.18-17.10.46 - 940 - tlstyer (501), Marnie (462), Chumba (446), trump (344).log");
+    	review.show();
     }
     
     private Main() {
