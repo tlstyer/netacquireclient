@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.io.*;
-import java.nio.charset.*;
 import java.util.*;
 import java.util.regex.*;
 
@@ -10,16 +9,18 @@ abstract class ReviewMessage {
 	public static final int TYPE_ReviewScoreSheetHoteltype = 3;
 	public static final int TYPE_ReviewLobbyMessage = 4;
 	public static final int TYPE_ReviewGameRoomMessage = 5;
+	public static final int TYPE_ReviewTileRackButton = 6;
+	public static final int TYPE_ReviewTileRackButtonVisibility = 7;
 
 	public abstract int getType();
 }
 
 class ReviewGameBoard extends ReviewMessage {
 	public Point point;
-	public int hoteltype;
-	public int hoteltypeBefore;
+	public Integer hoteltype;
+	public Integer hoteltypeBefore;
 
-	ReviewGameBoard(Point point_, int hoteltype_, int hoteltypeBefore_) {
+	ReviewGameBoard(Point point_, Integer hoteltype_, Integer hoteltypeBefore_) {
 		point = point_;
 		hoteltype = hoteltype_;
 		hoteltypeBefore = hoteltypeBefore_;
@@ -48,10 +49,10 @@ class ReviewScoreSheetCaption extends ReviewMessage {
 
 class ReviewScoreSheetHoteltype extends ReviewMessage {
 	public Point point;
-	public int hoteltype;
-	public int hoteltypeBefore;
+	public Integer hoteltype;
+	public Integer hoteltypeBefore;
 
-	ReviewScoreSheetHoteltype(Point point_, int hoteltype_, int hoteltypeBefore_) {
+	ReviewScoreSheetHoteltype(Point point_, Integer hoteltype_, Integer hoteltypeBefore_) {
 		point = point_;
 		hoteltype = hoteltype_;
 		hoteltypeBefore = hoteltypeBefore_;
@@ -86,16 +87,54 @@ class ReviewGameRoomMessage extends ReviewMessage {
 	}
 }
 
+class ReviewTileRackButton extends ReviewMessage {
+	public Integer index;
+	public String label;
+	public String labelBefore;
+	public Integer hoteltype;
+	public Integer hoteltypeBefore;
+
+	ReviewTileRackButton(Integer index_, String label_, String labelBefore_, Integer hoteltype_, Integer hoteltypeBefore_) {
+		index = index_;
+		label = label_;
+		labelBefore = labelBefore_;
+		hoteltype = hoteltype_;
+		hoteltypeBefore = hoteltypeBefore_;
+	}
+	
+	public int getType() {
+		return TYPE_ReviewTileRackButton;
+	}
+}
+
+class ReviewTileRackButtonVisibility extends ReviewMessage {
+	public Integer index;
+	public Boolean isVisible;
+	public Boolean isVisibleBefore;
+
+	ReviewTileRackButtonVisibility(Integer index_, Boolean isVisible_, Boolean isVisibleBefore_) {
+		index = index_;
+		isVisible = isVisible_;
+		isVisibleBefore = isVisibleBefore_;
+	}
+	
+	public int getType() {
+		return TYPE_ReviewTileRackButtonVisibility;
+	}
+}
+
 public class Review {
     private GameBoardData gameBoardData = new GameBoardData();
     private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
     private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
 	private ArrayList<String> tileRackLabels = new ArrayList<String>();
 	private ArrayList<Integer> tileRackHoteltypes = new ArrayList<Integer>();
+	private ArrayList<Boolean> tileRackVisibilities = new ArrayList<Boolean>();
 	{
 		for (int index=0; index<6; ++index) {
 			tileRackLabels.add(null);
 			tileRackHoteltypes.add(null);
+			tileRackVisibilities.add(null);
 		}
 	}
 
@@ -129,6 +168,7 @@ public class Review {
 		scoreSheetHoteltypeData.init();
 		Collections.fill(tileRackLabels, null);
 		Collections.fill(tileRackHoteltypes, null);
+		Collections.fill(tileRackVisibilities, null);
 	}
 
 	public void loadLogFile(String filename) {
@@ -221,9 +261,13 @@ public class Review {
 				   ((String)((Object[])command[1])[1]).equals("cmdTile")) {
 			if (((String)((Object[])command[1])[3]).equals("Visible")) {
 				int tileRackIndex = (Integer)((Object[])command[1])[2];
-				boolean visible = ((Integer)((Object[])command[1])[4] != 0 ? true : false);
 		        int index = tileRackIndex - 1;
-		        //Main.getMainFrame().tileRack.setButtonVisible(index, visible);
+
+				boolean visible = ((Integer)((Object[])command[1])[4] != 0 ? true : false);
+				boolean visibleBefore = tileRackVisibilities.get(index);
+				tileRackVisibilities.set(index, visible);
+
+				reviewMessages.add(new ReviewTileRackButtonVisibility(index, visible, visibleBefore));
 			}
 		}
 	}
@@ -244,13 +288,37 @@ public class Review {
 		int tileRackColor = (Integer)((Object[])command[1])[2];
         int index = tileRackIndex - 1;
 		Point point = Util.gameBoardIndexToPoint(gameBoardIndex);
+
+		// ReviewTileRackButton
 		String label = Util.pointToNumberAndLetter(point.x, point.y);
+		String labelBefore = tileRackLabels.get(index);
+		tileRackLabels.set(index, label);
+		
 		int hoteltype = Util.colorvalueToHoteltype(tileRackColor);
-		//Main.getMainFrame().tileRack.setButton(index, label, hoteltype);
-		gameBoardData.setHoteltype(point.x, point.y, Hoteltype.I_HAVE_THIS);
+		Integer hoteltypeBefore = tileRackHoteltypes.get(index);
+		tileRackHoteltypes.set(index, hoteltype);
+
+		tileRackVisibilities.set(index, true);
+		
+		reviewMessages.add(new ReviewTileRackButton(index, label, labelBefore, hoteltype, hoteltypeBefore));
+
+		// ReviewGameBoard
+		int gbdHoteltype = Hoteltype.I_HAVE_THIS;
+		int gbdHoteltypeBefore = gameBoardData.getHoteltype(point.x, point.y);
+		gameBoardData.setHoteltype(point.x, point.y, gbdHoteltype);
+
+		reviewMessages.add(new ReviewGameBoard(point, gbdHoteltype, gbdHoteltypeBefore));
 	}
 
 	private void handlePT(Object[] command) {
+		int tileRackIndex = (Integer)((Object)command[1]);
+        int index = tileRackIndex - 1;
+
+		boolean visible = false;
+		boolean visibleBefore = tileRackVisibilities.get(index);
+		tileRackVisibilities.set(index, visible);
+
+		reviewMessages.add(new ReviewTileRackButtonVisibility(index, visible, visibleBefore));
 	}
 	
 	public int getNumberOfPlayers() {
@@ -277,20 +345,26 @@ public class Review {
 				case ReviewMessage.TYPE_ReviewGameRoomMessage:
 					handleReviewGameRoomMessage((ReviewGameRoomMessage)reviewMessage);
 					break;
+				case ReviewMessage.TYPE_ReviewTileRackButton:
+					handleReviewTileRackButton((ReviewTileRackButton)reviewMessage);
+					break;
+				case ReviewMessage.TYPE_ReviewTileRackButtonVisibility:
+					handleReviewTileRackButtonVisibility((ReviewTileRackButtonVisibility)reviewMessage);
+					break;
 			}
-		}
 
-		if (gameBoardData.isDirty()) {
-			Main.getMainFrame().gameBoard.sync(gameBoardData);
-			gameBoardData.clean();
-		}
-		if (scoreSheetCaptionData.isDirty() || scoreSheetHoteltypeData.isDirty()) {
-			if (scoreSheetCaptionData.isDirty()) {
-				Util.updateNetWorths(scoreSheetCaptionData, gameBoardData);
+			if (gameBoardData.isDirty()) {
+				Main.getMainFrame().gameBoard.sync(gameBoardData);
+				gameBoardData.clean();
 			}
-			Main.getMainFrame().scoreSheet.sync(scoreSheetCaptionData, scoreSheetHoteltypeData);
-			scoreSheetCaptionData.clean();
-			scoreSheetHoteltypeData.clean();
+			if (scoreSheetCaptionData.isDirty() || scoreSheetHoteltypeData.isDirty()) {
+				if (scoreSheetCaptionData.isDirty()) {
+					Util.updateNetWorths(scoreSheetCaptionData, gameBoardData);
+				}
+				Main.getMainFrame().scoreSheet.sync(scoreSheetCaptionData, scoreSheetHoteltypeData);
+				scoreSheetCaptionData.clean();
+				scoreSheetHoteltypeData.clean();
+			}
 		}
 	}
 
@@ -312,5 +386,13 @@ public class Review {
 
 	private void handleReviewGameRoomMessage(ReviewGameRoomMessage msg) {
 		Main.getMainFrame().gameRoom.append(msg.message, MessageWindow.APPEND_DEFAULT);
+	}
+
+	private void handleReviewTileRackButton(ReviewTileRackButton msg) {
+		Main.getMainFrame().tileRack.setButton(msg.index, msg.label, msg.hoteltype);
+	}
+
+	private void handleReviewTileRackButtonVisibility(ReviewTileRackButtonVisibility msg) {
+		Main.getMainFrame().tileRack.setButtonVisible(msg.index, msg.isVisible);
 	}
 }
