@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.regex.*;
 import javax.swing.*;
 
 public class Util {
@@ -496,4 +497,14 @@ public class Util {
 
 		return timeString.toString();
 	}
+	
+	public static final Pattern patternWaiting = Pattern.compile(
+			"\\A\\*Waiting for " +
+			"(.*?)" +
+			" to (?:" +
+			"play tile" +
+			"|make purchase" +
+			"|select (?:chain to merge|merger survivor|new chain)" +
+			"|dispose of (?:Luxor|Tower|American|Festival|Worldwide|Continental|Imperial) shares" +
+			")\\.\\z");
 }
