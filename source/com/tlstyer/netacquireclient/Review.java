@@ -25,10 +25,6 @@ class ReviewGameBoard extends ReviewMessage {
 		hoteltypeBefore = hoteltypeBefore_;
 	}
 	
-	public String toString() {
-		return this.getClass().getName() + ": " + point + ", " + hoteltype + ", " + hoteltypeBefore;
-	}
-
 	public int getType() {
 		return TYPE_ReviewGameBoard;
 	}
@@ -43,10 +39,6 @@ class ReviewScoreSheetCaption extends ReviewMessage {
 		point = point_;
 		caption = caption_;
 		captionBefore = captionBefore_;
-	}
-	
-	public String toString() {
-		return this.getClass().getName() + ": " + point + ", " + caption + ", " + captionBefore;
 	}
 
 	public int getType() {
@@ -64,10 +56,6 @@ class ReviewScoreSheetHoteltype extends ReviewMessage {
 		hoteltype = hoteltype_;
 		hoteltypeBefore = hoteltypeBefore_;
 	}
-	
-	public String toString() {
-		return this.getClass().getName() + ": " + point + ", " + hoteltype + ", " + hoteltypeBefore;
-	}
 
 	public int getType() {
 		return TYPE_ReviewScoreSheetHoteltype;
@@ -81,10 +69,6 @@ class ReviewLobbyMessage extends ReviewMessage {
 		message = message_;
 	}
 	
-	public String toString() {
-		return this.getClass().getName() + ": " + message;
-	}
-
 	public int getType() {
 		return TYPE_ReviewLobbyMessage;
 	}
@@ -97,10 +81,6 @@ class ReviewGameRoomMessage extends ReviewMessage {
 		message = message_;
 	}
 	
-	public String toString() {
-		return this.getClass().getName() + ": " + message;
-	}
-
 	public int getType() {
 		return TYPE_ReviewGameRoomMessage;
 	}
@@ -122,8 +102,6 @@ public class Review {
 	private ArrayList<ReviewMessage> reviewMessages = new ArrayList<ReviewMessage>();
 	
     private static final Pattern patternCommand = Pattern.compile("\\A[^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?\\z");
-
-	private static final Charset charset = Charset.forName("US-ASCII");
 	
 	public Review() {
 	}
@@ -197,23 +175,6 @@ public class Review {
 				}
 			}
 		} catch(IOException e) {
-		}
-
-        FileOutputStream fileOutputStream = null;
-		try {
-			File file = new File("output.txt");
-			fileOutputStream = new FileOutputStream(file);
-		} catch (FileNotFoundException e) {
-		}
-		try {
-			for (ReviewMessage reviewMessage : reviewMessages) {
-				fileOutputStream.write(charset.encode("" + reviewMessage + "\n").array());
-			}
-		} catch (IOException e) {
-		}
-		try {
-			fileOutputStream.close();
-		} catch (IOException e) {
 		}
 	}
 
@@ -299,18 +260,7 @@ public class Review {
 	public void show() {
 		initData();
 
-        FileOutputStream fileOutputStream = null;
-		try {
-			File file = new File("outputShow.txt");
-			fileOutputStream = new FileOutputStream(file);
-		} catch (FileNotFoundException e) {
-		}
-
 		for (ReviewMessage reviewMessage : reviewMessages) {
-			try {
-				fileOutputStream.write(charset.encode("" + reviewMessage.getType() + ", " + reviewMessage + "\n").array());
-			} catch (IOException e) {
-			}
 			switch (reviewMessage.getType()) {
 				case ReviewMessage.TYPE_ReviewGameBoard:
 					handleReviewGameBoard((ReviewGameBoard)reviewMessage);
@@ -341,11 +291,6 @@ public class Review {
 			Main.getMainFrame().scoreSheet.sync(scoreSheetCaptionData, scoreSheetHoteltypeData);
 			scoreSheetCaptionData.clean();
 			scoreSheetHoteltypeData.clean();
-		}
-
-		try {
-			fileOutputStream.close();
-		} catch (IOException e) {
 		}
 	}
 
