@@ -84,10 +84,10 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
     private static final boolean[] visibilityInModesTileRackBackground = {false, false, false, false,  true,  true,  true};
     private static final boolean[] visibilityInModesTileRack           = {false, false, false, false,  true,  true,  true};
     private static final boolean[] visibilityInModesLobby              = {false, false,  true,  true,  true,  true,  true};
-    private static final boolean[] visibilityInModesLobbyPost          = {false, false, false,  true,  true,  true,  true};
+    private static final boolean[] visibilityInModesLobbyPost          = {false, false, false,  true,  true,  true, false};
     private static final boolean[] visibilityInModesScoreSheet         = {false, false, false, false,  true,  true,  true};
     private static final boolean[] visibilityInModesGameRoom           = {false, false, false, false,  true,  true,  true};
-    private static final boolean[] visibilityInModesGameRoomPost       = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesGameRoomPost       = {false, false, false, false,  true,  true, false};
 	
 	public void setMode(int mode) {
         gameBoard.setVisible(visibilityInModesGameBoard[mode]);
