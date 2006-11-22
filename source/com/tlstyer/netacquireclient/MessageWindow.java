@@ -57,6 +57,16 @@ public class MessageWindow extends JScrollPane {
 		
 		textPane.setCaretPosition(styledDocument.getLength());
 	}
+
+	public void unAppend(String str) {
+		int length = str.length() + 1;
+		try {
+			styledDocument.remove(styledDocument.getLength() - length, length);
+		} catch (BadLocationException e) {
+		}
+		
+		textPane.setCaretPosition(styledDocument.getLength());
+	}
 	
 	public void clear() {
 		textPane.setText(null);

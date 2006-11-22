@@ -526,7 +526,7 @@ public class Review {
 		if (direction == DIRECTION_FORWARD) {
 			Main.getMainFrame().lobby.append(msg.message, MessageWindow.APPEND_DEFAULT);
 		} else {
-//			Main.getMainFrame().lobby.append(msg.message, MessageWindow.APPEND_DEFAULT);
+			Main.getMainFrame().lobby.unAppend(msg.message);
 		}
 	}
 
@@ -534,7 +534,7 @@ public class Review {
 		if (direction == DIRECTION_FORWARD) {
 			Main.getMainFrame().gameRoom.append(msg.message, MessageWindow.APPEND_DEFAULT);
 		} else {
-//			Main.getMainFrame().gameRoom.append(msg.message, MessageWindow.APPEND_DEFAULT);
+			Main.getMainFrame().gameRoom.unAppend(msg.message);
 		}
 	}
 
