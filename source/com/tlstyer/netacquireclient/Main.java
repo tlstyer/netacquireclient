@@ -56,10 +56,10 @@ public class Main {
     	networkConnection = new NetworkConnection();
     	review = new Review();
     	mainFrame = new MainFrame();
-    	
-    	review.loadLogFile("C:/programming/acquire/logs/06.11.18-17.10.46 - 940 - tlstyer (501), Marnie (462), Chumba (446), trump (344).log");
+
     	setMode(MODE_REVIEW);
-    	review.show();
+    	review.loadLogFile("C:/programming/acquire/logs/06.11.18-17.10.46 - 940 - tlstyer (501), Marnie (462), Chumba (446), trump (344).log");
+    	review.test();
     }
     
     private void networkMode() {

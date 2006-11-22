@@ -155,6 +155,9 @@ public class Review {
 	}
 
 	private ArrayList<ReviewMessage> reviewMessages = new ArrayList<ReviewMessage>();
+
+	private int nextLineGoingForward;
+	private int firstBreakPointLine;
 	
     private static final Pattern patternCommand = Pattern.compile("\\A[^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?\\z");
 	
@@ -232,6 +235,14 @@ public class Review {
 			}
 		} catch(IOException e) {
 		}
+
+		initData();
+
+		nextLineGoingForward = 0;
+		firstBreakPointLine = 0;
+
+		navigate(DIRECTION_FORWARD, BREAK_AT_TURN_STEP);
+		firstBreakPointLine = nextLineGoingForward;
 	}
 
 	private void handleSB(Object[] command) {
@@ -353,44 +364,121 @@ public class Review {
 		return Util.getNumberOfPlayers(scoreSheetCaptionData);
 	}
 
-	public void show() {
-		initData();
+	public static final int DIRECTION_FORWARD = 1;
+	public static final int DIRECTION_BACKWARD = -1;
 
-		for (ReviewMessage reviewMessage : reviewMessages) {
+	public static final int BREAK_AT_TURN_BEGINNING = 1;
+	public static final int BREAK_AT_TURN_STEP = 2;
+	public static final int BREAK_AT_GAME_BEGINNING = 3;
+	public static final int BREAK_AT_GAME_END = 4;
+	
+	private void sleep() {
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void test() {
+		boolean exitLoop = false;
+		for (;;) {
+			//sleep();
+			navigate(DIRECTION_FORWARD, BREAK_AT_TURN_BEGINNING);
+			if (exitLoop) {
+				break;
+			}
+			if (nextLineGoingForward == reviewMessages.size()) {
+				exitLoop = true;
+			}
+		}
+
+		exitLoop = false;
+		for (;;) {
+			//sleep();
+			navigate(DIRECTION_BACKWARD, BREAK_AT_TURN_BEGINNING);
+			if (exitLoop) {
+				break;
+			}
+			if (nextLineGoingForward == firstBreakPointLine) {
+				exitLoop = true;
+			}
+		}
+	}
+
+	public void navigate(int direction, int breakAt) {
+		int currentLine;
+		int boundaryLine;
+		if (direction == DIRECTION_FORWARD) {
+			currentLine = nextLineGoingForward;
+			boundaryLine = reviewMessages.size();
+		} else {
+			currentLine = nextLineGoingForward - 1;
+			boundaryLine = firstBreakPointLine - 1;
+		}
+
+		System.out.print("" + direction + " " + nextLineGoingForward + " " + currentLine);
+
+		boolean done = false;
+		
+		for (;;) {
+			if (currentLine == boundaryLine) {
+				break;
+			}
+
+			ReviewMessage reviewMessage = reviewMessages.get(currentLine);
+
 			switch (reviewMessage.getType()) {
 				case ReviewMessage.TYPE_ReviewGameBoard:
-					handleReviewGameBoard((ReviewGameBoard)reviewMessage);
+					handleReviewGameBoard((ReviewGameBoard)reviewMessage, direction);
 					break;
 				case ReviewMessage.TYPE_ReviewScoreSheetCaption:
-					handleReviewScoreSheetCaption((ReviewScoreSheetCaption)reviewMessage);
+					handleReviewScoreSheetCaption((ReviewScoreSheetCaption)reviewMessage, direction);
 					break;
 				case ReviewMessage.TYPE_ReviewScoreSheetHoteltype:
-					handleReviewScoreSheetHoteltype((ReviewScoreSheetHoteltype)reviewMessage);
+					handleReviewScoreSheetHoteltype((ReviewScoreSheetHoteltype)reviewMessage, direction);
 					break;
 				case ReviewMessage.TYPE_ReviewLobbyMessage:
-					handleReviewLobbyMessage((ReviewLobbyMessage)reviewMessage);
+					handleReviewLobbyMessage((ReviewLobbyMessage)reviewMessage, direction);
 					break;
 				case ReviewMessage.TYPE_ReviewGameRoomMessage:
-					handleReviewGameRoomMessage((ReviewGameRoomMessage)reviewMessage);
+					handleReviewGameRoomMessage((ReviewGameRoomMessage)reviewMessage, direction);
 					break;
 				case ReviewMessage.TYPE_ReviewTileRackButton:
-					handleReviewTileRackButton((ReviewTileRackButton)reviewMessage);
+					handleReviewTileRackButton((ReviewTileRackButton)reviewMessage, direction);
 					break;
 				case ReviewMessage.TYPE_ReviewTileRackButtonVisibility:
-					handleReviewTileRackButtonVisibility((ReviewTileRackButtonVisibility)reviewMessage);
+					handleReviewTileRackButtonVisibility((ReviewTileRackButtonVisibility)reviewMessage, direction);
 					break;
 				case ReviewMessage.TYPE_ReviewBreakPoint:
+					if (currentLine == nextLineGoingForward) {
+						break;
+					}
 					ReviewBreakPoint reviewBreakPoint = (ReviewBreakPoint)reviewMessage;
-					if (reviewBreakPoint.bpType == ReviewBreakPoint.TURN_BEGINNING) {
-						sync();
-						try {
-							Thread.sleep(250);
-						} catch (InterruptedException e) {
-						}
+					if (reviewBreakPoint.bpType <= breakAt) {
+						done = true;
 					}
 					break;
 			}
+
+			if (done) {
+				break;
+			}
+
+			currentLine += direction;
 		}
+
+		if (currentLine == boundaryLine) {
+			if (direction == DIRECTION_FORWARD) {
+				nextLineGoingForward = currentLine;
+			} else {
+				nextLineGoingForward = currentLine + 1;
+			}
+		} else {
+			nextLineGoingForward = currentLine;
+		}
+		
+		System.out.println(" " + currentLine + " " + nextLineGoingForward + " " + boundaryLine);
 
 		sync();
 	}
@@ -410,31 +498,59 @@ public class Review {
 		}
 	}
 
-	private void handleReviewGameBoard(ReviewGameBoard msg) {
-		gameBoardData.setHoteltype(msg.point.x, msg.point.y, msg.hoteltype);
+	private void handleReviewGameBoard(ReviewGameBoard msg, int direction) {
+		if (direction == DIRECTION_FORWARD) {
+			gameBoardData.setHoteltype(msg.point.x, msg.point.y, msg.hoteltype);
+		} else {
+			gameBoardData.setHoteltype(msg.point.x, msg.point.y, msg.hoteltypeBefore);
+		}
 	}
 
-	private void handleReviewScoreSheetCaption(ReviewScoreSheetCaption msg) {
-		scoreSheetCaptionData.setCaption(msg.point.x, msg.point.y, msg.caption);
+	private void handleReviewScoreSheetCaption(ReviewScoreSheetCaption msg, int direction) {
+		if (direction == DIRECTION_FORWARD) {
+			scoreSheetCaptionData.setCaption(msg.point.x, msg.point.y, msg.caption);
+		} else {
+			scoreSheetCaptionData.setCaption(msg.point.x, msg.point.y, msg.captionBefore);
+		}
 	}
 
-	private void handleReviewScoreSheetHoteltype(ReviewScoreSheetHoteltype msg) {
-		scoreSheetHoteltypeData.setHoteltype(msg.point.x, msg.point.y, msg.hoteltype);
+	private void handleReviewScoreSheetHoteltype(ReviewScoreSheetHoteltype msg, int direction) {
+		if (direction == DIRECTION_FORWARD) {
+			scoreSheetHoteltypeData.setHoteltype(msg.point.x, msg.point.y, msg.hoteltype);
+		} else {
+			scoreSheetHoteltypeData.setHoteltype(msg.point.x, msg.point.y, msg.hoteltypeBefore);
+		}
 	}
 
-	private void handleReviewLobbyMessage(ReviewLobbyMessage msg) {
-		Main.getMainFrame().lobby.append(msg.message, MessageWindow.APPEND_DEFAULT);
+	private void handleReviewLobbyMessage(ReviewLobbyMessage msg, int direction) {
+		if (direction == DIRECTION_FORWARD) {
+			Main.getMainFrame().lobby.append(msg.message, MessageWindow.APPEND_DEFAULT);
+		} else {
+//			Main.getMainFrame().lobby.append(msg.message, MessageWindow.APPEND_DEFAULT);
+		}
 	}
 
-	private void handleReviewGameRoomMessage(ReviewGameRoomMessage msg) {
-		Main.getMainFrame().gameRoom.append(msg.message, MessageWindow.APPEND_DEFAULT);
+	private void handleReviewGameRoomMessage(ReviewGameRoomMessage msg, int direction) {
+		if (direction == DIRECTION_FORWARD) {
+			Main.getMainFrame().gameRoom.append(msg.message, MessageWindow.APPEND_DEFAULT);
+		} else {
+//			Main.getMainFrame().gameRoom.append(msg.message, MessageWindow.APPEND_DEFAULT);
+		}
 	}
 
-	private void handleReviewTileRackButton(ReviewTileRackButton msg) {
-		Main.getMainFrame().tileRack.setButton(msg.index, msg.label, msg.hoteltype);
+	private void handleReviewTileRackButton(ReviewTileRackButton msg, int direction) {
+		if (direction == DIRECTION_FORWARD) {
+			Main.getMainFrame().tileRack.setButton(msg.index, msg.label, msg.hoteltype);
+		} else {
+			Main.getMainFrame().tileRack.setButton(msg.index, msg.labelBefore, msg.hoteltypeBefore);
+		}
 	}
 
-	private void handleReviewTileRackButtonVisibility(ReviewTileRackButtonVisibility msg) {
-		Main.getMainFrame().tileRack.setButtonVisible(msg.index, msg.isVisible);
+	private void handleReviewTileRackButtonVisibility(ReviewTileRackButtonVisibility msg, int direction) {
+		if (direction == DIRECTION_FORWARD) {
+			Main.getMainFrame().tileRack.setButtonVisible(msg.index, msg.isVisible);
+		} else {
+			Main.getMainFrame().tileRack.setButtonVisible(msg.index, msg.isVisibleBefore);
+		}
 	}
 }
