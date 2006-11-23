@@ -59,7 +59,6 @@ public class Main {
 
     	setMode(MODE_REVIEW);
     	review.loadLogFile("C:/programming/acquire/logs/06.11.18-17.10.46 - 940 - tlstyer (501), Marnie (462), Chumba (446), trump (344).log");
-    	review.test();
     }
     
     private void networkMode() {
@@ -146,6 +145,10 @@ public class Main {
 
 	public static LogFileWriter getLogFileWriter() {
 		return logFileWriter;
+	}
+
+	public static Review getReview() {
+		return review;
 	}
 
 	public static Main getMain() {

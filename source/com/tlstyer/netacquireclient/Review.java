@@ -372,40 +372,6 @@ public class Review {
 	public static final int BREAK_AT_GAME_BEGINNING = 3;
 	public static final int BREAK_AT_GAME_END = 4;
 	
-	private void sleep() {
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void test() {
-		boolean exitLoop = false;
-		for (;;) {
-			//sleep();
-			navigate(DIRECTION_FORWARD, BREAK_AT_TURN_BEGINNING);
-			if (exitLoop) {
-				break;
-			}
-			if (nextLineGoingForward == reviewMessages.size()) {
-				exitLoop = true;
-			}
-		}
-
-		exitLoop = false;
-		for (;;) {
-			//sleep();
-			navigate(DIRECTION_BACKWARD, BREAK_AT_TURN_BEGINNING);
-			if (exitLoop) {
-				break;
-			}
-			if (nextLineGoingForward == firstBreakPointLine) {
-				exitLoop = true;
-			}
-		}
-	}
-
 	public void navigate(int direction, int breakAt) {
 		int currentLine;
 		int boundaryLine;

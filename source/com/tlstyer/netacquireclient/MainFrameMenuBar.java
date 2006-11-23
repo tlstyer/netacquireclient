@@ -20,7 +20,8 @@ class MainFrameMenuItem extends JMenuItem implements ActionListener {
 	public MainFrameMenuItem(String text,
                              Integer mnemonic,
                              Integer mnemonicIndex,
-                             Integer accelerator) {
+                             Integer accelerator,
+							 Integer modifiers) {
         if (text != null) {
             setText(text);
         }
@@ -31,7 +32,7 @@ class MainFrameMenuItem extends JMenuItem implements ActionListener {
             setDisplayedMnemonicIndex(mnemonicIndex);
         }
         if (accelerator != null) {
-            setAccelerator(KeyStroke.getKeyStroke(accelerator, ActionEvent.CTRL_MASK));
+            setAccelerator(KeyStroke.getKeyStroke(accelerator, modifiers));
         }
         addActionListener(this);
     }
@@ -49,7 +50,7 @@ class MenuItemOptions extends MainFrameMenuItem {
 	private static final long serialVersionUID = -2034147668512354594L;
 
 	public MenuItemOptions() {
-    	super("Options", KeyEvent.VK_O, null, KeyEvent.VK_O);
+    	super("Options", KeyEvent.VK_O, null, KeyEvent.VK_O, ActionEvent.CTRL_MASK);
     }
     
     public void doAction() {
@@ -61,7 +62,7 @@ class MenuItemQuit extends MainFrameMenuItem {
 	private static final long serialVersionUID = 8960385492720201493L;
 
 	public MenuItemQuit() {
-    	super("Quit", KeyEvent.VK_Q, null, KeyEvent.VK_Q);
+    	super("Quit", KeyEvent.VK_Q, null, KeyEvent.VK_Q, ActionEvent.CTRL_MASK);
     }
     
     public void doAction() {
@@ -73,7 +74,7 @@ class MenuItemTestConnections extends MainFrameMenuItem {
 	private static final long serialVersionUID = -4274559511873898462L;
 
 	public MenuItemTestConnections() {
-    	super("Test Connections", KeyEvent.VK_T, null, KeyEvent.VK_T);
+    	super("Test Connections", KeyEvent.VK_T, null, KeyEvent.VK_T, ActionEvent.CTRL_MASK);
     }
     
     public void doAction() {
@@ -84,7 +85,7 @@ class MenuItemReinitialize extends MainFrameMenuItem {
 	private static final long serialVersionUID = -7113343397152091960L;
 
 	public MenuItemReinitialize() {
-    	super("Reinitialize", KeyEvent.VK_I, null, KeyEvent.VK_I);
+    	super("Reinitialize", KeyEvent.VK_I, null, KeyEvent.VK_I, ActionEvent.CTRL_MASK);
     }
     
     public void doAction() {
@@ -96,7 +97,7 @@ class MenuItemShowUsers extends MainFrameMenuItem {
 	private static final long serialVersionUID = -6174886083660502152L;
 
 	public MenuItemShowUsers() {
-    	super("Show Users", KeyEvent.VK_U, null, KeyEvent.VK_U);
+    	super("Show Users", KeyEvent.VK_U, null, KeyEvent.VK_U, ActionEvent.CTRL_MASK);
     }
     
     public void doAction() {
@@ -108,7 +109,7 @@ class MenuItemShowGames extends MainFrameMenuItem {
 	private static final long serialVersionUID = -3109019172088568140L;
 
 	public MenuItemShowGames() {
-    	super("Show Games", KeyEvent.VK_G, null, KeyEvent.VK_G);
+    	super("Show Games", KeyEvent.VK_G, null, KeyEvent.VK_G, ActionEvent.CTRL_MASK);
     }
     
     public void doAction() {
@@ -120,7 +121,7 @@ class MenuItemStartNewGame extends MainFrameMenuItem {
 	private static final long serialVersionUID = 6597744682855386663L;
 
 	public MenuItemStartNewGame() {
-    	super("Start New Game", KeyEvent.VK_N, null, KeyEvent.VK_N);
+    	super("Start New Game", KeyEvent.VK_N, null, KeyEvent.VK_N, ActionEvent.CTRL_MASK);
     }
     
     public void doAction() {
@@ -132,7 +133,7 @@ class MenuItemStartGamePlay extends MainFrameMenuItem {
 	private static final long serialVersionUID = 4990474257635115489L;
 
 	public MenuItemStartGamePlay() {
-    	super("Start Game Play", KeyEvent.VK_P, null, KeyEvent.VK_P);
+    	super("Start Game Play", KeyEvent.VK_P, null, KeyEvent.VK_P, ActionEvent.CTRL_MASK);
     }
     
     public void doAction() {
@@ -150,7 +151,7 @@ class MenuItemEnterGame extends MainFrameMenuItem {
     public MenuItemEnterGame(String enterType_,
                              Integer mnemonicAndAccelerator,
                              Integer messageCode_) {
-    	super(enterType_ + " Game", mnemonicAndAccelerator, null, mnemonicAndAccelerator);
+    	super(enterType_ + " Game", mnemonicAndAccelerator, null, mnemonicAndAccelerator, ActionEvent.CTRL_MASK);
         enterType = enterType_;
         enterTypeLowercase = enterType_.toLowerCase();
         messageCode = messageCode_;
@@ -212,7 +213,7 @@ class MenuItemShowGameState extends MainFrameMenuItem {
 	private static final long serialVersionUID = -5574878232630231406L;
 
 	public MenuItemShowGameState() {
-    	super("Show Game State", KeyEvent.VK_S, 10, KeyEvent.VK_S);
+    	super("Show Game State", KeyEvent.VK_S, 10, KeyEvent.VK_S, ActionEvent.CTRL_MASK);
     }
     
     public void doAction() {
@@ -224,7 +225,7 @@ class MenuItemLeaveGame extends MainFrameMenuItem {
 	private static final long serialVersionUID = 661750057979030705L;
 
 	public MenuItemLeaveGame() {
-    	super("Leave Game", KeyEvent.VK_L, null, KeyEvent.VK_L);
+    	super("Leave Game", KeyEvent.VK_L, null, KeyEvent.VK_L, ActionEvent.CTRL_MASK);
     }
     
     public void doAction() {
@@ -232,11 +233,59 @@ class MenuItemLeaveGame extends MainFrameMenuItem {
     }
 }
 
+class MenuItemPreviousTurn extends MainFrameMenuItem {
+	private static final long serialVersionUID = -4862737182870551833L;
+
+	public MenuItemPreviousTurn() {
+    	super("Previous Turn", null, null, KeyEvent.VK_UP, 0);
+    }
+    
+    public void doAction() {
+    	Main.getReview().navigate(Review.DIRECTION_BACKWARD, Review.BREAK_AT_TURN_BEGINNING);
+    }
+}
+
+class MenuItemNextTurn extends MainFrameMenuItem {
+	private static final long serialVersionUID = 2402014732248796723L;
+
+	public MenuItemNextTurn() {
+    	super("Next Turn", null, null, KeyEvent.VK_DOWN, 0);
+    }
+    
+    public void doAction() {
+    	Main.getReview().navigate(Review.DIRECTION_FORWARD, Review.BREAK_AT_TURN_BEGINNING);
+    }
+}
+
+class MenuItemPreviousDecision extends MainFrameMenuItem {
+	private static final long serialVersionUID = -4263318082975525169L;
+
+	public MenuItemPreviousDecision() {
+    	super("Previous Decision", null, null, KeyEvent.VK_LEFT, 0);
+    }
+    
+    public void doAction() {
+    	Main.getReview().navigate(Review.DIRECTION_BACKWARD, Review.BREAK_AT_TURN_STEP);
+    }
+}
+
+class MenuItemNextDecision extends MainFrameMenuItem {
+	private static final long serialVersionUID = 4191487740209569768L;
+
+	public MenuItemNextDecision() {
+    	super("Next Decision", null, null, KeyEvent.VK_RIGHT, 0);
+    }
+    
+    public void doAction() {
+    	Main.getReview().navigate(Review.DIRECTION_FORWARD, Review.BREAK_AT_TURN_STEP);
+    }
+}
+
 class MenuItemAboutNetAcquire extends MainFrameMenuItem {
 	private static final long serialVersionUID = -1643289616812206827L;
 
 	public MenuItemAboutNetAcquire() {
-    	super("About NetAcquire", KeyEvent.VK_A, null, null);
+    	super("About NetAcquire", KeyEvent.VK_A, null, null, null);
     }
     
     public void doAction() {
@@ -270,6 +319,13 @@ public class MainFrameMenuBar extends JMenuBar {
 	private MenuItemShowGameState menuItemShowGameState = new MenuItemShowGameState();
 	private MenuItemLeaveGame menuItemLeaveGame = new MenuItemLeaveGame();
 
+	// Review
+	private MainFrameMenu menuReview = new MainFrameMenu("Review", KeyEvent.VK_R);
+	private MenuItemPreviousTurn menuItemPreviousTurn = new MenuItemPreviousTurn();
+	private MenuItemNextTurn menuItemNextTurn = new MenuItemNextTurn();
+	private MenuItemPreviousDecision menuItemPreviousDecision = new MenuItemPreviousDecision();
+	private MenuItemNextDecision menuItemNextDecision = new MenuItemNextDecision();
+
     // Help
 	private MainFrameMenu menuHelp = new MainFrameMenu("Help", KeyEvent.VK_H);
 	private MenuItemAboutNetAcquire menuItemAboutNetAcquire = new MenuItemAboutNetAcquire();
@@ -302,25 +358,37 @@ public class MainFrameMenuBar extends JMenuBar {
 		menuGame.addSeparator();
 		menuGame.add(menuItemLeaveGame);
 
+		// Review
+		add(menuReview);
+		menuReview.add(menuItemPreviousTurn);
+		menuReview.add(menuItemNextTurn);
+		menuReview.addSeparator();
+		menuReview.add(menuItemPreviousDecision);
+		menuReview.add(menuItemNextDecision);
+
 		// Help
 		add(menuHelp);
 		menuHelp.add(menuItemAboutNetAcquire);
 	}
 
-                                                                             // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
-	private static final boolean[] enablednessInModesMenuItemOptions         = {false,  true,  true,  true,  true,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemQuit            = {false,  true,  true,  true,  true,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemTestConnections = {false, false, false,  true,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemReinitialize    = {false,  true,  true,  true,  true,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemShowUsers       = {false, false, false,  true,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemShowGames       = {false, false, false,  true,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemStartNewGame    = {false, false, false,  true, false, false, false};
-	private static final boolean[] enablednessInModesMenuItemStartGamePlay   = {false, false, false, false, false,  true, false};
-	private static final boolean[] enablednessInModesMenuItemJoinGame        = {false, false, false,  true,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemWatchGame       = {false, false, false,  true,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemShowGameState   = {false, false, false, false,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemLeaveGame       = {false, false, false, false,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemAboutNetAcquire = {false,  true,  true,  true,  true,  true,  true};
+                                                                              // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
+	private static final boolean[] enablednessInModesMenuItemOptions          = {false,  true,  true,  true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemQuit             = {false,  true,  true,  true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemTestConnections  = {false, false, false,  true,  true,  true, false};
+	private static final boolean[] enablednessInModesMenuItemReinitialize     = {false,  true,  true,  true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemShowUsers        = {false, false, false,  true,  true,  true, false};
+	private static final boolean[] enablednessInModesMenuItemShowGames        = {false, false, false,  true,  true,  true, false};
+	private static final boolean[] enablednessInModesMenuItemStartNewGame     = {false, false, false,  true, false, false, false};
+	private static final boolean[] enablednessInModesMenuItemStartGamePlay    = {false, false, false, false, false,  true, false};
+	private static final boolean[] enablednessInModesMenuItemJoinGame         = {false, false, false,  true,  true,  true, false};
+	private static final boolean[] enablednessInModesMenuItemWatchGame        = {false, false, false,  true,  true,  true, false};
+	private static final boolean[] enablednessInModesMenuItemShowGameState    = {false, false, false, false,  true,  true, false};
+	private static final boolean[] enablednessInModesMenuItemLeaveGame        = {false, false, false, false,  true,  true, false};
+	private static final boolean[] enablednessInModesMenuItemPreviousTurn     = {false, false, false, false, false, false,  true};
+	private static final boolean[] enablednessInModesMenuItemNextTurn         = {false, false, false, false, false, false,  true};
+	private static final boolean[] enablednessInModesMenuItemPreviousDecision = {false, false, false, false, false, false,  true};
+	private static final boolean[] enablednessInModesMenuItemNextDecision     = {false, false, false, false, false, false,  true};
+	private static final boolean[] enablednessInModesMenuItemAboutNetAcquire  = {false,  true,  true,  true,  true,  true,  true};
 
     public void setMode(int mode) {
         menuItemOptions.setEnabled(enablednessInModesMenuItemOptions[mode]);
@@ -335,6 +403,10 @@ public class MainFrameMenuBar extends JMenuBar {
         menuItemWatchGame.setEnabled(enablednessInModesMenuItemWatchGame[mode]);
         menuItemShowGameState.setEnabled(enablednessInModesMenuItemShowGameState[mode]);
         menuItemLeaveGame.setEnabled(enablednessInModesMenuItemLeaveGame[mode]);
+		menuItemPreviousTurn.setEnabled(enablednessInModesMenuItemPreviousTurn[mode]);
+		menuItemNextTurn.setEnabled(enablednessInModesMenuItemNextTurn[mode]);
+		menuItemPreviousDecision.setEnabled(enablednessInModesMenuItemPreviousDecision[mode]);
+		menuItemNextDecision.setEnabled(enablednessInModesMenuItemNextDecision[mode]);
         menuItemAboutNetAcquire.setEnabled(enablednessInModesMenuItemAboutNetAcquire[mode]);
     }
 }
