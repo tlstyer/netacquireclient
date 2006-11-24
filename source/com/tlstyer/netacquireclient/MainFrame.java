@@ -98,6 +98,8 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
         scoreSheet.setVisible(visibilityInModesScoreSheet[mode]);
         gameRoom.setVisible(visibilityInModesGameRoom[mode]);
         gameRoomPost.setVisible(visibilityInModesGameRoomPost[mode]);
+        
+        setComponentsBounds();
 
         menuBar.setMode(mode);
         
