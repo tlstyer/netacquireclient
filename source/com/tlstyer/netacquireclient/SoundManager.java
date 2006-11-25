@@ -2,17 +2,28 @@ import java.io.*;
 import javax.sound.sampled.*;
 
 public class SoundManager {
+	private static final int NUM_CLIPS = 3;
+	private Clip[] clips = new Clip[NUM_CLIPS];
+	private int currentClipIndex = 0;
+	
 	public SoundManager() {
+		for (int index=0; index<NUM_CLIPS; ++index) {
+			clips[index] = null;
+			try {
+				clips[index] = AudioSystem.getClip();
+			} catch (LineUnavailableException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		loadSound(SerializedData.getSerializedData().getPathToSound());
 	}
 	
-	public Clip loadSound(String pathname) {
-		Clip clip = null;
-		try {
-			clip = AudioSystem.getClip();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-			return null;
+	public boolean loadSound(String pathname) {
+		currentClipIndex = (currentClipIndex + 1) % NUM_CLIPS;
+		
+		if (clips[currentClipIndex].isOpen()) {
+			clips[currentClipIndex].close();
 		}
 		
 		File file = new File(pathname);
@@ -22,32 +33,30 @@ public class SoundManager {
 			audioInputStream = AudioSystem.getAudioInputStream(file);
 		} catch (UnsupportedAudioFileException e) {
 			e.printStackTrace();
-			return null;
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
+			return false;
 		}
 
 		try {
-			clip.open(audioInputStream);
+			clips[currentClipIndex].open(audioInputStream);
 		} catch (LineUnavailableException e) {
 			e.printStackTrace();
-			return null;
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
+			return false;
 		}
 		
-		return clip;
+		return true;
 	}
 
 	public boolean playSound(String pathname) {
-		Clip clip = loadSound(pathname);
-		if (clip != null) {
-			clip.start();
-			return true;
-		} else {
-			return false;
+		boolean soundLoaded = loadSound(pathname);
+		if (soundLoaded) {
+			clips[currentClipIndex].start();
 		}
+		return soundLoaded;
 	}
 }
