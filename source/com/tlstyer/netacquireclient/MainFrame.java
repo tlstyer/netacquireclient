@@ -124,10 +124,23 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 	}
 
 	private static final int borderWidth = 4;
-
+	
+    private int widthLast = -1;
+    private int heightLast = -1;
+    private int numRowsInScoreSheetLast = -1;
+	
 	public void setComponentsBounds() {
         int width = panel.getWidth();
         int height = panel.getHeight();
+        int numRowsInScoreSheet = Main.getMain().getNumberOfPlayers() + 4;
+
+		if (width == widthLast && height == heightLast && numRowsInScoreSheet == numRowsInScoreSheetLast) {
+			return;
+		}
+
+		widthLast = width;
+		heightLast = height;
+		numRowsInScoreSheetLast = numRowsInScoreSheet;
 
         int gameBoardWidth = width / 2 - (borderWidth + borderWidth / 2);
         int gameBoardHeight = gameBoardWidth * 3 / 4;
@@ -156,7 +169,6 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 
 		int scoreSheetY = width / 2 + borderWidth / 2;
 		int scoreSheetRowHeight = gameBoardWidth * 10 / 18 / 10;
-		int numRowsInScoreSheet = Main.getMain().getNumberOfPlayers() + 4;
 		int scoreSheetHeight = scoreSheetRowHeight * numRowsInScoreSheet;
 		scoreSheet.setRowHeight(scoreSheetRowHeight);
 		setComponentBounds(scoreSheet, scoreSheetY, borderWidth, gameBoardWidth, scoreSheetHeight);

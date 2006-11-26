@@ -155,7 +155,6 @@ public class NetworkConnection {
 			gameBoardData.init();
 		    scoreSheetCaptionData.init();
 		    scoreSheetHoteltypeData.init();
-		    Main.getMainFrame().scoreSheet.resetUsedRowsHack();
 		}
 		
 		if (mode < Main.MODE_IN_LOBBY) {

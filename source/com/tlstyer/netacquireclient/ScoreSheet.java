@@ -7,7 +7,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 	private TextComponent[][] scoreSheet;
     private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
     private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
-    private int usedRows = 0;
+    private int usedRows = 6;
 	private int rowHeight = 0;
 
     private static final String hotelTypeCharacters = "LTAFWCI";
@@ -93,7 +93,6 @@ public class ScoreSheet extends JPanel implements ComponentListener {
         	}
     		usedRows = numPlayers;
     		layoutTextComponents();
-    		Main.getMainFrame().setComponentsBounds();
     	}
     }
     
@@ -119,10 +118,6 @@ public class ScoreSheet extends JPanel implements ComponentListener {
         }
     }
     
-    public void resetUsedRowsHack() {
-    	usedRows = 0;
-    }
-    
 	public void setRowHeight(int rowHeight_) {
 		rowHeight = rowHeight_;
 	}
@@ -141,6 +136,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     }
 
     public void sync(ScoreSheetCaptionData sscd, ScoreSheetHoteltypeData sshtd) {
+    	Main.getMainFrame().setComponentsBounds();
     	makeOnlyUsedRowsVisible(sscd);
     	for (int y=0; y<10; ++y) {
     		for (int x=0; x<10; ++x) {
