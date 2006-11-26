@@ -421,20 +421,31 @@ public class NetworkConnection {
 	private static class ModalMessage {
 		public String messageFromServer;
 		public String messageToUser;
+		public Integer whereToPutMessage;
 
-		public ModalMessage(String messageFromServer_, String messageToUser_) {
+		public static final int LOBBY = 0;
+		public static final int GAMEROOM = 1;
+
+		public ModalMessage(String messageFromServer_, String messageToUser_, Integer whereToPutMessage_) {
 			messageFromServer = messageFromServer_;
 			messageToUser = messageToUser_;
+			whereToPutMessage = whereToPutMessage_;
 		}
 	}
 
 	private static final ModalMessage[] modalMessages = {
 		new ModalMessage("I;Game ended;The game has ended, click OK to view final game results.",
+						 null,
 						 null),
 		new ModalMessage("I;Tile bag empty;The last tile has been drawn from the tile bag.",
+						 null,
 						 null),
 		new ModalMessage("E;Duplicate user Nickname;You cannot connect using the Nickname you have chosen as it is already in use.",
-						 "Duplicate user Nickname: You cannot connect using the Nickname you have chosen as it is already in use."),
+						 "Duplicate user Nickname: You cannot connect using the Nickname you have chosen as it is already in use.",
+						 ModalMessage.LOBBY),
+		new ModalMessage("I;Spectating game forced;The game has already started, you cannot join as a player.",
+						 "Spectating game forced: The game has already started, you cannot join as a player.",
+						 ModalMessage.GAMEROOM),
 	};
 
 	protected void handleM(Object[] command) {
@@ -445,7 +456,11 @@ public class NetworkConnection {
 		for (int index=0; index<modalMessages.length; ++index) {
 			if (message.equals(modalMessages[index].messageFromServer)) {
 				if (modalMessages[index].messageToUser != null) {
-					Main.getMainFrame().lobby.append(modalMessages[index].messageToUser, MessageWindow.APPEND_ERROR);
+					if (modalMessages[index].whereToPutMessage == ModalMessage.LOBBY) {
+						Main.getMainFrame().lobby.append(modalMessages[index].messageToUser, MessageWindow.APPEND_ERROR);
+					} else {
+						Main.getMainFrame().gameRoom.append(modalMessages[index].messageToUser, MessageWindow.APPEND_ERROR);
+					}
 				}
 				recognizedMessage = true;
 				break;
