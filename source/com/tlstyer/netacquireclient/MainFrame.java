@@ -128,19 +128,29 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
     private int widthLast = -1;
     private int heightLast = -1;
     private int numRowsInScoreSheetLast = -1;
+	private boolean lobbyPostIsVisibleLast = false;
+	private boolean gameRoomPostIsVisibleLast = false;
 	
 	public void setComponentsBounds() {
         int width = panel.getWidth();
         int height = panel.getHeight();
         int numRowsInScoreSheet = Main.getMain().getNumberOfPlayers() + 4;
+        boolean lobbyPostIsVisible = lobbyPost.isVisible();
+        boolean gameRoomPostIsVisible = gameRoomPost.isVisible();
 
-		if (width == widthLast && height == heightLast && numRowsInScoreSheet == numRowsInScoreSheetLast) {
+		if (width == widthLast &&
+			height == heightLast &&
+			numRowsInScoreSheet == numRowsInScoreSheetLast &&
+			lobbyPostIsVisible == lobbyPostIsVisibleLast &&
+			gameRoomPostIsVisible == gameRoomPostIsVisibleLast) {
 			return;
 		}
 
 		widthLast = width;
 		heightLast = height;
 		numRowsInScoreSheetLast = numRowsInScoreSheet;
+		lobbyPostIsVisibleLast = lobbyPostIsVisible;
+		gameRoomPostIsVisibleLast = gameRoomPostIsVisible;
 
         int gameBoardWidth = width / 2 - (borderWidth + borderWidth / 2);
         int gameBoardHeight = gameBoardWidth * 3 / 4;
@@ -159,7 +169,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		int lobbyY = tileRackBackgroundY + tileRackBackgroundHeight + borderWidth;
 		int lobbyPostHeight = (int)lobbyPost.getPreferredSize().getHeight();
 		int lobbyHeight = height - borderWidth - lobbyY;
-		if (lobbyPost.isVisible()) {
+		if (lobbyPostIsVisible) {
 			lobbyHeight -= lobbyPostHeight;
 		}
 		setComponentBounds(lobby, borderWidth, lobbyY, gameBoardWidth, lobbyHeight);
@@ -176,7 +186,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		int gameRoomY = borderWidth + scoreSheetHeight + borderWidth;
 		int gameRoomPostHeight = (int)gameRoomPost.getPreferredSize().getHeight();
 		int gameRoomHeight = height - borderWidth - gameRoomY;
-		if (gameRoomPost.isVisible()) {
+		if (gameRoomPostIsVisible) {
 			gameRoomHeight -= gameRoomPostHeight;
 		}
 		setComponentBounds(gameRoom, scoreSheetY, gameRoomY, gameBoardWidth, gameRoomHeight);
