@@ -138,6 +138,7 @@ public class NetworkConnection {
         	e.printStackTrace();
         	disconnect();
         	return EXIT_IO_EXCEPTION;
+        } catch (Exception e) {
         }
         
         if (exitedNicely) {
