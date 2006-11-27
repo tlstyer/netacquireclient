@@ -383,8 +383,6 @@ public class Review {
 			boundaryLine = firstBreakPointLine - 1;
 		}
 
-		System.out.print("" + direction + " " + nextLineGoingForward + " " + currentLine);
-
 		boolean done = false;
 		
 		for (;;) {
@@ -443,8 +441,6 @@ public class Review {
 		} else {
 			nextLineGoingForward = currentLine;
 		}
-		
-		System.out.println(" " + currentLine + " " + nextLineGoingForward + " " + boundaryLine);
 
 		sync();
 	}
