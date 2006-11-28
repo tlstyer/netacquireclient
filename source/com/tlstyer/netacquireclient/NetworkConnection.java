@@ -420,54 +420,82 @@ public class NetworkConnection {
 
 	private static class ModalMessage {
 		public String messageFromServer;
+		public Pattern patternMessageFromServer;
 		public String messageToUser;
 		public Integer whereToPutMessage;
 
-		public static final int LOBBY = 0;
-		public static final int GAMEROOM = 1;
+		public static final int NOWHERE = 0;
+		public static final int LOBBY = 1;
+		public static final int GAMEROOM = 2;
 
 		public ModalMessage(String messageFromServer_, String messageToUser_, Integer whereToPutMessage_) {
 			messageFromServer = messageFromServer_;
+			patternMessageFromServer = Pattern.compile(messageFromServer_);
 			messageToUser = messageToUser_;
 			whereToPutMessage = whereToPutMessage_;
+		}
+
+		public boolean processMessage(String message) {
+			Matcher matcher = patternMessageFromServer.matcher(message);
+			if (matcher.find()) {
+				String messageToPrint;
+				if (matcher.groupCount() > 0) {
+					messageToPrint = messageToUser.replace("NUM", matcher.group(1));
+				} else {
+					messageToPrint = messageToUser;
+				}
+
+				if (whereToPutMessage == LOBBY) {
+					Main.getMainFrame().lobby.append(messageToPrint, MessageWindow.APPEND_ERROR);
+				} else if (whereToPutMessage == GAMEROOM) {
+					Main.getMainFrame().gameRoom.append(messageToPrint, MessageWindow.APPEND_ERROR);
+				}
+
+				return true;
+			}
+			return false;
 		}
 	}
 
 	private static final ModalMessage[] modalMessages = {
-		new ModalMessage("I;Game ended;The game has ended, click OK to view final game results.",
+		new ModalMessage("\\AI;Game ended;The game has ended, click OK to view final game results\\.\\z",
 						 null,
-						 null),
-		new ModalMessage("I;Tile bag empty;The last tile has been drawn from the tile bag.",
+						 ModalMessage.NOWHERE),
+		new ModalMessage("\\AI;Tile bag empty;The last tile has been drawn from the tile bag\\.\\z",
 						 null,
-						 null),
-		new ModalMessage("E;Duplicate user Nickname;You cannot connect using the Nickname you have chosen as it is already in use.",
+						 ModalMessage.NOWHERE),
+		new ModalMessage("\\AE;Duplicate user Nickname;You cannot connect using the Nickname you have chosen as it is already in use\\.\\z",
 						 "Duplicate user Nickname: You cannot connect using the Nickname you have chosen as it is already in use.",
 						 ModalMessage.LOBBY),
-		new ModalMessage("I;Spectating game forced;The game has already started, you cannot join as a player.",
+		new ModalMessage("\\AI;Spectating game forced;The game has already started, you cannot join as a player\\.\\z",
 						 "Spectating game forced: The game has already started, you cannot join as a player.",
 						 ModalMessage.GAMEROOM),
+		new ModalMessage("\\AE;Invalid game number entered;Game #(\\d+?) does not exist\\.  Use game list option to see existing game numbers\\.\\z",
+						 "Invalid game number entered: Game #NUM does not exist. Use game list option to see existing game numbers.",
+						 ModalMessage.LOBBY),
+		new ModalMessage("\\AW;Last round, game end forced;Nobody has a playable tile, everyone gets one more turn forpurchases\\.\\z",
+						 "Last round, game end forced: Nobody has a playable tile, everyone gets one more turn for purchases.",
+						 ModalMessage.GAMEROOM),
 	};
+
+	//W;Test mode turned on.;The game host has enabled test mode.  All subsequent game tiles will not be random.  Instead, they will be entered manually by the game host.
+	//W;Test Mode Used;Test mode has been used by the host.  This means at least 1 tile has been drawn non-randomly (manually specified by the host).
+	//W;Test mode turned off.;The game host has disabled test mode.  All subsequent game tiles are randomly drawn.
+	//I;No playable tile;It is your turn and you have no playable tile.
 
 	protected void handleM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
 
-		boolean recognizedMessage = false;
+		boolean processedMessage = false;
 
-		for (int index=0; index<modalMessages.length; ++index) {
-			if (message.equals(modalMessages[index].messageFromServer)) {
-				if (modalMessages[index].messageToUser != null) {
-					if (modalMessages[index].whereToPutMessage == ModalMessage.LOBBY) {
-						Main.getMainFrame().lobby.append(modalMessages[index].messageToUser, MessageWindow.APPEND_ERROR);
-					} else {
-						Main.getMainFrame().gameRoom.append(modalMessages[index].messageToUser, MessageWindow.APPEND_ERROR);
-					}
-				}
-				recognizedMessage = true;
+		for (ModalMessage modalMessage : modalMessages) {
+			processedMessage = modalMessage.processMessage(message);
+			if (processedMessage) {
 				break;
 			}
 		}
 
-		if (!recognizedMessage) {
+		if (!processedMessage) {
 			commandProcessingResult = COMMAND_NOT_PROCESSED;
 		}
 	}
