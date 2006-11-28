@@ -424,9 +424,8 @@ public class NetworkConnection {
 		public String messageToUser;
 		public Integer whereToPutMessage;
 
-		public static final int NOWHERE = 0;
-		public static final int LOBBY = 1;
-		public static final int GAMEROOM = 2;
+		public static final int LOBBY = 0;
+		public static final int GAMEROOM = 1;
 
 		public ModalMessage(String messageFromServer_, String messageToUser_, Integer whereToPutMessage_) {
 			messageFromServer = messageFromServer_;
@@ -459,11 +458,11 @@ public class NetworkConnection {
 
 	private static final ModalMessage[] modalMessages = {
 		new ModalMessage("\\AI;Game ended;The game has ended, click OK to view final game results\\.\\z",
-						 null,
-						 ModalMessage.NOWHERE),
+						 "Game ended: The game has ended.",
+						 ModalMessage.GAMEROOM),
 		new ModalMessage("\\AI;Tile bag empty;The last tile has been drawn from the tile bag\\.\\z",
-						 null,
-						 ModalMessage.NOWHERE),
+						 "Tile bag empty: The last tile has been drawn from the tile bag.",
+						 ModalMessage.GAMEROOM),
 		new ModalMessage("\\AE;Duplicate user Nickname;You cannot connect using the Nickname you have chosen as it is already in use\\.\\z",
 						 "Duplicate user Nickname: You cannot connect using the Nickname you have chosen as it is already in use.",
 						 ModalMessage.LOBBY),
