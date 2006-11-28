@@ -476,12 +476,19 @@ public class NetworkConnection {
 		new ModalMessage("\\AW;Last round, game end forced;Nobody has a playable tile, everyone gets one more turn forpurchases\\.\\z",
 						 "Last round, game end forced: Nobody has a playable tile, everyone gets one more turn for purchases.",
 						 ModalMessage.GAMEROOM),
+		new ModalMessage("\\AI;No playable tile;It is your turn and you have no playable tile\\.\\z",
+						 "No playable tile: It is your turn and you have no playable tile.",
+						 ModalMessage.GAMEROOM),
+		new ModalMessage("\\AW;Test mode turned on\\.;The game host has enabled test mode\\.  All subsequent game tiles will not be random\\.  Instead, they will be entered manually by the game host\\.\\z",
+						 "Test mode turned on: The game host has enabled test mode. All subsequent game tiles will not be random. Instead, they will be entered manually by the game host.",
+						 ModalMessage.LOBBY),
+		new ModalMessage("\\AW;Test Mode Used;Test mode has been used by the host\\.  This means at least 1 tile has been drawn non-randomly \\(manually specified by the host\\)\\.\\z",
+						 "Test Mode Used: Test mode has been used by the host. This means at least 1 tile has been drawn non-randomly (manually specified by the host).",
+						 ModalMessage.GAMEROOM),
+		new ModalMessage("\\AW;Test mode turned off\\.;The game host has disabled test mode\\.  All subsequent game tiles are randomly drawn\\.\\z",
+						 "Test mode turned off: The game host has disabled test mode. All subsequent game tiles are randomly drawn.",
+						 ModalMessage.LOBBY),
 	};
-
-	//W;Test mode turned on.;The game host has enabled test mode.  All subsequent game tiles will not be random.  Instead, they will be entered manually by the game host.
-	//W;Test Mode Used;Test mode has been used by the host.  This means at least 1 tile has been drawn non-randomly (manually specified by the host).
-	//W;Test mode turned off.;The game host has disabled test mode.  All subsequent game tiles are randomly drawn.
-	//I;No playable tile;It is your turn and you have no playable tile.
 
 	protected void handleM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
