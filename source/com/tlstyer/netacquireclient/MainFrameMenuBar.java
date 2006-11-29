@@ -53,7 +53,21 @@ class MenuItemReinitialize extends MainFrameMenuItem {
     }
     
     public void doAction() {
-    	Main.getNetworkConnection().disconnect();
+    	int mode = Main.getMain().getMode();
+    	switch (mode) {
+			case Main.MODE_CHOOSE_MODE:
+				break;
+			case Main.MODE_CONNECTING:
+				break;
+			case Main.MODE_IN_LOBBY:
+			case Main.MODE_IN_GAME:
+			case Main.MODE_IN_GAME_WAITING_FOR_ME_TO_START_GAME:
+				Main.getNetworkConnection().disconnect();
+				break;
+			case Main.MODE_REVIEW:
+				Main.getMain().leaveReviewMode();
+				break;
+    	}
     }
 }
 
