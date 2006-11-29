@@ -11,14 +11,16 @@ public class ModeDialog extends GameDialog implements ActionListener {
 	private JButton buttonDeleteNickname;
 	private JComboBox cbIPURLPort;
 	private JButton buttonDeleteIPURLPort;
-	private JButton buttonGo;
+	private JButton buttonPlay;
+
+	private JButton buttonReview;
 
     private static final Pattern badNicknameChars = Pattern.compile(",|;|:|\"");
 
 	public ModeDialog() {
 		super(false);
 		
-		setTitle("Communications");
+		setTitle("Choose Mode");
 
 		// "Nickname" panel
 		JLabel labelNickname = new JLabel("Nickname:", JLabel.TRAILING);
@@ -54,10 +56,10 @@ public class ModeDialog extends GameDialog implements ActionListener {
 		panelIPURLPort.add(cbIPURLPort);
 		panelIPURLPort.add(buttonDeleteIPURLPort);
 
-		// "Go" button
-		buttonGo = Util.getButton3d2("Go", KeyEvent.VK_G);
-		buttonGo.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		buttonGo.addActionListener(this);
+		// "Play" button
+		buttonPlay = Util.getButton3d2("Play", KeyEvent.VK_P);
+		buttonPlay.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		buttonPlay.addActionListener(this);
 		
 		// make the combo boxes the same width
 		int width = labelIPURLPort.getPreferredSize().width * 3;
@@ -75,15 +77,42 @@ public class ModeDialog extends GameDialog implements ActionListener {
 		cbIPURLPort.setPreferredSize(dimension);
 		cbIPURLPort.setMaximumSize(dimension);
 		
-		// put them all together
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		panel.add(panelNickname);
-		panel.add(Box.createRigidArea(new Dimension(0, 5)));
-		panel.add(panelIPURLPort);
-		panel.add(Box.createRigidArea(new Dimension(0, 5)));
-		panel.add(buttonGo);
+		// "Play" panel
+		JPanel panelGame = new JPanel();
+		panelGame.setBorder(BorderFactory.createTitledBorder("Play"));
+		panelGame.setLayout(new BoxLayout(panelGame, BoxLayout.Y_AXIS));
+		panelGame.add(panelNickname);
+		panelGame.add(Box.createRigidArea(new Dimension(0, 5)));
+		panelGame.add(panelIPURLPort);
+		panelGame.add(Box.createRigidArea(new Dimension(0, 5)));
+		panelGame.add(buttonPlay);
 
-		getRootPane().setDefaultButton(buttonGo);
+		// "Review" button panel
+		buttonReview = Util.getButton3d2("Review", KeyEvent.VK_R);
+		buttonReview.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		buttonReview.addActionListener(this);
+
+		JPanel panelButtonReview = new JPanel();
+		panelButtonReview.setLayout(new BoxLayout(panelButtonReview, BoxLayout.X_AXIS));
+		panelButtonReview.add(Box.createHorizontalGlue());
+		panelButtonReview.add(buttonReview);
+		
+		// "Review" panel
+		JPanel panelReview = new JPanel();
+		panelReview.setBorder(BorderFactory.createTitledBorder("Review"));
+		panelReview.setLayout(new BoxLayout(panelReview, BoxLayout.Y_AXIS));
+		panelReview.add(panelButtonReview);
+
+		// put them all together
+		panelGame.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panelReview.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(panelGame);
+		panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(panelReview);
+
+		getRootPane().setDefaultButton(buttonPlay);
 		
 		showGameDialog(GameDialog.POSITION_0_0);
 	}
@@ -185,7 +214,7 @@ public class ModeDialog extends GameDialog implements ActionListener {
 			processButtonDelete(SerializedData.getSerializedData().getNicknames(), cbNickname);
 		} else if (object == buttonDeleteIPURLPort) {
 			processButtonDelete(SerializedData.getSerializedData().getAddressesAndPorts(), cbIPURLPort);
-		} else if (object == buttonGo) {
+		} else if (object == buttonPlay) {
 			buttonGoPressed();
 		}
 	}
