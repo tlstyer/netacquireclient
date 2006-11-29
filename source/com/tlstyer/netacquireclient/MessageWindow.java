@@ -16,6 +16,7 @@ public class MessageWindow extends JScrollPane {
 		setViewportView(textPane);
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		textPane.setFocusable(false);
 
 		styledDocument = textPane.getStyledDocument();
 		Style defaultStyleContext = StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE);
