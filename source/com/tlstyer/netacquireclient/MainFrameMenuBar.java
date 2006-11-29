@@ -45,6 +45,18 @@ class MainFrameMenuItem extends JMenuItem implements ActionListener {
     }
 }
 
+class MenuItemReinitialize extends MainFrameMenuItem {
+	private static final long serialVersionUID = -7113343397152091960L;
+
+	public MenuItemReinitialize() {
+    	super("Reinitialize", KeyEvent.VK_I, null, KeyEvent.VK_I, ActionEvent.CTRL_MASK);
+    }
+    
+    public void doAction() {
+    	Main.getNetworkConnection().disconnect();
+    }
+}
+
 class MenuItemOptions extends MainFrameMenuItem {
 	private static final long serialVersionUID = -2034147668512354594L;
 
@@ -66,18 +78,6 @@ class MenuItemQuit extends MainFrameMenuItem {
     
     public void doAction() {
     	Main.getMainFrame().closeWindow();
-    }
-}
-
-class MenuItemReinitialize extends MainFrameMenuItem {
-	private static final long serialVersionUID = -7113343397152091960L;
-
-	public MenuItemReinitialize() {
-    	super("Reinitialize", KeyEvent.VK_I, null, KeyEvent.VK_I, ActionEvent.CTRL_MASK);
-    }
-    
-    public void doAction() {
-    	Main.getNetworkConnection().disconnect();
     }
 }
 
@@ -285,13 +285,10 @@ public class MainFrameMenuBar extends JMenuBar {
 	
 	// File
 	private MainFrameMenu menuFile = new MainFrameMenu("File", KeyEvent.VK_F);
+	private MenuItemReinitialize menuItemReinitialize = new MenuItemReinitialize();
 	private MenuItemOptions menuItemOptions = new MenuItemOptions();
 	private MenuItemQuit menuItemQuit = new MenuItemQuit();
 	
-	// Communications
-	private MainFrameMenu menuCommunications = new MainFrameMenu("Communications", KeyEvent.VK_C);
-	private MenuItemReinitialize menuItemReinitialize = new MenuItemReinitialize();
-
     // Lobby
 	private MainFrameMenu menuLobby = new MainFrameMenu("Lobby", KeyEvent.VK_L);
 	private MenuItemShowUsers menuItemShowUsers = new MenuItemShowUsers();
@@ -320,14 +317,12 @@ public class MainFrameMenuBar extends JMenuBar {
 	public MainFrameMenuBar() {
 		// File
 		add(menuFile);
+		menuFile.add(menuItemReinitialize);
+		menuFile.addSeparator();
 		menuFile.add(menuItemOptions);
 		menuFile.addSeparator();
 		menuFile.add(menuItemQuit);
 		
-		// Communications
-		add(menuCommunications);
-		menuCommunications.add(menuItemReinitialize);
-
 		// Lobby
 		add(menuLobby);
 		menuLobby.add(menuItemShowUsers);
@@ -357,9 +352,9 @@ public class MainFrameMenuBar extends JMenuBar {
 	}
 
                                                                               // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
+	private static final boolean[] enablednessInModesMenuItemReinitialize     = {false,  true,  true,  true,  true,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemOptions          = {false,  true,  true,  true,  true,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemQuit             = {false,  true,  true,  true,  true,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemReinitialize     = {false,  true,  true,  true,  true,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemShowUsers        = {false, false, false,  true,  true,  true, false};
 	private static final boolean[] enablednessInModesMenuItemShowGames        = {false, false, false,  true,  true,  true, false};
 	private static final boolean[] enablednessInModesMenuItemStartNewGame     = {false, false, false,  true, false, false, false};
@@ -375,9 +370,9 @@ public class MainFrameMenuBar extends JMenuBar {
 	private static final boolean[] enablednessInModesMenuItemAboutNetAcquire  = {false,  true,  true,  true,  true,  true,  true};
 
     public void setMode(int mode) {
+        menuItemReinitialize.setEnabled(enablednessInModesMenuItemReinitialize[mode]);
         menuItemOptions.setEnabled(enablednessInModesMenuItemOptions[mode]);
         menuItemQuit.setEnabled(enablednessInModesMenuItemQuit[mode]);
-        menuItemReinitialize.setEnabled(enablednessInModesMenuItemReinitialize[mode]);
         menuItemShowUsers.setEnabled(enablednessInModesMenuItemShowUsers[mode]);
         menuItemShowGames.setEnabled(enablednessInModesMenuItemShowGames[mode]);
         menuItemStartNewGame.setEnabled(enablednessInModesMenuItemStartNewGame[mode]);
