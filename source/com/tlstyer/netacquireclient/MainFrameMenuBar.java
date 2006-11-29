@@ -69,17 +69,6 @@ class MenuItemQuit extends MainFrameMenuItem {
     }
 }
 
-class MenuItemTestConnections extends MainFrameMenuItem {
-	private static final long serialVersionUID = -4274559511873898462L;
-
-	public MenuItemTestConnections() {
-    	super("Test Connections", KeyEvent.VK_T, null, KeyEvent.VK_T, ActionEvent.CTRL_MASK);
-    }
-    
-    public void doAction() {
-    }
-}
-
 class MenuItemReinitialize extends MainFrameMenuItem {
 	private static final long serialVersionUID = -7113343397152091960L;
 
@@ -301,7 +290,6 @@ public class MainFrameMenuBar extends JMenuBar {
 	
 	// Communications
 	private MainFrameMenu menuCommunications = new MainFrameMenu("Communications", KeyEvent.VK_C);
-	private MenuItemTestConnections menuItemTestConnections = new MenuItemTestConnections();
 	private MenuItemReinitialize menuItemReinitialize = new MenuItemReinitialize();
 
     // Lobby
@@ -338,8 +326,6 @@ public class MainFrameMenuBar extends JMenuBar {
 		
 		// Communications
 		add(menuCommunications);
-		menuCommunications.add(menuItemTestConnections);
-		menuCommunications.addSeparator();
 		menuCommunications.add(menuItemReinitialize);
 
 		// Lobby
@@ -373,7 +359,6 @@ public class MainFrameMenuBar extends JMenuBar {
                                                                               // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
 	private static final boolean[] enablednessInModesMenuItemOptions          = {false,  true,  true,  true,  true,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemQuit             = {false,  true,  true,  true,  true,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemTestConnections  = {false, false, false,  true,  true,  true, false};
 	private static final boolean[] enablednessInModesMenuItemReinitialize     = {false,  true,  true,  true,  true,  true,  true};
 	private static final boolean[] enablednessInModesMenuItemShowUsers        = {false, false, false,  true,  true,  true, false};
 	private static final boolean[] enablednessInModesMenuItemShowGames        = {false, false, false,  true,  true,  true, false};
@@ -392,7 +377,6 @@ public class MainFrameMenuBar extends JMenuBar {
     public void setMode(int mode) {
         menuItemOptions.setEnabled(enablednessInModesMenuItemOptions[mode]);
         menuItemQuit.setEnabled(enablednessInModesMenuItemQuit[mode]);
-        menuItemTestConnections.setEnabled(enablednessInModesMenuItemTestConnections[mode]);
         menuItemReinitialize.setEnabled(enablednessInModesMenuItemReinitialize[mode]);
         menuItemShowUsers.setEnabled(enablednessInModesMenuItemShowUsers[mode]);
         menuItemShowGames.setEnabled(enablednessInModesMenuItemShowGames[mode]);
