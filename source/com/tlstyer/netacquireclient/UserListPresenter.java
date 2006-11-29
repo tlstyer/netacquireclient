@@ -4,18 +4,18 @@ import java.util.regex.*;
 class ListEntry {
 	public int gameNumber;
 	public String message;
-	public String messageLowercase;
+	public String nicknameLowercase;
 
-	public ListEntry(int gameNumber_, String message_) {
+	public ListEntry(int gameNumber_, String message_, String nickname) {
 		gameNumber = gameNumber_;
 		message = message_;
-		messageLowercase = message_.toLowerCase();
+		nicknameLowercase = nickname.toLowerCase();
 	}
 }
 
 class ComparatorListEntryAlphabetically implements Comparator<ListEntry> {
 	 public int compare(ListEntry le1, ListEntry le2) {
-		 return le1.messageLowercase.compareTo(le2.messageLowercase);
+		 return le1.nicknameLowercase.compareTo(le2.nicknameLowercase);
 	 }
 }
 
@@ -26,7 +26,7 @@ class ComparatorListEntryGameNumber implements Comparator<ListEntry> {
 		 if (diff != 0) {
 			 return diff;
 		 }
-		 return le1.messageLowercase.compareTo(le2.messageLowercase);
+		 return le1.nicknameLowercase.compareTo(le2.nicknameLowercase);
 	 }
 }
 
@@ -70,6 +70,7 @@ public class UserListPresenter {
 		} else {
 			Matcher matcher = patternListEntry.matcher(message);
 			if (matcher.find()) {
+				String nickname = matcher.group(1);
 				Integer gameNumber;
 				if (matcher.groupCount() >= 3) {
 					try {
@@ -80,7 +81,7 @@ public class UserListPresenter {
 				} else {
 					gameNumber = Integer.MAX_VALUE;
 				}
-				listEntries.add(new ListEntry(gameNumber, message));
+				listEntries.add(new ListEntry(gameNumber, message, nickname));
 				return DONT_OUTPUT_LINE;
 			} else if (message.equals(stringListEnd)) {
 				processingList = false;
