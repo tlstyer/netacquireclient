@@ -75,7 +75,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
         //Display the window.
 		pack();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setMode(Main.MODE_NOT_CONNECTED);
+		setMode(Main.MODE_CHOOSE_MODE);
 		setVisible(true);
     }
 	

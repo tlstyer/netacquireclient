@@ -11,7 +11,12 @@ public class Main {
 	private String nickname;
 	private String ipurl;
 	private int port;
-	private boolean gotConnectionParams;
+	
+	private int selectedMode;
+	
+	private static final int SELECTED_MODE_NOTHING_YET = 0; 
+	private static final int SELECTED_MODE_PLAY = 1; 
+	private static final int SELECTED_MODE_REVIEW = 2; 
 
     public static void main(String[] args) {
     	new Main();
@@ -25,15 +30,16 @@ public class Main {
     	soundManager = new SoundManager();
     	logFileWriter = new LogFileWriter();
     	networkConnection = new NetworkConnection();
+    	review = new Review();
     	mainFrame = new MainFrame();
     	
 		// main loop!
         for (;;) {
-    		setMode(MODE_NOT_CONNECTED);
-        	gotConnectionParams = false;
+    		setMode(MODE_CHOOSE_MODE);
+        	selectedMode = SELECTED_MODE_NOTHING_YET;
         	new ModeDialog();
         	synchronized (this) {
-            	while (!gotConnectionParams) {
+            	while (selectedMode == SELECTED_MODE_NOTHING_YET) {
             		try {
     					wait();
     				} catch (InterruptedException e) {
@@ -42,26 +48,14 @@ public class Main {
             	}
         	}
         	
-        	networkMode();
+        	switch (selectedMode) {
+	        	case SELECTED_MODE_PLAY:   playMode();   break;
+	        	case SELECTED_MODE_REVIEW: reviewMode(); break;
+        	}
         }
     }
     
-    private Main(boolean dummy) {
-    	main = this;
-    	
-    	SerializedData.LoadSerializedData();
-    	
-    	soundManager = new SoundManager();
-    	logFileWriter = new LogFileWriter();
-    	networkConnection = new NetworkConnection();
-    	review = new Review();
-    	mainFrame = new MainFrame();
-
-    	setMode(MODE_REVIEW);
-    	review.loadLogFile("C:/programming/acquire/logs/06.11.18-17.10.46 - 940 - tlstyer (501), Marnie (462), Chumba (446), trump (344).log");
-    }
-    
-    private void networkMode() {
+    private void playMode() {
         setMode(MODE_CONNECTING);
 
         mainFrame.lobby.append("# connecting to " + ipurl + ":" + port + " as " + nickname + " ...", MessageWindow.APPEND_DEFAULT);
@@ -92,9 +86,14 @@ public class Main {
 		}
     }
     
+    private void reviewMode() {
+    	setMode(MODE_REVIEW);
+    	review.loadLogFile("C:/programming/acquire/logs/06.11.18-17.10.46 - 940 - tlstyer (501), Marnie (462), Chumba (446), trump (344).log");
+    }
+    
 	private int mode;
 
-	public static final int MODE_NOT_CONNECTED = 1;
+	public static final int MODE_CHOOSE_MODE = 1;
 	public static final int MODE_CONNECTING = 2;
 	public static final int MODE_IN_LOBBY = 3;
 	public static final int MODE_IN_GAME = 4;
@@ -113,11 +112,18 @@ public class Main {
 		return mode;
 	}
 
-	public void setConnectionParams(String nickname_, String ipurl_, int port_) {
+	public void setPlayModeInfo(String nickname_, String ipurl_, int port_) {
 		nickname = nickname_;
 		ipurl = ipurl_;
 		port = port_;
-		gotConnectionParams = true;
+		selectedMode = SELECTED_MODE_PLAY;
+		synchronized (this) {
+			notifyAll();
+		}
+	}
+	
+	public void setReviewModeInfo() {
+		selectedMode = SELECTED_MODE_REVIEW;
 		synchronized (this) {
 			notifyAll();
 		}

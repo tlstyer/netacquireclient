@@ -148,7 +148,7 @@ public class ModeDialog extends GameDialog implements ActionListener {
 		}
 	}
 
-	private void buttonGoPressed() {
+	private void buttonPlayPressed() {
 		// figure out input and check for bad input
 		String[] ipurlAndPort = ((String)cbIPURLPort.getSelectedItem()).split(":", -1);
 
@@ -204,7 +204,12 @@ public class ModeDialog extends GameDialog implements ActionListener {
 		addressesAndPorts.add(0, addressAndPort);
 		
 		// input accepted, so leave this dialog
-		Main.getMain().setConnectionParams(nickname, ipurl, portInt);
+		Main.getMain().setPlayModeInfo(nickname, ipurl, portInt);
+		hideGameDialog();
+	}
+	
+	private void buttonReviewPressed() {
+		Main.getMain().setReviewModeInfo();
 		hideGameDialog();
 	}
 
@@ -215,7 +220,9 @@ public class ModeDialog extends GameDialog implements ActionListener {
 		} else if (object == buttonDeleteIPURLPort) {
 			processButtonDelete(SerializedData.getSerializedData().getAddressesAndPorts(), cbIPURLPort);
 		} else if (object == buttonPlay) {
-			buttonGoPressed();
+			buttonPlayPressed();
+		} else if (object == buttonReview) {
+			buttonReviewPressed();
 		}
 	}
 }
