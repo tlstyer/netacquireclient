@@ -14,7 +14,7 @@ public class Main {
 	private boolean gotConnectionParams;
 
     public static void main(String[] args) {
-    	new Main(true);
+    	new Main();
     }
     
     private Main() {
@@ -31,7 +31,7 @@ public class Main {
         for (;;) {
     		setMode(MODE_NOT_CONNECTED);
         	gotConnectionParams = false;
-        	new CommunicationsDialog();
+        	new ModeDialog();
         	synchronized (this) {
             	while (!gotConnectionParams) {
             		try {

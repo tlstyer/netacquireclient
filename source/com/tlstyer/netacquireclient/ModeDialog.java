@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.regex.*;
 import javax.swing.*;
 
-public class CommunicationsDialog extends GameDialog implements ActionListener {
+public class ModeDialog extends GameDialog implements ActionListener {
 	private static final long serialVersionUID = -9110080591988857670L;
 	
 	private JComboBox cbNickname;
@@ -15,7 +15,7 @@ public class CommunicationsDialog extends GameDialog implements ActionListener {
 
     private static final Pattern badNicknameChars = Pattern.compile(",|;|:|\"");
 
-	public CommunicationsDialog() {
+	public ModeDialog() {
 		super(false);
 		
 		setTitle("Communications");
