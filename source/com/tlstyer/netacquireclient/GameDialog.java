@@ -27,11 +27,11 @@ public class GameDialog extends JDialog {
 
 	public void setLocation(int position) {
 		if (position == POSITION_0_0) {
-			JPanel panel = Main.getMainFrame().panel;
+			JPanel panel = Main.getMainFrame().getPanel();
 			Point location = panel.getLocationOnScreen();
 			setLocation(location);
 		} else if (position == POSITION_BELOW_SCORE_SHEET) {
-			ScoreSheet scoreSheet = Main.getMainFrame().scoreSheet;
+			ScoreSheet scoreSheet = Main.getMainFrame().getScoreSheet();
 			Point location = scoreSheet.getLocationOnScreen();
 			location.translate(0, Main.getMainFrame().getScoreSheetHeight());
 			setLocation(location);

@@ -226,8 +226,8 @@ public class Review {
 		Collections.fill(tileRackLabels, null);
 		Collections.fill(tileRackHoteltypes, null);
 		Collections.fill(tileRackVisibilities, null);
-		Main.getMainFrame().lobby.clear();
-		Main.getMainFrame().gameRoom.clear();
+		Main.getMainFrame().getLobby().clear();
+		Main.getMainFrame().getGameRoom().clear();
 	}
 
 	public void loadLogFile(String filename) {
@@ -487,14 +487,14 @@ public class Review {
 	
 	private void sync() {
 		if (gameBoardData.isDirty()) {
-			Main.getMainFrame().gameBoard.sync(gameBoardData);
+			Main.getMainFrame().getGameBoard().sync(gameBoardData);
 			gameBoardData.clean();
 		}
 		if (scoreSheetCaptionData.isDirty() || scoreSheetHoteltypeData.isDirty()) {
 			if (scoreSheetCaptionData.isDirty()) {
 				Util.updateNetWorths(scoreSheetCaptionData, gameBoardData);
 			}
-			Main.getMainFrame().scoreSheet.sync(scoreSheetCaptionData, scoreSheetHoteltypeData);
+			Main.getMainFrame().getScoreSheet().sync(scoreSheetCaptionData, scoreSheetHoteltypeData);
 			scoreSheetCaptionData.clean();
 			scoreSheetHoteltypeData.clean();
 		}
@@ -526,33 +526,33 @@ public class Review {
 
 	private void handleReviewLobbyMessage(ReviewLobbyMessage msg, int direction) {
 		if (direction == DIRECTION_FORWARD) {
-			Main.getMainFrame().lobby.append(msg.message, MessageWindow.APPEND_DEFAULT);
+			Main.getMainFrame().getLobby().append(msg.message, MessageWindow.APPEND_DEFAULT);
 		} else {
-			Main.getMainFrame().lobby.unAppend(msg.message);
+			Main.getMainFrame().getLobby().unAppend(msg.message);
 		}
 	}
 
 	private void handleReviewGameRoomMessage(ReviewGameRoomMessage msg, int direction) {
 		if (direction == DIRECTION_FORWARD) {
-			Main.getMainFrame().gameRoom.append(msg.message, MessageWindow.APPEND_DEFAULT);
+			Main.getMainFrame().getGameRoom().append(msg.message, MessageWindow.APPEND_DEFAULT);
 		} else {
-			Main.getMainFrame().gameRoom.unAppend(msg.message);
+			Main.getMainFrame().getGameRoom().unAppend(msg.message);
 		}
 	}
 
 	private void handleReviewTileRackButton(ReviewTileRackButton msg, int direction) {
 		if (direction == DIRECTION_FORWARD) {
-			Main.getMainFrame().tileRack.setButton(msg.index, msg.label, msg.hoteltype);
+			Main.getMainFrame().getTileRack().setButton(msg.index, msg.label, msg.hoteltype);
 		} else {
-			Main.getMainFrame().tileRack.setButton(msg.index, msg.labelBefore, msg.hoteltypeBefore);
+			Main.getMainFrame().getTileRack().setButton(msg.index, msg.labelBefore, msg.hoteltypeBefore);
 		}
 	}
 
 	private void handleReviewTileRackButtonVisibility(ReviewTileRackButtonVisibility msg, int direction) {
 		if (direction == DIRECTION_FORWARD) {
-			Main.getMainFrame().tileRack.setButtonVisible(msg.index, msg.isVisible);
+			Main.getMainFrame().getTileRack().setButtonVisible(msg.index, msg.isVisible);
 		} else {
-			Main.getMainFrame().tileRack.setButtonVisible(msg.index, msg.isVisibleBefore);
+			Main.getMainFrame().getTileRack().setButtonVisible(msg.index, msg.isVisibleBefore);
 		}
 	}
 }

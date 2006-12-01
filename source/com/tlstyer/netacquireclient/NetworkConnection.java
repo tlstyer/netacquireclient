@@ -238,21 +238,21 @@ public class NetworkConnection {
             }
 
 			if (commandProcessingResult == COMMAND_NOT_PROCESSED) {
-				Main.getMainFrame().lobby.append("Unhandled command: " + commandString, MessageWindow.APPEND_ERROR);
+				Main.getMainFrame().getLobby().append("Unhandled command: " + commandString, MessageWindow.APPEND_ERROR);
 			} else if (commandProcessingResult == COMMAND_ERROR_WHILE_PROCESSING) {
-				Main.getMainFrame().lobby.append("Error while processing command: " + commandString, MessageWindow.APPEND_ERROR);
+				Main.getMainFrame().getLobby().append("Error while processing command: " + commandString, MessageWindow.APPEND_ERROR);
 			}
 		}
 		
 		if (gameBoardData.isDirty()) {
-			Main.getMainFrame().gameBoard.sync(gameBoardData);
+			Main.getMainFrame().getGameBoard().sync(gameBoardData);
 			gameBoardData.clean();
 		}
 		if (scoreSheetCaptionData.isDirty() || scoreSheetHoteltypeData.isDirty()) {
 			if (scoreSheetCaptionData.isDirty()) {
 				Util.updateNetWorths(scoreSheetCaptionData, gameBoardData);
 			}
-			Main.getMainFrame().scoreSheet.sync(scoreSheetCaptionData, scoreSheetHoteltypeData);
+			Main.getMainFrame().getScoreSheet().sync(scoreSheetCaptionData, scoreSheetHoteltypeData);
 			scoreSheetCaptionData.clean();
 			scoreSheetHoteltypeData.clean();
 		}
@@ -313,7 +313,7 @@ public class NetworkConnection {
 				int tileRackIndex = (Integer)((Object[])command[1])[2];
 				boolean visible = ((Integer)((Object[])command[1])[4] != 0 ? true : false);
 		        int index = tileRackIndex - 1;
-		        Main.getMainFrame().tileRack.setButtonVisible(index, visible);
+		        Main.getMainFrame().getTileRack().setButtonVisible(index, visible);
 			} else {
 				commandProcessingResult = COMMAND_NOT_PROCESSED;
 			}
@@ -329,7 +329,7 @@ public class NetworkConnection {
 		String message = Util.commandToContainedMessage(command);
 		int result = userListPresenter.processMessage(message);
 		if (result == UserListPresenter.DO_AS_USUAL) {
-			Main.getMainFrame().lobby.append(message, MessageWindow.APPEND_DEFAULT);
+			Main.getMainFrame().getLobby().append(message, MessageWindow.APPEND_DEFAULT);
 		} else if (result == UserListPresenter.READY_TO_OUTPUT_LINES) {
 			userListPresenter.outputLines();
 		}
@@ -337,7 +337,7 @@ public class NetworkConnection {
 	
 	protected void handleGM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
-		Main.getMainFrame().gameRoom.append(message, MessageWindow.APPEND_DEFAULT);
+		Main.getMainFrame().getGameRoom().append(message, MessageWindow.APPEND_DEFAULT);
 		Matcher matcher = Util.patternWaiting.matcher(message);
 		if (matcher.find() && matcher.group(1).toLowerCase().equals(nicknameLowercase)) {
 			if (SerializedData.getSerializedData().getPlaySoundWhenWaitingForMe()) {
@@ -354,7 +354,7 @@ public class NetworkConnection {
 		Point point = Util.gameBoardIndexToPoint(gameBoardIndex);
 		String label = Util.pointToNumberAndLetter(point.x, point.y);
 		int hoteltype = Util.colorvalueToHoteltype(tileRackColor);
-		Main.getMainFrame().tileRack.setButton(index, label, hoteltype);
+		Main.getMainFrame().getTileRack().setButton(index, label, hoteltype);
 		gameBoardData.setHoteltype(point.x, point.y, Hoteltype.I_HAVE_THIS);
 	}
 	
@@ -375,7 +375,7 @@ public class NetworkConnection {
 	}
 	
 	protected void handleGT(Object[] command) {
-		Main.getMainFrame().tileRack.setCanPlayTile(true);
+		Main.getMainFrame().getTileRack().setCanPlayTile(true);
 	}
 	
 	protected void handleGC(Object[] command) {
@@ -445,9 +445,9 @@ public class NetworkConnection {
 				}
 
 				if (whereToPutMessage == LOBBY) {
-					Main.getMainFrame().lobby.append(messageToPrint, MessageWindow.APPEND_ERROR);
+					Main.getMainFrame().getLobby().append(messageToPrint, MessageWindow.APPEND_ERROR);
 				} else if (whereToPutMessage == GAMEROOM) {
-					Main.getMainFrame().gameRoom.append(messageToPrint, MessageWindow.APPEND_ERROR);
+					Main.getMainFrame().getGameRoom().append(messageToPrint, MessageWindow.APPEND_ERROR);
 				}
 
 				return true;

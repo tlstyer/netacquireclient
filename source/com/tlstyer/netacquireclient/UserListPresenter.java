@@ -111,7 +111,7 @@ public class UserListPresenter {
 			Arrays.sort(listEntries, comparatorListEntryGameNumber);
 		}
 
-        MessageWindow lobby = Main.getMainFrame().lobby;
+        MessageWindow lobby = Main.getMainFrame().getLobby();
 		lobby.append(messageStart, MessageWindow.APPEND_DEFAULT);
 		for (ListEntry listEntry : listEntries) {
 			lobby.append(listEntry.message, MessageWindow.APPEND_DEFAULT);

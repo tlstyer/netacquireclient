@@ -5,18 +5,18 @@ import javax.swing.*;
 public class MainFrame extends JFrame implements ComponentListener, WindowListener {
 	private static final long serialVersionUID = 494783141808469259L;
 
-	public MainFrameMenuBar menuBar;
+	private MainFrameMenuBar mainFrameMenuBar;
 	
-	public JPanel panel;
+	private JPanel panel;
 
-    public GameBoard gameBoard;
-    public TextComponent tileRackBackground;
-    public TileRack tileRack;
-    public MessageWindow lobby;
-    public PostMessageTextField lobbyPost;
-    public ScoreSheet scoreSheet;
-    public MessageWindow gameRoom;
-    public PostMessageTextField gameRoomPost;
+    private GameBoard gameBoard;
+    private TextComponent tileRackBackground;
+    private TileRack tileRack;
+    private MessageWindow lobby;
+    private PostMessageTextField lobbyPost;
+    private ScoreSheet scoreSheet;
+    private MessageWindow gameRoom;
+    private PostMessageTextField gameRoomPost;
 	
 	public MainFrame() {
         //Set the look and feel.
@@ -35,8 +35,8 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
         addWindowListener(this);
         
 		// create the components
-        menuBar = new MainFrameMenuBar();
-        setJMenuBar(menuBar);
+        mainFrameMenuBar = new MainFrameMenuBar();
+        setJMenuBar(mainFrameMenuBar);
         
         panel = new JPanel(null);
         gameBoard = new GameBoard();
@@ -101,7 +101,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
         
         setComponentsBounds();
 
-        menuBar.setMode(mode);
+        mainFrameMenuBar.setMode(mode);
         
         if (mode <= Main.MODE_CONNECTING) {
         	lobby.clear();
@@ -241,5 +241,45 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 	}
 
 	public void windowOpened(WindowEvent e) {
+	}
+
+	public MainFrameMenuBar getMainFrameMenuBar() {
+		return mainFrameMenuBar;
+	}
+
+	public JPanel getPanel() {
+		return panel;
+	}
+
+	public GameBoard getGameBoard() {
+		return gameBoard;
+	}
+
+	public TextComponent getTileRackBackground() {
+		return tileRackBackground;
+	}
+
+	public TileRack getTileRack() {
+		return tileRack;
+	}
+
+	public MessageWindow getLobby() {
+		return lobby;
+	}
+
+	public PostMessageTextField getLobbyPost() {
+		return lobbyPost;
+	}
+
+	public ScoreSheet getScoreSheet() {
+		return scoreSheet;
+	}
+
+	public MessageWindow getGameRoom() {
+		return gameRoom;
+	}
+
+	public PostMessageTextField getGameRoomPost() {
+		return gameRoomPost;
 	}
 }
