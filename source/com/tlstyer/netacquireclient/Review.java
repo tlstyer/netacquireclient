@@ -1,7 +1,9 @@
 import java.awt.*;
+import java.awt.datatransfer.*;
 import java.io.*;
 import java.util.*;
 import java.util.regex.*;
+import javax.swing.*;
 
 abstract class ReviewMessage {
 	public static final int TYPE_ReviewGameBoard = 1;
@@ -139,6 +141,32 @@ class ReviewBreakPoint extends ReviewMessage {
 	}
 }
 
+class LogFileTransferHandler extends TransferHandler {
+	private static final long serialVersionUID = -1586106234288412330L;
+
+	public boolean importData(JComponent component, Transferable transferable) {
+		try {
+			java.util.List fileList = (java.util.List)transferable.getTransferData(DataFlavor.javaFileListFlavor);
+			if (fileList.size() > 0) {
+				Main.getReview().loadLogFile(((File)fileList.get(0)).getAbsolutePath());
+			}
+		} catch (UnsupportedFlavorException e) {
+		} catch (IOException e) {
+		}
+		
+		return true;
+	}
+	
+    public boolean canImport(JComponent component, DataFlavor[] dataFlavorArray) {
+    	for (DataFlavor dataFlavor : dataFlavorArray) {
+    		if (dataFlavor.equals(DataFlavor.javaFileListFlavor)) {
+    			return true;
+    		}
+    	}
+        return false;
+    }
+}
+
 public class Review {
     private GameBoardData gameBoardData = new GameBoardData();
     private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
@@ -159,9 +187,19 @@ public class Review {
 	private int nextLineGoingForward;
 	private int firstBreakPointLine;
 	
+	private LogFileTransferHandler logFileTransferHandler = new LogFileTransferHandler();
+	
     private static final Pattern patternCommand = Pattern.compile("\\A[^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?\\z");
 	
 	public Review() {
+	}
+	
+	public void setMode(int mode) {
+		if (mode == Main.MODE_REVIEW) {
+			Main.getMainFrame().getRootPane().setTransferHandler(logFileTransferHandler);
+		} else {
+			Main.getMainFrame().getRootPane().setTransferHandler(null);
+		}
 	}
 
 	private static final int COMMAND_SB = 1;

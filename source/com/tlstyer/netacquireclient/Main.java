@@ -125,6 +125,7 @@ public class Main {
 		
 		logFileWriter.setMode(mode);
         networkConnection.setMode(mode);
+        review.setMode(mode);
         mainFrame.setMode(mode);
 	}
 	
