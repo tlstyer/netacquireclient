@@ -226,6 +226,8 @@ public class Review {
 		Collections.fill(tileRackLabels, null);
 		Collections.fill(tileRackHoteltypes, null);
 		Collections.fill(tileRackVisibilities, null);
+		Main.getMainFrame().lobby.clear();
+		Main.getMainFrame().gameRoom.clear();
 	}
 
 	public void loadLogFile(String filename) {
