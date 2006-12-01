@@ -197,6 +197,8 @@ public class Review {
 	public void setMode(int mode) {
 		if (mode == Main.MODE_REVIEW) {
 			Main.getMainFrame().getRootPane().setTransferHandler(logFileTransferHandler);
+			initData();
+			sync();
 		} else {
 			Main.getMainFrame().getRootPane().setTransferHandler(null);
 		}
