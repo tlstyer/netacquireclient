@@ -303,13 +303,10 @@ public class MainFrameMenuBar extends JMenuBar {
 	private MenuItemOptions menuItemOptions = new MenuItemOptions();
 	private MenuItemQuit menuItemQuit = new MenuItemQuit();
 	
-    // Lobby
-	private MainFrameMenu menuLobby = new MainFrameMenu("Lobby", KeyEvent.VK_L);
+    // Play
+	private MainFrameMenu menuPlay = new MainFrameMenu("Play", KeyEvent.VK_P);
 	private MenuItemShowUsers menuItemShowUsers = new MenuItemShowUsers();
 	private MenuItemShowGames menuItemShowGames = new MenuItemShowGames();
-	
-    // Game
-	private MainFrameMenu menuGame = new MainFrameMenu("Game", KeyEvent.VK_G);
 	private MenuItemStartNewGame menuItemStartNewGame = new MenuItemStartNewGame();
 	private MenuItemStartGamePlay menuItemStartGamePlay = new MenuItemStartGamePlay();
 	private MenuItemJoinGame menuItemJoinGame = new MenuItemJoinGame();
@@ -337,20 +334,18 @@ public class MainFrameMenuBar extends JMenuBar {
 		menuFile.addSeparator();
 		menuFile.add(menuItemQuit);
 		
-		// Lobby
-		add(menuLobby);
-		menuLobby.add(menuItemShowUsers);
-		menuLobby.add(menuItemShowGames);
-
-		// Game
-		add(menuGame);
-		menuGame.add(menuItemStartNewGame);
-		menuGame.add(menuItemStartGamePlay);
-		menuGame.add(menuItemJoinGame);
-		menuGame.add(menuItemWatchGame);
-		menuGame.add(menuItemShowGameState);
-		menuGame.addSeparator();
-		menuGame.add(menuItemLeaveGame);
+		// Play
+		add(menuPlay);
+		menuPlay.add(menuItemShowUsers);
+		menuPlay.add(menuItemShowGames);
+		menuPlay.addSeparator();
+		menuPlay.add(menuItemStartNewGame);
+		menuPlay.add(menuItemStartGamePlay);
+		menuPlay.add(menuItemJoinGame);
+		menuPlay.add(menuItemWatchGame);
+		menuPlay.add(menuItemShowGameState);
+		menuPlay.addSeparator();
+		menuPlay.add(menuItemLeaveGame);
 
 		// Review
 		add(menuReview);
