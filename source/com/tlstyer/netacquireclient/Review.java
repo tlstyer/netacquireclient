@@ -129,6 +129,7 @@ class ReviewTileRackButtonVisibility extends ReviewMessage {
 class ReviewBreakPoint extends ReviewMessage {
 	public Integer bpType;
 
+	public static final int TURN_ENDED_THE_GAME = 0;
 	public static final int TURN_BEGINNING = 1;
 	public static final int TURN_MIDDLE = 2;
 
@@ -350,16 +351,23 @@ public class Review {
 		String message = Util.commandToContainedMessage(command);
 		reviewMessages.add(new ReviewGameRoomMessage(message));
 		
-		Matcher matcher = Util.patternWaiting.matcher(message);
-		if (matcher.find()) {
+		Matcher matcherWaiting = Util.patternWaiting.matcher(message);
+		if (matcherWaiting.find()) {
 			int bpType;
-			if (matcher.group(2) != null) {
+			if (matcherWaiting.group(2) != null) {
 				bpType = ReviewBreakPoint.TURN_BEGINNING;
 			} else {
 				bpType = ReviewBreakPoint.TURN_MIDDLE;
 			}
 
 			reviewMessages.add(new ReviewBreakPoint(bpType));
+			return;
+		}
+		
+		Matcher matcherEndedTheGame = Util.patternEndedTheGame.matcher(message);
+		if (matcherEndedTheGame.find()) {
+			reviewMessages.add(new ReviewBreakPoint(ReviewBreakPoint.TURN_ENDED_THE_GAME));
+			return;
 		}
 	}
 	
