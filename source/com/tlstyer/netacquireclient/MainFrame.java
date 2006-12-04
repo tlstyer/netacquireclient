@@ -103,6 +103,9 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 
         mainFrameMenuBar.setMode(mode);
         
+        lobby.setMode(mode);
+        gameRoom.setMode(mode);
+        
         if (mode <= Main.MODE_CONNECTING) {
         	lobby.clear();
         }

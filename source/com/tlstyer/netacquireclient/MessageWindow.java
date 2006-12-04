@@ -16,7 +16,6 @@ public class MessageWindow extends JScrollPane {
 		setViewportView(textPane);
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		textPane.setFocusable(false);
 		textPane.setTransferHandler(null);
 
 		styledDocument = textPane.getStyledDocument();
@@ -33,6 +32,14 @@ public class MessageWindow extends JScrollPane {
         
         s = styledDocument.addStyle("error", s);
         StyleConstants.setForeground(s, Color.red);
+	}
+	
+	public void setMode(int mode) {
+		if (mode == Main.MODE_REVIEW) {
+			textPane.setFocusable(false);
+		} else {
+			textPane.setFocusable(true);
+		}
 	}
 	
 	public static final int APPEND_DEFAULT = 0;
