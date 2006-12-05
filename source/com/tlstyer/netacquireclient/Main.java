@@ -78,7 +78,7 @@ public class Main {
     private void playMode() {
         setMode(MODE_CONNECTING);
 
-        mainFrame.getLobby().append("# connecting to " + ipurl + ":" + port + " as " + nickname + " ...", MessageWindow.APPEND_DEFAULT);
+        mainFrame.getLobby().append("# connecting to " + ipurl + ":" + port + " as " + nickname + " ...", MessageWindowDocument.APPEND_DEFAULT);
 
 		boolean connected = networkConnection.connect(ipurl, port);
 		if (!connected) {

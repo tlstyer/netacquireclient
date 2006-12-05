@@ -238,9 +238,9 @@ public class NetworkConnection {
             }
 
 			if (commandProcessingResult == COMMAND_NOT_PROCESSED) {
-				Main.getMainFrame().getLobby().append("Unhandled command: " + commandString, MessageWindow.APPEND_ERROR);
+				Main.getMainFrame().getLobby().append("Unhandled command: " + commandString, MessageWindowDocument.APPEND_ERROR);
 			} else if (commandProcessingResult == COMMAND_ERROR_WHILE_PROCESSING) {
-				Main.getMainFrame().getLobby().append("Error while processing command: " + commandString, MessageWindow.APPEND_ERROR);
+				Main.getMainFrame().getLobby().append("Error while processing command: " + commandString, MessageWindowDocument.APPEND_ERROR);
 			}
 		}
 		
@@ -329,7 +329,7 @@ public class NetworkConnection {
 		String message = Util.commandToContainedMessage(command);
 		int result = userListPresenter.processMessage(message);
 		if (result == UserListPresenter.DO_AS_USUAL) {
-			Main.getMainFrame().getLobby().append(message, MessageWindow.APPEND_DEFAULT);
+			Main.getMainFrame().getLobby().append(message, MessageWindowDocument.APPEND_DEFAULT);
 		} else if (result == UserListPresenter.READY_TO_OUTPUT_LINES) {
 			userListPresenter.outputLines();
 		}
@@ -337,7 +337,7 @@ public class NetworkConnection {
 	
 	protected void handleGM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
-		Main.getMainFrame().getGameRoom().append(message, MessageWindow.APPEND_DEFAULT);
+		Main.getMainFrame().getGameRoom().append(message, MessageWindowDocument.APPEND_DEFAULT);
 		Matcher matcher = Util.patternWaiting.matcher(message);
 		if (matcher.find() && matcher.group(1).toLowerCase().equals(nicknameLowercase)) {
 			if (SerializedData.getSerializedData().getPlaySoundWhenWaitingForMe()) {
@@ -445,9 +445,9 @@ public class NetworkConnection {
 				}
 
 				if (whereToPutMessage == LOBBY) {
-					Main.getMainFrame().getLobby().append(messageToPrint, MessageWindow.APPEND_ERROR);
+					Main.getMainFrame().getLobby().append(messageToPrint, MessageWindowDocument.APPEND_ERROR);
 				} else if (whereToPutMessage == GAMEROOM) {
-					Main.getMainFrame().getGameRoom().append(messageToPrint, MessageWindow.APPEND_ERROR);
+					Main.getMainFrame().getGameRoom().append(messageToPrint, MessageWindowDocument.APPEND_ERROR);
 				}
 
 				return true;

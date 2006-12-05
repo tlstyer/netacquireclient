@@ -112,10 +112,10 @@ public class UserListPresenter {
 		}
 
         MessageWindow lobby = Main.getMainFrame().getLobby();
-		lobby.append(messageStart, MessageWindow.APPEND_DEFAULT);
+		lobby.append(messageStart, MessageWindowDocument.APPEND_DEFAULT);
 		for (ListEntry listEntry : listEntries) {
-			lobby.append(listEntry.message, MessageWindow.APPEND_DEFAULT);
+			lobby.append(listEntry.message, MessageWindowDocument.APPEND_DEFAULT);
 		}
-		lobby.append(stringListEnd, MessageWindow.APPEND_DEFAULT);
+		lobby.append(stringListEnd, MessageWindowDocument.APPEND_DEFAULT);
 	}
 }

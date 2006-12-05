@@ -544,7 +544,7 @@ public class Review {
 
 	private void handleReviewLobbyMessage(ReviewLobbyMessage msg, int direction) {
 		if (direction == DIRECTION_FORWARD) {
-			Main.getMainFrame().getLobby().append(msg.message, MessageWindow.APPEND_DEFAULT);
+			Main.getMainFrame().getLobby().append(msg.message, MessageWindowDocument.APPEND_DEFAULT);
 		} else {
 			Main.getMainFrame().getLobby().unAppend(msg.message);
 		}
@@ -552,7 +552,7 @@ public class Review {
 
 	private void handleReviewGameRoomMessage(ReviewGameRoomMessage msg, int direction) {
 		if (direction == DIRECTION_FORWARD) {
-			Main.getMainFrame().getGameRoom().append(msg.message, MessageWindow.APPEND_DEFAULT);
+			Main.getMainFrame().getGameRoom().append(msg.message, MessageWindowDocument.APPEND_DEFAULT);
 		} else {
 			Main.getMainFrame().getGameRoom().unAppend(msg.message);
 		}
