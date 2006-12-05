@@ -1,6 +1,5 @@
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.text.*;
 
 public class MessageWindow extends JScrollPane {
 	private static final long serialVersionUID = 89083236981415606L;
