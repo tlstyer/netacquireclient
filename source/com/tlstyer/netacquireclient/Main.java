@@ -33,8 +33,26 @@ public class Main {
     	logFileWriter = new LogFileWriter();
     	networkConnection = new NetworkConnection();
     	review = new Review();
-    	mainFrame = new MainFrame();
     	
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	mainFrame = new MainFrame();
+            	synchronized (Main.getMain()) {
+            		Main.getMain().notifyAll();
+             	}
+            }
+        });
+        
+    	synchronized (Main.getMain()) {
+        	while (mainFrame == null) {
+        		try {
+        			Main.getMain().wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+        	}
+    	}
+
 		// main loop!
         for (;;) {
     		setMode(MODE_CHOOSE_MODE);
