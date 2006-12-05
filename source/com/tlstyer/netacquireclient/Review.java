@@ -236,11 +236,11 @@ public class Review {
 	public void loadLogFile(String filename) {
 		initData();
 		reviewMessages.clear();
+		
+		BufferedReader bufferedReader = null;
 
 		try {
-			FileReader fileReader = new FileReader(filename);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-
+			bufferedReader = new BufferedReader(new FileReader(filename));
 
 			for (;;) {
 				String line = bufferedReader.readLine();
@@ -277,6 +277,14 @@ public class Review {
 				}
 			}
 		} catch(IOException e) {
+		} finally {
+			if (bufferedReader != null) {
+				try {
+					bufferedReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		initData();
