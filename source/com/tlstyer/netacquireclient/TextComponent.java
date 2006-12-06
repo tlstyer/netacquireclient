@@ -16,7 +16,7 @@ class TextComponent extends JComponent {
     static final int ALIGN_CENTER = 1;
     static final int ALIGN_RIGHT = 2;
     
-    static final int PADDING = 5;
+    static final int PADDING = 3;
     
     public TextComponent() {
     	this("text", Color.black, ALIGN_CENTER);
