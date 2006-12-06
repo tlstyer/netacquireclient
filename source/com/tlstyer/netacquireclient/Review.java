@@ -294,6 +294,8 @@ public class Review {
 
 		navigate(DIRECTION_FORWARD, BREAK_AT_TURN_STEP);
 		firstBreakPointLine = nextLineGoingForward;
+		
+		Main.getMainFrame().setTitle(Main.getProgramName() + " - Review Mode - " + filename);
 	}
 
 	private void handleSB(Object[] command) {

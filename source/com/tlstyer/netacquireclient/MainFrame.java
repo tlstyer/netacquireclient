@@ -30,7 +30,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
         JFrame.setDefaultLookAndFeelDecorated(true);
         
         //Create and set up the window.
-        setTitle("Acquire");
+        setTitle(Main.getProgramName());
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(this);
         

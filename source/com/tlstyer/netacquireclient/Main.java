@@ -19,6 +19,8 @@ public class Main {
 	private static final int SELECTED_MODE_REVIEW = 2; 
 	
 	private boolean leaveReviewModeFlag = false;
+	
+	private static final String programName = "Java NetAcquire";
 
     public static void main(String[] args) {
     	new Main();
@@ -56,6 +58,7 @@ public class Main {
 		// main loop!
         for (;;) {
     		setMode(MODE_CHOOSE_MODE);
+    		mainFrame.setTitle(getProgramName());
         	selectedMode = SELECTED_MODE_NOTHING_YET;
         	new ModeDialog();
         	synchronized (this) {
@@ -77,8 +80,9 @@ public class Main {
     
     private void playMode() {
         setMode(MODE_CONNECTING);
-
-        mainFrame.getLobby().append("# connecting to " + ipurl + ":" + port + " as " + nickname + " ...", MessageWindowDocument.APPEND_DEFAULT);
+        String ipurlPortAsNickname = ipurl + ":" + port + " as " + nickname;
+        mainFrame.setTitle(getProgramName() + " - Play Mode - " + ipurlPortAsNickname);
+        mainFrame.getLobby().append("# connecting to " + ipurlPortAsNickname + " ...", MessageWindowDocument.APPEND_DEFAULT);
 
 		boolean connected = networkConnection.connect(ipurl, port);
 		if (!connected) {
@@ -108,6 +112,7 @@ public class Main {
     
     private void reviewMode() {
     	setMode(MODE_REVIEW);
+    	mainFrame.setTitle(getProgramName() + " - Review Mode");
     	
     	synchronized (this) {
         	while (!leaveReviewModeFlag) {
@@ -197,5 +202,9 @@ public class Main {
 
 	public static Main getMain() {
 		return main;
+	}
+
+	public static String getProgramName() {
+		return programName;
 	}
 }
