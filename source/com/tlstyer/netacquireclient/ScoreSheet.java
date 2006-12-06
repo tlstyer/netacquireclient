@@ -63,7 +63,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 		scoreSheet[9][0].setText("Price ($00)");
 	}
 
-    protected void addTC(int x, int y, int hotelType, String text) {
+    private void addTC(int x, int y, int hotelType, String text) {
     	TextComponent textComponent = new TextComponent();
     	textComponent.setBackgroundColor(Util.hoteltypeToColor(hotelType));
     	textComponent.setText(text);

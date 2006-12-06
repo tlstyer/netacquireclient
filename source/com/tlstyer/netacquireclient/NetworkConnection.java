@@ -198,7 +198,7 @@ public class NetworkConnection {
     
 	private int commandProcessingResult;
 	
-	protected void processDataRead() {
+	private void processDataRead() {
 		while (true) {
 			Matcher matcher = patternCommand.matcher(dataRead);
 			if (!matcher.find()) {
@@ -258,7 +258,7 @@ public class NetworkConnection {
 		}
 	}
 	
-	protected void writeMessage(String message) {
+	private void writeMessage(String message) {
 		synchronized(dataToWrite) {
 			Main.getLogFileWriter().writeMessage(LogFileWriter.MESSAGE_OUTGOING, message);
 			dataToWrite.append(message + ";:");
@@ -272,7 +272,7 @@ public class NetworkConnection {
 		}
 	}
 	
-	protected void handleSB(Object[] command) {
+	private void handleSB(Object[] command) {
 		int index = (Integer)((Object[])command[1])[0];
 		int color = (Integer)((Object[])command[1])[1];
 		Point point = Util.gameBoardIndexToPoint(index);
@@ -280,7 +280,7 @@ public class NetworkConnection {
 		gameBoardData.setHoteltype(point.x, point.y, hoteltype);
 	}
 	
-	protected void handleSV(Object[] command) {
+	private void handleSV(Object[] command) {
 		if (((String)((Object[])command[1])[0]).equals("frmScoreSheet") &&
 			((String)((Object[])command[1])[1]).equals("lblData")) {
 			if (((String)((Object[])command[1])[3]).equals("Caption")) {
@@ -325,7 +325,7 @@ public class NetworkConnection {
 		}
 	}
 	
-	protected void handleLM(Object[] command) {
+	private void handleLM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
 		int result = userListPresenter.processMessage(message);
 		if (result == UserListPresenter.DO_AS_USUAL) {
@@ -335,7 +335,7 @@ public class NetworkConnection {
 		}
 	}
 	
-	protected void handleGM(Object[] command) {
+	private void handleGM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
 		Main.getMainFrame().getGameRoom().append(message, MessageWindowDocument.APPEND_DEFAULT);
 		Matcher matcher = Util.patternWaiting.matcher(message);
@@ -346,7 +346,7 @@ public class NetworkConnection {
 		}
 	}
 	
-	protected void handleAT(Object[] command) {
+	private void handleAT(Object[] command) {
 		int tileRackIndex = (Integer)((Object[])command[1])[0];
 		int gameBoardIndex = (Integer)((Object[])command[1])[1];
 		int tileRackColor = (Integer)((Object[])command[1])[2];
@@ -358,11 +358,11 @@ public class NetworkConnection {
 		gameBoardData.setHoteltype(point.x, point.y, Hoteltype.I_HAVE_THIS);
 	}
 	
-	protected void handleSP(Object[] command) {
+	private void handleSP(Object[] command) {
 		writeMessage("PL;" + nickname + ",2,0,2");
 	}
 	
-	protected void handleSS(Object[] command) {
+	private void handleSS(Object[] command) {
 		int state = (Integer)command[1];
 		if (state == 6) {
 			state = Main.MODE_IN_GAME;
@@ -374,11 +374,11 @@ public class NetworkConnection {
 		Main.getMain().setMode(state);
 	}
 	
-	protected void handleGT(Object[] command) {
+	private void handleGT(Object[] command) {
 		Main.getMainFrame().getTileRack().setCanPlayTile(true);
 	}
 	
-	protected void handleGC(Object[] command) {
+	private void handleGC(Object[] command) {
 		int type = (Integer)((Object[])command[1])[0];
 		
 		boolean[] hotelOptions = new boolean[7];
@@ -393,7 +393,7 @@ public class NetworkConnection {
 		new SelectChainDialog(type, hotelOptions);
 	}
 	
-	protected void handleGP(Object[] command) {
+	private void handleGP(Object[] command) {
 		boolean canEndGame = ((Integer)((Object[])command[1])[0] != 0 ? true : false);
 		int howMuchMoney = (Integer)((Object[])command[1])[1] / 100;
 		int[] available = Util.getHotelDataAsIntegers(scoreSheetCaptionData, 7);
@@ -401,7 +401,7 @@ public class NetworkConnection {
 		new PurchaseDialog(canEndGame, howMuchMoney, available, price);
 	}
 	
-	protected void handleGD(Object[] command) {
+	private void handleGD(Object[] command) {
 		String nameOfTakenOverChain = (String)((Object[])command[1])[1]; 
 		int numSharesOfTakenOverHotelIHave = (Integer)((Object[])command[1])[2];
 		int numAvailableOfSurvivor = (Integer)((Object[])command[1])[3];
@@ -492,7 +492,7 @@ public class NetworkConnection {
 						 ModalMessage.LOBBY),
 	};
 
-	protected void handleM(Object[] command) {
+	private void handleM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
 
 		boolean processedMessage = false;
