@@ -12,11 +12,11 @@ class TextComponent extends JComponent {
     private Color colorForeground;
     private int textAlign;
 
-    static final int ALIGN_LEFT = 0;
-    static final int ALIGN_CENTER = 1;
-    static final int ALIGN_RIGHT = 2;
+    public static final int ALIGN_LEFT = 0;
+    public static final int ALIGN_CENTER = 1;
+    public static final int ALIGN_RIGHT = 2;
     
-    static final int PADDING = 3;
+    private static final int PADDING = 3;
     
     public TextComponent() {
     	this("text", Color.black, ALIGN_CENTER);
