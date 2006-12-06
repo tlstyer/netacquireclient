@@ -258,7 +258,7 @@ public class NetworkConnection {
 		}
 	}
 	
-	private void writeMessage(String message) {
+	public void writeMessage(String message) {
 		synchronized(dataToWrite) {
 			Main.getLogFileWriter().writeMessage(LogFileWriter.MESSAGE_OUTGOING, message);
 			dataToWrite.append(message + ";:");
