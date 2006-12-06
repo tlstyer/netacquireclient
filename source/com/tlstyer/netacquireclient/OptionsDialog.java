@@ -159,7 +159,7 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelWhenWaitingForMe);
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
-		panel.add(panelLogFiles	);
+		panel.add(panelLogFiles);
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelOkCancel);
 		

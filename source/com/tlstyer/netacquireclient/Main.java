@@ -1,4 +1,4 @@
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class Main {
     private static MainFrame mainFrame;
@@ -34,7 +34,7 @@ public class Main {
     	networkConnection = new NetworkConnection();
     	review = new Review();
     	
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+        SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	mainFrame = new MainFrame();
             	synchronized (Main.getMain()) {
