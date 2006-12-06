@@ -76,9 +76,9 @@ class TextComponent extends JComponent {
         if (textAlign == ALIGN_LEFT) {
         	x = PADDING;
         } else if (textAlign == ALIGN_CENTER) {
-            x = (int)((getWidth() - bounds.getWidth()) / 2);
-        } else { // align == ALIGN_RIGHT
-        	x = (int)(getWidth() - bounds.getWidth() - PADDING);
+            x = (int)((getWidth() - bounds.getWidth() - bounds.getX()) / 2);
+        } else { // textAlign == ALIGN_RIGHT
+        	x = (int)(getWidth() - bounds.getWidth() - bounds.getX() - PADDING);
         }
         int y = (int)((getHeight() - fontHeight) / 2 - fontY);
         g2d.drawString(text, x, y);
