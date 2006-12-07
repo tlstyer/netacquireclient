@@ -36,7 +36,7 @@ public class AboutDialog extends GameDialog implements ActionListener {
 		
 		getRootPane().setDefaultButton(buttonOk);
 		
-		showGameDialog(GameDialog.POSITION_0_0);
+		showGameDialog(GameDialog.POSITION_CENTER_IN_MAIN_FRAME_PANEL);
 	}
 
 	public static void showAboutDialog() {

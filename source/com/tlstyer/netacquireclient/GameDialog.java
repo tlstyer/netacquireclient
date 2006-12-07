@@ -27,6 +27,7 @@ public class GameDialog extends JDialog {
 	
 	public static final int POSITION_0_0 = 1;
 	public static final int POSITION_BELOW_SCORE_SHEET = 2;
+	public static final int POSITION_CENTER_IN_MAIN_FRAME_PANEL = 3;
 
 	public void setLocation(int position) {
 		if (position == POSITION_0_0) {
@@ -38,6 +39,15 @@ public class GameDialog extends JDialog {
 			Point location = scoreSheet.getLocationOnScreen();
 			location.translate(0, Main.getMainFrame().getScoreSheetHeight());
 			setLocation(location);
+		} else if (position == POSITION_CENTER_IN_MAIN_FRAME_PANEL) {
+			JPanel mainFramePanel = Main.getMainFrame().getPanel();
+			Point mainFrameLocation = mainFramePanel.getLocationOnScreen();
+			Dimension mainFrameDimension = mainFramePanel.getSize();
+			Dimension gameDialogDimension = this.getSize();
+			Point gameDialogLocation = new Point();
+			gameDialogLocation.x = mainFrameLocation.x + (mainFrameDimension.width - gameDialogDimension.width) / 2;
+			gameDialogLocation.y = mainFrameLocation.y + (mainFrameDimension.height - gameDialogDimension.height) / 2;
+			setLocation(gameDialogLocation);
 		}
 	}
 		
