@@ -287,10 +287,11 @@ class MenuItemAboutNetAcquire extends MainFrameMenuItem {
 	private static final long serialVersionUID = -1643289616812206827L;
 
 	public MenuItemAboutNetAcquire() {
-    	super("About NetAcquire", KeyEvent.VK_A, null, null, null);
+    	super("About " + Main.getProgramName(), KeyEvent.VK_A, null, null, null);
     }
     
     public void doAction() {
+    	AboutDialog.showAboutDialog();
     }
 }
 
