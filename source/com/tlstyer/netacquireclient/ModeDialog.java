@@ -18,7 +18,7 @@ public class ModeDialog extends GameDialog implements ActionListener {
     private static final Pattern badNicknameChars = Pattern.compile(",|;|:|\"");
 
 	public ModeDialog() {
-		super(false);
+		super(DO_NOT_ALLOW_EXTERNAL_HIDE_REQUEST);
 		
 		setTitle("Choose Mode");
 

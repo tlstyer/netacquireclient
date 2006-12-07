@@ -9,13 +9,16 @@ public class GameDialog extends JDialog {
 	
 	private static Set<GameDialog> setOfGameDialogs = new HashSet<GameDialog>();
 	
-	public GameDialog(boolean allowExternalHideRequest) {
+	public static final int ALLOW_EXTERNAL_HIDE_REQUEST = 1;
+	public static final int DO_NOT_ALLOW_EXTERNAL_HIDE_REQUEST = 2;
+	
+	public GameDialog(int allowExternalHideRequest) {
 		super(Main.getMainFrame());
 		panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		setContentPane(panel);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setResizable(false);
-		if (allowExternalHideRequest) {
+		if (allowExternalHideRequest == ALLOW_EXTERNAL_HIDE_REQUEST) {
 			synchronized (setOfGameDialogs) {
 				setOfGameDialogs.add(this);
 			}

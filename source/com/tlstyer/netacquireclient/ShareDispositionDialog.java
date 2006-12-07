@@ -36,7 +36,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
                                   int numAvailableOfSurvivor_,
                                   int hoteltypeOfSurvivor,
                                   int hoteltypeOfTakenOver) {
-    	super(true);
+    	super(ALLOW_EXTERNAL_HIDE_REQUEST);
     	
         numSharesOfTakenOverHotelIHave = numSharesOfTakenOverHotelIHave_;
         numAvailableOfSurvivor = numAvailableOfSurvivor_;

@@ -27,7 +27,7 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 	private static Boolean optionsDialogShowing = false;
 
 	public OptionsDialog() {
-		super(false);
+		super(DO_NOT_ALLOW_EXTERNAL_HIDE_REQUEST);
 		
 		setTitle("Options");
 
