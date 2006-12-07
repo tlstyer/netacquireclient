@@ -104,7 +104,7 @@ public class UserListPresenter {
 			listEntries[i] = (ListEntry)listEntriesArray[i];
 		}
 		
-		int sortingMethod = SerializedData.getSerializedData().getUserListSortingMethod();
+		int sortingMethod = Main.getSerializedData().getUserListSortingMethod();
 		if (sortingMethod == SORT_ALPHABETICALLY) {
 			Arrays.sort(listEntries, comparatorListEntryAlphabetically);
 		} else if (sortingMethod == SORT_GAME_NUMBER) {

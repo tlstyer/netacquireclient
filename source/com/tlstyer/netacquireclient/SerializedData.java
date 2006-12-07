@@ -14,8 +14,6 @@ public class SerializedData implements Serializable {
 	private Boolean writeToLogFiles = null;
 	private String pathToLogFiles = null;
 	
-	private static SerializedData serializedData = null;
-
 	private static final String filename = "SerializedData.ser";
 
 	private SerializedData() {
@@ -69,30 +67,23 @@ public class SerializedData implements Serializable {
 		}
 	}
 
-	public Object clone() throws CloneNotSupportedException {
-		throw new CloneNotSupportedException();
-	}
-	
-	public static SerializedData getSerializedData() {
-		return serializedData;
-	}
-
-	public static void SaveSerializedData() {
+	public void SaveSerializedData() {
 		FileOutputStream fileOutputStream = null;
 		ObjectOutputStream objectOutputStream = null;
 		try {
 			fileOutputStream = new FileOutputStream(filename);
 			objectOutputStream = new ObjectOutputStream(fileOutputStream);
-			objectOutputStream.writeObject(serializedData);
+			objectOutputStream.writeObject(this);
 			objectOutputStream.close();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void LoadSerializedData() {
+	public static SerializedData LoadSerializedData() {
 		FileInputStream fileInputStream = null;
 		ObjectInputStream objectInputStream = null;
+		SerializedData serializedData = null;
 		try {
 			fileInputStream = new FileInputStream(filename);
 			objectInputStream = new ObjectInputStream(fileInputStream);
@@ -103,6 +94,7 @@ public class SerializedData implements Serializable {
 			e.printStackTrace();
 			serializedData = new SerializedData();
 		}
+		return serializedData;
 	}
 
 	public ArrayList<String> getNicknames() {

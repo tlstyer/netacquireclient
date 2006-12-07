@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 public class Main {
+	private static SerializedData serializedData;
     private static MainFrame mainFrame;
     private static NetworkConnection networkConnection;
     private static SoundManager soundManager;
@@ -29,8 +30,7 @@ public class Main {
     private Main() {
     	main = this;
     	
-    	SerializedData.LoadSerializedData();
-    	
+    	serializedData = SerializedData.LoadSerializedData();
     	soundManager = new SoundManager();
     	logFileWriter = new LogFileWriter();
     	networkConnection = new NetworkConnection();
@@ -206,5 +206,9 @@ public class Main {
 
 	public static String getProgramName() {
 		return programName;
+	}
+
+	public static SerializedData getSerializedData() {
+		return serializedData;
 	}
 }

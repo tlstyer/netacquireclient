@@ -16,7 +16,7 @@ public class SoundManager {
 			}
 		}
 		
-		loadSound(SerializedData.getSerializedData().getPathToSound());
+		loadSound(Main.getSerializedData().getPathToSound());
 	}
 	
 	public boolean loadSound(String pathname) {
