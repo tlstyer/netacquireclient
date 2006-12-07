@@ -12,8 +12,7 @@ abstract class ReviewMessage {
 	public static final int TYPE_ReviewLobbyMessage = 4;
 	public static final int TYPE_ReviewGameRoomMessage = 5;
 	public static final int TYPE_ReviewTileRackButton = 6;
-	public static final int TYPE_ReviewTileRackButtonVisibility = 7;
-	public static final int TYPE_ReviewBreakPoint = 8;
+	public static final int TYPE_ReviewBreakPoint = 7;
 
 	public abstract int getType();
 }
@@ -96,33 +95,24 @@ class ReviewTileRackButton extends ReviewMessage {
 	public String labelAfter;
 	public Integer hoteltypeBefore;
 	public Integer hoteltypeAfter;
+	public Boolean isVisibleBefore;
+	public Boolean isVisibleAfter;
 
-	ReviewTileRackButton(Integer index_, String labelBefore_, String labelAfter_, Integer hoteltypeBefore_, Integer hoteltypeAfter_) {
+	ReviewTileRackButton(Integer index_,
+						 String labelBefore_, String labelAfter_,
+						 Integer hoteltypeBefore_, Integer hoteltypeAfter_,
+						 Boolean isVisibleBefore_, Boolean isVisibleAfter_) {
 		index = index_;
 		labelBefore = labelBefore_;
 		labelAfter = labelAfter_;
 		hoteltypeBefore = hoteltypeBefore_;
 		hoteltypeAfter = hoteltypeAfter_;
-	}
-	
-	public int getType() {
-		return TYPE_ReviewTileRackButton;
-	}
-}
-
-class ReviewTileRackButtonVisibility extends ReviewMessage {
-	public Integer index;
-	public Boolean isVisibleBefore;
-	public Boolean isVisibleAfter;
-
-	ReviewTileRackButtonVisibility(Integer index_, Boolean isVisibleBefore_, Boolean isVisibleAfter_) {
-		index = index_;
 		isVisibleBefore = isVisibleBefore_;
 		isVisibleAfter = isVisibleAfter_;
 	}
 	
 	public int getType() {
-		return TYPE_ReviewTileRackButtonVisibility;
+		return TYPE_ReviewTileRackButton;
 	}
 }
 
@@ -179,7 +169,7 @@ public class Review {
 		for (int index=0; index<6; ++index) {
 			tileRackLabels.add(null);
 			tileRackHoteltypes.add(null);
-			tileRackVisibilities.add(null);
+			tileRackVisibilities.add(false);
 		}
 	}
 
@@ -228,7 +218,7 @@ public class Review {
 		scoreSheetHoteltypeData.init();
 		Collections.fill(tileRackLabels, null);
 		Collections.fill(tileRackHoteltypes, null);
-		Collections.fill(tileRackVisibilities, null);
+		Collections.fill(tileRackVisibilities, false);
 		Main.getMainFrame().getLobby().clear();
 		Main.getMainFrame().getGameRoom().clear();
 	}
@@ -347,7 +337,12 @@ public class Review {
 				boolean visibleBefore = tileRackVisibilities.get(index);
 				tileRackVisibilities.set(index, visible);
 
-				reviewMessages.add(new ReviewTileRackButtonVisibility(index, visibleBefore, visible));
+				String label = tileRackLabels.get(index);
+				Integer hoteltype = tileRackHoteltypes.get(index);
+				reviewMessages.add(new ReviewTileRackButton(index,
+															label, label,
+															hoteltype, hoteltype,
+															visibleBefore, visible));
 			}
 		}
 	}
@@ -397,9 +392,13 @@ public class Review {
 		Integer hoteltypeBefore = tileRackHoteltypes.get(index);
 		tileRackHoteltypes.set(index, hoteltype);
 
+		boolean visibleBefore = tileRackVisibilities.get(index);
 		tileRackVisibilities.set(index, true);
 		
-		reviewMessages.add(new ReviewTileRackButton(index, labelBefore, label, hoteltypeBefore, hoteltype));
+		reviewMessages.add(new ReviewTileRackButton(index,
+													labelBefore, label,
+													hoteltypeBefore, hoteltype,
+													visibleBefore, true));
 
 		// ReviewGameBoard
 		int gbdHoteltype = Hoteltype.I_HAVE_THIS;
@@ -417,7 +416,12 @@ public class Review {
 		boolean visibleBefore = tileRackVisibilities.get(index);
 		tileRackVisibilities.set(index, visible);
 
-		reviewMessages.add(new ReviewTileRackButtonVisibility(index, visibleBefore, visible));
+		String label = tileRackLabels.get(index);
+		Integer hoteltype = tileRackHoteltypes.get(index);
+		reviewMessages.add(new ReviewTileRackButton(index,
+													label, label,
+													hoteltype, hoteltype,
+													visibleBefore, visible));
 	}
 	
 	public int getNumberOfPlayers() {
@@ -470,9 +474,6 @@ public class Review {
 					break;
 				case ReviewMessage.TYPE_ReviewTileRackButton:
 					handleReviewTileRackButton((ReviewTileRackButton)reviewMessage, direction);
-					break;
-				case ReviewMessage.TYPE_ReviewTileRackButtonVisibility:
-					handleReviewTileRackButtonVisibility((ReviewTileRackButtonVisibility)reviewMessage, direction);
 					break;
 				case ReviewMessage.TYPE_ReviewBreakPoint:
 					if (currentLine == nextLineGoingForward) {
@@ -562,17 +563,17 @@ public class Review {
 
 	private void handleReviewTileRackButton(ReviewTileRackButton msg, int direction) {
 		if (direction == DIRECTION_BACKWARD) {
-			Main.getMainFrame().getTileRack().setButton(msg.index, msg.labelBefore, msg.hoteltypeBefore);
+			if (msg.isVisibleBefore) {
+				Main.getMainFrame().getTileRack().setButton(msg.index, msg.labelBefore, msg.hoteltypeBefore);
+			} else {
+				Main.getMainFrame().getTileRack().setButtonVisible(msg.index, msg.isVisibleBefore);
+			}
 		} else {
-			Main.getMainFrame().getTileRack().setButton(msg.index, msg.labelAfter, msg.hoteltypeAfter);
-		}
-	}
-
-	private void handleReviewTileRackButtonVisibility(ReviewTileRackButtonVisibility msg, int direction) {
-		if (direction == DIRECTION_BACKWARD) {
-			Main.getMainFrame().getTileRack().setButtonVisible(msg.index, msg.isVisibleBefore);
-		} else {
-			Main.getMainFrame().getTileRack().setButtonVisible(msg.index, msg.isVisibleAfter);
+			if (msg.isVisibleAfter) {
+				Main.getMainFrame().getTileRack().setButton(msg.index, msg.labelAfter, msg.hoteltypeAfter);
+			} else {
+				Main.getMainFrame().getTileRack().setButtonVisible(msg.index, msg.isVisibleAfter);
+			}
 		}
 	}
 }
