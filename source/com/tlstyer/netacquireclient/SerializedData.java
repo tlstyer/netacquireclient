@@ -37,10 +37,11 @@ public class SerializedData implements Serializable {
 		
 		if (addressesAndPorts == null) {
 			addressesAndPorts = new ArrayList<String>();
-			addressesAndPorts.add("localhost:1001");
+			addressesAndPorts.add("acquire.game-host.org:1001");
 			addressesAndPorts.add("acquire.sbg.org:1001");
 			addressesAndPorts.add("acquire.sbg.org:1002");
 			addressesAndPorts.add("acquire2.sbg.org:1001");
+			addressesAndPorts.add("localhost:1001");
 		}
 		
 		if (maxPlayerCount == null || maxPlayerCount < 2 || maxPlayerCount > 6) {
@@ -60,11 +61,11 @@ public class SerializedData implements Serializable {
 		}
 		
 		if (writeToLogFiles == null) {
-			writeToLogFiles = true;
+			writeToLogFiles = false;
 		}
 		
 		if (pathToLogFiles == null) {
-			pathToLogFiles = "C:\\programming\\acquire\\logs";
+			pathToLogFiles = "";
 		}
 	}
 
