@@ -1,12 +1,11 @@
 package com.tlstyer.netacquire;
 
+import java.beans.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class SerializedData implements Serializable {
-	private static final long serialVersionUID = -1818673008683293864L;
-	
+public class SerializedData {
 	private ArrayList<String> nicknames = null;
 	private ArrayList<String> addressesAndPorts = null;
 	private Integer maxPlayerCount = null;
@@ -16,10 +15,9 @@ public class SerializedData implements Serializable {
 	private Boolean writeToLogFiles = null;
 	private String pathToLogFiles = null;
 	
-	private static final String filename = "SerializedData.ser";
+	private static final String filename = "UserData.xml";
 
-	private SerializedData() {
-		initializeNullFields();
+	public SerializedData() {
 	}
 	
 	private void initializeNullFields() {
@@ -70,32 +68,26 @@ public class SerializedData implements Serializable {
 	}
 
 	public void SaveSerializedData() {
-		FileOutputStream fileOutputStream = null;
-		ObjectOutputStream objectOutputStream = null;
 		try {
-			fileOutputStream = new FileOutputStream(filename);
-			objectOutputStream = new ObjectOutputStream(fileOutputStream);
-			objectOutputStream.writeObject(this);
-			objectOutputStream.close();
+			XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filename)));
+			encoder.writeObject(this);
+			encoder.close();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static SerializedData LoadSerializedData() {
-		FileInputStream fileInputStream = null;
-		ObjectInputStream objectInputStream = null;
 		SerializedData serializedData = null;
 		try {
-			fileInputStream = new FileInputStream(filename);
-			objectInputStream = new ObjectInputStream(fileInputStream);
-			serializedData = (SerializedData)objectInputStream.readObject();
-			serializedData.initializeNullFields();
-			objectInputStream.close();
+			XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filename)));
+			serializedData = (SerializedData)decoder.readObject();
+			decoder.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 			serializedData = new SerializedData();
 		}
+		serializedData.initializeNullFields();
 		return serializedData;
 	}
 
@@ -103,10 +95,18 @@ public class SerializedData implements Serializable {
 		return nicknames;
 	}
 
+	public void setNicknames(ArrayList<String> nicknames) {
+		this.nicknames = nicknames;
+	}
+	
 	public ArrayList<String> getAddressesAndPorts() {
 		return addressesAndPorts;
 	}
 
+	public void setAddressesAndPorts(ArrayList<String> addressesAndPorts) {
+		this.addressesAndPorts = addressesAndPorts;
+	}
+	
 	public Integer getMaxPlayerCount() {
 		return maxPlayerCount;
 	}
