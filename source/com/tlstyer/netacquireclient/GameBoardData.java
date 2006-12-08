@@ -1,3 +1,5 @@
+package com.tlstyer.netacquire;
+
 public class GameBoardData {
 	private int hoteltypes[][] = new int[9][12];
 	private boolean dirty = true;

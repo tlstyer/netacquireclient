@@ -1,3 +1,5 @@
+package com.tlstyer.netacquire;
+
 public class ScoreSheetCaptionData {
 	private Object[][] captions = new Object[10][10];
 	private boolean dirty = true;

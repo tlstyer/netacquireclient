@@ -1,3 +1,5 @@
+package com.tlstyer.netacquire;
+
 import java.util.*;
 import java.util.regex.*;
 

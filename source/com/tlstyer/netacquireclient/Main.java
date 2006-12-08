@@ -1,3 +1,5 @@
+package com.tlstyer.netacquire;
+
 import javax.swing.*;
 
 public class Main {

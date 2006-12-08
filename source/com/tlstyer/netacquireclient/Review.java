@@ -1,3 +1,5 @@
+package com.tlstyer.netacquire;
+
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.*;

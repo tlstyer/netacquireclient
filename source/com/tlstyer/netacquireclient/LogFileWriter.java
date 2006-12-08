@@ -1,3 +1,5 @@
+package com.tlstyer.netacquire;
+
 import java.io.*;
 import java.nio.charset.*;
 import java.util.*;

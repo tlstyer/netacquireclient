@@ -1,3 +1,5 @@
+package com.tlstyer.netacquire;
+
 public class ScoreSheetHoteltypeData {
 	private int[][] hoteltypes = new int[10][10];
 	private boolean dirty = true;
