@@ -9,9 +9,9 @@ public class SerializedData implements Serializable {
 	
 	private ArrayList<String> nicknames = null;
 	private ArrayList<String> addressesAndPorts = null;
-	private Integer maxPlayerCount = 4;
-	private Integer userListSortingMethod = UserListPresenter.SORT_GAME_NUMBER;
-	private Boolean playSoundWhenWaitingForMe = false;
+	private Integer maxPlayerCount = null;
+	private Integer userListSortingMethod = null;
+	private Boolean playSoundWhenWaitingForMe = null;
 	private String pathToSound = null;
 	private Boolean writeToLogFiles = null;
 	private String pathToLogFiles = null;
