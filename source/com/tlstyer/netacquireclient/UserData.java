@@ -5,7 +5,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class SerializedData {
+public class UserData {
 	private ArrayList<String> nicknames = null;
 	private ArrayList<String> addressesAndPorts = null;
 	private Integer maxPlayerCount = null;
@@ -17,7 +17,7 @@ public class SerializedData {
 	
 	private static final String filename = "UserData.xml";
 
-	public SerializedData() {
+	public UserData() {
 	}
 	
 	private void initializeNullFields() {
@@ -67,7 +67,7 @@ public class SerializedData {
 		}
 	}
 
-	public void SaveSerializedData() {
+	public void SaveUserData() {
 		try {
 			XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filename)));
 			encoder.writeObject(this);
@@ -77,18 +77,20 @@ public class SerializedData {
 		}
 	}
 
-	public static SerializedData LoadSerializedData() {
-		SerializedData serializedData = null;
+	public static UserData LoadUserData() {
+		UserData userData = null;
 		try {
 			XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filename)));
-			serializedData = (SerializedData)decoder.readObject();
+			userData = (UserData)decoder.readObject();
 			decoder.close();
 		} catch(Exception e) {
 			e.printStackTrace();
-			serializedData = new SerializedData();
 		}
-		serializedData.initializeNullFields();
-		return serializedData;
+		if (userData == null) {
+			userData = new UserData();
+		}
+		userData.initializeNullFields();
+		return userData;
 	}
 
 	public ArrayList<String> getNicknames() {

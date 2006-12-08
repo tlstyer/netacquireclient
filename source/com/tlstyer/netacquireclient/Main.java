@@ -3,7 +3,7 @@ package com.tlstyer.netacquire;
 import javax.swing.*;
 
 public class Main {
-	private static SerializedData serializedData;
+	private static UserData userData;
     private static MainFrame mainFrame;
     private static NetworkConnection networkConnection;
     private static SoundManager soundManager;
@@ -32,7 +32,7 @@ public class Main {
     private Main() {
     	main = this;
     	
-    	serializedData = SerializedData.LoadSerializedData();
+    	userData = UserData.LoadUserData();
     	soundManager = new SoundManager();
     	logFileWriter = new LogFileWriter();
     	networkConnection = new NetworkConnection();
@@ -210,7 +210,7 @@ public class Main {
 		return programName;
 	}
 
-	public static SerializedData getSerializedData() {
-		return serializedData;
+	public static UserData getUserData() {
+		return userData;
 	}
 }

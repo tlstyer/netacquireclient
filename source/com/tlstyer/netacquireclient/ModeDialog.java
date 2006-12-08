@@ -28,7 +28,7 @@ public class ModeDialog extends GameDialog implements ActionListener {
 		JLabel labelNickname = new JLabel("Nickname:", JLabel.TRAILING);
 		labelNickname.setDisplayedMnemonic(KeyEvent.VK_N);
 		
-		cbNickname = new JComboBox(Main.getSerializedData().getNicknames().toArray());
+		cbNickname = new JComboBox(Main.getUserData().getNicknames().toArray());
 		cbNickname.setEditable(true);
 		labelNickname.setLabelFor(cbNickname);
 		
@@ -45,7 +45,7 @@ public class ModeDialog extends GameDialog implements ActionListener {
 		JLabel labelIPURLPort = new JLabel("IP/URL:Port:", JLabel.TRAILING);
 		labelIPURLPort.setDisplayedMnemonic(KeyEvent.VK_I);
 		
-		cbIPURLPort = new JComboBox(Main.getSerializedData().getAddressesAndPorts().toArray());
+		cbIPURLPort = new JComboBox(Main.getUserData().getAddressesAndPorts().toArray());
 		cbIPURLPort.setEditable(true);
 		labelIPURLPort.setLabelFor(cbIPURLPort);
 		
@@ -195,12 +195,12 @@ public class ModeDialog extends GameDialog implements ActionListener {
 			return;
 		}
 		
-		// tell SerializedData about the changes
-		ArrayList<String> nicknames = Main.getSerializedData().getNicknames();
+		// tell UserData about the changes
+		ArrayList<String> nicknames = Main.getUserData().getNicknames();
 		nicknames.remove(nickname);
 		nicknames.add(0, nickname);
 		
-		ArrayList<String> addressesAndPorts = Main.getSerializedData().getAddressesAndPorts();
+		ArrayList<String> addressesAndPorts = Main.getUserData().getAddressesAndPorts();
 		String addressAndPort = ipurl + ":" + portInt;
 		addressesAndPorts.remove(addressAndPort);
 		addressesAndPorts.add(0, addressAndPort);
@@ -218,9 +218,9 @@ public class ModeDialog extends GameDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object object = e.getSource();
 		if (object == buttonDeleteNickname) {
-			processButtonDelete(Main.getSerializedData().getNicknames(), cbNickname);
+			processButtonDelete(Main.getUserData().getNicknames(), cbNickname);
 		} else if (object == buttonDeleteIPURLPort) {
-			processButtonDelete(Main.getSerializedData().getAddressesAndPorts(), cbIPURLPort);
+			processButtonDelete(Main.getUserData().getAddressesAndPorts(), cbIPURLPort);
 		} else if (object == buttonPlay) {
 			buttonPlayPressed();
 		} else if (object == buttonReview) {

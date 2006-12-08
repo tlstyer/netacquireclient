@@ -37,7 +37,7 @@ public class OptionsDialog extends GameDialog implements ActionListener {
         spinnerNumberModelMaxPlayerCount = new SpinnerNumberModel();
         spinnerNumberModelMaxPlayerCount.setMinimum(2);
         spinnerNumberModelMaxPlayerCount.setMaximum(6);
-		spinnerNumberModelMaxPlayerCount.setValue(Main.getSerializedData().getMaxPlayerCount());
+		spinnerNumberModelMaxPlayerCount.setValue(Main.getUserData().getMaxPlayerCount());
 		JSpinner spinnerMaxPlayerCount = new JSpinner(spinnerNumberModelMaxPlayerCount);
 
         JLabel labelMaxPlayerCount = new JLabel("Maximum player count in self-initiated games.");
@@ -75,19 +75,19 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		radioButtons[2].setText("Sort by Game Number");
 		radioButtons[2].setMnemonic(KeyEvent.VK_G);
 
-		radioButtons[Main.getSerializedData().getUserListSortingMethod()].setSelected(true);
+		radioButtons[Main.getUserData().getUserListSortingMethod()].setSelected(true);
 		
 		panelRadioButtonsUserListSortingMethod.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "When waiting for me" panel
 		checkboxPlaySoundWhenWaitingForMe = new JCheckBox("Play Sound");
 		checkboxPlaySoundWhenWaitingForMe.setMnemonic(KeyEvent.VK_P);
-		checkboxPlaySoundWhenWaitingForMe.setSelected(Main.getSerializedData().getPlaySoundWhenWaitingForMe());
+		checkboxPlaySoundWhenWaitingForMe.setSelected(Main.getUserData().getPlaySoundWhenWaitingForMe());
 
 		JLabel labelSoundPath = new JLabel("Path to Sound:");
 		labelSoundPath.setDisplayedMnemonic(KeyEvent.VK_S);
 		
-		tfPathToSound = new JTextField(Main.getSerializedData().getPathToSound(), 20);
+		tfPathToSound = new JTextField(Main.getUserData().getPathToSound(), 20);
 		labelSoundPath.setLabelFor(tfPathToSound);
 
 		JPanel panelSoundPath = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -112,12 +112,12 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		// "Log Files" panel
 		checkboxLogGamesToFiles = new JCheckBox("Log games to files");
 		checkboxLogGamesToFiles.setMnemonic(KeyEvent.VK_L);
-		checkboxLogGamesToFiles.setSelected(Main.getSerializedData().getWriteToLogFiles());
+		checkboxLogGamesToFiles.setSelected(Main.getUserData().getWriteToLogFiles());
 
 		JLabel labelDirectoryToSaveIn = new JLabel("Directory to save in:");
 		labelDirectoryToSaveIn.setDisplayedMnemonic(KeyEvent.VK_D);
 		
-		tfDirectoryToSaveIn = new JTextField(Main.getSerializedData().getPathToLogFiles(), 20);
+		tfDirectoryToSaveIn = new JTextField(Main.getUserData().getPathToLogFiles(), 20);
 		labelDirectoryToSaveIn.setLabelFor(tfDirectoryToSaveIn);
 
 		JPanel panelDirectoryToSaveIn = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -192,34 +192,34 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 			Main.getSoundManager().playSound(tfPathToSound.getText());
 		} else if (object == buttonOk) {
 			// "max player count" panel
-			Main.getSerializedData().setMaxPlayerCount(spinnerNumberModelMaxPlayerCount.getNumber().intValue());
+			Main.getUserData().setMaxPlayerCount(spinnerNumberModelMaxPlayerCount.getNumber().intValue());
 
 			// "User List sorting method" panel
 			try {
 				int userListSortingMethod = Integer.decode(radioButtonGroupUserListSortingMethod.getSelection().getActionCommand());
-				Main.getSerializedData().setUserListSortingMethod(userListSortingMethod);
+				Main.getUserData().setUserListSortingMethod(userListSortingMethod);
 			} catch (NumberFormatException nfe) {
 			}
 			
 			// "When waiting for me" panel
 			boolean playSoundWhenWaitingForMe = checkboxPlaySoundWhenWaitingForMe.isSelected();
-			Main.getSerializedData().setPlaySoundWhenWaitingForMe(playSoundWhenWaitingForMe);
+			Main.getUserData().setPlaySoundWhenWaitingForMe(playSoundWhenWaitingForMe);
 			String pathToSound = tfPathToSound.getText();
-			Main.getSerializedData().setPathToSound(pathToSound);
+			Main.getUserData().setPathToSound(pathToSound);
 			if (playSoundWhenWaitingForMe) {
 				Main.getSoundManager().loadSound(pathToSound);
 			}
 			
 			// "Log Files" panel
-			String pathOld = Main.getSerializedData().getPathToLogFiles();
+			String pathOld = Main.getUserData().getPathToLogFiles();
 			String pathNew = tfDirectoryToSaveIn.getText();
 			if (!pathOld.equals(pathNew)) {
-				Main.getSerializedData().setPathToLogFiles(pathNew);
+				Main.getUserData().setPathToLogFiles(pathNew);
 				Main.getLogFileWriter().closeLogFile();
 			}
 			
 			boolean logGamesToFiles = checkboxLogGamesToFiles.isSelected();
-			Main.getSerializedData().setWriteToLogFiles(logGamesToFiles);
+			Main.getUserData().setWriteToLogFiles(logGamesToFiles);
 			if (logGamesToFiles) {
 				Main.getLogFileWriter().writeMessages();
 			} else {

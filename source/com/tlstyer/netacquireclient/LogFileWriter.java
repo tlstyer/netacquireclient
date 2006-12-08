@@ -40,9 +40,9 @@ public class LogFileWriter {
 			return;
 		}
 		
-		if (Main.getSerializedData().getWriteToLogFiles()) {
+		if (Main.getUserData().getWriteToLogFiles()) {
 			if (fileOutputStream == null) {
-				File file = new File(Main.getSerializedData().getPathToLogFiles(), Util.getTimeString() + ".log");
+				File file = new File(Main.getUserData().getPathToLogFiles(), Util.getTimeString() + ".log");
 				try {
 					fileOutputStream = new FileOutputStream(file);
 				} catch (FileNotFoundException e) {

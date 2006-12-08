@@ -209,7 +209,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 	}
 	
 	public void closeWindow() {
-		Main.getSerializedData().SaveSerializedData();
+		Main.getUserData().SaveUserData();
 		System.exit(0);
 	}
     
