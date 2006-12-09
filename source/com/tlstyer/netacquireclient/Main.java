@@ -23,7 +23,7 @@ public class Main {
 	
 	private boolean leaveReviewModeFlag = false;
 	
-	private static final String programName = "Java NetAcquire";
+	private static final String programName = "NetAcquire Client";
 
     public static void main(String[] args) {
     	new Main();
