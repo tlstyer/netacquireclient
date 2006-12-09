@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class TileRack extends JPanel implements ActionListener {
+public class TileRack extends JPanel implements ActionListener, ComponentListener {
 	private static final long serialVersionUID = -4958509929445192150L;
 	
 	private Button[] buttons = new Button[6];
@@ -18,11 +18,12 @@ public class TileRack extends JPanel implements ActionListener {
 		setLayout(gridLayout);
 		for (int buttonIndex=0; buttonIndex<6; ++buttonIndex) {
 			buttons[buttonIndex] = new Button();
-			buttons[buttonIndex].setFont(Main.getFontManager().getBoldDialogFont());
 			buttons[buttonIndex].addActionListener(this);
 			buttons[buttonIndex].setActionCommand(((Integer)buttonIndex).toString());
 			add(buttons[buttonIndex]);
 		}
+		
+		addComponentListener(this);
 	}
 	
 	public void setButton(int buttonIndex, String label, int hoteltype) {
@@ -60,5 +61,26 @@ public class TileRack extends JPanel implements ActionListener {
         		canPlayTile = false;
     		}
     	}
+    }
+    
+    public void componentHidden(ComponentEvent e) {
+    }
+    
+    public void componentMoved(ComponentEvent e) {
+    }
+    
+    public void componentResized(ComponentEvent e) {
+    	TextComponentFontData textComponentFontData = Main.getFontManager().getTextComponentFontData(getHeight());
+    	if (textComponentFontData == null) {
+    		return;
+    	}
+    	
+    	Font font = textComponentFontData.getFont();
+		for (int buttonIndex=0; buttonIndex<6; ++buttonIndex) {
+			buttons[buttonIndex].setFont(font);
+		}
+    }
+    
+    public void componentShown(ComponentEvent e) {
     }
 }

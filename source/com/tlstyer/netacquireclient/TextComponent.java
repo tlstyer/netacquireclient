@@ -51,28 +51,27 @@ class TextComponent extends JComponent {
         return true;
     }
     
-    private static double fontHeight;
-    private static double fontY;
-    private static boolean gotFontHeight = false;
+    private static boolean initializedTextComponentFontData = false;
 
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
         
+        FontRenderContext fontRenderContext = g2d.getFontRenderContext();
+        if (!initializedTextComponentFontData) {
+        	Main.getFontManager().initializeTextComponentFontData(fontRenderContext);
+        	initializedTextComponentFontData = true;
+        }
+
+        // draw background
         g2d.setColor(colorBackground);
         g2d.fillRect(0, 0, getWidth(), getHeight());
         
-        g2d.setFont(Main.getFontManager().getBoldDialogFont());
-        
+        // draw text
+        TextComponentFontData textComponentFontData = Main.getFontManager().getTextComponentFontData(getHeight());
+        g2d.setFont(textComponentFontData.getFont());
         g2d.setColor(colorForeground);
-        Font font = g2d.getFont();
-        FontRenderContext frc = g2d.getFontRenderContext();
-        if (!gotFontHeight) {
-        	TextLayout tl = new TextLayout("I", font, frc);
-        	fontHeight = tl.getBounds().getHeight();
-        	fontY = tl.getBounds().getY();
-        	gotFontHeight = true;
-        }
-        TextLayout textLayout = new TextLayout(text, font, frc);
+        
+        TextLayout textLayout = new TextLayout(text, textComponentFontData.getFont(), fontRenderContext);
         Rectangle2D bounds = textLayout.getBounds();
         int x;
         if (textAlign == ALIGN_LEFT) {
@@ -82,7 +81,7 @@ class TextComponent extends JComponent {
         } else { // textAlign == ALIGN_RIGHT
         	x = (int)(getWidth() - bounds.getWidth() - bounds.getX() - PADDING);
         }
-        int y = (int)((getHeight() - fontHeight) / 2 - fontY);
+        int y = (int)((getHeight() - textComponentFontData.getFontHeight()) / 2 - textComponentFontData.getFontY());
         g2d.drawString(text, x, y);
     }
 }
