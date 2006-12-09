@@ -18,7 +18,7 @@ public class TileRack extends JPanel implements ActionListener {
 		setLayout(gridLayout);
 		for (int buttonIndex=0; buttonIndex<6; ++buttonIndex) {
 			buttons[buttonIndex] = new Button();
-			buttons[buttonIndex].setFont(FontManager.getFont());
+			buttons[buttonIndex].setFont(Main.getFontManager().getFont());
 			buttons[buttonIndex].addActionListener(this);
 			buttons[buttonIndex].setActionCommand(((Integer)buttonIndex).toString());
 			add(buttons[buttonIndex]);

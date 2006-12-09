@@ -61,7 +61,7 @@ class TextComponent extends JComponent {
         g2d.setColor(colorBackground);
         g2d.fillRect(0, 0, getWidth(), getHeight());
         
-        g2d.setFont(FontManager.getFont());
+        g2d.setFont(Main.getFontManager().getFont());
         
         g2d.setColor(colorForeground);
         Font font = g2d.getFont();

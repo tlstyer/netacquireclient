@@ -61,7 +61,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
         panelKeep.add(panelKeepInternal);
 
         labelKeep = new JLabel("0");
-        labelKeep.setFont(FontManager.getFont());
+        labelKeep.setFont(Main.getFontManager().getFont());
         labelKeep.setHorizontalAlignment(JLabel.RIGHT);
 
 		buttonAll = new JButton("All");
@@ -88,7 +88,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
         spinnerNumberModelTrade.setMinimum(0);
         spinnerNumberModelTrade.setStepSize(2);
         spinnerTrade = new JSpinner(spinnerNumberModelTrade);
-        spinnerTrade.setFont(FontManager.getFont());
+        spinnerTrade.setFont(Main.getFontManager().getFont());
         spinnerTrade.addChangeListener(this);
 
 		buttonMaximum = new JButton("Maximum");
@@ -113,7 +113,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
         spinnerNumberModelSell = new SpinnerNumberModel();
         spinnerNumberModelSell.setMinimum(0);
         spinnerSell = new JSpinner(spinnerNumberModelSell);
-        spinnerSell.setFont(FontManager.getFont());
+        spinnerSell.setFont(Main.getFontManager().getFont());
         spinnerSell.addChangeListener(this);
 
 		buttonRemaining = new JButton("Remaining");

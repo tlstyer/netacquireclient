@@ -5,12 +5,15 @@ import java.awt.*;
 public class FontManager {
 	private static Font fontNormal = new Font("Monospaced", Font.BOLD, 16);
 	private static Font fontSmall = new Font("Monospaced", Font.PLAIN, 12);
+	
+	public FontManager() {
+	}
 
-	public static Font getFont() {
+	public Font getFont() {
 		return fontNormal;
 	}
 
-	public static Font getSmallFont() {
+	public Font getSmallFont() {
 		return fontSmall;
 	}
 }

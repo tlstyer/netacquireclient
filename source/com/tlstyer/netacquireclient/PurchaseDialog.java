@@ -66,7 +66,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 			JButton button = new JButton(name);
 			buttonsAvailable[index] = button;
 			button.setMnemonic(Util.hoteltypeToMnemonic(index + 1));
-			button.setFont(FontManager.getFont());
+			button.setFont(Main.getFontManager().getFont());
 			button.setBackground(Util.hoteltypeToColor(index + 1));
 			button.setForeground(Color.black);
 			button.setVisible(isAvailable[index]);
@@ -83,7 +83,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		for (int index=0; index<3; ++index) {
 			JButton button = new JButton("1200");
 			buttonsPurchased[index] = button;
-			button.setFont(FontManager.getFont());
+			button.setFont(Main.getFontManager().getFont());
 			button.setForeground(Color.black);
 			button.setEnabled(false);
             button.setActionCommand(((Integer)(index+7)).toString());
@@ -98,22 +98,22 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		panelCost.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		JLabel labelPurchase = new JLabel("Purchase");
-		labelPurchase.setFont(FontManager.getFont());
+		labelPurchase.setFont(Main.getFontManager().getFont());
 		panelCost.add(labelPurchase);
 		
 		tfPurchase = new JTextField();
-		tfPurchase.setFont(FontManager.getFont());
+		tfPurchase.setFont(Main.getFontManager().getFont());
 		tfPurchase.setHorizontalAlignment(JTextField.RIGHT);
 		tfPurchase.setEnabled(false);
 		tfPurchase.setDisabledTextColor(Color.black);
 		panelCost.add(tfPurchase);
 		
 		JLabel labelCashLeft = new JLabel("Cash Left");
-		labelCashLeft.setFont(FontManager.getFont());
+		labelCashLeft.setFont(Main.getFontManager().getFont());
 		panelCost.add(labelCashLeft);
 		
 		tfCashLeft = new JTextField();
-		tfCashLeft.setFont(FontManager.getFont());
+		tfCashLeft.setFont(Main.getFontManager().getFont());
 		tfCashLeft.setHorizontalAlignment(JTextField.RIGHT);
 		tfCashLeft.setEnabled(false);
 		tfCashLeft.setDisabledTextColor(Color.black);

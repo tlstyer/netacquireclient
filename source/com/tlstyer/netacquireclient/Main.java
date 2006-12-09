@@ -5,6 +5,7 @@ import javax.swing.*;
 public class Main {
 	private static UserData userData;
     private static MainFrame mainFrame;
+    private static FontManager fontManager;
     private static NetworkConnection networkConnection;
     private static SoundManager soundManager;
     private static LogFileWriter logFileWriter;
@@ -37,6 +38,7 @@ public class Main {
     	logFileWriter = new LogFileWriter();
     	networkConnection = new NetworkConnection();
     	review = new Review();
+    	fontManager = new FontManager();
     	
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -212,5 +214,9 @@ public class Main {
 
 	public static UserData getUserData() {
 		return userData;
+	}
+
+	public static FontManager getFontManager() {
+		return fontManager;
 	}
 }
