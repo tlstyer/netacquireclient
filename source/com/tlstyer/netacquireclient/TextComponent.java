@@ -59,6 +59,7 @@ class TextComponent extends JComponent {
         FontRenderContext fontRenderContext = g2d.getFontRenderContext();
         if (!initializedTextComponentFontData) {
         	Main.getFontManager().initializeTextComponentFontData(fontRenderContext);
+        	Main.getMainFrame().getTileRack().updateFonts();
         	initializedTextComponentFontData = true;
         }
 

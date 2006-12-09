@@ -63,13 +63,7 @@ public class TileRack extends JPanel implements ActionListener, ComponentListene
     	}
     }
     
-    public void componentHidden(ComponentEvent e) {
-    }
-    
-    public void componentMoved(ComponentEvent e) {
-    }
-    
-    public void componentResized(ComponentEvent e) {
+    public void updateFonts() {
     	TextComponentFontData textComponentFontData = Main.getFontManager().getTextComponentFontData(getHeight());
     	if (textComponentFontData == null) {
     		return;
@@ -79,6 +73,16 @@ public class TileRack extends JPanel implements ActionListener, ComponentListene
 		for (int buttonIndex=0; buttonIndex<6; ++buttonIndex) {
 			buttons[buttonIndex].setFont(font);
 		}
+    }
+    
+    public void componentHidden(ComponentEvent e) {
+    }
+    
+    public void componentMoved(ComponentEvent e) {
+    }
+    
+    public void componentResized(ComponentEvent e) {
+    	updateFonts();
     }
     
     public void componentShown(ComponentEvent e) {
