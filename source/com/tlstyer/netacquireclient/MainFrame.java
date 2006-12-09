@@ -51,8 +51,8 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
         gameRoomPost = new PostMessageTextField("Game Room");
         
         // use the same font in the entry areas as in the display areas
-        lobbyPost.setFont(Main.getFontManager().getSmallFont());
-        gameRoomPost.setFont(Main.getFontManager().getSmallFont());
+        lobbyPost.setFont(Main.getFontManager().getMessageWindowFont());
+        gameRoomPost.setFont(Main.getFontManager().getMessageWindowFont());
     	
     	// layout the components
 		panel.add(gameBoard);

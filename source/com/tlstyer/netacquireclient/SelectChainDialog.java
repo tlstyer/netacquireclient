@@ -46,7 +46,7 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 			radioButtons[index] = radioButton;
 			radioButtonGroup.add(radioButton);
 			radioButton.setMnemonic(Util.hoteltypeToMnemonic(index + 1));
-			radioButton.setFont(Main.getFontManager().getFont());
+			radioButton.setFont(Main.getFontManager().getBoldDialogFont());
 			radioButton.setForeground(Util.hoteltypeToColor(index + 1));
 			Dimension size = radioButton.getPreferredSize();
 			size.height -= 7;

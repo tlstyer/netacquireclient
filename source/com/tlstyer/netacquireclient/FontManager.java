@@ -3,17 +3,17 @@ package com.tlstyer.netacquire;
 import java.awt.*;
 
 public class FontManager {
-	private static Font fontNormal = new Font("Monospaced", Font.BOLD, 16);
-	private static Font fontSmall = new Font("Monospaced", Font.PLAIN, 12);
+	private static Font fontBoldDialog = new Font("Monospaced", Font.BOLD, 16);
+	private static Font fontMessageWindow = new Font("Monospaced", Font.PLAIN, 12);
 	
 	public FontManager() {
 	}
 
-	public Font getFont() {
-		return fontNormal;
+	public Font getBoldDialogFont() {
+		return fontBoldDialog;
 	}
 
-	public Font getSmallFont() {
-		return fontSmall;
+	public Font getMessageWindowFont() {
+		return fontMessageWindow;
 	}
 }

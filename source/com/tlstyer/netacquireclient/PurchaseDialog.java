@@ -66,7 +66,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 			JButton button = new JButton(name);
 			buttonsAvailable[index] = button;
 			button.setMnemonic(Util.hoteltypeToMnemonic(index + 1));
-			button.setFont(Main.getFontManager().getFont());
+			button.setFont(Main.getFontManager().getBoldDialogFont());
 			button.setBackground(Util.hoteltypeToColor(index + 1));
 			button.setForeground(Color.black);
 			button.setVisible(isAvailable[index]);
@@ -83,7 +83,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		for (int index=0; index<3; ++index) {
 			JButton button = new JButton("1200");
 			buttonsPurchased[index] = button;
-			button.setFont(Main.getFontManager().getFont());
+			button.setFont(Main.getFontManager().getBoldDialogFont());
 			button.setForeground(Color.black);
 			button.setEnabled(false);
             button.setActionCommand(((Integer)(index+7)).toString());
@@ -98,22 +98,22 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		panelCost.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		JLabel labelPurchase = new JLabel("Purchase");
-		labelPurchase.setFont(Main.getFontManager().getFont());
+		labelPurchase.setFont(Main.getFontManager().getBoldDialogFont());
 		panelCost.add(labelPurchase);
 		
 		tfPurchase = new JTextField();
-		tfPurchase.setFont(Main.getFontManager().getFont());
+		tfPurchase.setFont(Main.getFontManager().getBoldDialogFont());
 		tfPurchase.setHorizontalAlignment(JTextField.RIGHT);
 		tfPurchase.setEnabled(false);
 		tfPurchase.setDisabledTextColor(Color.black);
 		panelCost.add(tfPurchase);
 		
 		JLabel labelCashLeft = new JLabel("Cash Left");
-		labelCashLeft.setFont(Main.getFontManager().getFont());
+		labelCashLeft.setFont(Main.getFontManager().getBoldDialogFont());
 		panelCost.add(labelCashLeft);
 		
 		tfCashLeft = new JTextField();
-		tfCashLeft.setFont(Main.getFontManager().getFont());
+		tfCashLeft.setFont(Main.getFontManager().getBoldDialogFont());
 		tfCashLeft.setHorizontalAlignment(JTextField.RIGHT);
 		tfCashLeft.setEnabled(false);
 		tfCashLeft.setDisabledTextColor(Color.black);
