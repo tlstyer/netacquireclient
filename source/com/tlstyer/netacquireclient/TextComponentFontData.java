@@ -10,9 +10,9 @@ public class TextComponentFontData {
 
 	public TextComponentFontData(FontRenderContext fontRenderContext, int size) {
 		font = new Font("Monospaced", Font.BOLD, size);
-    	TextLayout tl = new TextLayout("I", font, fontRenderContext);
-    	fontHeight = tl.getBounds().getHeight();
-    	fontY = tl.getBounds().getY();
+    	TextLayout textLayout = new TextLayout("0", font, fontRenderContext);
+    	fontHeight = textLayout.getBounds().getHeight();
+    	fontY = textLayout.getBounds().getY();
 	}
 
 	public Font getFont() {
