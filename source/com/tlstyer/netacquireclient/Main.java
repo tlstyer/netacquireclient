@@ -33,7 +33,7 @@ public class Main {
     private Main() {
     	main = this;
     	
-    	userData = UserData.LoadUserData();
+    	userData = new UserData();
     	soundManager = new SoundManager();
     	logFileWriter = new LogFileWriter();
     	networkConnection = new NetworkConnection();
