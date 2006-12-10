@@ -29,15 +29,16 @@ public class UserPreferences {
 	private static final String KEY_writeToLogFiles = "write to log files";
 	private static final String KEY_pathToLogFiles = "path to log files";
 
-	// preferences object
+	// other
 	private static final Preferences preferences = Preferences.userNodeForPackage(UserPreferences.class);
+	private static final String stringArraySeparator = "::";
 
 	public UserPreferences() {
 		load();
 	}
 	
 	public void load() {
-		String[] nicknamesArray = preferences.get(KEY_nicknames, "").split(";", -1);
+		String[] nicknamesArray = preferences.get(KEY_nicknames, "").split(stringArraySeparator, -1);
 		nicknames = new ArrayList<String>();
 		if (nicknamesArray.length == 1 && nicknamesArray[0].equals("")) {
 			String nickname;
@@ -54,7 +55,7 @@ public class UserPreferences {
 			}
 		}
 		
-		String[] addressesAndPortsArray = preferences.get(KEY_addressesAndPorts, "").split(";", -1);
+		String[] addressesAndPortsArray = preferences.get(KEY_addressesAndPorts, "").split(stringArraySeparator, -1);
 		addressesAndPorts = new ArrayList<String>();
 		if (addressesAndPortsArray.length == 1 && addressesAndPortsArray[0].equals("")) {
 			addressesAndPorts.add("acquire.game-host.org:1001");
@@ -88,8 +89,8 @@ public class UserPreferences {
 	}
 
 	public void save() {
-		preferences.put(KEY_nicknames, Util.join(nicknames.toArray(), ";"));
-		preferences.put(KEY_addressesAndPorts, Util.join(addressesAndPorts.toArray(), ";"));
+		preferences.put(KEY_nicknames, Util.join(nicknames.toArray(), stringArraySeparator));
+		preferences.put(KEY_addressesAndPorts, Util.join(addressesAndPorts.toArray(), stringArraySeparator));
 		preferences.putInt(KEY_maxPlayerCount, maxPlayerCount);
 		preferences.putInt(KEY_userListSortingMethod, userListSortingMethod);
 		preferences.putBoolean(KEY_playSoundWhenWaitingForMe, playSoundWhenWaitingForMe);
