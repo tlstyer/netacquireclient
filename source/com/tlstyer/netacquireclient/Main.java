@@ -3,7 +3,7 @@ package com.tlstyer.netacquire;
 import javax.swing.*;
 
 public class Main {
-	private static UserData userData;
+	private static UserPreferences userPreferences;
     private static MainFrame mainFrame;
     private static FontManager fontManager;
     private static NetworkConnection networkConnection;
@@ -33,7 +33,7 @@ public class Main {
     private Main() {
     	main = this;
     	
-    	userData = new UserData();
+    	userPreferences = new UserPreferences();
     	soundManager = new SoundManager();
     	logFileWriter = new LogFileWriter();
     	networkConnection = new NetworkConnection();
@@ -212,8 +212,8 @@ public class Main {
 		return programName;
 	}
 
-	public static UserData getUserData() {
-		return userData;
+	public static UserPreferences getUserPreferences() {
+		return userPreferences;
 	}
 
 	public static FontManager getFontManager() {

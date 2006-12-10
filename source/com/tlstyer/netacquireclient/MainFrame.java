@@ -209,7 +209,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 	}
 	
 	public void closeWindow() {
-		Main.getUserData().save();
+		Main.getUserPreferences().save();
 		System.exit(0);
 	}
     

@@ -4,7 +4,7 @@ import java.net.*;
 import java.util.*;
 import java.util.prefs.*;
 
-public class UserData {
+public class UserPreferences {
 	// data
 	private ArrayList<String> nicknames = null;
 	private ArrayList<String> addressesAndPorts = null;
@@ -30,9 +30,9 @@ public class UserData {
 	private static final String KEY_pathToLogFiles = "path to log files";
 
 	// preferences object
-	private static final Preferences preferences = Preferences.userNodeForPackage(UserData.class);
+	private static final Preferences preferences = Preferences.userNodeForPackage(UserPreferences.class);
 
-	public UserData() {
+	public UserPreferences() {
 		load();
 	}
 	

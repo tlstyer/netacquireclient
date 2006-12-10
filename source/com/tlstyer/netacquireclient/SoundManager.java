@@ -18,7 +18,7 @@ public class SoundManager {
 			}
 		}
 		
-		loadSound(Main.getUserData().getPathToSound());
+		loadSound(Main.getUserPreferences().getPathToSound());
 	}
 	
 	public boolean loadSound(String pathname) {
