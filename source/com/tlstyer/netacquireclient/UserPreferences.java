@@ -89,14 +89,21 @@ public class UserPreferences {
 	}
 
 	public void save() {
-		preferences.put(KEY_nicknames, Util.join(nicknames.toArray(), stringArraySeparator));
-		preferences.put(KEY_addressesAndPorts, Util.join(addressesAndPorts.toArray(), stringArraySeparator));
+		putString(KEY_nicknames, Util.join(nicknames.toArray(), stringArraySeparator));
+		putString(KEY_addressesAndPorts, Util.join(addressesAndPorts.toArray(), stringArraySeparator));
 		preferences.putInt(KEY_maxPlayerCount, maxPlayerCount);
 		preferences.putInt(KEY_userListSortingMethod, userListSortingMethod);
 		preferences.putBoolean(KEY_playSoundWhenWaitingForMe, playSoundWhenWaitingForMe);
-		preferences.put(KEY_pathToSound, pathToSound);
+		putString(KEY_pathToSound, pathToSound);
 		preferences.putBoolean(KEY_writeToLogFiles, writeToLogFiles);
-		preferences.put(KEY_pathToLogFiles, pathToLogFiles);
+		putString(KEY_pathToLogFiles, pathToLogFiles);
+	}
+	
+	private void putString(String key, String value) {
+		if (value.length() > Preferences.MAX_VALUE_LENGTH) {
+			value = value.substring(0, Preferences.MAX_VALUE_LENGTH);
+		}
+		preferences.put(key, value);
 	}
 
 	public ArrayList<String> getNicknames() {
