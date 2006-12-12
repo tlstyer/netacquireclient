@@ -122,13 +122,12 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		// "End the game and OK" panel
 		checkboxEndTheGame = new JCheckBox("End the game");
 		checkboxEndTheGame.setMnemonic(KeyEvent.VK_E);
-		if (!canEndGame) {
-			checkboxEndTheGame.setEnabled(false);
-		}
+		checkboxEndTheGame.setActionCommand("10");
 		checkboxEndTheGame.setAlignmentX(Component.LEFT_ALIGNMENT);
+		checkboxEndTheGame.addActionListener(this);
 		
 		buttonOk = Util.getButton3d2("Ok", KeyEvent.VK_O);
-		buttonOk.setActionCommand("10");
+		buttonOk.setActionCommand("11");
 		buttonOk.setAlignmentX(Component.CENTER_ALIGNMENT);
 		buttonOk.addActionListener(this);
 		
@@ -246,12 +245,21 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
     	} else if (buttonIndexPressed >= 7 && buttonIndexPressed <= 9) {
             selectedForPurchase[buttonIndexPressed - 7] = -1;
     	} else if (buttonIndexPressed == 10) {
+    		if (!canEndGame) {
+    			JOptionPane.showMessageDialog(Main.getMainFrame(),
+											  "No chain is greater than 40 in size and not all chains are safe.",
+											  "Cannot end game now",
+											  JOptionPane.WARNING_MESSAGE);
+    			checkboxEndTheGame.setSelected(false);
+    			requestFocus();
+    		}
+    	} else if (buttonIndexPressed == 11) {
     		int[] chainCounts = getSelectedChainCounts();
     		Object[] cc = new Object[7];
     		for (int index=0; index<7; ++index) {
                 cc[index] = chainCounts[index];
             }
-    		int endGameCode = (checkboxEndTheGame.isSelected() ? 1 : 0);
+    		int endGameCode = (canEndGame && checkboxEndTheGame.isSelected() ? 1 : 0);
     		Main.getNetworkConnection().writeMessage("P;" + Util.join(cc, ",") + "," + endGameCode);
     		hideGameDialog();
 			return;
