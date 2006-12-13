@@ -69,9 +69,11 @@ class ReviewScoreSheetHoteltype extends ReviewMessage {
 
 class ReviewLobbyMessage extends ReviewMessage {
 	public String message;
+	public Integer type;
 
-	ReviewLobbyMessage(String message_) {
+	ReviewLobbyMessage(String message_, Integer type_) {
 		message = message_;
+		type = type_;
 	}
 	
 	public int getType() {
@@ -81,9 +83,11 @@ class ReviewLobbyMessage extends ReviewMessage {
 
 class ReviewGameRoomMessage extends ReviewMessage {
 	public String message;
+	public Integer type;
 
-	ReviewGameRoomMessage(String message_) {
+	ReviewGameRoomMessage(String message_, Integer type_) {
 		message = message_;
+		type = type_;
 	}
 	
 	public int getType() {
@@ -202,7 +206,8 @@ public class Review {
 	private static final int COMMAND_LM = 3;
 	private static final int COMMAND_GM = 4;
 	private static final int COMMAND_AT = 5;
-	private static final int COMMAND_PT = 6;
+	private static final int COMMAND_M  = 6;
+	private static final int COMMAND_PT = 7;
 
     private static final Map<String, Integer> hashmapCommand = new HashMap<String, Integer>();
     static {
@@ -211,6 +216,7 @@ public class Review {
         hashmapCommand.put("+LM", COMMAND_LM);
         hashmapCommand.put("+GM", COMMAND_GM);
         hashmapCommand.put("+AT", COMMAND_AT);
+        hashmapCommand.put("+M",  COMMAND_M );
         hashmapCommand.put("-PT", COMMAND_PT);
     }
 
@@ -260,6 +266,7 @@ public class Review {
 							case COMMAND_LM: handleLM(command); break;
 							case COMMAND_GM: handleGM(command); break;
 							case COMMAND_AT: handleAT(command); break;
+							case COMMAND_M:  handleM(command);  break;
 							case COMMAND_PT: handlePT(command); break;
 							default: break;
 						}
@@ -351,12 +358,12 @@ public class Review {
 	
 	private void handleLM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
-		reviewMessages.add(new ReviewLobbyMessage(message));
+		reviewMessages.add(new ReviewLobbyMessage(message, MessageWindowDocument.APPEND_DEFAULT));
 	}
 	
 	private void handleGM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
-		reviewMessages.add(new ReviewGameRoomMessage(message));
+		reviewMessages.add(new ReviewGameRoomMessage(message, MessageWindowDocument.APPEND_DEFAULT));
 		
 		Matcher matcherWaiting = Util.patternWaiting.matcher(message);
 		if (matcherWaiting.find()) {
@@ -408,6 +415,19 @@ public class Review {
 		gameBoardData.setHoteltype(point.x, point.y, gbdHoteltype);
 
 		reviewMessages.add(new ReviewGameBoard(point, gbdHoteltypeBefore, gbdHoteltype));
+	}
+	
+	private void handleM(Object[] command) {
+		String message = Util.commandToContainedMessage(command);
+		
+		ModalMessageToDisplay modalMessageToDisplay = ModalMessageProcessor.getModalMessageToDisplay(message);
+		if (modalMessageToDisplay != null) {
+			if (modalMessageToDisplay.whereToPutMessage == ModalMessage.LOBBY) {
+				reviewMessages.add(new ReviewLobbyMessage(modalMessageToDisplay.messageToUser, MessageWindowDocument.APPEND_ERROR));
+			} else if (modalMessageToDisplay.whereToPutMessage == ModalMessage.GAMEROOM) {
+				reviewMessages.add(new ReviewGameRoomMessage(modalMessageToDisplay.messageToUser, MessageWindowDocument.APPEND_ERROR));
+			}
+		}
 	}
 
 	private void handlePT(Object[] command) {
@@ -551,7 +571,7 @@ public class Review {
 		if (direction == DIRECTION_BACKWARD) {
 			Main.getMainFrame().getLobby().unAppend(msg.message);
 		} else {
-			Main.getMainFrame().getLobby().append(msg.message, MessageWindowDocument.APPEND_DEFAULT);
+			Main.getMainFrame().getLobby().append(msg.message, msg.type);
 		}
 	}
 
@@ -559,7 +579,7 @@ public class Review {
 		if (direction == DIRECTION_BACKWARD) {
 			Main.getMainFrame().getGameRoom().unAppend(msg.message);
 		} else {
-			Main.getMainFrame().getGameRoom().append(msg.message, MessageWindowDocument.APPEND_DEFAULT);
+			Main.getMainFrame().getGameRoom().append(msg.message, msg.type);
 		}
 	}
 
