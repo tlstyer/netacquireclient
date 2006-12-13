@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class TileRack extends JPanel implements ActionListener, ComponentListener {
+public class TileRackButtons extends JPanel implements ActionListener, ComponentListener {
 	private static final long serialVersionUID = -4958509929445192150L;
 	
 	private Button[] buttons = new Button[6];
@@ -14,7 +14,7 @@ public class TileRack extends JPanel implements ActionListener, ComponentListene
 	
 	public static final int spacing = 10;
 	
-	public TileRack() {
+	public TileRackButtons() {
 		setLayout(gridLayout);
 		for (int buttonIndex=0; buttonIndex<6; ++buttonIndex) {
 			buttons[buttonIndex] = new Button();

@@ -315,7 +315,7 @@ public class NetworkConnection {
 				int tileRackIndex = (Integer)((Object[])command[1])[2];
 				boolean visible = ((Integer)((Object[])command[1])[4] != 0 ? true : false);
 		        int index = tileRackIndex - 1;
-		        Main.getMainFrame().getTileRack().setButtonVisible(index, visible);
+		        Main.getMainFrame().getTileRackButtons().setButtonVisible(index, visible);
 			} else {
 				commandProcessingResult = COMMAND_NOT_PROCESSED;
 			}
@@ -356,7 +356,7 @@ public class NetworkConnection {
 		Point point = Util.gameBoardIndexToPoint(gameBoardIndex);
 		String label = Util.pointToNumberAndLetter(point.x, point.y);
 		int hoteltype = Util.colorvalueToHoteltype(tileRackColor);
-		Main.getMainFrame().getTileRack().setButton(index, label, hoteltype);
+		Main.getMainFrame().getTileRackButtons().setButton(index, label, hoteltype);
 		gameBoardData.setHoteltype(point.x, point.y, Hoteltype.I_HAVE_THIS);
 	}
 	
@@ -377,7 +377,7 @@ public class NetworkConnection {
 	}
 	
 	private void handleGT(Object[] command) {
-		Main.getMainFrame().getTileRack().setCanPlayTile(true);
+		Main.getMainFrame().getTileRackButtons().setCanPlayTile(true);
 	}
 	
 	private void handleGC(Object[] command) {

@@ -13,7 +13,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 
     private GameBoard gameBoard;
     private TextComponent tileRackBackground;
-    private TileRack tileRack;
+    private TileRackButtons tileRackButtons;
     private MessageWindow lobby;
     private PostMessageTextField lobbyPost;
     private ScoreSheet scoreSheet;
@@ -43,7 +43,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
         panel = new JPanel(null);
         gameBoard = new GameBoard();
         tileRackBackground = new TextComponent(" ", new Color(255, 128, 0), TextComponent.ALIGN_CENTER);
-        tileRack = new TileRack();
+        tileRackButtons = new TileRackButtons();
         lobby = new MessageWindow();
         lobbyPost = new PostMessageTextField("Lobby");
         scoreSheet = new ScoreSheet();
@@ -57,7 +57,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
     	// layout the components
 		panel.add(gameBoard);
 		panel.add(tileRackBackground);
-		panel.add(tileRack);
+		panel.add(tileRackButtons);
 		panel.add(lobby);
 		panel.add(lobbyPost);
 		panel.add(scoreSheet);
@@ -84,7 +84,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
                                                                        // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
     private static final boolean[] visibilityInModesGameBoard          = {false, false, false, false,  true,  true,  true};
     private static final boolean[] visibilityInModesTileRackBackground = {false, false, false, false,  true,  true,  true};
-    private static final boolean[] visibilityInModesTileRack           = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesTileRackButtons    = {false, false, false, false,  true,  true,  true};
     private static final boolean[] visibilityInModesLobby              = {false, false,  true,  true,  true,  true,  true};
     private static final boolean[] visibilityInModesLobbyPost          = {false, false, false,  true,  true,  true, false};
     private static final boolean[] visibilityInModesScoreSheet         = {false, false, false, false,  true,  true,  true};
@@ -94,7 +94,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 	public void setMode(int mode) {
         gameBoard.setVisible(visibilityInModesGameBoard[mode]);
         tileRackBackground.setVisible(visibilityInModesTileRackBackground[mode]);
-        tileRack.setVisible(visibilityInModesTileRack[mode]);
+        tileRackButtons.setVisible(visibilityInModesTileRackButtons[mode]);
         lobby.setVisible(visibilityInModesLobby[mode]);
         lobbyPost.setVisible(visibilityInModesLobbyPost[mode]);
         scoreSheet.setVisible(visibilityInModesScoreSheet[mode]);
@@ -115,8 +115,8 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
         if (mode <= Main.MODE_IN_LOBBY) {
         	GameDialog.hideGameDialogs();
         	gameRoom.clear();
-        	tileRack.setButtonsVisible(false);
-        	tileRack.setCanPlayTile(false);
+        	tileRackButtons.setButtonsVisible(false);
+        	tileRackButtons.setCanPlayTile(false);
         }
 	}
 	
@@ -166,10 +166,10 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		setComponentBounds(tileRackBackground, borderWidth, tileRackBackgroundY, gameBoardWidth, tileRackBackgroundHeight);
 
 		int tileRackHeight = tileRackBackgroundHeight * 8 / 10;
-		int tileRackWidth = tileRackHeight * 6 + TileRack.spacing * 5;
+		int tileRackWidth = tileRackHeight * 6 + TileRackButtons.spacing * 5;
 		int tileRackX = (width / 2 + borderWidth / 2 - tileRackWidth) / 2;
 		int tileRackY = tileRackBackgroundY + (tileRackBackgroundHeight - tileRackHeight) / 2;
-		setComponentBounds(tileRack, tileRackX, tileRackY, tileRackWidth, tileRackHeight);
+		setComponentBounds(tileRackButtons, tileRackX, tileRackY, tileRackWidth, tileRackHeight);
 
 		int lobbyY = tileRackBackgroundY + tileRackBackgroundHeight + borderWidth;
 		int lobbyPostHeight = (int)lobbyPost.getPreferredSize().getHeight();
@@ -264,8 +264,8 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		return tileRackBackground;
 	}
 
-	public TileRack getTileRack() {
-		return tileRack;
+	public TileRackButtons getTileRackButtons() {
+		return tileRackButtons;
 	}
 
 	public MessageWindow getLobby() {

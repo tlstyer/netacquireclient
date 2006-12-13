@@ -586,15 +586,15 @@ public class Review {
 	private void handleReviewTileRackButton(ReviewTileRackButton msg, int direction) {
 		if (direction == DIRECTION_BACKWARD) {
 			if (msg.isVisibleBefore) {
-				Main.getMainFrame().getTileRack().setButton(msg.index, msg.labelBefore, msg.hoteltypeBefore);
+				Main.getMainFrame().getTileRackButtons().setButton(msg.index, msg.labelBefore, msg.hoteltypeBefore);
 			} else {
-				Main.getMainFrame().getTileRack().setButtonVisible(msg.index, msg.isVisibleBefore);
+				Main.getMainFrame().getTileRackButtons().setButtonVisible(msg.index, msg.isVisibleBefore);
 			}
 		} else {
 			if (msg.isVisibleAfter) {
-				Main.getMainFrame().getTileRack().setButton(msg.index, msg.labelAfter, msg.hoteltypeAfter);
+				Main.getMainFrame().getTileRackButtons().setButton(msg.index, msg.labelAfter, msg.hoteltypeAfter);
 			} else {
-				Main.getMainFrame().getTileRack().setButtonVisible(msg.index, msg.isVisibleAfter);
+				Main.getMainFrame().getTileRackButtons().setButtonVisible(msg.index, msg.isVisibleAfter);
 			}
 		}
 	}
