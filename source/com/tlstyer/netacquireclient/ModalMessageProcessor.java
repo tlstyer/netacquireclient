@@ -33,9 +33,11 @@ public class ModalMessageProcessor {
 	private ModalMessageProcessor() {
 	}
 	
+	public static final String gameEndedMessage = "Game ended: The game has ended.";
+	
 	private static final ModalMessage[] modalMessages = {
 		new ModalMessage("\\AI;Game ended;The game has ended, click OK to view final game results\\.\\z",
-						 "Game ended: The game has ended.",
+						 gameEndedMessage,
 						 ModalMessage.GAMEROOM),
 		new ModalMessage("\\AI;Tile bag empty;The last tile has been drawn from the tile bag\\.\\z",
 						 "Tile bag empty: The last tile has been drawn from the tile bag.",

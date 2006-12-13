@@ -377,12 +377,6 @@ public class Review {
 			reviewMessages.add(new ReviewBreakPoint(bpType));
 			return;
 		}
-		
-		Matcher matcherEndedTheGame = Util.patternEndedTheGame.matcher(message);
-		if (matcherEndedTheGame.find()) {
-			reviewMessages.add(new ReviewBreakPoint(ReviewBreakPoint.TURN_ENDED_THE_GAME));
-			return;
-		}
 	}
 	
 	private void handleAT(Object[] command) {
@@ -426,6 +420,10 @@ public class Review {
 				reviewMessages.add(new ReviewLobbyMessage(modalMessageToDisplay.messageToUser, MessageWindowDocument.APPEND_ERROR));
 			} else if (modalMessageToDisplay.whereToPutMessage == ModalMessage.GAMEROOM) {
 				reviewMessages.add(new ReviewGameRoomMessage(modalMessageToDisplay.messageToUser, MessageWindowDocument.APPEND_ERROR));
+			}
+			
+			if (modalMessageToDisplay.messageToUser.equals(ModalMessageProcessor.gameEndedMessage)) {
+				reviewMessages.add(new ReviewBreakPoint(ReviewBreakPoint.TURN_ENDED_THE_GAME));
 			}
 		}
 	}

@@ -509,6 +509,4 @@ public class Util {
 			"|select (?:chain to merge|merger survivor|new chain)" +
 			"|dispose of (?:Luxor|Tower|American|Festival|Worldwide|Continental|Imperial) shares" +
 			")\\.\\z");
-	
-	public static final Pattern patternEndedTheGame = Pattern.compile("\\A\\*(.*?) has ended the game\\.\\z");
 }
