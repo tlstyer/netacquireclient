@@ -6,6 +6,30 @@ import java.util.*;
 import java.util.regex.*;
 import javax.swing.*;
 
+class PlayerOwnsAmount {
+	private int player;
+	private int amount;
+	
+	public PlayerOwnsAmount(int player_, int amount_) {
+		player = player_;
+		amount = amount_;
+	}
+	
+	public int getPlayer() {
+		return player;
+	}
+	
+	public int getAmount() {
+		return amount;
+	}
+}
+
+class PlayerOwnsAmountComparator implements Comparator<PlayerOwnsAmount> {
+	 public int compare(PlayerOwnsAmount o1, PlayerOwnsAmount o2) {
+		 return o2.getAmount() - o1.getAmount();
+	 }
+}
+
 public class Util {
 	private Util() {
 	}
@@ -111,30 +135,6 @@ public class Util {
 		return playerData;
 	}
 
-	private static class PlayerOwnsAmount {
-		private int player;
-		private int amount;
-		
-		public PlayerOwnsAmount(int player_, int amount_) {
-			player = player_;
-			amount = amount_;
-		}
-		
-		public int getPlayer() {
-			return player;
-		}
-		
-		public int getAmount() {
-			return amount;
-		}
-	}
-
-	private static class PlayerOwnsAmountComparator implements Comparator<PlayerOwnsAmount> {
-		 public int compare(PlayerOwnsAmount o1, PlayerOwnsAmount o2) {
-			 return o2.getAmount() - o1.getAmount();
-		 }
-	}
-	
 	private static final PlayerOwnsAmountComparator playerOwnsAmountComparator = new PlayerOwnsAmountComparator();
 
     private static int[] getBonuses(int[] holdings, int price) {
