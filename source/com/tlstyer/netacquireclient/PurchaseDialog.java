@@ -251,7 +251,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 											  "Cannot end game now",
 											  JOptionPane.WARNING_MESSAGE);
     			checkboxEndTheGame.setSelected(false);
-    			requestFocus();
+    			toFront();
     		}
     	} else if (buttonIndexPressed == 11) {
     		int[] chainCounts = getSelectedChainCounts();
