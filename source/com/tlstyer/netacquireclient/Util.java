@@ -474,7 +474,7 @@ public class Util {
 	
 	public static String getTimeString() {
 		Calendar calendar = Calendar.getInstance();
-		int[] fields = new int[6];
+		int[] fields = new int[7];
 		StringBuilder timeString = new StringBuilder(32);
 
 		fields[0] = calendar.get(Calendar.YEAR) - 2000;
@@ -483,6 +483,7 @@ public class Util {
 		fields[3] = calendar.get(Calendar.HOUR_OF_DAY);
 		fields[4] = calendar.get(Calendar.MINUTE);
 		fields[5] = calendar.get(Calendar.SECOND);
+		fields[6] = calendar.get(Calendar.MILLISECOND);
 
 		for (int index=0; index<6; ++index) {
 			if (fields[index] < 10) {
@@ -492,10 +493,17 @@ public class Util {
 
 			if (index == 2) {
 				timeString.append("-");
-			} else if (index < 5) {
+			} else {
 				timeString.append(".");
 			}
 		}
+		if (fields[6] < 100) {
+			timeString.append("0");
+		}
+		if (fields[6] < 10) {
+			timeString.append("0");
+		}
+		timeString.append("" + fields[6]);
 
 		return timeString.toString();
 	}
