@@ -14,11 +14,14 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
     private GameBoard gameBoard;
     private TextComponent tileRackBackground;
     private TileRackButtons tileRackButtons;
+    private TileRackTextComponents tileRackTextComponents;
     private MessageWindow lobby;
     private PostMessageTextField lobbyPost;
     private ScoreSheet scoreSheet;
     private MessageWindow gameRoom;
     private PostMessageTextField gameRoomPost;
+    
+    public static final Color tileRackBackgroundColor = new Color(255, 128, 0);
 	
 	public MainFrame() {
         //Set the look and feel.
@@ -42,8 +45,9 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
         
         panel = new JPanel(null);
         gameBoard = new GameBoard();
-        tileRackBackground = new TextComponent(" ", new Color(255, 128, 0), TextComponent.ALIGN_CENTER);
+        tileRackBackground = new TextComponent(" ", tileRackBackgroundColor, TextComponent.ALIGN_CENTER);
         tileRackButtons = new TileRackButtons();
+        tileRackTextComponents = new TileRackTextComponents();
         lobby = new MessageWindow();
         lobbyPost = new PostMessageTextField("Lobby");
         scoreSheet = new ScoreSheet();
@@ -58,11 +62,17 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		panel.add(gameBoard);
 		panel.add(tileRackBackground);
 		panel.add(tileRackButtons);
+		panel.add(tileRackTextComponents);
 		panel.add(lobby);
 		panel.add(lobbyPost);
 		panel.add(scoreSheet);
 		panel.add(gameRoom);
 		panel.add(gameRoomPost);
+		
+		// put tile rack tiles in front of the background
+		panel.setComponentZOrder(tileRackBackground, 1);
+		panel.setComponentZOrder(tileRackButtons, 0);
+		panel.setComponentZOrder(tileRackTextComponents, 0);
 
 		// don't know what to call these!
 		panel.addComponentListener(this);
@@ -81,20 +91,22 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		setVisible(true);
     }
 	
-                                                                       // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
-    private static final boolean[] visibilityInModesGameBoard          = {false, false, false, false,  true,  true,  true};
-    private static final boolean[] visibilityInModesTileRackBackground = {false, false, false, false,  true,  true,  true};
-    private static final boolean[] visibilityInModesTileRackButtons    = {false, false, false, false,  true,  true,  true};
-    private static final boolean[] visibilityInModesLobby              = {false, false,  true,  true,  true,  true,  true};
-    private static final boolean[] visibilityInModesLobbyPost          = {false, false, false,  true,  true,  true, false};
-    private static final boolean[] visibilityInModesScoreSheet         = {false, false, false, false,  true,  true,  true};
-    private static final boolean[] visibilityInModesGameRoom           = {false, false, false, false,  true,  true,  true};
-    private static final boolean[] visibilityInModesGameRoomPost       = {false, false, false, false,  true,  true, false};
+                                                                           // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
+    private static final boolean[] visibilityInModesGameBoard              = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesTileRackBackground     = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesTileRackButtons        = {false, false, false, false,  true,  true, false};
+    private static final boolean[] visibilityInModesTileRackTextComponents = {false, false, false, false, false, false,  true};
+    private static final boolean[] visibilityInModesLobby                  = {false, false,  true,  true,  true,  true,  true};
+    private static final boolean[] visibilityInModesLobbyPost              = {false, false, false,  true,  true,  true, false};
+    private static final boolean[] visibilityInModesScoreSheet             = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesGameRoom               = {false, false, false, false,  true,  true,  true};
+    private static final boolean[] visibilityInModesGameRoomPost           = {false, false, false, false,  true,  true, false};
 	
 	public void setMode(int mode) {
         gameBoard.setVisible(visibilityInModesGameBoard[mode]);
         tileRackBackground.setVisible(visibilityInModesTileRackBackground[mode]);
         tileRackButtons.setVisible(visibilityInModesTileRackButtons[mode]);
+        tileRackTextComponents.setVisible(visibilityInModesTileRackTextComponents[mode]);
         lobby.setVisible(visibilityInModesLobby[mode]);
         lobbyPost.setVisible(visibilityInModesLobbyPost[mode]);
         scoreSheet.setVisible(visibilityInModesScoreSheet[mode]);
@@ -170,6 +182,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		int tileRackX = (width / 2 + borderWidth / 2 - tileRackWidth) / 2;
 		int tileRackY = tileRackBackgroundY + (tileRackBackgroundHeight - tileRackHeight) / 2;
 		setComponentBounds(tileRackButtons, tileRackX, tileRackY, tileRackWidth, tileRackHeight);
+		setComponentBounds(tileRackTextComponents, tileRackX, tileRackY, tileRackWidth, tileRackHeight);
 
 		int lobbyY = tileRackBackgroundY + tileRackBackgroundHeight + borderWidth;
 		int lobbyPostHeight = (int)lobbyPost.getPreferredSize().getHeight();
@@ -266,6 +279,10 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 
 	public TileRackButtons getTileRackButtons() {
 		return tileRackButtons;
+	}
+
+	public TileRackTextComponents getTileRackTextComponents() {
+		return tileRackTextComponents;
 	}
 
 	public MessageWindow getLobby() {

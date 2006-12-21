@@ -21,7 +21,7 @@ class TextComponent extends JComponent {
     private static final int PADDING = 3;
     
     public TextComponent() {
-    	this("text", Color.black, ALIGN_CENTER);
+    	this(" ", Util.hoteltypeToColor(Hoteltype.NONE), ALIGN_CENTER);
     }
     
     public TextComponent(String text, Color colorBackground, int textAlign) {
