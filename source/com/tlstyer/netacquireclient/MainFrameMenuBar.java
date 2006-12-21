@@ -237,11 +237,11 @@ class MenuItemLeaveGame extends MainFrameMenuItem {
     }
 }
 
-class MenuItemBeginning extends MainFrameMenuItem {
+class MenuItemGoToBeginning extends MainFrameMenuItem {
 	private static final long serialVersionUID = -6390774861985985034L;
 
-	public MenuItemBeginning() {
-    	super("Beginning", null, null, KeyEvent.VK_A, 0);
+	public MenuItemGoToBeginning() {
+    	super("Go To Beginning", null, null, KeyEvent.VK_A, 0);
     }
     
     public void doAction() {
@@ -249,11 +249,11 @@ class MenuItemBeginning extends MainFrameMenuItem {
     }
 }
 
-class MenuItemEnd extends MainFrameMenuItem {
+class MenuItemGoToEnd extends MainFrameMenuItem {
 	private static final long serialVersionUID = -8829089903183715136L;
 
-	public MenuItemEnd() {
-    	super("End", null, null, KeyEvent.VK_Z, 0);
+	public MenuItemGoToEnd() {
+    	super("Go To End", null, null, KeyEvent.VK_Z, 0);
     }
     
     public void doAction() {
@@ -261,11 +261,11 @@ class MenuItemEnd extends MainFrameMenuItem {
     }
 }
 
-class MenuItemPreviousTurn extends MainFrameMenuItem {
+class MenuItemGoToPreviousTurn extends MainFrameMenuItem {
 	private static final long serialVersionUID = -4862737182870551833L;
 
-	public MenuItemPreviousTurn() {
-    	super("Previous Turn", null, null, KeyEvent.VK_UP, 0);
+	public MenuItemGoToPreviousTurn() {
+    	super("Go To Previous Turn", null, null, KeyEvent.VK_UP, 0);
     }
     
     public void doAction() {
@@ -273,11 +273,11 @@ class MenuItemPreviousTurn extends MainFrameMenuItem {
     }
 }
 
-class MenuItemNextTurn extends MainFrameMenuItem {
+class MenuItemGoToNextTurn extends MainFrameMenuItem {
 	private static final long serialVersionUID = 2402014732248796723L;
 
-	public MenuItemNextTurn() {
-    	super("Next Turn", null, null, KeyEvent.VK_DOWN, 0);
+	public MenuItemGoToNextTurn() {
+    	super("Go To Next Turn", null, null, KeyEvent.VK_DOWN, 0);
     }
     
     public void doAction() {
@@ -285,11 +285,11 @@ class MenuItemNextTurn extends MainFrameMenuItem {
     }
 }
 
-class MenuItemPreviousDecision extends MainFrameMenuItem {
+class MenuItemGoToPreviousDecision extends MainFrameMenuItem {
 	private static final long serialVersionUID = -4263318082975525169L;
 
-	public MenuItemPreviousDecision() {
-    	super("Previous Decision", null, null, KeyEvent.VK_LEFT, 0);
+	public MenuItemGoToPreviousDecision() {
+    	super("Go To Previous Decision", null, null, KeyEvent.VK_LEFT, 0);
     }
     
     public void doAction() {
@@ -297,11 +297,11 @@ class MenuItemPreviousDecision extends MainFrameMenuItem {
     }
 }
 
-class MenuItemNextDecision extends MainFrameMenuItem {
+class MenuItemGoToNextDecision extends MainFrameMenuItem {
 	private static final long serialVersionUID = 4191487740209569768L;
 
-	public MenuItemNextDecision() {
-    	super("Next Decision", null, null, KeyEvent.VK_RIGHT, 0);
+	public MenuItemGoToNextDecision() {
+    	super("Go To Next Decision", null, null, KeyEvent.VK_RIGHT, 0);
     }
     
     public void doAction() {
@@ -343,12 +343,12 @@ public class MainFrameMenuBar extends JMenuBar {
 
 	// Review
 	private MainFrameMenu menuReview = new MainFrameMenu("Review", KeyEvent.VK_R);
-	private MenuItemBeginning menuItemBeginning = new MenuItemBeginning();
-	private MenuItemEnd menuItemEnd = new MenuItemEnd();
-	private MenuItemPreviousTurn menuItemPreviousTurn = new MenuItemPreviousTurn();
-	private MenuItemNextTurn menuItemNextTurn = new MenuItemNextTurn();
-	private MenuItemPreviousDecision menuItemPreviousDecision = new MenuItemPreviousDecision();
-	private MenuItemNextDecision menuItemNextDecision = new MenuItemNextDecision();
+	private MenuItemGoToBeginning menuItemGoToBeginning = new MenuItemGoToBeginning();
+	private MenuItemGoToEnd menuItemGoToEnd = new MenuItemGoToEnd();
+	private MenuItemGoToPreviousTurn menuItemGoToPreviousTurn = new MenuItemGoToPreviousTurn();
+	private MenuItemGoToNextTurn menuItemGoToNextTurn = new MenuItemGoToNextTurn();
+	private MenuItemGoToPreviousDecision menuItemGoToPreviousDecision = new MenuItemGoToPreviousDecision();
+	private MenuItemGoToNextDecision menuItemGoToNextDecision = new MenuItemGoToNextDecision();
 
     // Help
 	private MainFrameMenu menuHelp = new MainFrameMenu("Help", KeyEvent.VK_H);
@@ -378,14 +378,14 @@ public class MainFrameMenuBar extends JMenuBar {
 
 		// Review
 		add(menuReview);
-		menuReview.add(menuItemBeginning);
-		menuReview.add(menuItemEnd);
+		menuReview.add(menuItemGoToBeginning);
+		menuReview.add(menuItemGoToEnd);
 		menuReview.addSeparator();
-		menuReview.add(menuItemPreviousTurn);
-		menuReview.add(menuItemNextTurn);
+		menuReview.add(menuItemGoToPreviousTurn);
+		menuReview.add(menuItemGoToNextTurn);
 		menuReview.addSeparator();
-		menuReview.add(menuItemPreviousDecision);
-		menuReview.add(menuItemNextDecision);
+		menuReview.add(menuItemGoToPreviousDecision);
+		menuReview.add(menuItemGoToNextDecision);
 
 		// Help
 		add(menuHelp);
@@ -414,11 +414,11 @@ public class MainFrameMenuBar extends JMenuBar {
         menuItemShowGameState.setEnabled(enablednessInModesMenuItemShowGameState[mode]);
         menuItemLeaveGame.setEnabled(enablednessInModesMenuItemLeaveGame[mode]);
         
-		menuItemBeginning.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
-		menuItemEnd.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
-		menuItemPreviousTurn.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
-		menuItemNextTurn.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
-		menuItemPreviousDecision.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
-		menuItemNextDecision.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
+		menuItemGoToBeginning.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
+		menuItemGoToEnd.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
+		menuItemGoToPreviousTurn.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
+		menuItemGoToNextTurn.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
+		menuItemGoToPreviousDecision.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
+		menuItemGoToNextDecision.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
     }
 }
