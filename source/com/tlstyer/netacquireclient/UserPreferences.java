@@ -18,7 +18,7 @@ public class UserPreferences {
 
 	// defaults
 	private static final Integer maxPlayerCountDefault = 4;
-	private static final Integer userListSortingMethodDefault = UserListPresenter.SORT_GAME_NUMBER;
+	private static final Integer userListSortingMethodDefault = UserListPresenter.SORT_NONE;
 	private static final Integer whereToStartInReviewModeDefault = Review.START_AT_BEGINNING_OF_GAME;
 
 	// preference keys
