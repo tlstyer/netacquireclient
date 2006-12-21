@@ -237,6 +237,30 @@ class MenuItemLeaveGame extends MainFrameMenuItem {
     }
 }
 
+class MenuItemBeginning extends MainFrameMenuItem {
+	private static final long serialVersionUID = -6390774861985985034L;
+
+	public MenuItemBeginning() {
+    	super("Beginning", null, null, KeyEvent.VK_A, 0);
+    }
+    
+    public void doAction() {
+    	Main.getReview().navigate(Review.DIRECTION_BACKWARD, Review.BREAK_AT_NOWHERE);
+    }
+}
+
+class MenuItemEnd extends MainFrameMenuItem {
+	private static final long serialVersionUID = -8829089903183715136L;
+
+	public MenuItemEnd() {
+    	super("End", null, null, KeyEvent.VK_Z, 0);
+    }
+    
+    public void doAction() {
+    	Main.getReview().navigate(Review.DIRECTION_FORWARD, Review.BREAK_AT_NOWHERE);
+    }
+}
+
 class MenuItemPreviousTurn extends MainFrameMenuItem {
 	private static final long serialVersionUID = -4862737182870551833L;
 
@@ -319,6 +343,8 @@ public class MainFrameMenuBar extends JMenuBar {
 
 	// Review
 	private MainFrameMenu menuReview = new MainFrameMenu("Review", KeyEvent.VK_R);
+	private MenuItemBeginning menuItemBeginning = new MenuItemBeginning();
+	private MenuItemEnd menuItemEnd = new MenuItemEnd();
 	private MenuItemPreviousTurn menuItemPreviousTurn = new MenuItemPreviousTurn();
 	private MenuItemNextTurn menuItemNextTurn = new MenuItemNextTurn();
 	private MenuItemPreviousDecision menuItemPreviousDecision = new MenuItemPreviousDecision();
@@ -352,6 +378,9 @@ public class MainFrameMenuBar extends JMenuBar {
 
 		// Review
 		add(menuReview);
+		menuReview.add(menuItemBeginning);
+		menuReview.add(menuItemEnd);
+		menuReview.addSeparator();
 		menuReview.add(menuItemPreviousTurn);
 		menuReview.add(menuItemNextTurn);
 		menuReview.addSeparator();
@@ -363,28 +392,29 @@ public class MainFrameMenuBar extends JMenuBar {
 		menuHelp.add(menuItemAboutNetAcquire);
 	}
 
-                                                                              // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
-	private static final boolean[] enablednessInModesMenuItemReinitialize     = {false,  true,  true,  true,  true,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemOptions          = {false,  true,  true,  true,  true,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemQuit             = {false,  true,  true,  true,  true,  true,  true};
-	private static final boolean[] enablednessInModesMenuItemShowUsers        = {false, false, false,  true,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemShowGames        = {false, false, false,  true,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemStartNewGame     = {false, false, false,  true, false, false, false};
-	private static final boolean[] enablednessInModesMenuItemStartGamePlay    = {false, false, false, false, false,  true, false};
-	private static final boolean[] enablednessInModesMenuItemJoinGame         = {false, false, false,  true,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemWatchGame        = {false, false, false,  true,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemShowGameState    = {false, false, false, false,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemLeaveGame        = {false, false, false, false,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemPreviousTurn     = {false, false, false, false, false, false,  true};
-	private static final boolean[] enablednessInModesMenuItemNextTurn         = {false, false, false, false, false, false,  true};
-	private static final boolean[] enablednessInModesMenuItemPreviousDecision = {false, false, false, false, false, false,  true};
-	private static final boolean[] enablednessInModesMenuItemNextDecision     = {false, false, false, false, false, false,  true};
-	private static final boolean[] enablednessInModesMenuItemAboutNetAcquire  = {false,  true,  true,  true,  true,  true,  true};
+                                                                             // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
+	private static final boolean[] enablednessInModesMenuItemReinitialize    = {false,  true,  true,  true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemOptions         = {false,  true,  true,  true,  true,  true,  true};
+	private static final boolean[] enablednessInModesMenuItemQuit            = {false,  true,  true,  true,  true,  true,  true};
+	
+	private static final boolean[] enablednessInModesMenuItemShowUsers       = {false, false, false,  true,  true,  true, false};
+	private static final boolean[] enablednessInModesMenuItemShowGames       = {false, false, false,  true,  true,  true, false};
+	private static final boolean[] enablednessInModesMenuItemStartNewGame    = {false, false, false,  true, false, false, false};
+	private static final boolean[] enablednessInModesMenuItemStartGamePlay   = {false, false, false, false, false,  true, false};
+	private static final boolean[] enablednessInModesMenuItemJoinGame        = {false, false, false,  true,  true,  true, false};
+	private static final boolean[] enablednessInModesMenuItemWatchGame       = {false, false, false,  true,  true,  true, false};
+	private static final boolean[] enablednessInModesMenuItemShowGameState   = {false, false, false, false,  true,  true, false};
+	private static final boolean[] enablednessInModesMenuItemLeaveGame       = {false, false, false, false,  true,  true, false};
+	
+	private static final boolean[] enablednessInModesMenuItemReviewMode      = {false, false, false, false, false, false,  true};
+	
+	private static final boolean[] enablednessInModesMenuItemAboutNetAcquire = {false,  true,  true,  true,  true,  true,  true};
 
     public void setMode(int mode) {
         menuItemReinitialize.setEnabled(enablednessInModesMenuItemReinitialize[mode]);
         menuItemOptions.setEnabled(enablednessInModesMenuItemOptions[mode]);
         menuItemQuit.setEnabled(enablednessInModesMenuItemQuit[mode]);
+        
         menuItemShowUsers.setEnabled(enablednessInModesMenuItemShowUsers[mode]);
         menuItemShowGames.setEnabled(enablednessInModesMenuItemShowGames[mode]);
         menuItemStartNewGame.setEnabled(enablednessInModesMenuItemStartNewGame[mode]);
@@ -393,10 +423,14 @@ public class MainFrameMenuBar extends JMenuBar {
         menuItemWatchGame.setEnabled(enablednessInModesMenuItemWatchGame[mode]);
         menuItemShowGameState.setEnabled(enablednessInModesMenuItemShowGameState[mode]);
         menuItemLeaveGame.setEnabled(enablednessInModesMenuItemLeaveGame[mode]);
-		menuItemPreviousTurn.setEnabled(enablednessInModesMenuItemPreviousTurn[mode]);
-		menuItemNextTurn.setEnabled(enablednessInModesMenuItemNextTurn[mode]);
-		menuItemPreviousDecision.setEnabled(enablednessInModesMenuItemPreviousDecision[mode]);
-		menuItemNextDecision.setEnabled(enablednessInModesMenuItemNextDecision[mode]);
+        
+		menuItemBeginning.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
+		menuItemEnd.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
+		menuItemPreviousTurn.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
+		menuItemNextTurn.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
+		menuItemPreviousDecision.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
+		menuItemNextDecision.setEnabled(enablednessInModesMenuItemReviewMode[mode]);
+		
         menuItemAboutNetAcquire.setEnabled(enablednessInModesMenuItemAboutNetAcquire[mode]);
     }
 }

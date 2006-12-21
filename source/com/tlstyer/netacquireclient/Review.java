@@ -440,10 +440,9 @@ public class Review {
 	public static final int DIRECTION_FORWARD = 1;
 	public static final int DIRECTION_BACKWARD = -1;
 
+	public static final int BREAK_AT_NOWHERE = -1;
 	public static final int BREAK_AT_TURN_BEGINNING = 1;
 	public static final int BREAK_AT_TURN_STEP = 2;
-	public static final int BREAK_AT_GAME_BEGINNING = 3;
-	public static final int BREAK_AT_GAME_END = 4;
 	
 	public void navigate(int direction, int breakAt) {
 		int currentLine;
