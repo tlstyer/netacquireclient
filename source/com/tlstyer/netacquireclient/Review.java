@@ -219,6 +219,11 @@ public class Review {
 		Main.getMainFrame().getLobby().clear();
 		Main.getMainFrame().getGameRoom().clear();
 	}
+	
+	public static final int START_AT_BEGINNING_OF_GAME = 0;
+	public static final int START_AT_END_OF_GAME = 1;
+	public static final int START_AT_END_OF_FILE = 2;
+	public static final int START_END = 2;
 
 	public void loadLogFile(String filename) {
 		initData();
@@ -282,6 +287,17 @@ public class Review {
 
 		navigate(DIRECTION_FORWARD, BREAK_AT_TURN_STEP);
 		firstBreakPointLine = nextLineGoingForward;
+		
+		switch (Main.getUserPreferences().getWhereToStartInReviewMode()) {
+			case START_AT_BEGINNING_OF_GAME:
+				break;
+			case START_AT_END_OF_GAME:
+				navigate(DIRECTION_FORWARD, BREAK_AT_END_OF_GAME);
+				break;
+			case START_AT_END_OF_FILE:
+				navigate(DIRECTION_FORWARD, BREAK_AT_NOWHERE);
+				break;
+		}
 		
 		Main.getMainFrame().setTitle(Main.getProgramName() + " - Review Mode - " + filename);
 	}
@@ -441,6 +457,7 @@ public class Review {
 	public static final int DIRECTION_BACKWARD = -1;
 
 	public static final int BREAK_AT_NOWHERE = -1;
+	public static final int BREAK_AT_END_OF_GAME = 0;
 	public static final int BREAK_AT_TURN_BEGINNING = 1;
 	public static final int BREAK_AT_TURN_STEP = 2;
 	

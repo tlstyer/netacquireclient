@@ -21,6 +21,9 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 	// "Log Files" panel
     private JCheckBox checkboxLogGamesToFiles;
     private JTextField tfDirectoryToSaveIn;
+    
+    // "Where to start in review mode" panel
+    private ButtonGroup radioButtonGroupWhereToStartInReviewMode;
 
 	// "Ok/Cancel" panel
 	private JButton buttonOk;
@@ -58,24 +61,24 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		panelRadioButtonsUserListSortingMethod.setLayout(new BoxLayout(panelRadioButtonsUserListSortingMethod, BoxLayout.Y_AXIS));
 		radioButtonGroupUserListSortingMethod = new ButtonGroup();
 		
-		JRadioButton[] radioButtons = new JRadioButton[3];
-		JRadioButton radioButton;
+		JRadioButton[] radioButtonsULSM = new JRadioButton[3];
+		JRadioButton radioButtonULSM;
 		for (int index=0; index<3; ++index) {
-			radioButton = new JRadioButton();
-			radioButton.setActionCommand("" + index);
-			radioButtons[index] = radioButton;
-			radioButtonGroupUserListSortingMethod.add(radioButton);
-			panelRadioButtonsUserListSortingMethod.add(radioButton);
+			radioButtonULSM = new JRadioButton();
+			radioButtonULSM.setActionCommand("" + index);
+			radioButtonsULSM[index] = radioButtonULSM;
+			radioButtonGroupUserListSortingMethod.add(radioButtonULSM);
+			panelRadioButtonsUserListSortingMethod.add(radioButtonULSM);
 		}
 
-		radioButtons[0].setText("Don't Sort");
-		radioButtons[0].setMnemonic(KeyEvent.VK_D);
-		radioButtons[1].setText("Sort Alphabetically");
-		radioButtons[1].setMnemonic(KeyEvent.VK_A);
-		radioButtons[2].setText("Sort by Game Number");
-		radioButtons[2].setMnemonic(KeyEvent.VK_G);
+		radioButtonsULSM[0].setText("Don't Sort");
+		radioButtonsULSM[0].setMnemonic(KeyEvent.VK_D);
+		radioButtonsULSM[1].setText("Sort Alphabetically");
+		radioButtonsULSM[1].setMnemonic(KeyEvent.VK_A);
+		radioButtonsULSM[2].setText("Sort by Game Number");
+		radioButtonsULSM[2].setMnemonic(KeyEvent.VK_N);
 
-		radioButtons[Main.getUserPreferences().getUserListSortingMethod()].setSelected(true);
+		radioButtonsULSM[Main.getUserPreferences().getUserListSortingMethod()].setSelected(true);
 		
 		panelRadioButtonsUserListSortingMethod.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
@@ -132,6 +135,33 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		panelLogFiles.setLayout(new BoxLayout(panelLogFiles, BoxLayout.Y_AXIS));
 		panelLogFiles.add(checkboxLogGamesToFiles);
 		panelLogFiles.add(panelDirectoryToSaveIn);
+		
+		// "Where to start in review mode" panel
+		JPanel panelRadioButtonsWhereToStartInReviewMode = new JPanel();
+		panelRadioButtonsWhereToStartInReviewMode.setBorder(BorderFactory.createTitledBorder("Where to start in review mode"));
+		panelRadioButtonsWhereToStartInReviewMode.setLayout(new BoxLayout(panelRadioButtonsWhereToStartInReviewMode, BoxLayout.Y_AXIS));
+		radioButtonGroupWhereToStartInReviewMode = new ButtonGroup();
+		
+		JRadioButton[] radioButtonsWTSIRM = new JRadioButton[3];
+		JRadioButton radioButtonWTSIRM;
+		for (int index=0; index<3; ++index) {
+			radioButtonWTSIRM = new JRadioButton();
+			radioButtonWTSIRM.setActionCommand("" + index);
+			radioButtonsWTSIRM[index] = radioButtonWTSIRM;
+			radioButtonGroupWhereToStartInReviewMode.add(radioButtonWTSIRM);
+			panelRadioButtonsWhereToStartInReviewMode.add(radioButtonWTSIRM);
+		}
+
+		radioButtonsWTSIRM[0].setText("Beginning of Game");
+		radioButtonsWTSIRM[0].setMnemonic(KeyEvent.VK_B);
+		radioButtonsWTSIRM[1].setText("End of Game");
+		radioButtonsWTSIRM[1].setMnemonic(KeyEvent.VK_G);
+		radioButtonsWTSIRM[2].setText("End of File");
+		radioButtonsWTSIRM[2].setMnemonic(KeyEvent.VK_F);
+
+		radioButtonsWTSIRM[Main.getUserPreferences().getWhereToStartInReviewMode()].setSelected(true);
+		
+		panelRadioButtonsWhereToStartInReviewMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "Ok/Cancel" panel
 		buttonOk = Util.getButton3d2("Ok", KeyEvent.VK_O);
@@ -162,6 +192,8 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		panel.add(panelWhenWaitingForMe);
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelLogFiles);
+		panel.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel.add(panelRadioButtonsWhereToStartInReviewMode);
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelOkCancel);
 		
@@ -224,6 +256,13 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 				Main.getLogFileWriter().writeMessages();
 			} else {
 				Main.getLogFileWriter().closeLogFile();
+			}
+
+			// "Where to start in review mode" panel
+			try {
+				int whereToStartInReviewMode = Integer.decode(radioButtonGroupWhereToStartInReviewMode.getSelection().getActionCommand());
+				Main.getUserPreferences().setWhereToStartInReviewMode(whereToStartInReviewMode);
+			} catch (NumberFormatException nfe) {
 			}
 
 			hideOptionsDialog();

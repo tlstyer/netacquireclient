@@ -14,10 +14,12 @@ public class UserPreferences {
 	private String pathToSound = null;
 	private Boolean writeToLogFiles = null;
 	private String pathToLogFiles = null;
+	private Integer whereToStartInReviewMode = null;
 
 	// defaults
 	private static final Integer maxPlayerCountDefault = 4;
 	private static final Integer userListSortingMethodDefault = UserListPresenter.SORT_GAME_NUMBER;
+	private static final Integer whereToStartInReviewModeDefault = Review.START_AT_BEGINNING_OF_GAME;
 
 	// preference keys
 	private static final String KEY_nicknames = "nicknames";
@@ -28,6 +30,7 @@ public class UserPreferences {
 	private static final String KEY_pathToSound = "path to sound";
 	private static final String KEY_writeToLogFiles = "write to log files";
 	private static final String KEY_pathToLogFiles = "path to log files";
+	private static final String KEY_whereToStartInReviewMode = "where to start in review mode";
 
 	// other
 	private static final Preferences preferences = Preferences.userNodeForPackage(UserPreferences.class);
@@ -86,6 +89,11 @@ public class UserPreferences {
 		writeToLogFiles = preferences.getBoolean(KEY_writeToLogFiles, false);
 		
 		pathToLogFiles = preferences.get(KEY_pathToLogFiles, "");
+		
+		whereToStartInReviewMode = preferences.getInt(KEY_whereToStartInReviewMode, whereToStartInReviewModeDefault);
+		if (whereToStartInReviewMode < 0 || whereToStartInReviewMode > Review.START_END) {
+			whereToStartInReviewMode = whereToStartInReviewModeDefault;
+		}
 	}
 
 	public void save() {
@@ -97,6 +105,7 @@ public class UserPreferences {
 		putString(KEY_pathToSound, pathToSound);
 		preferences.putBoolean(KEY_writeToLogFiles, writeToLogFiles);
 		putString(KEY_pathToLogFiles, pathToLogFiles);
+		preferences.putInt(KEY_whereToStartInReviewMode, whereToStartInReviewMode);
 	}
 	
 	private void putString(String key, String value) {
@@ -168,5 +177,13 @@ public class UserPreferences {
 
 	public void setPathToLogFiles(String pathToLogFiles) {
 		this.pathToLogFiles = pathToLogFiles;
+	}
+
+	public Integer getWhereToStartInReviewMode() {
+		return whereToStartInReviewMode;
+	}
+
+	public void setWhereToStartInReviewMode(Integer whereToStartInReviewMode) {
+		this.whereToStartInReviewMode = whereToStartInReviewMode;
 	}
 }
