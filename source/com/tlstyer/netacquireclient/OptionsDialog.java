@@ -44,8 +44,6 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		JSpinner spinnerMaxPlayerCount = new JSpinner(spinnerNumberModelMaxPlayerCount);
 
         JLabel labelMaxPlayerCount = new JLabel("Maximum player count in self-initiated games.");
-		labelMaxPlayerCount.setDisplayedMnemonic(KeyEvent.VK_M);
-		labelMaxPlayerCount.setLabelFor(spinnerMaxPlayerCount);
 
 		JPanel panelMaxPlayerCount = new JPanel();
 		panelMaxPlayerCount.setBorder(BorderFactory.createTitledBorder("Game"));
@@ -72,11 +70,8 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		}
 
 		radioButtonsULSM[0].setText("Don't Sort");
-		radioButtonsULSM[0].setMnemonic(KeyEvent.VK_D);
 		radioButtonsULSM[1].setText("Sort Alphabetically");
-		radioButtonsULSM[1].setMnemonic(KeyEvent.VK_A);
 		radioButtonsULSM[2].setText("Sort by Game Number");
-		radioButtonsULSM[2].setMnemonic(KeyEvent.VK_N);
 
 		radioButtonsULSM[Main.getUserPreferences().getUserListSortingMethod()].setSelected(true);
 		
@@ -84,21 +79,17 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 
 		// "When waiting for me" panel
 		checkboxPlaySoundWhenWaitingForMe = new JCheckBox("Play Sound");
-		checkboxPlaySoundWhenWaitingForMe.setMnemonic(KeyEvent.VK_P);
 		checkboxPlaySoundWhenWaitingForMe.setSelected(Main.getUserPreferences().getPlaySoundWhenWaitingForMe());
 
 		JLabel labelSoundPath = new JLabel("Path to Sound:");
-		labelSoundPath.setDisplayedMnemonic(KeyEvent.VK_S);
 		
 		tfPathToSound = new JTextField(Main.getUserPreferences().getPathToSound(), 20);
-		labelSoundPath.setLabelFor(tfPathToSound);
 
 		JPanel panelSoundPath = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panelSoundPath.add(labelSoundPath);
 		panelSoundPath.add(tfPathToSound);
 
 		buttonTestSound = new JButton("Test Sound");
-		buttonTestSound.setMnemonic(KeyEvent.VK_T);
 		buttonTestSound.addActionListener(this);
 
 		checkboxPlaySoundWhenWaitingForMe.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -114,14 +105,11 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 
 		// "Log Files" panel
 		checkboxLogGamesToFiles = new JCheckBox("Log games to files");
-		checkboxLogGamesToFiles.setMnemonic(KeyEvent.VK_L);
 		checkboxLogGamesToFiles.setSelected(Main.getUserPreferences().getWriteToLogFiles());
 
 		JLabel labelDirectoryToSaveIn = new JLabel("Directory to save in:");
-		labelDirectoryToSaveIn.setDisplayedMnemonic(KeyEvent.VK_D);
 		
 		tfDirectoryToSaveIn = new JTextField(Main.getUserPreferences().getPathToLogFiles(), 20);
-		labelDirectoryToSaveIn.setLabelFor(tfDirectoryToSaveIn);
 
 		JPanel panelDirectoryToSaveIn = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panelDirectoryToSaveIn.add(labelDirectoryToSaveIn);
@@ -153,11 +141,8 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		}
 
 		radioButtonsWTSIRM[0].setText("Beginning of Game");
-		radioButtonsWTSIRM[0].setMnemonic(KeyEvent.VK_B);
 		radioButtonsWTSIRM[1].setText("End of Game");
-		radioButtonsWTSIRM[1].setMnemonic(KeyEvent.VK_G);
 		radioButtonsWTSIRM[2].setText("End of File");
-		radioButtonsWTSIRM[2].setMnemonic(KeyEvent.VK_F);
 
 		radioButtonsWTSIRM[Main.getUserPreferences().getWhereToStartInReviewMode()].setSelected(true);
 		
