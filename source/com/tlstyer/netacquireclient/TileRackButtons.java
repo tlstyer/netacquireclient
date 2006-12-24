@@ -22,7 +22,7 @@ public class TileRackButtons extends JPanel implements ActionListener, Component
 			buttons[buttonIndex].setActionCommand(((Integer)buttonIndex).toString());
 			add(buttons[buttonIndex]);
 		}
-		setBackground(MainFrame.tileRackBackgroundColor);
+		setBackground(MainFrame.getTileRackBackgroundColor());
 		
 		addComponentListener(this);
 	}

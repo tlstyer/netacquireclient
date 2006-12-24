@@ -21,7 +21,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
     private MessageWindow gameRoom;
     private PostMessageTextField gameRoomPost;
     
-    public static final Color tileRackBackgroundColor = new Color(255, 128, 0);
+    private static final Color tileRackBackgroundColor = new Color(255, 128, 0);
 	
 	public MainFrame() {
         //Set the look and feel.
@@ -259,6 +259,10 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 	}
 
 	public void windowOpened(WindowEvent e) {
+	}
+
+	public static Color getTileRackBackgroundColor() {
+		return tileRackBackgroundColor;
 	}
 
 	public MainFrameMenuBar getMainFrameMenuBar() {

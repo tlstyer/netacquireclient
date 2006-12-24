@@ -17,7 +17,7 @@ public class TileRackTextComponents extends JPanel {
 			add(textComponents[buttonIndex]);
 			textComponents[buttonIndex].setVisible(false);
 		}
-		setBackground(MainFrame.tileRackBackgroundColor);
+		setBackground(MainFrame.getTileRackBackgroundColor());
 	}
 	
 	public void sync(TileRackData trd) {
