@@ -5,7 +5,6 @@ import java.awt.font.*;
 import java.awt.geom.*;
 import javax.swing.*;
 
-/* A rectangle that has a fixed size. */
 class TextComponent extends JComponent {
 	private static final long serialVersionUID = 8310329275352927342L;
 	
@@ -53,10 +52,10 @@ class TextComponent extends JComponent {
     
     private static boolean initializedTextComponentFontData = false;
 
-    public void paint(Graphics g) {
-        Graphics2D g2d = (Graphics2D)g;
+    public void paint(Graphics graphics) {
+        Graphics2D graphics2D = (Graphics2D)graphics;
         
-        FontRenderContext fontRenderContext = g2d.getFontRenderContext();
+        FontRenderContext fontRenderContext = graphics2D.getFontRenderContext();
         if (!initializedTextComponentFontData) {
         	Main.getFontManager().initializeTextComponentFontData(fontRenderContext);
         	Main.getMainFrame().getTileRackButtons().updateFonts();
@@ -64,13 +63,13 @@ class TextComponent extends JComponent {
         }
 
         // draw background
-        g2d.setColor(colorBackground);
-        g2d.fillRect(0, 0, getWidth(), getHeight());
+        graphics2D.setColor(colorBackground);
+        graphics2D.fillRect(0, 0, getWidth(), getHeight());
         
         // draw text
         TextComponentFontData textComponentFontData = Main.getFontManager().getTextComponentFontData(getHeight());
-        g2d.setFont(textComponentFontData.getFont());
-        g2d.setColor(colorForeground);
+        graphics2D.setFont(textComponentFontData.getFont());
+        graphics2D.setColor(colorForeground);
         
         TextLayout textLayout = new TextLayout(text, textComponentFontData.getFont(), fontRenderContext);
         Rectangle2D bounds = textLayout.getBounds();
@@ -83,6 +82,6 @@ class TextComponent extends JComponent {
         	x = (int)(getWidth() - bounds.getWidth() - bounds.getX() - PADDING);
         }
         int y = (int)((getHeight() - textComponentFontData.getFontHeight()) / 2 - textComponentFontData.getFontY());
-        g2d.drawString(text, x, y);
+        graphics2D.drawString(text, x, y);
     }
 }
