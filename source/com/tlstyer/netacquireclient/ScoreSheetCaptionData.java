@@ -1,4 +1,4 @@
-package com.tlstyer.netacquire;
+package com.tlstyer.netacquireclient;
 
 public class ScoreSheetCaptionData {
 	private Object[][] captions = new Object[10][10];

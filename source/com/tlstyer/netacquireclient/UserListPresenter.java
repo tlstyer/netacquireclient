@@ -1,4 +1,4 @@
-package com.tlstyer.netacquire;
+package com.tlstyer.netacquireclient;
 
 import java.util.*;
 import java.util.regex.*;

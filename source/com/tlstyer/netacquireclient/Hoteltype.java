@@ -1,4 +1,4 @@
-package com.tlstyer.netacquire;
+package com.tlstyer.netacquireclient;
 
 public class Hoteltype {
     public static final int NONE = 0;

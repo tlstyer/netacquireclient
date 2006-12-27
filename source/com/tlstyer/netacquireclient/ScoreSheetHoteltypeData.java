@@ -1,4 +1,4 @@
-package com.tlstyer.netacquire;
+package com.tlstyer.netacquireclient;
 
 public class ScoreSheetHoteltypeData {
 	private int[][] hoteltypes = new int[10][10];

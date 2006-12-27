@@ -1,4 +1,4 @@
-package com.tlstyer.netacquire;
+package com.tlstyer.netacquireclient;
 
 import java.awt.*;
 import java.util.*;

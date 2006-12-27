@@ -1,4 +1,4 @@
-package com.tlstyer.netacquire;
+package com.tlstyer.netacquireclient;
 
 public class TileRackData {
 	private String[] labels = new String[6];
