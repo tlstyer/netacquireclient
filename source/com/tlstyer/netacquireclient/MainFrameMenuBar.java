@@ -60,6 +60,7 @@ class MenuItemReinitialize extends MainFrameMenuItem {
 			case Main.MODE_CHOOSE_MODE:
 				break;
 			case Main.MODE_CONNECTING:
+				Main.getNetworkConnection().interruptConnectThread();
 				break;
 			case Main.MODE_IN_LOBBY:
 			case Main.MODE_IN_GAME:

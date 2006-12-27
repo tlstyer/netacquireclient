@@ -88,12 +88,14 @@ public class Main {
         mainFrame.setTitle(getProgramName() + " - Play Mode - " + ipurlPortAsNickname);
         mainFrame.getLobby().append("# connecting to " + ipurlPortAsNickname + " ...", MessageWindowDocument.APPEND_DEFAULT);
 
-		boolean connected = networkConnection.connect(ipurl, port);
-		if (!connected) {
+		int connectionStatus = networkConnection.connect(ipurl, port);
+		if (connectionStatus == NetworkConnection.CONNECTION_STATUS_COULD_NOT_CONNECT) {
 			JOptionPane.showMessageDialog(mainFrame,
 										  "Could not connect to " + ipurl + ":" + port + ".",
 										  "Could not connect",
 										  JOptionPane.ERROR_MESSAGE);
+			return;
+		} else if (connectionStatus == NetworkConnection.CONNECTION_STATUS_CLOSED_BY_INTERRUPT) {
 			return;
 		}
 

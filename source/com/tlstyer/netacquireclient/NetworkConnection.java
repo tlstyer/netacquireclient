@@ -10,11 +10,42 @@ import java.nio.charset.*;
 import java.util.*;
 import java.util.regex.*;
 
+class ConnectThread extends Thread {
+	private InetSocketAddress inetSocketAddress;
+	private SocketChannel socketChannel;
+	private int connectionStatus;
+	
+	public ConnectThread(InetSocketAddress inetSocketAddress_) {
+		inetSocketAddress = inetSocketAddress_;
+	}
+	
+	public void run() {
+		try {
+			socketChannel = SocketChannel.open(inetSocketAddress);
+			connectionStatus = NetworkConnection.CONNECTION_STATUS_CONNECTED;
+		} catch (ClosedByInterruptException cbie) {
+			connectionStatus = NetworkConnection.CONNECTION_STATUS_CLOSED_BY_INTERRUPT;
+		} catch (Exception e) {
+			connectionStatus = NetworkConnection.CONNECTION_STATUS_COULD_NOT_CONNECT;
+		}
+	}
+
+	public SocketChannel getSocketChannel() {
+		return socketChannel;
+	}
+
+	public int getConnectionStatus() {
+		return connectionStatus;
+	}
+}
+
 public class NetworkConnection {
 	private String ipOrURL;
 	private int port;
 	private String nickname;
 	private String nicknameLowercase;
+	
+	private ConnectThread connectThread = null;
 	
 	private Boolean connected = false;
 	private boolean exitedNicely = false;
@@ -37,25 +68,51 @@ public class NetworkConnection {
 
 	public NetworkConnection() {
 	}
+	
+	public static final int CONNECTION_STATUS_CONNECTED = 1;
+	public static final int CONNECTION_STATUS_COULD_NOT_CONNECT = 2;
+	public static final int CONNECTION_STATUS_CLOSED_BY_INTERRUPT = 3;
 
-	public boolean connect(String ipOrURL_, int port_) {
+	public int connect(String ipOrURL_, int port_) {
 		ipOrURL = ipOrURL_;
 		port = port_;
 		
+		InetSocketAddress inetSocketAddress = new InetSocketAddress(ipOrURL, port);
+		
+		connectThread = new ConnectThread(inetSocketAddress);
+		connectThread.start();
 		try {
-			selector = SelectorProvider.provider().openSelector();
-			InetSocketAddress isa = new InetSocketAddress(ipOrURL, port);
-			socketChannel = SocketChannel.open(isa);
-			socketChannel.configureBlocking(false);
-			socketChannel.register(selector, SelectionKey.OP_READ);
+			connectThread.join();
+		} catch (InterruptedException e1) {
+		}
+		
+		SocketChannel socketChannel = connectThread.getSocketChannel();
+		int connectionStatus = connectThread.getConnectionStatus();
+
+		connectThread = null;
+		
+		if (connectionStatus == CONNECTION_STATUS_CONNECTED) {
 			setConnected(true);
-		} catch (Exception e) {
+			try {
+				socketChannel.configureBlocking(false);
+				selector = SelectorProvider.provider().openSelector();
+				socketChannel.register(selector, SelectionKey.OP_READ);
+			} catch (Exception e) {
+			}
+		} else {
 			setConnected(false);
 		}
+		
 		exitedNicely = false;
-		return isConnected();
+		return connectionStatus;
 	}
 	
+	public void interruptConnectThread() {
+		if (connectThread != null) {
+			connectThread.interrupt();
+		}
+	}
+
 	public void disconnect() {
 		synchronized(connected) {
 			if (connected) {
