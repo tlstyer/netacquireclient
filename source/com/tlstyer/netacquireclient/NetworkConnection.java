@@ -86,7 +86,7 @@ public class NetworkConnection {
 		} catch (InterruptedException e1) {
 		}
 		
-		SocketChannel socketChannel = connectThread.getSocketChannel();
+		socketChannel = connectThread.getSocketChannel();
 		int connectionStatus = connectThread.getConnectionStatus();
 
 		connectThread = null;
