@@ -171,13 +171,9 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		// put them all together
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(panelMaxPlayerCount);
-		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelRadioButtonsUserListSortingMethod);
-		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelWhenWaitingForMe);
-		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelLogFiles);
-		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelRadioButtonsWhereToStartInReviewMode);
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelOkCancel);

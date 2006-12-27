@@ -84,9 +84,7 @@ public class ModeDialog extends GameDialog implements ActionListener {
 		panelGame.setBorder(BorderFactory.createTitledBorder("Play"));
 		panelGame.setLayout(new BoxLayout(panelGame, BoxLayout.Y_AXIS));
 		panelGame.add(panelNickname);
-		panelGame.add(Box.createRigidArea(new Dimension(0, 5)));
 		panelGame.add(panelIPURLPort);
-		panelGame.add(Box.createRigidArea(new Dimension(0, 5)));
 		panelGame.add(buttonPlay);
 
 		// "Review" button panel
@@ -111,7 +109,6 @@ public class ModeDialog extends GameDialog implements ActionListener {
 
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(panelGame);
-		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelReview);
 
 		getRootPane().setDefaultButton(buttonPlay);
