@@ -203,6 +203,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		int gameRoomPostY = gameRoomY + gameRoomHeight;
 
 		scoreSheet.setRowHeight(scoreSheetRowHeight);
+		Main.getFontManager().setClassicTextComponentHeight(scoreSheetRowHeight - 2);
         setComponentBounds(gameBoard, borderWidth, borderWidth, gameBoardWidth, gameBoardHeight);
 		setComponentBounds(tileRackBackground, borderWidth, tileRackBackgroundY, gameBoardWidth, tileRackBackgroundHeight);
 		setComponentBounds(tileRackButtons, tileRackX, tileRackY, tileRackWidth, tileRackHeight);

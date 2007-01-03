@@ -6,6 +6,7 @@ import java.awt.font.*;
 public class FontManager {
 	private static final int LENGTH_TEXTCOMPONENTFONTDATAARRAY = 16;
 	private TextComponentFontData[] textComponentFontDataArray = new TextComponentFontData[LENGTH_TEXTCOMPONENTFONTDATAARRAY];
+	private int classicTextComponentHeight = 0;
 	
 	private static final Font fontBoldDialog = new Font("Monospaced", Font.BOLD, 16);
 	private static final Font fontMessageWindow = new Font("Monospaced", Font.PLAIN, 12);
@@ -18,9 +19,13 @@ public class FontManager {
 			textComponentFontDataArray[index] = new TextComponentFontData(fontRenderContext, (index+1)*2);
 		}
 	}
-	
-	public TextComponentFontData getTextComponentFontData(int height) {
-		int index = height / 4;
+
+	public void setClassicTextComponentHeight(int classicTextComponentHeight) {
+		this.classicTextComponentHeight = classicTextComponentHeight;
+	}
+
+	public TextComponentFontData getTextComponentFontData() {
+		int index = classicTextComponentHeight / 3;
 		if (index < 0) {
 			index = 0;
 		} else if (index >= LENGTH_TEXTCOMPONENTFONTDATAARRAY) {
