@@ -10,7 +10,7 @@ public class AboutDialog extends GameDialog implements ActionListener {
 	private static final String[] labelTextArray = new String[]{
 		Main.getProgramName(),
 		"Programmed by Tim Styer",
-		"NetAcquireClient@tlstyer.com",
+		"tlstyer@gmail.com",
 		"http://www.tlstyer.com/NetAcquireClient/",
 	};
 	
