@@ -34,10 +34,6 @@ public class GameBoard extends JPanel {
     	gameBoardData.init();
     }
     
-    public int getTileHeight() {
-    	return board[0][0].getHeight();
-    }
-    
     public void sync(GameBoardData gbd) {
     	for (int y=0; y<9; ++y) {
     		for (int x=0; x<12; ++x) {

@@ -65,7 +65,7 @@ public class TileRackButtons extends JPanel implements ActionListener, Component
     }
     
     public void updateFonts() {
-    	TextComponentFontData textComponentFontData = Main.getFontManager().getTextComponentFontData(Main.getMainFrame().getGameBoard().getTileHeight());
+    	TextComponentFontData textComponentFontData = Main.getFontManager().getTextComponentFontData(Main.getMainFrame().getScoreSheet().getRowHeight());
     	if (textComponentFontData == null) {
     		return;
     	}

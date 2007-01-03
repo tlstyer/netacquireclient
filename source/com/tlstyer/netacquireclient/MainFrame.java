@@ -171,18 +171,14 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 
         int gameBoardWidth = width / 2 - (borderWidth + borderWidth / 2);
         int gameBoardHeight = gameBoardWidth * 3 / 4;
-        setComponentBounds(gameBoard, borderWidth, borderWidth, gameBoardWidth, gameBoardHeight);
 
 		int tileRackBackgroundY = borderWidth + gameBoardHeight + borderWidth;
 		int tileRackBackgroundHeight = gameBoardHeight * 2 / 13;
-		setComponentBounds(tileRackBackground, borderWidth, tileRackBackgroundY, gameBoardWidth, tileRackBackgroundHeight);
 
 		int tileRackHeight = tileRackBackgroundHeight * 8 / 10;
 		int tileRackWidth = tileRackHeight * 6 + TileRackButtons.spacing * 5;
 		int tileRackX = (width / 2 + borderWidth / 2 - tileRackWidth) / 2;
 		int tileRackY = tileRackBackgroundY + (tileRackBackgroundHeight - tileRackHeight) / 2;
-		setComponentBounds(tileRackButtons, tileRackX, tileRackY, tileRackWidth, tileRackHeight);
-		setComponentBounds(tileRackTextComponents, tileRackX, tileRackY, tileRackWidth, tileRackHeight);
 
 		int lobbyY = tileRackBackgroundY + tileRackBackgroundHeight + borderWidth;
 		int lobbyPostHeight = (int)lobbyPost.getPreferredSize().getHeight();
@@ -190,16 +186,12 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		if (lobbyPostIsVisible) {
 			lobbyHeight -= lobbyPostHeight;
 		}
-		setComponentBounds(lobby, borderWidth, lobbyY, gameBoardWidth, lobbyHeight);
 		
 		int lobbyPostY = lobbyY + lobbyHeight;
-		setComponentBounds(lobbyPost, borderWidth, lobbyPostY, gameBoardWidth, lobbyPostHeight);
 
 		int scoreSheetX = width / 2 + borderWidth / 2;
 		int scoreSheetRowHeight = gameBoardWidth * 10 / 18 / 10;
 		int scoreSheetHeight = scoreSheetRowHeight * numRowsInScoreSheet;
-		scoreSheet.setRowHeight(scoreSheetRowHeight);
-		setComponentBounds(scoreSheet, scoreSheetX, borderWidth, gameBoardWidth, scoreSheetHeight);
 
 		int gameRoomY = borderWidth + scoreSheetHeight + borderWidth;
 		int gameRoomPostHeight = (int)gameRoomPost.getPreferredSize().getHeight();
@@ -207,9 +199,18 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		if (gameRoomPostIsVisible) {
 			gameRoomHeight -= gameRoomPostHeight;
 		}
-		setComponentBounds(gameRoom, scoreSheetX, gameRoomY, gameBoardWidth, gameRoomHeight);
 		
 		int gameRoomPostY = gameRoomY + gameRoomHeight;
+
+		scoreSheet.setRowHeight(scoreSheetRowHeight);
+        setComponentBounds(gameBoard, borderWidth, borderWidth, gameBoardWidth, gameBoardHeight);
+		setComponentBounds(tileRackBackground, borderWidth, tileRackBackgroundY, gameBoardWidth, tileRackBackgroundHeight);
+		setComponentBounds(tileRackButtons, tileRackX, tileRackY, tileRackWidth, tileRackHeight);
+		setComponentBounds(tileRackTextComponents, tileRackX, tileRackY, tileRackWidth, tileRackHeight);
+		setComponentBounds(lobby, borderWidth, lobbyY, gameBoardWidth, lobbyHeight);
+		setComponentBounds(lobbyPost, borderWidth, lobbyPostY, gameBoardWidth, lobbyPostHeight);
+		setComponentBounds(scoreSheet, scoreSheetX, borderWidth, gameBoardWidth, scoreSheetHeight);
+		setComponentBounds(gameRoom, scoreSheetX, gameRoomY, gameBoardWidth, gameRoomHeight);
 		setComponentBounds(gameRoomPost, scoreSheetX, gameRoomPostY, gameBoardWidth, gameRoomPostHeight);
     }
 	

@@ -124,6 +124,10 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 		rowHeight = rowHeight_;
 	}
     
+	public int getRowHeight() {
+		return rowHeight;
+	}
+    
     public void componentHidden(ComponentEvent e) {
     }
     
