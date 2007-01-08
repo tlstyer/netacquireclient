@@ -466,10 +466,14 @@ public class Util {
 		Dimension dimension = button.getPreferredSize();
 		dimension.height = dimension.height * 3 / 2;
 		dimension.width = dimension.width * 3 / 2;
-		button.setMinimumSize(dimension);
-		button.setPreferredSize(dimension);
-		button.setMaximumSize(dimension);
+		setOnlySize(button, dimension);
 		return button;
+	}
+	
+	public static void setOnlySize(JComponent component, Dimension dimension) {
+		component.setMinimumSize(dimension);
+		component.setPreferredSize(dimension);
+		component.setMaximumSize(dimension);
 	}
 	
 	public static String getTimeString() {

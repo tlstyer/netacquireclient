@@ -86,13 +86,19 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		JLabel labelSoundPath = new JLabel("Path to Sound:");
 		
 		tfPathToSound = new JTextField(Main.getUserPreferences().getPathToSound(), 20);
+		Util.setOnlySize(tfPathToSound, tfPathToSound.getPreferredSize());
 		
 		buttonBrowsePathToSound = new JButton("...");
+		Util.setOnlySize(buttonBrowsePathToSound, buttonBrowsePathToSound.getPreferredSize());
 		buttonBrowsePathToSound.addActionListener(this);
 
-		JPanel panelSoundPath = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel panelSoundPath = new JPanel();
+		panelSoundPath.setLayout(new BoxLayout(panelSoundPath, BoxLayout.X_AXIS));
 		panelSoundPath.add(labelSoundPath);
+		panelSoundPath.add(Box.createRigidArea(new Dimension(5, 0)));
+		panelSoundPath.add(Box.createHorizontalGlue());
 		panelSoundPath.add(tfPathToSound);
+		panelSoundPath.add(Box.createRigidArea(new Dimension(5, 0)));
 		panelSoundPath.add(buttonBrowsePathToSound);
 
 		buttonTestSound = new JButton("Test Sound");
@@ -116,13 +122,19 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		JLabel labelDirectoryToSaveIn = new JLabel("Directory to save in:");
 		
 		tfDirectoryToSaveIn = new JTextField(Main.getUserPreferences().getPathToLogFiles(), 20);
+		Util.setOnlySize(tfDirectoryToSaveIn, tfDirectoryToSaveIn.getPreferredSize());
 
 		buttonBrowseDirectoryToSaveIn = new JButton("...");
+		Util.setOnlySize(buttonBrowseDirectoryToSaveIn, buttonBrowseDirectoryToSaveIn.getPreferredSize());
 		buttonBrowseDirectoryToSaveIn.addActionListener(this);
 		
-		JPanel panelDirectoryToSaveIn = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel panelDirectoryToSaveIn = new JPanel();
+		panelDirectoryToSaveIn.setLayout(new BoxLayout(panelDirectoryToSaveIn, BoxLayout.X_AXIS));
 		panelDirectoryToSaveIn.add(labelDirectoryToSaveIn);
+		panelDirectoryToSaveIn.add(Box.createRigidArea(new Dimension(5, 0)));
+		panelDirectoryToSaveIn.add(Box.createHorizontalGlue());
 		panelDirectoryToSaveIn.add(tfDirectoryToSaveIn);
+		panelDirectoryToSaveIn.add(Box.createRigidArea(new Dimension(5, 0)));
 		panelDirectoryToSaveIn.add(buttonBrowseDirectoryToSaveIn);
 
 		checkboxLogGamesToFiles.setAlignmentX(Component.LEFT_ALIGNMENT);
