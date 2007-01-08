@@ -16,11 +16,13 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 	// "When waiting for me" panel
     private JCheckBox checkboxPlaySoundWhenWaitingForMe;
     private JTextField tfPathToSound;
+    private JButton buttonBrowsePathToSound;
 	private JButton buttonTestSound;
 
 	// "Log Files" panel
     private JCheckBox checkboxLogGamesToFiles;
     private JTextField tfDirectoryToSaveIn;
+    private JButton buttonBrowseDirectoryToSaveIn;
     
     // "Where to start in review mode" panel
     private ButtonGroup radioButtonGroupWhereToStartInReviewMode;
@@ -84,10 +86,14 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		JLabel labelSoundPath = new JLabel("Path to Sound:");
 		
 		tfPathToSound = new JTextField(Main.getUserPreferences().getPathToSound(), 20);
+		
+		buttonBrowsePathToSound = new JButton("...");
+		buttonBrowsePathToSound.addActionListener(this);
 
 		JPanel panelSoundPath = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panelSoundPath.add(labelSoundPath);
 		panelSoundPath.add(tfPathToSound);
+		panelSoundPath.add(buttonBrowsePathToSound);
 
 		buttonTestSound = new JButton("Test Sound");
 		buttonTestSound.addActionListener(this);
@@ -111,9 +117,13 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		
 		tfDirectoryToSaveIn = new JTextField(Main.getUserPreferences().getPathToLogFiles(), 20);
 
+		buttonBrowseDirectoryToSaveIn = new JButton("...");
+		buttonBrowseDirectoryToSaveIn.addActionListener(this);
+		
 		JPanel panelDirectoryToSaveIn = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panelDirectoryToSaveIn.add(labelDirectoryToSaveIn);
 		panelDirectoryToSaveIn.add(tfDirectoryToSaveIn);
+		panelDirectoryToSaveIn.add(buttonBrowseDirectoryToSaveIn);
 
 		checkboxLogGamesToFiles.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panelDirectoryToSaveIn.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -203,6 +213,20 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		Object object = e.getSource();
 		if (object == buttonTestSound) {
 			Main.getSoundManager().playSound(tfPathToSound.getText());
+		} else if (object == buttonBrowsePathToSound) {
+			JFileChooser fileChooser = new JFileChooser(tfPathToSound.getText());
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+			int returnState = fileChooser.showOpenDialog(this);
+			if (returnState == JFileChooser.APPROVE_OPTION) {
+				tfPathToSound.setText(fileChooser.getSelectedFile().getAbsolutePath());
+			}
+		} else if (object == buttonBrowseDirectoryToSaveIn) {
+			JFileChooser fileChooser = new JFileChooser(tfDirectoryToSaveIn.getText());
+			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			int returnState = fileChooser.showOpenDialog(this);
+			if (returnState == JFileChooser.APPROVE_OPTION) {
+				tfDirectoryToSaveIn.setText(fileChooser.getSelectedFile().getAbsolutePath());
+			}
 		} else if (object == buttonOk) {
 			// "max player count" panel
 			Main.getUserPreferences().setMaxPlayerCount(spinnerNumberModelMaxPlayerCount.getNumber().intValue());
