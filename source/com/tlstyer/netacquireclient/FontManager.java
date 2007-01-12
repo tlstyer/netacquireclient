@@ -8,7 +8,7 @@ public class FontManager {
 	private TextComponentFontData[] textComponentFontDataArray = new TextComponentFontData[LENGTH_TEXTCOMPONENTFONTDATAARRAY];
 	private int classicTextComponentHeight = 0;
 	
-	private static final String fontToUse = "Monospaced";
+	private static final String fontToUse = "SansSerif";
 	
 	private static final Font fontBoldDialog = new Font(fontToUse, Font.BOLD, 16);
 	private static final Font fontMessageWindow = new Font(fontToUse, Font.PLAIN, 12);
