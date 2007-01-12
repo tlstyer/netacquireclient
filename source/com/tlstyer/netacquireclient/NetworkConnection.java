@@ -427,7 +427,7 @@ public class NetworkConnection {
 		if (state == 6) {
 			state = Main.MODE_IN_GAME;
 		}
-		if (state > 6) {
+		if (state < Main.MODE_IN_LOBBY || state > Main.MODE_IN_GAME_WAITING_FOR_ME_TO_START_GAME) {
 			return;
 		}
 		Main.getMain().setMode(state);
