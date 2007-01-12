@@ -81,7 +81,7 @@ public class SelectChainDialog extends GameDialog {
 
 		getRootPane().setDefaultButton(buttonOk);
 		
-		showGameDialog(GameDialog.POSITION_BELOW_SCORE_SHEET);
+		showGameDialog(POSITION_BELOW_SCORE_SHEET);
 	}
 	
     public void DoAction(ActionEvent e) {

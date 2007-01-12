@@ -174,7 +174,7 @@ public class ShareDispositionDialog extends GameDialog implements ChangeListener
 
 		updateComponents();
 
-		showGameDialog(GameDialog.POSITION_BELOW_SCORE_SHEET);
+		showGameDialog(POSITION_BELOW_SCORE_SHEET);
     }
 
 	private void updateComponents() {

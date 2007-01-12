@@ -113,7 +113,7 @@ public class ModeDialog extends GameDialog {
 
 		getRootPane().setDefaultButton(buttonPlay);
 		
-		showGameDialog(GameDialog.POSITION_0_0);
+		showGameDialog(POSITION_0_0);
 	}
 
 	private void ShowErrorMessage(String title, String message) {

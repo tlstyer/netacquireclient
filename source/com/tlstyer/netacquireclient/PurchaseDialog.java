@@ -164,7 +164,7 @@ public class PurchaseDialog extends GameDialog {
 		updateComponents();
 
 		// show it in the right place
-		setLocation(GameDialog.POSITION_BELOW_SCORE_SHEET);
+		setLocation(POSITION_BELOW_SCORE_SHEET);
 		setVisible(true);
 	}
 	

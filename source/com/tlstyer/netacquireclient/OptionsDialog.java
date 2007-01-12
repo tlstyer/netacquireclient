@@ -202,7 +202,7 @@ public class OptionsDialog extends GameDialog {
 		
 		getRootPane().setDefaultButton(buttonOk);
 		
-		showGameDialog(GameDialog.POSITION_CENTER_IN_MAIN_FRAME_PANEL);
+		showGameDialog(POSITION_CENTER_IN_MAIN_FRAME_PANEL);
 	}
 
 	public static void showOptionsDialog() {
