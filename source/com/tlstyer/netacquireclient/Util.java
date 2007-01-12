@@ -45,7 +45,7 @@ public class Util {
 				if (value.toString().equals(splitString.toString())) {
 					splitObjectArray[index] = value;
 				} else {
-					throw new Exception("NOT EQUAL!"); 
+					throw new Exception(); 
 				}
 			} catch (Exception e) {
 				splitObjectArray[index] = splitString;
