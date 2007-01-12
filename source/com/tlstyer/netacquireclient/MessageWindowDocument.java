@@ -14,7 +14,7 @@ public class MessageWindowDocument extends DefaultStyledDocument {
 		Style style = defaultStyleContext.getStyle(StyleContext.DEFAULT_STYLE);
 		
 		styleSystem = defaultStyleContext.addStyle("system", style);
-		StyleConstants.setFontFamily(styleSystem, FontManager.getFontToUse());
+		StyleConstants.setFontFamily(styleSystem, FontManager.getFontNameMessageWindows());
 		StyleConstants.setFontSize(styleSystem, 12);
         StyleConstants.setForeground(styleSystem, Color.black);
         

@@ -8,10 +8,11 @@ public class FontManager {
 	private TextComponentFontData[] textComponentFontDataArray = new TextComponentFontData[LENGTH_TEXTCOMPONENTFONTDATAARRAY];
 	private int classicTextComponentHeight = 0;
 	
-	private static final String fontToUse = "SansSerif";
+	private static final String fontNameTextComponents = "SansSerif";
+	private static final String fontNameMessageWindows = "Monospaced";
 	
-	private static final Font fontBoldDialog = new Font(fontToUse, Font.BOLD, 16);
-	private static final Font fontMessageWindow = new Font(fontToUse, Font.PLAIN, 12);
+	private static final Font fontBoldDialog = new Font(fontNameTextComponents, Font.BOLD, 16);
+	private static final Font fontMessageWindow = new Font(fontNameMessageWindows, Font.PLAIN, 12);
 	
 	public FontManager() {
 	}
@@ -44,7 +45,11 @@ public class FontManager {
 		return fontMessageWindow;
 	}
 
-	public static String getFontToUse() {
-		return fontToUse;
+	public static String getFontNameTextComponents() {
+		return fontNameTextComponents;
+	}
+
+	public static String getFontNameMessageWindows() {
+		return fontNameMessageWindows;
 	}
 }

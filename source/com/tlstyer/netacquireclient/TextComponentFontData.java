@@ -9,7 +9,7 @@ public class TextComponentFontData {
     private double fontY;
 
 	public TextComponentFontData(FontRenderContext fontRenderContext, int size) {
-		font = new Font(FontManager.getFontToUse(), Font.BOLD, size);
+		font = new Font(FontManager.getFontNameTextComponents(), Font.BOLD, size);
     	TextLayout textLayout = new TextLayout("0", font, fontRenderContext);
     	fontHeight = textLayout.getBounds().getHeight();
     	fontY = textLayout.getBounds().getY();
