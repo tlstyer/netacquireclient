@@ -428,7 +428,6 @@ public class NetworkConnection {
 			state = Main.MODE_IN_GAME;
 		}
 		if (state > 6) {
-			commandProcessingResult = COMMAND_NOT_PROCESSED;
 			return;
 		}
 		Main.getMain().setMode(state);
