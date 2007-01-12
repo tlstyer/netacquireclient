@@ -88,15 +88,15 @@ public class Util {
 	public static String commandJavaToText(Object[] command) {
 		Object[] strings = new Object[command.length];
 		for (int i=0; i<command.length; ++i) {
-			strings[i] = Util.join((Object)command[i], ",");
+			strings[i] = join((Object)command[i], ",");
 		}
-		return Util.join(strings, ";");
+		return join(strings, ";");
 	}
 	
 	public static String commandToContainedMessage(Object[] command) {
 		Object[] objects_message = new Object[command.length - 1];
 		System.arraycopy(command, 1, objects_message, 0, objects_message.length);
-		String message = Util.commandJavaToText(objects_message);
+		String message = commandJavaToText(objects_message);
 		message = message.substring(1, message.length() - 1);
 		message = message.replace("\"\"", "\"");
 		return message;
@@ -130,7 +130,7 @@ public class Util {
 	private static int[] getPlayerDataAsIntegers(ScoreSheetCaptionData sscd, int numPlayers, int column) {
 		int[] playerData = new int[numPlayers];
 		for (int player=1; player<=numPlayers; ++player) {
-			playerData[player - 1] = Util.getAsInteger(sscd.getCaption(column, player));
+			playerData[player - 1] = getAsInteger(sscd.getCaption(column, player));
 		}
 		return playerData;
 	}
@@ -225,23 +225,23 @@ public class Util {
     }
     
 	public static void updateNetWorths(ScoreSheetCaptionData sscd, GameBoardData gbd) {
-		int numPlayers = Util.getNumberOfPlayers(sscd);
+		int numPlayers = getNumberOfPlayers(sscd);
 		if (numPlayers < 1) {
 			return;
 		}
-		boolean[] existingHotels = Util.getExistingHotelsOnGameBoard(gbd);
-		int[] money = Util.getPlayerDataAsIntegers(sscd, numPlayers, 8);
+		boolean[] existingHotels = getExistingHotelsOnGameBoard(gbd);
+		int[] money = getPlayerDataAsIntegers(sscd, numPlayers, 8);
 		int[] moreMoney;
 		for (int chain=1; chain<=7; ++chain) {
-			int[] holdings = Util.getPlayerDataAsIntegers(sscd, (numPlayers > 1 ? numPlayers : 2), chain);
-			int price = Util.getAsInteger(sscd.getCaption(chain, 9));
+			int[] holdings = getPlayerDataAsIntegers(sscd, (numPlayers > 1 ? numPlayers : 2), chain);
+			int price = getAsInteger(sscd.getCaption(chain, 9));
 			
 			if (existingHotels[chain - 1]) {
-				moreMoney = Util.getBonuses(holdings, price);
+				moreMoney = getBonuses(holdings, price);
 				money = addMoney(money, moreMoney);
 			}
 			
-			moreMoney = Util.calculateSellingPrices(holdings, price);
+			moreMoney = calculateSellingPrices(holdings, price);
 			money = addMoney(money, moreMoney);
 		}
 		
@@ -324,13 +324,13 @@ public class Util {
 	}
 	
 	public static int hoteltypeToColorvalueSwing(int hoteltype) {
-		return Util.networkColorToSwingColor(arrayHoteltypeToColorvalue[hoteltype]);
+		return networkColorToSwingColor(arrayHoteltypeToColorvalue[hoteltype]);
 	}
 
 	private static final Color[] arrayHoteltypeToColor = new Color[arrayHoteltypeToColorvalue.length];
     static {
         for (int index=0; index<arrayHoteltypeToColorvalue.length; ++index) {
-            arrayHoteltypeToColor[index] = new Color(Util.hoteltypeToColorvalueSwing(index));
+            arrayHoteltypeToColor[index] = new Color(hoteltypeToColorvalueSwing(index));
         }
     }
 
@@ -442,7 +442,7 @@ public class Util {
 	public static int[] getHotelDataAsIntegers(ScoreSheetCaptionData sscd, int row) {
 		int[] hotelData = new int[7];
 		for (int column=1; column<=7; ++column) {
-			hotelData[column - 1] = Util.getAsInteger(sscd.getCaption(column, row));
+			hotelData[column - 1] = getAsInteger(sscd.getCaption(column, row));
 		}
 		return hotelData;
 	}
