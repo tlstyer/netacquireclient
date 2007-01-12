@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class OptionsDialog extends GameDialog implements ActionListener {
+public class OptionsDialog extends GameDialog {
 	private static final long serialVersionUID = -8370913711548370855L;
 	
 	// "max player count" panel
@@ -221,7 +221,7 @@ public class OptionsDialog extends GameDialog implements ActionListener {
 		}
 	}
 	
-	public void actionPerformed(ActionEvent e) {
+	public void DoAction(ActionEvent e) {
 		Object object = e.getSource();
 		if (object == buttonTestSound) {
 			Main.getSoundManager().playSound(tfPathToSound.getText());

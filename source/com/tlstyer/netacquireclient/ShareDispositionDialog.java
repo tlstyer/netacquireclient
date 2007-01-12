@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class ShareDispositionDialog extends GameDialog implements ActionListener, ChangeListener {
+public class ShareDispositionDialog extends GameDialog implements ChangeListener {
 	private static final long serialVersionUID = 5149132406543033949L;
 	
 	private int numSharesOfTakenOverHotelIHave;
@@ -194,7 +194,7 @@ public class ShareDispositionDialog extends GameDialog implements ActionListener
 		spinnerNumberModelSell.setMaximum(maxSell);
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public void DoAction(ActionEvent e) {
         Object object = e.getSource();
         if (object == buttonAll) {
             numTrade = 0;

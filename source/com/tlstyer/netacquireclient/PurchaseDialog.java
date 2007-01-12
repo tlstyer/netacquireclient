@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class PurchaseDialog extends GameDialog implements ActionListener {
+public class PurchaseDialog extends GameDialog {
 	private static final long serialVersionUID = 5139854320030992006L;
 	
 	private boolean canEndGame;
@@ -232,7 +232,7 @@ public class PurchaseDialog extends GameDialog implements ActionListener {
 		}
 	}
 
-    public void actionPerformed(ActionEvent e) {
+    public void DoAction(ActionEvent e) {
     	int buttonIndexPressed = Integer.decode(e.getActionCommand());
     	if (buttonIndexPressed >= 0 && buttonIndexPressed <= 6) {
     		for (int index=0; index<3; ++index) {

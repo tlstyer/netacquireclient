@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.regex.*;
 import javax.swing.*;
 
-public class ModeDialog extends GameDialog implements ActionListener {
+public class ModeDialog extends GameDialog {
 	private static final long serialVersionUID = -9110080591988857670L;
 	
 	private JComboBox cbNickname;
@@ -212,7 +212,7 @@ public class ModeDialog extends GameDialog implements ActionListener {
 		hideGameDialog();
 	}
 
-	public void actionPerformed(ActionEvent e) {
+	public void DoAction(ActionEvent e) {
 		Object object = e.getSource();
 		if (object == buttonDeleteNickname) {
 			processButtonDelete(Main.getUserPreferences().getNicknames(), cbNickname);

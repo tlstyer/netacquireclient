@@ -1,13 +1,16 @@
 package com.tlstyer.netacquireclient;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
-public class GameDialog extends JDialog {
+public abstract class GameDialog extends JDialog implements ActionListener {
 	private static final long serialVersionUID = -9013637360065026393L;
 	
 	protected JPanel panel = new JPanel();
+	
+	private boolean hasBeenHidden = false;
 	
 	private static Set<GameDialog> setOfGameDialogs = new HashSet<GameDialog>();
 	
@@ -61,6 +64,7 @@ public class GameDialog extends JDialog {
 	
 	public void hideGameDialog() {
 		synchronized (setOfGameDialogs) {
+			hasBeenHidden = true;
 			setVisible(false);
 			setOfGameDialogs.remove(this);
 		}
@@ -74,4 +78,12 @@ public class GameDialog extends JDialog {
 			setOfGameDialogs.clear();
 		}
 	}
+
+	public void actionPerformed(ActionEvent arg0) {
+		if (!hasBeenHidden) {
+			DoAction(arg0);
+		}
+	}
+	
+	public abstract void DoAction(ActionEvent arg0);
 }

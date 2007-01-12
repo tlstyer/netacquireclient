@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class AboutDialog extends GameDialog implements ActionListener {
+public class AboutDialog extends GameDialog {
 	private static final long serialVersionUID = 6464857331964610658L;
 
 	private static final String[] labelTextArray = new String[]{
@@ -59,7 +59,7 @@ public class AboutDialog extends GameDialog implements ActionListener {
 		}
 	}
 	
-	public void actionPerformed(ActionEvent e) {
+	public void DoAction(ActionEvent e) {
 		Object object = e.getSource();
 		if (object == buttonOk) {
 			hideAboutDialog();

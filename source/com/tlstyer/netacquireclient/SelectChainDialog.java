@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class SelectChainDialog extends GameDialog implements ActionListener {
+public class SelectChainDialog extends GameDialog {
 	private static final long serialVersionUID = -480008475260474107L;
 	
 	private ButtonGroup radioButtonGroup;
@@ -84,7 +84,7 @@ public class SelectChainDialog extends GameDialog implements ActionListener {
 		showGameDialog(GameDialog.POSITION_BELOW_SCORE_SHEET);
 	}
 	
-    public void actionPerformed(ActionEvent e) {
+    public void DoAction(ActionEvent e) {
 		for (int index=0; index<7; ++index) {
 			if (radioButtons[index].isSelected()) {
 				int colorvalue = Util.hoteltypeToColorvalueNetwork(index + 1);
