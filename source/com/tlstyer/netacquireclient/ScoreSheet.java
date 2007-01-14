@@ -15,6 +15,18 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     private static final String hotelTypeCharacters = "LTAFWCI";
     private static final int[] columnWidths = {5, 1, 1, 1, 1, 1, 1, 1, 3, 3};
     private static final int[] columnStartX = {0, 5, 6, 7, 8, 9, 10, 11, 12, 15};
+	private static final int[] textAlignments = {
+		TextComponent.ALIGN_LEFT,
+		TextComponent.ALIGN_CENTER,
+		TextComponent.ALIGN_CENTER,
+		TextComponent.ALIGN_CENTER,
+		TextComponent.ALIGN_CENTER,
+		TextComponent.ALIGN_CENTER,
+		TextComponent.ALIGN_CENTER,
+		TextComponent.ALIGN_CENTER,
+		TextComponent.ALIGN_RIGHT,
+		TextComponent.ALIGN_RIGHT,
+	};
 	
 	public ScoreSheet() {
 		super(null);
@@ -69,7 +81,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     	TextComponent textComponent = new TextComponent();
     	textComponent.setBackgroundColor(Util.hoteltypeToColor(hotelType));
     	textComponent.setText(text);
-    	textComponent.setTextAlign(Util.hoteltypeToTextalign(hotelType));
+    	textComponent.setTextAlign(textAlignments[x]);
 
     	add(textComponent);
     	scoreSheet[y][x] = textComponent;
