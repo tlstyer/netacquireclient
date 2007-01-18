@@ -9,6 +9,7 @@ import java.nio.channels.spi.*;
 import java.nio.charset.*;
 import java.util.*;
 import java.util.regex.*;
+import javax.swing.*;
 
 class ConnectThread extends Thread {
 	private InetSocketAddress inetSocketAddress;
@@ -490,5 +491,10 @@ public class NetworkConnection {
 		} else {
 			commandProcessingResult = COMMAND_NOT_PROCESSED;
 		}
+		
+		JOptionPane.showMessageDialog(Main.getMainFrame(),
+									  modalMessageToDisplay.getMessageBody(),
+									  modalMessageToDisplay.getMessageHeader(),
+									  modalMessageToDisplay.getMessageType());
 	}
 }
