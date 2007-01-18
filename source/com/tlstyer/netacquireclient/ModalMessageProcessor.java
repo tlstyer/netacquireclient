@@ -20,12 +20,20 @@ class ModalMessage {
 }
 
 class ModalMessageToDisplay {
-	public String messageToUser;
-	public Integer whereToPutMessage;
+	private String messageToUser;
+	private Integer whereToPutMessage;
 
 	public ModalMessageToDisplay(String messageToUser_, Integer whereToPutMessage_) {
 		messageToUser = messageToUser_;
 		whereToPutMessage = whereToPutMessage_;
+	}
+
+	public String getMessageToUser() {
+		return messageToUser;
+	}
+
+	public Integer getWhereToPutMessage() {
+		return whereToPutMessage;
 	}
 }
 
