@@ -183,7 +183,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		int lobbyY = tileRackBackgroundY + tileRackBackgroundHeight + borderWidth;
 		int lobbyPostHeight = (int)lobbyPost.getPreferredSize().getHeight();
 		int lobbyHeight = height - borderWidth - lobbyY;
-		if (Main.getMain().getMode() == Main.MODE_IN_LOBBY) {
+		if (Main.getMain().getMode() <= Main.MODE_IN_LOBBY) {
 			lobbyY = borderWidth;
 			lobbyHeight += gameBoardHeight + borderWidth + tileRackBackgroundHeight + borderWidth;
 		}
