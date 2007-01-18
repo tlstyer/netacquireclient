@@ -15,11 +15,13 @@ public class UserPreferences {
 	private Boolean writeToLogFiles = null;
 	private String pathToLogFiles = null;
 	private Integer whereToStartInReviewMode = null;
+	private Boolean showModalMessageDialogBoxes = null;
 
 	// defaults
 	private static final Integer maxPlayerCountDefault = 4;
 	private static final Integer userListSortingMethodDefault = UserListPresenter.SORT_NONE;
 	private static final Integer whereToStartInReviewModeDefault = Review.START_AT_BEGINNING_OF_GAME;
+	private static final Boolean showModalMessageDialogBoxesDefault = false;
 
 	// preference keys
 	private static final String KEY_nicknames = "nicknames";
@@ -31,6 +33,7 @@ public class UserPreferences {
 	private static final String KEY_writeToLogFiles = "write to log files";
 	private static final String KEY_pathToLogFiles = "path to log files";
 	private static final String KEY_whereToStartInReviewMode = "where to start in review mode";
+	private static final String KEY_showModalMessageDialogBoxes = "show modal message dialog boxes";
 
 	// other
 	private static final Preferences preferences = Preferences.userNodeForPackage(UserPreferences.class);
@@ -94,6 +97,8 @@ public class UserPreferences {
 		if (whereToStartInReviewMode < 0 || whereToStartInReviewMode > Review.START_END) {
 			whereToStartInReviewMode = whereToStartInReviewModeDefault;
 		}
+
+		showModalMessageDialogBoxes = preferences.getBoolean(KEY_showModalMessageDialogBoxes, showModalMessageDialogBoxesDefault);
 	}
 
 	public void save() {
@@ -106,6 +111,7 @@ public class UserPreferences {
 		preferences.putBoolean(KEY_writeToLogFiles, writeToLogFiles);
 		putString(KEY_pathToLogFiles, pathToLogFiles);
 		preferences.putInt(KEY_whereToStartInReviewMode, whereToStartInReviewMode);
+		preferences.putBoolean(KEY_showModalMessageDialogBoxes, showModalMessageDialogBoxes);
 	}
 	
 	private void putString(String key, String value) {
@@ -185,5 +191,13 @@ public class UserPreferences {
 
 	public void setWhereToStartInReviewMode(Integer whereToStartInReviewMode) {
 		this.whereToStartInReviewMode = whereToStartInReviewMode;
+	}
+
+	public Boolean getShowModalMessageDialogBoxes() {
+		return showModalMessageDialogBoxes;
+	}
+
+	public void setShowModalMessageDialogBoxes(Boolean showModalMessageDialogBoxes) {
+		this.showModalMessageDialogBoxes = showModalMessageDialogBoxes;
 	}
 }

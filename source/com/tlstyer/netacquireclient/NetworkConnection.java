@@ -491,10 +491,12 @@ public class NetworkConnection {
 		} else {
 			commandProcessingResult = COMMAND_NOT_PROCESSED;
 		}
-		
-		JOptionPane.showMessageDialog(Main.getMainFrame(),
-									  modalMessageToDisplay.getMessageBody(),
-									  modalMessageToDisplay.getMessageHeader(),
-									  modalMessageToDisplay.getMessageType());
+
+		if (Main.getUserPreferences().getShowModalMessageDialogBoxes()) {
+			JOptionPane.showMessageDialog(Main.getMainFrame(),
+										  modalMessageToDisplay.getMessageBody(),
+										  modalMessageToDisplay.getMessageHeader(),
+										  modalMessageToDisplay.getMessageType());
+		}
 	}
 }

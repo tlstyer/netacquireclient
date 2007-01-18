@@ -27,6 +27,9 @@ public class OptionsDialog extends GameDialog {
     // "Where to start in review mode" panel
     private ButtonGroup radioButtonGroupWhereToStartInReviewMode;
 
+    // "Show modal message dialog boxes" panel
+    private JCheckBox checkboxShowModalMessageDialogBoxes;
+
 	// "Ok/Cancel" panel
 	private JButton buttonOk;
 	private JButton buttonCancel;
@@ -170,6 +173,17 @@ public class OptionsDialog extends GameDialog {
 		
 		panelRadioButtonsWhereToStartInReviewMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
+		// "Show modal message dialog boxes" panel
+		checkboxShowModalMessageDialogBoxes = new JCheckBox("Show modal message dialog boxes");
+		checkboxShowModalMessageDialogBoxes.setSelected(Main.getUserPreferences().getShowModalMessageDialogBoxes());
+
+		JPanel panelShowModalMessageDialogBoxes = new JPanel();
+		panelShowModalMessageDialogBoxes.setBorder(BorderFactory.createTitledBorder("Show modal message dialog boxes"));
+		panelShowModalMessageDialogBoxes.setLayout(new BoxLayout(panelShowModalMessageDialogBoxes, BoxLayout.Y_AXIS));
+		panelShowModalMessageDialogBoxes.add(checkboxShowModalMessageDialogBoxes);
+		
+		panelShowModalMessageDialogBoxes.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
+
 		// "Ok/Cancel" panel
 		buttonOk = Util.getButton3d2("Ok", KeyEvent.VK_O);
 		buttonOk.addActionListener(this);
@@ -197,6 +211,7 @@ public class OptionsDialog extends GameDialog {
 		panel.add(panelWhenWaitingForMe);
 		panel.add(panelLogFiles);
 		panel.add(panelRadioButtonsWhereToStartInReviewMode);
+		panel.add(panelShowModalMessageDialogBoxes);
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelOkCancel);
 		
@@ -281,6 +296,10 @@ public class OptionsDialog extends GameDialog {
 				Main.getUserPreferences().setWhereToStartInReviewMode(whereToStartInReviewMode);
 			} catch (NumberFormatException nfe) {
 			}
+
+			// "Show modal message dialog boxes" panel
+			boolean showModalMessageDialogBoxes = checkboxShowModalMessageDialogBoxes.isSelected();
+			Main.getUserPreferences().setShowModalMessageDialogBoxes(showModalMessageDialogBoxes);
 
 			hideOptionsDialog();
 		} else if (object == buttonCancel) {
