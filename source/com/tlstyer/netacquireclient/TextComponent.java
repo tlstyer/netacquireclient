@@ -30,7 +30,11 @@ class TextComponent extends JComponent {
     }
     
     public void setText(String text_) {
-    	text = text_;
+    	if (text_.length() > 0) {
+    		text = text_;
+    	} else {
+    		text = " ";
+    	}
     }
     
     public void setBackgroundColor(Color colorBackground_) {
