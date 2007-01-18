@@ -421,13 +421,13 @@ public class Review {
 		
 		ModalMessageToDisplay modalMessageToDisplay = ModalMessageProcessor.getModalMessageToDisplay(message);
 		if (modalMessageToDisplay != null) {
-			if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessage.LOBBY) {
+			if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessageProcessor.LOBBY) {
 				reviewMessages.add(new ReviewLobbyMessage(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_ERROR));
-			} else if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessage.GAMEROOM) {
+			} else if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessageProcessor.GAMEROOM) {
 				reviewMessages.add(new ReviewGameRoomMessage(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_ERROR));
 			}
 			
-			if (modalMessageToDisplay.getMessageHeader().equals(ModalMessageProcessor.gameEndedMessageHeader)) {
+			if (modalMessageToDisplay.getMessageHeader().equals("Game ended")) {
 				reviewMessages.add(new ReviewBreakPoint(ReviewBreakPoint.TURN_ENDED_THE_GAME));
 			}
 		}

@@ -483,9 +483,9 @@ public class NetworkConnection {
 
 		ModalMessageToDisplay modalMessageToDisplay = ModalMessageProcessor.getModalMessageToDisplay(message);
 		if (modalMessageToDisplay != null) {
-			if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessage.LOBBY) {
+			if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessageProcessor.LOBBY) {
 				Main.getMainFrame().getLobby().append(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_ERROR);
-			} else if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessage.GAMEROOM) {
+			} else if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessageProcessor.GAMEROOM) {
 				Main.getMainFrame().getGameRoom().append(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_ERROR);
 			}			
 		} else {
