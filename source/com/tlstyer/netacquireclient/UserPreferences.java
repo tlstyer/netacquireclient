@@ -43,7 +43,7 @@ public class UserPreferences {
 	public void load() {
 		String[] nicknamesArray = preferences.get(KEY_nicknames, "").split(stringArraySeparator, -1);
 		nicknames = new ArrayList<String>();
-		if (nicknamesArray.length == 1 && nicknamesArray[0].equals("")) {
+		if (nicknamesArray.length == 1 && nicknamesArray[0].length() == 0) {
 			String nickname;
 			try {
 				nickname = InetAddress.getLocalHost().getHostName();
@@ -60,7 +60,7 @@ public class UserPreferences {
 		
 		String[] addressesAndPortsArray = preferences.get(KEY_addressesAndPorts, "").split(stringArraySeparator, -1);
 		addressesAndPorts = new ArrayList<String>();
-		if (addressesAndPortsArray.length == 1 && addressesAndPortsArray[0].equals("")) {
+		if (addressesAndPortsArray.length == 1 && addressesAndPortsArray[0].length() == 0) {
 			addressesAndPorts.add("acquire.game-host.org:1001");
 			addressesAndPorts.add("acquire.sbg.org:1001");
 			addressesAndPorts.add("acquire.sbg.org:1002");

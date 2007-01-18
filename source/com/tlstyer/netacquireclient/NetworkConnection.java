@@ -345,7 +345,7 @@ public class NetworkConnection {
 			if (((String)((Object[])command[1])[3]).equals("Caption")) {
 				int index = (Integer)((Object[])command[1])[2];
 				Object what = ((Object[])command[1])[4];
-				if (index > 7 && (what.toString().equals("") || what.toString().equals("-  "))) {
+				if (index > 7 && (what.toString().length() == 0 || what.toString().equals("-  "))) {
 					what = 0;
 				}
 				if (index >= 82 && index <= 88) {

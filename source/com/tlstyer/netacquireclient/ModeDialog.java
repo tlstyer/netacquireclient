@@ -160,17 +160,17 @@ public class ModeDialog extends GameDialog {
 		String ipurl = ipurlAndPort[0].trim();
 		String port = ipurlAndPort[1].trim();
 
-		if (nickname.equals("")) {
+		if (nickname.length() == 0) {
 			ShowErrorMessage("Bad Nickname", "Nickname must have at least one visible charater in it");
 			return;
 		}
 
-		if (ipurl.equals("")) {
+		if (ipurl.length() == 0) {
 			ShowErrorMessage("Bad IP/URL", "The IP/URL must have at least one visible charater in it");
 			return;
 		}
 
-		if (port.equals("")) {
+		if (port.length() == 0) {
 			ShowErrorMessage("Bad Port", "Port must have at least one visible charater in it");
 			return;
 		}
