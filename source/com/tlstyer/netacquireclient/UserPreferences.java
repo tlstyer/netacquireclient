@@ -20,6 +20,10 @@ public class UserPreferences {
 	// defaults
 	private static final Integer maxPlayerCountDefault = 4;
 	private static final Integer userListSortingMethodDefault = UserListPresenter.SORT_NONE;
+	private static final Boolean playSoundWhenWaitingForMeDefault = false;
+	private static final String pathToSoundDefault = "";
+	private static final Boolean writeToLogFilesDefault = false;
+	private static final String pathToLogFilesDefault = "";
 	private static final Integer whereToStartInReviewModeDefault = Review.START_AT_BEGINNING_OF_GAME;
 	private static final Boolean showModalMessageDialogBoxesDefault = false;
 
@@ -85,13 +89,13 @@ public class UserPreferences {
 			userListSortingMethod = userListSortingMethodDefault;
 		}
 
-		playSoundWhenWaitingForMe = preferences.getBoolean(KEY_playSoundWhenWaitingForMe, false);
+		playSoundWhenWaitingForMe = preferences.getBoolean(KEY_playSoundWhenWaitingForMe, playSoundWhenWaitingForMeDefault);
 		
-		pathToSound = preferences.get(KEY_pathToSound, "");
+		pathToSound = preferences.get(KEY_pathToSound, pathToSoundDefault);
 		
-		writeToLogFiles = preferences.getBoolean(KEY_writeToLogFiles, false);
+		writeToLogFiles = preferences.getBoolean(KEY_writeToLogFiles, writeToLogFilesDefault);
 		
-		pathToLogFiles = preferences.get(KEY_pathToLogFiles, "");
+		pathToLogFiles = preferences.get(KEY_pathToLogFiles, pathToLogFilesDefault);
 		
 		whereToStartInReviewMode = preferences.getInt(KEY_whereToStartInReviewMode, whereToStartInReviewModeDefault);
 		if (whereToStartInReviewMode < 0 || whereToStartInReviewMode > Review.START_END) {
