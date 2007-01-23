@@ -12,7 +12,6 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     private int usedRows = 6;
 	private int rowHeight = 0;
 
-    private static final String hotelTypeCharacters = "LTAFWCI";
     private static final int[] columnWidths = {5, 1, 1, 1, 1, 1, 1, 1, 3, 3};
     private static final int[] columnStartX = {0, 5, 6, 7, 8, 9, 10, 11, 12, 15};
 	private static final int[] textAlignments = {
@@ -41,7 +40,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
         // header (row 0)
         addTC(x++, y, Hoteltype.PLAYER, "Player");
         for (int hotelType=1; hotelType<=7; ++hotelType) {
-            addTC(x++, y, hotelType, "" + hotelTypeCharacters.charAt(hotelType - 1));
+            addTC(x++, y, hotelType, Util.hoteltypeToInitial(hotelType));
         }
         addTC(x++, y, Hoteltype.CASH_TITLE, "Cash");
         addTC(x++, y, Hoteltype.CASH_TITLE, "Net");

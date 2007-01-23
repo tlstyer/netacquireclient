@@ -354,6 +354,22 @@ public class Util {
 		return arrayHoteltypeToName[hoteltype];
 	}
 
+    // hoteltype to initial
+	private static final String[] arrayHoteltypeToInitial = {
+		null, // BOARDTYPE_NONE
+		"L",  // BOARDTYPE_LUXOR
+		"T",  // BOARDTYPE_TOWER
+		"A",  // BOARDTYPE_AMERICAN
+		"F",  // BOARDTYPE_FESTIVAL
+		"W",  // BOARDTYPE_WORLDWIDE
+		"C",  // BOARDTYPE_CONTINENTAL
+		"I",  // BOARDTYPE_IMPERIAL
+	};
+	
+	public static String hoteltypeToInitial(int hoteltype) {
+		return arrayHoteltypeToInitial[hoteltype];
+	}
+
     // hoteltype to mnemonic
 	private static final int[] arrayHoteltypeToMnemonic = {
 		-1,            // BOARDTYPE_NONE
