@@ -167,6 +167,19 @@ public class PurchaseDialog extends GameDialog {
 		setLocation(POSITION_BELOW_SCORE_SHEET);
 		setVisible(true);
 	}
+    
+    private int[] getSelectedChainCounts() {
+        int[] chainCounts = new int[7];
+		for (int index=0; index<7; ++index) {
+            chainCounts[index] = 0;
+        }
+		for (int index=0; index<3; ++index) {
+            if (selectedForPurchase[index] != -1) {
+            	++chainCounts[selectedForPurchase[index]];
+            }
+		}
+		return chainCounts;
+	}
 	
 	private void updateComponents() {
         // calculate moneySpent and moneyLeft
@@ -267,17 +280,4 @@ public class PurchaseDialog extends GameDialog {
     	
     	updateComponents();
     }
-    
-    private int[] getSelectedChainCounts() {
-        int[] chainCounts = new int[7];
-		for (int index=0; index<7; ++index) {
-            chainCounts[index] = 0;
-        }
-		for (int index=0; index<3; ++index) {
-            if (selectedForPurchase[index] != -1) {
-            	++chainCounts[selectedForPurchase[index]];
-            }
-		}
-		return chainCounts;
-	}
 }
