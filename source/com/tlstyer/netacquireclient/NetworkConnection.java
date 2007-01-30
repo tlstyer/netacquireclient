@@ -24,9 +24,9 @@ class ConnectThread extends Thread {
 		try {
 			socketChannel = SocketChannel.open(inetSocketAddress);
 			connectionStatus = NetworkConnection.CONNECTION_STATUS_CONNECTED;
-		} catch (ClosedByInterruptException cbie) {
+		} catch (ClosedByInterruptException closedByInterruptException) {
 			connectionStatus = NetworkConnection.CONNECTION_STATUS_CLOSED_BY_INTERRUPT;
-		} catch (Exception e) {
+		} catch (Exception exception) {
 			connectionStatus = NetworkConnection.CONNECTION_STATUS_COULD_NOT_CONNECT;
 		}
 	}
@@ -84,7 +84,7 @@ public class NetworkConnection {
 		connectThread.start();
 		try {
 			connectThread.join();
-		} catch (InterruptedException e1) {
+		} catch (InterruptedException interruptedException) {
 		}
 		
 		socketChannel = connectThread.getSocketChannel();
@@ -98,7 +98,7 @@ public class NetworkConnection {
 				socketChannel.configureBlocking(false);
 				selector = SelectorProvider.provider().openSelector();
 				socketChannel.register(selector, SelectionKey.OP_READ);
-			} catch (Exception e) {
+			} catch (Exception exception) {
 			}
 		} else {
 			setConnected(false);
@@ -120,7 +120,7 @@ public class NetworkConnection {
 				exitedNicely = true;
 				try {
 					socketChannel.close();
-			    } catch (IOException e) {
+			    } catch (IOException iOException) {
 			    }
 				connected = false;
 			}
@@ -193,12 +193,12 @@ public class NetworkConnection {
             	    }            		
             	}
             }
-        } catch (ClosedChannelException cce) {
-        } catch (IOException e) {
-        	e.printStackTrace();
+        } catch (ClosedChannelException closedChannelException) {
+        } catch (IOException iOException) {
+        	iOException.printStackTrace();
         	disconnect();
         	return EXIT_IO_EXCEPTION;
-        } catch (Exception e) {
+        } catch (Exception exception) {
         }
         
         if (exitedNicely) {
@@ -289,8 +289,8 @@ public class NetworkConnection {
 					    case COMMAND_SV: handleSV(command); break;
 					    default: commandProcessingResult = COMMAND_NOT_PROCESSED; break;
 					}
-				} catch (RuntimeException e) {
-					e.printStackTrace();
+				} catch (RuntimeException runtimeException) {
+					runtimeException.printStackTrace();
 					commandProcessingResult = COMMAND_ERROR_WHILE_PROCESSING;
 				}
             } else {
@@ -326,7 +326,7 @@ public class NetworkConnection {
 				try {
 					socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
 					isWritable = true;
-				} catch (ClosedChannelException cce) {
+				} catch (ClosedChannelException closedChannelException) {
 				}
 			}
 		}

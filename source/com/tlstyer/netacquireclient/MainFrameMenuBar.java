@@ -39,7 +39,7 @@ class MainFrameMenuItem extends JMenuItem implements ActionListener {
         addActionListener(this);
     }
     
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent actionEvent) {
     	doAction();
     }
     
@@ -179,7 +179,7 @@ class MenuItemEnterGame extends MainFrameMenuItem {
         Integer value = 0;
         try {
 			value = Integer.decode(input);
-		} catch (NumberFormatException e) {
+		} catch (NumberFormatException numberFormatException) {
 			value = 0;
 		}
 		

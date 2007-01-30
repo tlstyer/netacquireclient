@@ -54,7 +54,7 @@ public class UserPreferences {
 			String nickname;
 			try {
 				nickname = InetAddress.getLocalHost().getHostName();
-			} catch (UnknownHostException e) {
+			} catch (UnknownHostException unknownHostException) {
 				Random random = new Random();
 				nickname = "" + random.nextInt();
 			}

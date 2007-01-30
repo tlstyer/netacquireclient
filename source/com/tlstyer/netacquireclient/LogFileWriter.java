@@ -45,7 +45,7 @@ public class LogFileWriter {
 				File file = new File(Main.getUserPreferences().getPathToLogFiles(), Util.getTimeString() + ".log");
 				try {
 					fileOutputStream = new FileOutputStream(file);
-				} catch (FileNotFoundException e) {
+				} catch (FileNotFoundException fileNotFoundException) {
 				}
 				numMessagesWritten = 0;
 			}
@@ -53,7 +53,7 @@ public class LogFileWriter {
 				for (int index=numMessagesWritten; index<messages.size(); ++index) {
 					try {
 						fileOutputStream.write(charset.encode(messages.get(index)).array());
-					} catch (IOException e) {
+					} catch (IOException iOException) {
 					}
 				}
 				numMessagesWritten = messages.size();
@@ -65,7 +65,7 @@ public class LogFileWriter {
 		if (fileOutputStream != null) {
 			try {
 				fileOutputStream.close();
-			} catch (IOException e) {
+			} catch (IOException iOException) {
 			}
 			fileOutputStream = null;
 		}

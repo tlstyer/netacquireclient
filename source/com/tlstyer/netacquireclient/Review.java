@@ -147,8 +147,8 @@ class LogFileTransferHandler extends TransferHandler {
 			if (fileList.size() > 0) {
 				Main.getReview().loadLogFile(((File)fileList.get(0)).getAbsolutePath());
 			}
-		} catch (UnsupportedFlavorException e) {
-		} catch (IOException e) {
+		} catch (UnsupportedFlavorException unsupportedFlavorException) {
+		} catch (IOException iOException) {
 		}
 		
 		return true;
@@ -264,18 +264,18 @@ public class Review {
 							case COMMAND_PT: handlePT(command); break;
 							default: break;
 						}
-					} catch (Exception e) {
-						e.printStackTrace();
+					} catch (Exception exception) {
+						exception.printStackTrace();
 					}
 				}
 			}
-		} catch(IOException e) {
+		} catch(IOException iOException) {
 		} finally {
 			if (bufferedReader != null) {
 				try {
 					bufferedReader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+				} catch (IOException iOException) {
+					iOException.printStackTrace();
 				}
 			}
 		}

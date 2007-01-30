@@ -13,7 +13,7 @@ public class PostMessageTextField extends JTextField implements ActionListener {
 		addActionListener(this);
 	}
 	
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent actionEvent) {
     	String message = getText().replace("\"", "\"\"");
     	setText("");
    		Main.getNetworkConnection().writeMessage("BM;" + type + ",\"" + message + "\"");

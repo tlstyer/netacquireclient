@@ -31,7 +31,7 @@ public class ShareDispositionDialog extends GameDialog implements ChangeListener
     private JButton buttonRemaining;
 
     // OK button
-    private JButton buttonOk;
+    private JButton buttonOK;
 
     public ShareDispositionDialog(String nameOfTakenOverChain,
                                   int numSharesOfTakenOverHotelIHave_,
@@ -157,9 +157,9 @@ public class ShareDispositionDialog extends GameDialog implements ChangeListener
 		spinnerSell.setPreferredSize(dimensionSpinnerSell);
 
         // OK button
-		buttonOk = Util.getButton3d2("Ok", KeyEvent.VK_O);
-		buttonOk.setAlignmentX(Component.CENTER_ALIGNMENT);
-		buttonOk.addActionListener(this);
+		buttonOK = Util.getButton3d2("OK", KeyEvent.VK_O);
+		buttonOK.setAlignmentX(Component.CENTER_ALIGNMENT);
+		buttonOK.addActionListener(this);
 
 		// put them all together
 		JPanel panelPanels = new JPanel(new GridLayout(0, 1));
@@ -170,7 +170,7 @@ public class ShareDispositionDialog extends GameDialog implements ChangeListener
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(panelPanels);
         panel.add(Box.createRigidArea(new Dimension(0, 5)));
-		panel.add(buttonOk);
+		panel.add(buttonOK);
 
 		updateComponents();
 
@@ -194,8 +194,8 @@ public class ShareDispositionDialog extends GameDialog implements ChangeListener
 		spinnerNumberModelSell.setMaximum(maxSell);
     }
 
-    public void DoAction(ActionEvent e) {
-        Object object = e.getSource();
+    public void DoAction(ActionEvent actionEvent) {
+        Object object = actionEvent.getSource();
         if (object == buttonAll) {
             numTrade = 0;
             numSell = 0;
@@ -203,7 +203,7 @@ public class ShareDispositionDialog extends GameDialog implements ChangeListener
             numTrade = maxTrade;
         } else if (object == buttonRemaining) {
             numSell = maxSell;
-        } else if (object == buttonOk) {
+        } else if (object == buttonOK) {
     		Main.getNetworkConnection().writeMessage("MD;" + numSell + "," + numTrade);
     		hideGameDialog();
 			return;
@@ -212,8 +212,8 @@ public class ShareDispositionDialog extends GameDialog implements ChangeListener
         updateComponents();
     }
 
-	public void stateChanged(ChangeEvent e) {
-        Object object = e.getSource();
+	public void stateChanged(ChangeEvent changeEvent) {
+        Object object = changeEvent.getSource();
         if (object == spinnerTrade) {
         	numTrade = spinnerNumberModelTrade.getNumber().intValue() / 2 * 2;
         } else if (object == spinnerSell) {

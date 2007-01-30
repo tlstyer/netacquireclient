@@ -53,8 +53,8 @@ public class Main {
         	while (mainFrame == null) {
         		try {
         			Main.getMain().wait();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				} catch (InterruptedException interruptedException) {
+					interruptedException.printStackTrace();
 				}
         	}
     	}
@@ -69,8 +69,8 @@ public class Main {
             	while (selectedMode == SELECTED_MODE_NOTHING_YET) {
             		try {
     					wait();
-    				} catch (InterruptedException e) {
-    					e.printStackTrace();
+    				} catch (InterruptedException interruptedException) {
+    					interruptedException.printStackTrace();
     				}
             	}
         	}
@@ -124,8 +124,8 @@ public class Main {
         	while (!leaveReviewModeFlag) {
         		try {
 					wait();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				} catch (InterruptedException interruptedException) {
+					interruptedException.printStackTrace();
 				}
         	}
     	}

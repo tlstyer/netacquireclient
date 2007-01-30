@@ -50,8 +50,8 @@ public class TileRackButtons extends JPanel implements ActionListener, Component
 		}
 	}
 	
-    public void actionPerformed(ActionEvent e) {
-    	int buttonIndex = Integer.decode(e.getActionCommand());
+    public void actionPerformed(ActionEvent actionEvent) {
+    	int buttonIndex = Integer.decode(actionEvent.getActionCommand());
 		synchronized (canPlayTile) {
             boolean canPlayTileNow = canPlayTile;
             canPlayTileNow &= (hoteltypes[buttonIndex] != Hoteltype.CANT_PLAY_EVER);
@@ -76,16 +76,16 @@ public class TileRackButtons extends JPanel implements ActionListener, Component
 		}
     }
     
-    public void componentHidden(ComponentEvent e) {
+    public void componentHidden(ComponentEvent componentEvent) {
     }
     
-    public void componentMoved(ComponentEvent e) {
+    public void componentMoved(ComponentEvent componentEvent) {
     }
     
-    public void componentResized(ComponentEvent e) {
+    public void componentResized(ComponentEvent componentEvent) {
     	updateFonts();
     }
     
-    public void componentShown(ComponentEvent e) {
+    public void componentShown(ComponentEvent componentEvent) {
     }
 }

@@ -27,8 +27,8 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
         //Set the look and feel.
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
         
         //Make sure we have nice window decorations.
@@ -210,39 +210,39 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		System.exit(0);
 	}
     
-    public void componentHidden(ComponentEvent e) {
+    public void componentHidden(ComponentEvent componentEvent) {
     }
     
-    public void componentMoved(ComponentEvent e) {
+    public void componentMoved(ComponentEvent componentEvent) {
     }
     
-    public void componentResized(ComponentEvent e) {
+    public void componentResized(ComponentEvent componentEvent) {
 		setComponentsBounds();
 	}
 
-    public void componentShown(ComponentEvent e) {
+    public void componentShown(ComponentEvent componentEvent) {
     }
 
-	public void windowActivated(WindowEvent arg0) {
+	public void windowActivated(WindowEvent windowEvent) {
 	}
 
-	public void windowClosed(WindowEvent e) {
+	public void windowClosed(WindowEvent windowEvent) {
 	}
 
-	public void windowClosing(WindowEvent e) {
+	public void windowClosing(WindowEvent windowEvent) {
 		closeWindow();
 	}
 
-	public void windowDeactivated(WindowEvent e) {
+	public void windowDeactivated(WindowEvent windowEvent) {
 	}
 
-	public void windowDeiconified(WindowEvent e) {
+	public void windowDeiconified(WindowEvent windowEvent) {
 	}
 
-	public void windowIconified(WindowEvent e) {
+	public void windowIconified(WindowEvent windowEvent) {
 	}
 
-	public void windowOpened(WindowEvent e) {
+	public void windowOpened(WindowEvent windowEvent) {
 	}
 
 	public static Color getTileRackBackgroundColor() {

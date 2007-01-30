@@ -23,7 +23,7 @@ public class PurchaseDialog extends GameDialog {
 
     private JCheckBox checkboxEndTheGame;
 
-    private JButton buttonOk;
+    private JButton buttonOK;
     
     private Color colorButtonBackground;
     
@@ -126,10 +126,10 @@ public class PurchaseDialog extends GameDialog {
 		checkboxEndTheGame.setAlignmentX(Component.LEFT_ALIGNMENT);
 		checkboxEndTheGame.addActionListener(this);
 		
-		buttonOk = Util.getButton3d2("Ok", KeyEvent.VK_O);
-		buttonOk.setActionCommand("11");
-		buttonOk.setAlignmentX(Component.CENTER_ALIGNMENT);
-		buttonOk.addActionListener(this);
+		buttonOK = Util.getButton3d2("OK", KeyEvent.VK_O);
+		buttonOK.setActionCommand("11");
+		buttonOK.setAlignmentX(Component.CENTER_ALIGNMENT);
+		buttonOK.addActionListener(this);
 		
 		// put them all together
 		JPanel panelRightTop = new JPanel(new GridLayout(0, 1));
@@ -142,7 +142,7 @@ public class PurchaseDialog extends GameDialog {
         panelRightSide.add(Box.createRigidArea(new Dimension(0, 5)));
 		panelRightSide.add(checkboxEndTheGame);
         panelRightSide.add(Box.createRigidArea(new Dimension(0, 5)));
-		panelRightSide.add(buttonOk);
+		panelRightSide.add(buttonOK);
 
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		panel.add(panelAvailable);
@@ -226,14 +226,14 @@ public class PurchaseDialog extends GameDialog {
 		}
 
 		if (!anAvailableButtonIsEnabled || purchaseSlotsAreFilled) {
-			buttonOk.requestFocusInWindow();
+			buttonOK.requestFocusInWindow();
 		} else {
 			buttonsAvailable[buttonIndexWithFocus].requestFocusInWindow();
 		}
 	}
 
-    public void DoAction(ActionEvent e) {
-    	int buttonIndexPressed = Integer.decode(e.getActionCommand());
+    public void DoAction(ActionEvent actionEvent) {
+    	int buttonIndexPressed = Integer.decode(actionEvent.getActionCommand());
     	if (buttonIndexPressed >= 0 && buttonIndexPressed <= 6) {
     		for (int index=0; index<3; ++index) {
                 if (selectedForPurchase[index] == -1) {

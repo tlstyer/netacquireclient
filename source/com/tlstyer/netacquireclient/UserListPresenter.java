@@ -77,7 +77,7 @@ public class UserListPresenter {
 				if (matcher.groupCount() >= 3) {
 					try {
 						gameNumber = Integer.decode(matcher.group(3));
-					} catch (Exception e) {
+					} catch (Exception exception) {
 						gameNumber = Integer.MAX_VALUE;
 					}
 				} else {

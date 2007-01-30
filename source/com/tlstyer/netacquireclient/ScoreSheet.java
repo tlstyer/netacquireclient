@@ -38,24 +38,24 @@ public class ScoreSheet extends JPanel implements ComponentListener {
         int x = 0;
         
         // header (row 0)
-        addTC(x++, y, Hoteltype.PLAYER, "Player");
-        for (int hotelType=1; hotelType<=7; ++hotelType) {
-            addTC(x++, y, hotelType, Util.hoteltypeToInitial(hotelType));
+        addTextComponent(x++, y, Hoteltype.PLAYER, "Player");
+        for (int hoteltype=1; hoteltype<=7; ++hoteltype) {
+            addTextComponent(x++, y, hoteltype, Util.hoteltypeToInitial(hoteltype));
         }
-        addTC(x++, y, Hoteltype.CASH_TITLE, "Cash");
-        addTC(x++, y, Hoteltype.CASH_TITLE, "Net");
+        addTextComponent(x++, y, Hoteltype.CASH_TITLE, "Cash");
+        addTextComponent(x++, y, Hoteltype.CASH_TITLE, "Net");
 
         ++y;
         x = 0;
         
         // player data (rows 1-6)
         for (int row=1; row<=6; ++row) {
-            addTC(x++, y, Hoteltype.NOT_MY_TURN, " ");
-            for (int hotelType=1; hotelType<=7; ++hotelType) {
-                addTC(x++, y, Hoteltype.HOLDINGS, " ");
+            addTextComponent(x++, y, Hoteltype.NOT_MY_TURN, " ");
+            for (int hoteltype=1; hoteltype<=7; ++hoteltype) {
+                addTextComponent(x++, y, Hoteltype.HOLDINGS, " ");
             }
-            addTC(x++, y, Hoteltype.CASH, "0");
-            addTC(x++, y, Hoteltype.CASH, "0");
+            addTextComponent(x++, y, Hoteltype.CASH, "0");
+            addTextComponent(x++, y, Hoteltype.CASH, "0");
             
         	++y;
         	x = 0;
@@ -63,9 +63,9 @@ public class ScoreSheet extends JPanel implements ComponentListener {
         
         // hotel data (rows 7-9)
         for (int row=7; row<=9; ++row) {
-            addTC(x++, y, Hoteltype.HCS_TITLE, " ");
-            for (int hotelType=1; hotelType<=7; ++hotelType) {
-                addTC(x++, y, Hoteltype.HCS, " ");
+            addTextComponent(x++, y, Hoteltype.HCS_TITLE, " ");
+            for (int hoteltype=1; hoteltype<=7; ++hoteltype) {
+                addTextComponent(x++, y, Hoteltype.HCS, " ");
             }
             
         	++y;
@@ -76,9 +76,9 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 		scoreSheet[9][0].setText("Price ($00)");
 	}
 
-    private void addTC(int x, int y, int hotelType, String text) {
+    private void addTextComponent(int x, int y, int hoteltype, String text) {
     	TextComponent textComponent = new TextComponent();
-    	textComponent.setBackgroundColor(Util.hoteltypeToColor(hotelType));
+    	textComponent.setBackgroundColor(Util.hoteltypeToColor(hoteltype));
     	textComponent.setText(text);
     	textComponent.setTextAlign(textAlignments[x]);
 
@@ -93,18 +93,18 @@ public class ScoreSheet extends JPanel implements ComponentListener {
     }
     
     private void makeOnlyUsedRowsVisible(ScoreSheetCaptionData sscd) {
-    	int numPlayers = Util.getNumberOfPlayers(sscd);
-    	if (numPlayers != usedRows) {
-        	if (numPlayers < usedRows) {
-        		for (int y=numPlayers+1; y<=usedRows; ++y) {
+    	int numberOfPlayers = Util.getNumberOfPlayers(sscd);
+    	if (numberOfPlayers != usedRows) {
+        	if (numberOfPlayers < usedRows) {
+        		for (int y=numberOfPlayers+1; y<=usedRows; ++y) {
         			setRowVisible(y, false);
         		}
         	} else {
-        		for (int y=usedRows+1; y<=numPlayers; ++y) {
+        		for (int y=usedRows+1; y<=numberOfPlayers; ++y) {
         			setRowVisible(y, true);
         		}
         	}
-    		usedRows = numPlayers;
+    		usedRows = numberOfPlayers;
     		layoutTextComponents();
     	}
     }
@@ -139,17 +139,17 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 		return rowHeight;
 	}
     
-    public void componentHidden(ComponentEvent e) {
+    public void componentHidden(ComponentEvent componentEvent) {
     }
     
-    public void componentMoved(ComponentEvent e) {
+    public void componentMoved(ComponentEvent componentEvent) {
     }
     
-    public void componentResized(ComponentEvent e) {
+    public void componentResized(ComponentEvent componentEvent) {
     	layoutTextComponents();
     }
     
-    public void componentShown(ComponentEvent e) {
+    public void componentShown(ComponentEvent componentEvent) {
     }
 
     public void sync(ScoreSheetCaptionData sscd, ScoreSheetHoteltypeData sshtd) {

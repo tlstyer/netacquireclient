@@ -50,7 +50,7 @@ public class MessageWindowDocument extends DefaultStyledDocument {
 		
 		try {
 			insertString(getLength(), str + "\n", getStyle(style));
-		} catch (BadLocationException e) {
+		} catch (BadLocationException badLocationException) {
 		}
 	}
 
@@ -58,14 +58,14 @@ public class MessageWindowDocument extends DefaultStyledDocument {
 		int length = str.length() + 1;
 		try {
 			remove(getLength() - length, length);
-		} catch (BadLocationException e) {
+		} catch (BadLocationException badLocationException) {
 		}
 	}
 	
 	public void clear() {
 		try {
 			remove(0, getLength());
-		} catch (BadLocationException e) {
+		} catch (BadLocationException badLocationException) {
 		}
 	}
 }

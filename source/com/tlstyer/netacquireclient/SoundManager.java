@@ -13,8 +13,8 @@ public class SoundManager {
 			clips[index] = null;
 			try {
 				clips[index] = AudioSystem.getClip();
-			} catch (LineUnavailableException e) {
-				e.printStackTrace();
+			} catch (LineUnavailableException lineUnavailableException) {
+				lineUnavailableException.printStackTrace();
 			}
 		}
 		
@@ -33,21 +33,21 @@ public class SoundManager {
 		AudioInputStream audioInputStream = null;
 		try {
 			audioInputStream = AudioSystem.getAudioInputStream(file);
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
+		} catch (UnsupportedAudioFileException unsupportedAudioFileException) {
+			unsupportedAudioFileException.printStackTrace();
 			return false;
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException iOException) {
+			iOException.printStackTrace();
 			return false;
 		}
 
 		try {
 			clips[currentClipIndex].open(audioInputStream);
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
+		} catch (LineUnavailableException lineUnavailableException) {
+			lineUnavailableException.printStackTrace();
 			return false;
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException iOException) {
+			iOException.printStackTrace();
 			return false;
 		}
 		

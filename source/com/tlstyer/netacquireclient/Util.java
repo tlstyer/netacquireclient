@@ -47,7 +47,7 @@ public class Util {
 				} else {
 					throw new Exception(); 
 				}
-			} catch (Exception e) {
+			} catch (Exception exception) {
 				splitObjectArray[index] = splitString;
 			}
 		}
@@ -127,9 +127,9 @@ public class Util {
 		}
 	}
 	
-	private static int[] getPlayerDataAsIntegers(ScoreSheetCaptionData sscd, int numPlayers, int column) {
-		int[] playerData = new int[numPlayers];
-		for (int player=1; player<=numPlayers; ++player) {
+	private static int[] getPlayerDataAsIntegers(ScoreSheetCaptionData sscd, int numberOfPlayers, int column) {
+		int[] playerData = new int[numberOfPlayers];
+		for (int player=1; player<=numberOfPlayers; ++player) {
 			playerData[player - 1] = getAsInteger(sscd.getCaption(column, player));
 		}
 		return playerData;
@@ -225,15 +225,15 @@ public class Util {
     }
     
 	public static void updateNetWorths(ScoreSheetCaptionData sscd, GameBoardData gbd) {
-		int numPlayers = getNumberOfPlayers(sscd);
-		if (numPlayers < 1) {
+		int numberOfPlayers = getNumberOfPlayers(sscd);
+		if (numberOfPlayers < 1) {
 			return;
 		}
 		boolean[] existingHotels = getExistingHotelsOnGameBoard(gbd);
-		int[] money = getPlayerDataAsIntegers(sscd, numPlayers, 8);
+		int[] money = getPlayerDataAsIntegers(sscd, numberOfPlayers, 8);
 		int[] moreMoney;
 		for (int chain=1; chain<=7; ++chain) {
-			int[] holdings = getPlayerDataAsIntegers(sscd, (numPlayers > 1 ? numPlayers : 2), chain);
+			int[] holdings = getPlayerDataAsIntegers(sscd, (numberOfPlayers > 1 ? numberOfPlayers : 2), chain);
 			int price = getAsInteger(sscd.getCaption(chain, 9));
 			
 			if (existingHotels[chain - 1]) {

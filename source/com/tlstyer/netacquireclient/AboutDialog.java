@@ -14,7 +14,7 @@ public class AboutDialog extends GameDialog {
 		"http://www.tlstyer.com/NetAcquireClient/",
 	};
 	
-	private JButton buttonOk;
+	private JButton buttonOK;
 	
 	private static Boolean aboutDialogShowing = false;
 	
@@ -31,14 +31,14 @@ public class AboutDialog extends GameDialog {
 			panel.add(label);
 		}
 		
-		buttonOk = Util.getButton3d2("Ok", KeyEvent.VK_O);
-		buttonOk.setAlignmentX(Component.CENTER_ALIGNMENT);
-		buttonOk.addActionListener(this);
+		buttonOK = Util.getButton3d2("OK", KeyEvent.VK_O);
+		buttonOK.setAlignmentX(Component.CENTER_ALIGNMENT);
+		buttonOK.addActionListener(this);
 		
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
-		panel.add(buttonOk);
+		panel.add(buttonOK);
 		
-		getRootPane().setDefaultButton(buttonOk);
+		getRootPane().setDefaultButton(buttonOK);
 		
 		showGameDialog(POSITION_CENTER_IN_MAIN_FRAME_PANEL);
 	}
@@ -59,9 +59,9 @@ public class AboutDialog extends GameDialog {
 		}
 	}
 	
-	public void DoAction(ActionEvent e) {
-		Object object = e.getSource();
-		if (object == buttonOk) {
+	public void DoAction(ActionEvent actionEvent) {
+		Object object = actionEvent.getSource();
+		if (object == buttonOK) {
 			hideAboutDialog();
 		}
 	}

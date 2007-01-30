@@ -184,7 +184,7 @@ public class ModeDialog extends GameDialog {
         Integer portInt = 0;
         try {
 			portInt = Integer.decode(port);
-		} catch (NumberFormatException nfe) {
+		} catch (NumberFormatException numberFormatException) {
 			portInt = 0;
 		}
 		if (portInt < 1 || portInt > 65535) {
@@ -212,8 +212,8 @@ public class ModeDialog extends GameDialog {
 		hideGameDialog();
 	}
 
-	public void DoAction(ActionEvent e) {
-		Object object = e.getSource();
+	public void DoAction(ActionEvent actionEvent) {
+		Object object = actionEvent.getSource();
 		if (object == buttonDeleteNickname) {
 			processButtonDelete(Main.getUserPreferences().getNicknames(), cbNickname);
 		} else if (object == buttonDeleteIPURLPort) {

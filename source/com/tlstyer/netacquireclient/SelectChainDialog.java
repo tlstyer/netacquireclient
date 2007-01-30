@@ -9,7 +9,7 @@ public class SelectChainDialog extends GameDialog {
 	
 	private ButtonGroup radioButtonGroup;
 	private JRadioButton[] radioButtons;
-	private JButton buttonOk;
+	private JButton buttonOK;
 	private int type;
 	
 	public SelectChainDialog(int type_, boolean[] hotelOptions) {
@@ -69,22 +69,22 @@ public class SelectChainDialog extends GameDialog {
 		}
 		
 		// "OK" button
-		buttonOk = Util.getButton3d2("Ok", KeyEvent.VK_O);
-		buttonOk.addActionListener(this);
+		buttonOK = Util.getButton3d2("OK", KeyEvent.VK_O);
+		buttonOK.addActionListener(this);
 
 		// put them all together
 		panelRadioButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
-		buttonOk.setAlignmentX(Component.CENTER_ALIGNMENT);
+		buttonOK.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(panelRadioButtons);
-		panel.add(buttonOk);
+		panel.add(buttonOK);
 
-		getRootPane().setDefaultButton(buttonOk);
+		getRootPane().setDefaultButton(buttonOK);
 		
 		showGameDialog(POSITION_BELOW_SCORE_SHEET);
 	}
 	
-    public void DoAction(ActionEvent e) {
+    public void DoAction(ActionEvent actionEvent) {
 		for (int index=0; index<7; ++index) {
 			if (radioButtons[index].isSelected()) {
 				int colorvalue = Util.hoteltypeToColorvalueNetwork(index + 1);
