@@ -289,8 +289,8 @@ public class NetworkConnection {
 					    case COMMAND_SV: handleSV(command); break;
 					    default: commandProcessingResult = COMMAND_NOT_PROCESSED; break;
 					}
-				} catch (RuntimeException runtimeException) {
-					runtimeException.printStackTrace();
+				} catch (Exception exception) {
+					exception.printStackTrace();
 					commandProcessingResult = COMMAND_ERROR_WHILE_PROCESSING;
 				}
             } else {
