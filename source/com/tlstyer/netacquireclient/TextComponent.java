@@ -9,6 +9,7 @@ class TextComponent extends JComponent {
 	private static final long serialVersionUID = 8310329275352927342L;
 	
 	private String text;
+	private String textForBounds;
     private Color colorBackground;
     private Color colorForeground;
     private int textAlign;
@@ -35,6 +36,22 @@ class TextComponent extends JComponent {
     	} else {
     		text = " ";
     	}
+
+        Integer value;
+        try {
+			value = Integer.decode(text);
+		} catch (NumberFormatException numberFormatException) {
+			value = -1;
+		}
+		if (value >= 0 && value <= 99) {
+			if (value <= 9) {
+				textForBounds = "0";
+			} else {
+				textForBounds = "00";
+			}
+		} else {
+			textForBounds = text;
+		}
     }
     
     public void setBackgroundColor(Color colorBackground_) {
@@ -75,7 +92,7 @@ class TextComponent extends JComponent {
         graphics2D.setFont(textComponentFontData.getFont());
         graphics2D.setColor(colorForeground);
         
-        TextLayout textLayout = new TextLayout(text, textComponentFontData.getFont(), fontRenderContext);
+        TextLayout textLayout = new TextLayout(textForBounds, textComponentFontData.getFont(), fontRenderContext);
         Rectangle2D bounds = textLayout.getBounds();
         int x;
         if (textAlign == ALIGN_LEFT) {
