@@ -68,10 +68,9 @@ public class UserPreferences {
 		String[] addressesAndPortsArray = preferences.get(KEY_addressesAndPorts, "").split(stringArraySeparator, -1);
 		addressesAndPorts = new ArrayList<String>();
 		if (addressesAndPortsArray.length == 1 && addressesAndPortsArray[0].length() == 0) {
-			addressesAndPorts.add("acquire.game-host.org:1001");
 			addressesAndPorts.add("acquire.sbg.org:1001");
 			addressesAndPorts.add("acquire.sbg.org:1002");
-			addressesAndPorts.add("acquire2.sbg.org:1001");
+			addressesAndPorts.add("acquire.dynu.com:1001");
 			addressesAndPorts.add("localhost:1001");
 		} else {
 			for (String addressAndPort : addressesAndPortsArray) {
