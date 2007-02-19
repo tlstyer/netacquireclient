@@ -17,21 +17,12 @@ public class GameBoard extends JPanel {
     	for (int y=0; y<9; ++y) {
     		for (int x=0; x<12; ++x) {
     			board[y][x] = new TextComponent();
-        		add(board[y][x]);
-        	}
-        }
-    	init();
-    }
-    
-    public void init() {
-    	for (int y=0; y<9; ++y) {
-    		for (int x=0; x<12; ++x) {
     			board[y][x].setBackgroundColor(color_def);
     			board[y][x].setText(Util.pointToNumberAndLetter(x, y));
     			board[y][x].setTextAlign(TextComponent.ALIGN_CENTER);
+        		add(board[y][x]);
         	}
         }
-    	gameBoardData.init();
     }
     
     public void sync(GameBoardData gbd) {
