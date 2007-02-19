@@ -232,16 +232,26 @@ public class OptionsDialog extends GameDialog {
 		panelOKCancel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 		// put them all together
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		panel.add(panelMaxPlayerCount);
-		panel.add(panelRadioButtonsUserListSortingMethod);
-		panel.add(panelWhenWaitingForMe);
-		panel.add(panelLogFiles);
-		panel.add(panelRadioButtonsWhereToStartInReviewMode);
-		panel.add(panelShowModalMessageDialogBoxes);
-		panel.add(panelRadioButtonsGameBoardLabelMode);
-		panel.add(Box.createRigidArea(new Dimension(0, 5)));
-		panel.add(panelOKCancel);
+		JPanel panel1 = new JPanel();
+		panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
+
+		JPanel panel2 = new JPanel();
+		panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+
+		panel1.add(panelMaxPlayerCount);
+		panel1.add(panelRadioButtonsUserListSortingMethod);
+		panel1.add(panelWhenWaitingForMe);
+		panel1.add(panelLogFiles);
+
+		panel2.add(panelRadioButtonsWhereToStartInReviewMode);
+		panel2.add(panelShowModalMessageDialogBoxes);
+		panel2.add(panelRadioButtonsGameBoardLabelMode);
+		panel2.add(Box.createRigidArea(new Dimension(0, 5)));
+		panel2.add(panelOKCancel);
+
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.add(panel1);
+		panel.add(panel2);
 		
 		getRootPane().setDefaultButton(buttonOK);
 		
