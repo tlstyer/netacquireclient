@@ -30,6 +30,9 @@ public class OptionsDialog extends GameDialog {
     // "Show modal message dialog boxes" panel
     private JCheckBox checkboxShowModalMessageDialogBoxes;
 
+    // "Game board label mode" panel
+    private ButtonGroup radioButtonGroupGameBoardLabelMode;
+
 	// "OK/Cancel" panel
 	private JButton buttonOK;
 	private JButton buttonCancel;
@@ -184,6 +187,30 @@ public class OptionsDialog extends GameDialog {
 		
 		panelShowModalMessageDialogBoxes.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
+		// "Game board label mode" panel
+		JPanel panelRadioButtonsGameBoardLabelMode = new JPanel();
+		panelRadioButtonsGameBoardLabelMode.setBorder(BorderFactory.createTitledBorder("Game board label mode"));
+		panelRadioButtonsGameBoardLabelMode.setLayout(new BoxLayout(panelRadioButtonsGameBoardLabelMode, BoxLayout.Y_AXIS));
+		radioButtonGroupGameBoardLabelMode = new ButtonGroup();
+		
+		JRadioButton[] radioButtonsGBLM = new JRadioButton[3];
+		JRadioButton radioButtonGBLM;
+		for (int index=0; index<3; ++index) {
+			radioButtonGBLM = new JRadioButton();
+			radioButtonGBLM.setActionCommand("" + index);
+			radioButtonsGBLM[index] = radioButtonGBLM;
+			radioButtonGroupGameBoardLabelMode.add(radioButtonGBLM);
+			panelRadioButtonsGameBoardLabelMode.add(radioButtonGBLM);
+		}
+
+		radioButtonsGBLM[0].setText("Show coordinates");
+		radioButtonsGBLM[1].setText("Show hotel initials");
+		radioButtonsGBLM[2].setText("Show nothing");
+
+		radioButtonsGBLM[Main.getUserPreferences().getGameBoardLabelMode()].setSelected(true);
+		
+		panelRadioButtonsGameBoardLabelMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
+
 		// "OK/Cancel" panel
 		buttonOK = Util.getButton3d2("OK", KeyEvent.VK_O);
 		buttonOK.addActionListener(this);
@@ -212,6 +239,7 @@ public class OptionsDialog extends GameDialog {
 		panel.add(panelLogFiles);
 		panel.add(panelRadioButtonsWhereToStartInReviewMode);
 		panel.add(panelShowModalMessageDialogBoxes);
+		panel.add(panelRadioButtonsGameBoardLabelMode);
 		panel.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel.add(panelOKCancel);
 		
@@ -300,6 +328,17 @@ public class OptionsDialog extends GameDialog {
 			// "Show modal message dialog boxes" panel
 			boolean showModalMessageDialogBoxes = checkboxShowModalMessageDialogBoxes.isSelected();
 			Main.getUserPreferences().setShowModalMessageDialogBoxes(showModalMessageDialogBoxes);
+
+			// "Game board label mode" panel
+			try {
+				int gameBoardLabelModeOld = Main.getUserPreferences().getGameBoardLabelMode();
+				int gameBoardLabelModeNew = Integer.decode(radioButtonGroupGameBoardLabelMode.getSelection().getActionCommand());
+				if (gameBoardLabelModeOld != gameBoardLabelModeNew) {
+					Main.getUserPreferences().setGameBoardLabelMode(gameBoardLabelModeNew);
+					Main.getMainFrame().getGameBoard().makeTextCorrect();
+				}
+			} catch (NumberFormatException numberFormatException) {
+			}
 
 			hideOptionsDialog();
 		} else if (object == buttonCancel) {

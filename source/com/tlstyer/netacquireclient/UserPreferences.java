@@ -16,6 +16,7 @@ public class UserPreferences {
 	private String pathToLogFiles = null;
 	private Integer whereToStartInReviewMode = null;
 	private Boolean showModalMessageDialogBoxes = null;
+	private Integer gameBoardLabelMode = null;
 
 	// defaults
 	private static final Integer maxPlayerCountDefault = 4;
@@ -26,6 +27,7 @@ public class UserPreferences {
 	private static final String pathToLogFilesDefault = "";
 	private static final Integer whereToStartInReviewModeDefault = Review.START_AT_BEGINNING_OF_GAME;
 	private static final Boolean showModalMessageDialogBoxesDefault = false;
+	private static final Integer gameBoardLabelModeDefault = GameBoard.LABEL_COORDINATES;
 
 	// preference keys
 	private static final String KEY_nicknames = "nicknames";
@@ -38,6 +40,7 @@ public class UserPreferences {
 	private static final String KEY_pathToLogFiles = "path to log files";
 	private static final String KEY_whereToStartInReviewMode = "where to start in review mode";
 	private static final String KEY_showModalMessageDialogBoxes = "show modal message dialog boxes";
+	private static final String KEY_gameBoardLabelMode = "game board label mode";
 
 	// other
 	private static final Preferences preferences = Preferences.userNodeForPackage(UserPreferences.class);
@@ -102,6 +105,11 @@ public class UserPreferences {
 		}
 
 		showModalMessageDialogBoxes = preferences.getBoolean(KEY_showModalMessageDialogBoxes, showModalMessageDialogBoxesDefault);
+		
+		gameBoardLabelMode = preferences.getInt(KEY_gameBoardLabelMode, gameBoardLabelModeDefault);
+		if (gameBoardLabelMode < 0 || gameBoardLabelMode > GameBoard.LABEL_END) {
+			gameBoardLabelMode = gameBoardLabelModeDefault;
+		}
 	}
 
 	public void save() {
@@ -115,6 +123,7 @@ public class UserPreferences {
 		putString(KEY_pathToLogFiles, pathToLogFiles);
 		preferences.putInt(KEY_whereToStartInReviewMode, whereToStartInReviewMode);
 		preferences.putBoolean(KEY_showModalMessageDialogBoxes, showModalMessageDialogBoxes);
+		preferences.putInt(KEY_gameBoardLabelMode, gameBoardLabelMode);
 	}
 	
 	private void putString(String key, String value) {
@@ -202,5 +211,13 @@ public class UserPreferences {
 
 	public void setShowModalMessageDialogBoxes(Boolean showModalMessageDialogBoxes) {
 		this.showModalMessageDialogBoxes = showModalMessageDialogBoxes;
+	}
+
+	public Integer getGameBoardLabelMode() {
+		return gameBoardLabelMode;
+	}
+
+	public void setGameBoardLabelMode(Integer gameBoardLabelMode) {
+		this.gameBoardLabelMode = gameBoardLabelMode;
 	}
 }

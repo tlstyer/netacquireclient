@@ -26,28 +26,39 @@ public class GameBoard extends JPanel {
     }
     
     public static final int LABEL_COORDINATES = 0;
-    public static final int LABEL_BLANK = 1;
-    public static final int LABEL_HOTELTYPE = 2;
+    public static final int LABEL_HOTEL_INITIALS = 1;
+    public static final int LABEL_NOTHING = 2;
+    public static final int LABEL_END = 2;
     
     private String getTextForTC(int x, int y) {
-    	int defaultType = LABEL_HOTELTYPE;
-    	
     	int hoteltype = gameBoardData.getHoteltype(x, y);
     	
-    	int labelType = LABEL_COORDINATES;
+    	int labelMode = LABEL_COORDINATES;
     	if (Hoteltype.LUXOR <= hoteltype && hoteltype <= Hoteltype.IMPERIAL) {
-    		labelType = defaultType;
+    		labelMode = Main.getUserPreferences().getGameBoardLabelMode();
     	}
     	
-    	switch (labelType) {
+    	switch (labelMode) {
     		case LABEL_COORDINATES:
     			return Util.pointToNumberAndLetter(x, y);
-	    	case LABEL_BLANK:
+	    	case LABEL_NOTHING:
 	    		return " ";
-	    	case LABEL_HOTELTYPE:
+	    	case LABEL_HOTEL_INITIALS:
 	    		return Util.hoteltypeToInitial(hoteltype);
     	}
     	return " ";
+    }
+    
+    public void makeTextCorrect() {
+    	for (int y=0; y<9; ++y) {
+    		for (int x=0; x<12; ++x) {
+    			int hoteltype = gameBoardData.getHoteltype(x, y);
+    			if (Hoteltype.LUXOR <= hoteltype && hoteltype <= Hoteltype.IMPERIAL) {
+    				board[y][x].setText(getTextForTC(x, y));
+    				board[y][x].repaint();
+    			}
+        	}
+        }
     }
     
     public void sync(GameBoardData gbd) {
