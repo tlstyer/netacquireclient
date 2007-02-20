@@ -19,7 +19,7 @@ public class MessageWindowDocument extends DefaultStyledDocument {
         StyleConstants.setForeground(styleSystem, Color.black);
         
         styleUser = defaultStyleContext.addStyle("user", styleSystem);
-        StyleConstants.setForeground(styleUser, Color.magenta);        
+        StyleConstants.setForeground(styleUser, Color.blue);        
         
         styleError = defaultStyleContext.addStyle("error", styleUser);
         StyleConstants.setForeground(styleError, Color.red);
