@@ -364,6 +364,8 @@ public class Util {
 		"W",  // BOARDTYPE_WORLDWIDE
 		"C",  // BOARDTYPE_CONTINENTAL
 		"I",  // BOARDTYPE_IMPERIAL
+		" ",  // BOARDTYPE_NOTHING_YET
+		" ",  // BOARDTYPE_CANT_PLAY_EVER
 	};
 	
 	public static String hoteltypeToInitial(int hoteltype) {

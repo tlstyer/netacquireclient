@@ -34,7 +34,7 @@ public class GameBoard extends JPanel {
     	int hoteltype = gameBoardData.getHoteltype(x, y);
     	
     	int labelMode = LABEL_COORDINATES;
-    	if (Hoteltype.LUXOR <= hoteltype && hoteltype <= Hoteltype.IMPERIAL) {
+    	if (Hoteltype.LUXOR <= hoteltype && hoteltype <= Hoteltype.CANT_PLAY_EVER) {
     		labelMode = Main.getUserPreferences().getGameBoardLabelMode();
     	}
     	
@@ -53,7 +53,7 @@ public class GameBoard extends JPanel {
     	for (int y=0; y<9; ++y) {
     		for (int x=0; x<12; ++x) {
     			int hoteltype = gameBoardData.getHoteltype(x, y);
-    			if (Hoteltype.LUXOR <= hoteltype && hoteltype <= Hoteltype.IMPERIAL) {
+    			if (Hoteltype.LUXOR <= hoteltype && hoteltype <= Hoteltype.CANT_PLAY_EVER) {
     				board[y][x].setText(getTextForTC(x, y));
     				board[y][x].repaint();
     			}
