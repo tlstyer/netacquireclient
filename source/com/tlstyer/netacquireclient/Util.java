@@ -292,31 +292,31 @@ public class Util {
 	}
 
 	private static final int[] arrayHoteltypeToColorvalue = {
-		12648447, // BOARDTYPE_NONE
-		255,      // BOARDTYPE_LUXOR
-		65535,    // BOARDTYPE_TOWER
-		16711680, // BOARDTYPE_AMERICAN
-		65280,    // BOARDTYPE_FESTIVAL
-		16512,    // BOARDTYPE_WORLDWIDE
-		16776960, // BOARDTYPE_CONTINENTAL
-		16711935, // BOARDTYPE_IMPERIAL
-		0,        // BOARDTYPE_NOTHING_YET
-		8421504,  // BOARDTYPE_CANT_PLAY_EVER
-		10543359, // BOARDTYPE_I_HAVE_THIS
-		12632256, // BOARDTYPE_WILL_PUT_LONELY_TILE_DOWN
-		12648384, // BOARDTYPE_HAVE_NEIGHBORING_TILE_TOO
-		16777215, // BOARDTYPE_WILL_FORM_NEW_CHAIN
-		6316128,  // BOARDTYPE_CANT_PLAY_NOW
-		-1,       // CSSCLASS_EMPTY
-		16761024, // CSSCLASS_PLAYER
-		12632319, // CSSCLASS_MY_TURN
-		16777215, // CSSCLASS_NOT_MY_TURN
-		16777215, // CSSCLASS_HOLDINGS
-		8438015,  // CSSCLASS_HOLDINGS_SAFE
-		32768,    // CSSCLASS_CASH_TITLE
-		16777215, // CSSCLASS_CASH
-		16777152, // CSSCLASS_HCS_TITLE
-		16777152, // CSSCLASS_HCS
+		12648447, // Hoteltype.NONE
+		255,      // Hoteltype.LUXOR
+		65535,    // Hoteltype.TOWER
+		16711680, // Hoteltype.AMERICAN
+		65280,    // Hoteltype.FESTIVAL
+		16512,    // Hoteltype.WORLDWIDE
+		16776960, // Hoteltype.CONTINENTAL
+		16711935, // Hoteltype.IMPERIAL
+		0,        // Hoteltype.NOTHING_YET
+		8421504,  // Hoteltype.CANT_PLAY_EVER
+		10543359, // Hoteltype.I_HAVE_THIS
+		12632256, // Hoteltype.WILL_PUT_LONELY_TILE_DOWN
+		12648384, // Hoteltype.HAVE_NEIGHBORING_TILE_TOO
+		16777215, // Hoteltype.WILL_FORM_NEW_CHAIN
+		6316128,  // Hoteltype.CANT_PLAY_NOW
+		-1,       // Hoteltype.EMPTY
+		16761024, // Hoteltype.PLAYER
+		12632319, // Hoteltype.MY_TURN
+		16777215, // Hoteltype.NOT_MY_TURN
+		16777215, // Hoteltype.HOLDINGS
+		8438015,  // Hoteltype.HOLDINGS_SAFE
+		32768,    // Hoteltype.CASH_TITLE
+		16777215, // Hoteltype.CASH
+		16777152, // Hoteltype.HCS_TITLE
+		16777152, // Hoteltype.HCS
 	};
 
 	public static int hoteltypeToColorvalueNetwork(int hoteltype) {
@@ -340,14 +340,14 @@ public class Util {
 
 	// hoteltype to name
 	private static final String[] arrayHoteltypeToName = {
-		null,          // BOARDTYPE_NONE
-		"Luxor",       // BOARDTYPE_LUXOR
-		"Tower",       // BOARDTYPE_TOWER
-		"American",    // BOARDTYPE_AMERICAN
-		"Festival",    // BOARDTYPE_FESTIVAL
-		"Worldwide",   // BOARDTYPE_WORLDWIDE
-		"Continental", // BOARDTYPE_CONTINENTAL
-		"Imperial",    // BOARDTYPE_IMPERIAL
+		null,          // Hoteltype.NONE
+		"Luxor",       // Hoteltype.LUXOR
+		"Tower",       // Hoteltype.TOWER
+		"American",    // Hoteltype.AMERICAN
+		"Festival",    // Hoteltype.FESTIVAL
+		"Worldwide",   // Hoteltype.WORLDWIDE
+		"Continental", // Hoteltype.CONTINENTAL
+		"Imperial",    // Hoteltype.IMPERIAL
 	};
 
 	public static String hoteltypeToName(int hoteltype) {
@@ -356,16 +356,16 @@ public class Util {
 
 	// hoteltype to initial
 	private static final String[] arrayHoteltypeToInitial = {
-		null, // BOARDTYPE_NONE
-		"L",  // BOARDTYPE_LUXOR
-		"T",  // BOARDTYPE_TOWER
-		"A",  // BOARDTYPE_AMERICAN
-		"F",  // BOARDTYPE_FESTIVAL
-		"W",  // BOARDTYPE_WORLDWIDE
-		"C",  // BOARDTYPE_CONTINENTAL
-		"I",  // BOARDTYPE_IMPERIAL
-		" ",  // BOARDTYPE_NOTHING_YET
-		" ",  // BOARDTYPE_CANT_PLAY_EVER
+		null, // Hoteltype.NONE
+		"L",  // Hoteltype.LUXOR
+		"T",  // Hoteltype.TOWER
+		"A",  // Hoteltype.AMERICAN
+		"F",  // Hoteltype.FESTIVAL
+		"W",  // Hoteltype.WORLDWIDE
+		"C",  // Hoteltype.CONTINENTAL
+		"I",  // Hoteltype.IMPERIAL
+		" ",  // Hoteltype.NOTHING_YET
+		" ",  // Hoteltype.CANT_PLAY_EVER
 	};
 
 	public static String hoteltypeToInitial(int hoteltype) {
@@ -374,14 +374,14 @@ public class Util {
 
 	// hoteltype to mnemonic
 	private static final int[] arrayHoteltypeToMnemonic = {
-		-1,            // BOARDTYPE_NONE
-		KeyEvent.VK_L, // BOARDTYPE_LUXOR
-		KeyEvent.VK_T, // BOARDTYPE_TOWER
-		KeyEvent.VK_A, // BOARDTYPE_AMERICAN
-		KeyEvent.VK_F, // BOARDTYPE_FESTIVAL
-		KeyEvent.VK_W, // BOARDTYPE_WORLDWIDE
-		KeyEvent.VK_C, // BOARDTYPE_CONTINENTAL
-		KeyEvent.VK_I, // BOARDTYPE_IMPERIAL
+		-1,            // Hoteltype.NONE
+		KeyEvent.VK_L, // Hoteltype.LUXOR
+		KeyEvent.VK_T, // Hoteltype.TOWER
+		KeyEvent.VK_A, // Hoteltype.AMERICAN
+		KeyEvent.VK_F, // Hoteltype.FESTIVAL
+		KeyEvent.VK_W, // Hoteltype.WORLDWIDE
+		KeyEvent.VK_C, // Hoteltype.CONTINENTAL
+		KeyEvent.VK_I, // Hoteltype.IMPERIAL
 	};
 
 	public static int hoteltypeToMnemonic(int hoteltype) {
