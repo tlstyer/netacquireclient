@@ -6,17 +6,17 @@ import javax.swing.*;
 
 public class SelectChainDialog extends GameDialog {
 	private static final long serialVersionUID = -480008475260474107L;
-	
+
 	private ButtonGroup radioButtonGroup;
 	private JRadioButton[] radioButtons;
 	private JButton buttonOK;
 	private int type;
-	
+
 	public SelectChainDialog(int type_, boolean[] hotelOptions) {
 		super(ALLOW_EXTERNAL_HIDE_REQUEST);
-		
+
 		type = type_;
-		
+
 		String title;
 		switch (type) {
 		case 4:
@@ -39,7 +39,7 @@ public class SelectChainDialog extends GameDialog {
 		panelRadioButtons.setLayout(new BoxLayout(panelRadioButtons, BoxLayout.Y_AXIS));
 		radioButtonGroup = new ButtonGroup();
 		radioButtons = new JRadioButton[7];
-		
+
 		for (int index=0; index<7; ++index) {
 			String name = Util.hoteltypeToName(index + 1);
 			JRadioButton radioButton = new JRadioButton(name);
@@ -60,14 +60,14 @@ public class SelectChainDialog extends GameDialog {
 			}
 		}
 		panelRadioButtons.add(Box.createRigidArea(new Dimension(0,10)));
-		
+
 		for (int index=0; index<7; ++index) {
 			if (hotelOptions[index]) {
 				radioButtons[index].setSelected(true);
 				break;
 			}
 		}
-		
+
 		// "OK" button
 		buttonOK = Util.getButton3d2("OK", KeyEvent.VK_O);
 		buttonOK.addActionListener(this);
@@ -80,11 +80,11 @@ public class SelectChainDialog extends GameDialog {
 		panel.add(buttonOK);
 
 		getRootPane().setDefaultButton(buttonOK);
-		
+
 		showGameDialog(POSITION_BELOW_SCORE_SHEET);
 	}
-	
-    public void DoAction(ActionEvent actionEvent) {
+
+	public void DoAction(ActionEvent actionEvent) {
 		for (int index=0; index<7; ++index) {
 			if (radioButtons[index].isSelected()) {
 				int colorvalue = Util.hoteltypeToColorvalueNetwork(index + 1);
@@ -93,5 +93,5 @@ public class SelectChainDialog extends GameDialog {
 				return;
 			}
 		}
-    }
+	}
 }

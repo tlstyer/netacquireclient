@@ -5,32 +5,32 @@ import javax.swing.text.*;
 
 public class MessageWindowDocument extends DefaultStyledDocument {
 	private static final long serialVersionUID = -7707575450662821467L;
-	
+
 	private static Style styleSystem;
 	private static Style styleUser;
 	private static Style styleError;
 	static {
 		StyleContext defaultStyleContext = StyleContext.getDefaultStyleContext();
 		Style style = defaultStyleContext.getStyle(StyleContext.DEFAULT_STYLE);
-		
+
 		styleSystem = defaultStyleContext.addStyle("system", style);
 		StyleConstants.setFontFamily(styleSystem, FontManager.getFontNameMessageWindows());
 		StyleConstants.setFontSize(styleSystem, 12);
-        StyleConstants.setForeground(styleSystem, Color.black);
-        
-        styleUser = defaultStyleContext.addStyle("user", styleSystem);
-        StyleConstants.setForeground(styleUser, Color.blue);        
-        
-        styleError = defaultStyleContext.addStyle("error", styleUser);
-        StyleConstants.setForeground(styleError, Color.red);
+		StyleConstants.setForeground(styleSystem, Color.black);
+
+		styleUser = defaultStyleContext.addStyle("user", styleSystem);
+		StyleConstants.setForeground(styleUser, Color.blue);
+
+		styleError = defaultStyleContext.addStyle("error", styleUser);
+		StyleConstants.setForeground(styleError, Color.red);
 	}
-	
+
 	public MessageWindowDocument() {
 		addStyle("system", styleSystem);
 		addStyle("user", styleUser);
 		addStyle("error", styleError);
 	}
-	
+
 	public static final int APPEND_DEFAULT = 0;
 	public static final int APPEND_ERROR = 1;
 
@@ -41,13 +41,13 @@ public class MessageWindowDocument extends DefaultStyledDocument {
 				style = "user";
 			} else {
 				style = "system";
-			}			
+			}
 		} else if (type == APPEND_ERROR) {
 			style = "error";
 		} else {
 			style = "system";
 		}
-		
+
 		try {
 			insertString(getLength(), str + "\n", getStyle(style));
 		} catch (BadLocationException badLocationException) {
@@ -61,7 +61,7 @@ public class MessageWindowDocument extends DefaultStyledDocument {
 		} catch (BadLocationException badLocationException) {
 		}
 	}
-	
+
 	public void clear() {
 		try {
 			remove(0, getLength());

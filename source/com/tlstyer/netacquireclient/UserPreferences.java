@@ -49,7 +49,7 @@ public class UserPreferences {
 	public UserPreferences() {
 		load();
 	}
-	
+
 	public void load() {
 		String[] nicknamesArray = preferences.get(KEY_nicknames, "").split(stringArraySeparator, -1);
 		nicknames = new ArrayList<String>();
@@ -67,7 +67,7 @@ public class UserPreferences {
 				nicknames.add(nickname);
 			}
 		}
-		
+
 		String[] addressesAndPortsArray = preferences.get(KEY_addressesAndPorts, "").split(stringArraySeparator, -1);
 		addressesAndPorts = new ArrayList<String>();
 		if (addressesAndPortsArray.length == 1 && addressesAndPortsArray[0].length() == 0) {
@@ -80,32 +80,32 @@ public class UserPreferences {
 				addressesAndPorts.add(addressAndPort);
 			}
 		}
-		
+
 		maxPlayerCount = preferences.getInt(KEY_maxPlayerCount, maxPlayerCountDefault);
 		if (maxPlayerCount < 2 || maxPlayerCount > 6) {
 			maxPlayerCount = maxPlayerCountDefault;
 		}
-		
+
 		userListSortingMethod = preferences.getInt(KEY_userListSortingMethod, userListSortingMethodDefault);
 		if (userListSortingMethod < 0 || userListSortingMethod > UserListPresenter.SORT_END) {
 			userListSortingMethod = userListSortingMethodDefault;
 		}
 
 		playSoundWhenWaitingForMe = preferences.getBoolean(KEY_playSoundWhenWaitingForMe, playSoundWhenWaitingForMeDefault);
-		
+
 		pathToSound = preferences.get(KEY_pathToSound, pathToSoundDefault);
-		
+
 		writeToLogFiles = preferences.getBoolean(KEY_writeToLogFiles, writeToLogFilesDefault);
-		
+
 		pathToLogFiles = preferences.get(KEY_pathToLogFiles, pathToLogFilesDefault);
-		
+
 		whereToStartInReviewMode = preferences.getInt(KEY_whereToStartInReviewMode, whereToStartInReviewModeDefault);
 		if (whereToStartInReviewMode < 0 || whereToStartInReviewMode > Review.START_END) {
 			whereToStartInReviewMode = whereToStartInReviewModeDefault;
 		}
 
 		showModalMessageDialogBoxes = preferences.getBoolean(KEY_showModalMessageDialogBoxes, showModalMessageDialogBoxesDefault);
-		
+
 		gameBoardLabelMode = preferences.getInt(KEY_gameBoardLabelMode, gameBoardLabelModeDefault);
 		if (gameBoardLabelMode < 0 || gameBoardLabelMode > GameBoard.LABEL_END) {
 			gameBoardLabelMode = gameBoardLabelModeDefault;
@@ -125,7 +125,7 @@ public class UserPreferences {
 		preferences.putBoolean(KEY_showModalMessageDialogBoxes, showModalMessageDialogBoxes);
 		preferences.putInt(KEY_gameBoardLabelMode, gameBoardLabelMode);
 	}
-	
+
 	private void putString(String key, String value) {
 		if (value.length() > Preferences.MAX_VALUE_LENGTH) {
 			value = value.substring(0, Preferences.MAX_VALUE_LENGTH);
@@ -140,7 +140,7 @@ public class UserPreferences {
 	public void setNicknames(ArrayList<String> nicknames) {
 		this.nicknames = nicknames;
 	}
-	
+
 	public ArrayList<String> getAddressesAndPorts() {
 		return addressesAndPorts;
 	}
@@ -148,7 +148,7 @@ public class UserPreferences {
 	public void setAddressesAndPorts(ArrayList<String> addressesAndPorts) {
 		this.addressesAndPorts = addressesAndPorts;
 	}
-	
+
 	public Integer getMaxPlayerCount() {
 		return maxPlayerCount;
 	}
@@ -172,7 +172,7 @@ public class UserPreferences {
 	public void setPlaySoundWhenWaitingForMe(Boolean playSoundWhenWaitingForMe) {
 		this.playSoundWhenWaitingForMe = playSoundWhenWaitingForMe;
 	}
-	
+
 	public String getPathToSound() {
 		return pathToSound;
 	}
@@ -188,7 +188,7 @@ public class UserPreferences {
 	public void setWriteToLogFiles(Boolean writeToLogFiles) {
 		this.writeToLogFiles = writeToLogFiles;
 	}
-	
+
 	public String getPathToLogFiles() {
 		return pathToLogFiles;
 	}

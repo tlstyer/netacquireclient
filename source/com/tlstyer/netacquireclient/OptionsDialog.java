@@ -6,32 +6,32 @@ import javax.swing.*;
 
 public class OptionsDialog extends GameDialog {
 	private static final long serialVersionUID = -8370913711548370855L;
-	
+
 	// "max player count" panel
 	private SpinnerNumberModel spinnerNumberModelMaxPlayerCount;
 
 	// "User List sorting method" panel
-    private ButtonGroup radioButtonGroupUserListSortingMethod;
+	private ButtonGroup radioButtonGroupUserListSortingMethod;
 
 	// "When waiting for me" panel
-    private JCheckBox checkboxPlaySoundWhenWaitingForMe;
-    private JTextField tfPathToSound;
-    private JButton buttonBrowsePathToSound;
+	private JCheckBox checkboxPlaySoundWhenWaitingForMe;
+	private JTextField tfPathToSound;
+	private JButton buttonBrowsePathToSound;
 	private JButton buttonTestSound;
 
 	// "Log Files" panel
-    private JCheckBox checkboxLogGamesToFiles;
-    private JTextField tfDirectoryToSaveIn;
-    private JButton buttonBrowseDirectoryToSaveIn;
-    
-    // "Where to start in review mode" panel
-    private ButtonGroup radioButtonGroupWhereToStartInReviewMode;
+	private JCheckBox checkboxLogGamesToFiles;
+	private JTextField tfDirectoryToSaveIn;
+	private JButton buttonBrowseDirectoryToSaveIn;
 
-    // "Show modal message dialog boxes" panel
-    private JCheckBox checkboxShowModalMessageDialogBoxes;
+	// "Where to start in review mode" panel
+	private ButtonGroup radioButtonGroupWhereToStartInReviewMode;
 
-    // "Game board label mode" panel
-    private ButtonGroup radioButtonGroupGameBoardLabelMode;
+	// "Show modal message dialog boxes" panel
+	private JCheckBox checkboxShowModalMessageDialogBoxes;
+
+	// "Game board label mode" panel
+	private ButtonGroup radioButtonGroupGameBoardLabelMode;
 
 	// "OK/Cancel" panel
 	private JButton buttonOK;
@@ -41,17 +41,17 @@ public class OptionsDialog extends GameDialog {
 
 	public OptionsDialog() {
 		super(DO_NOT_ALLOW_EXTERNAL_HIDE_REQUEST);
-		
+
 		setTitle("Options");
 
 		// "max player count" panel
-        spinnerNumberModelMaxPlayerCount = new SpinnerNumberModel();
-        spinnerNumberModelMaxPlayerCount.setMinimum(2);
-        spinnerNumberModelMaxPlayerCount.setMaximum(6);
+		spinnerNumberModelMaxPlayerCount = new SpinnerNumberModel();
+		spinnerNumberModelMaxPlayerCount.setMinimum(2);
+		spinnerNumberModelMaxPlayerCount.setMaximum(6);
 		spinnerNumberModelMaxPlayerCount.setValue(Main.getUserPreferences().getMaxPlayerCount());
 		JSpinner spinnerMaxPlayerCount = new JSpinner(spinnerNumberModelMaxPlayerCount);
 
-        JLabel labelMaxPlayerCount = new JLabel("Maximum player count in self-initiated games");
+		JLabel labelMaxPlayerCount = new JLabel("Maximum player count in self-initiated games");
 
 		JPanel panelMaxPlayerCount = new JPanel();
 		panelMaxPlayerCount.setBorder(BorderFactory.createTitledBorder("Game"));
@@ -60,13 +60,13 @@ public class OptionsDialog extends GameDialog {
 		panelMaxPlayerCount.add(Box.createRigidArea(new Dimension(5, 0)));
 		panelMaxPlayerCount.add(labelMaxPlayerCount);
 		panelMaxPlayerCount.add(Box.createHorizontalGlue());
-		
+
 		// "User List sorting method" panel
 		JPanel panelRadioButtonsUserListSortingMethod = new JPanel();
 		panelRadioButtonsUserListSortingMethod.setBorder(BorderFactory.createTitledBorder("User list"));
 		panelRadioButtonsUserListSortingMethod.setLayout(new BoxLayout(panelRadioButtonsUserListSortingMethod, BoxLayout.Y_AXIS));
 		radioButtonGroupUserListSortingMethod = new ButtonGroup();
-		
+
 		JRadioButton[] radioButtonsULSM = new JRadioButton[3];
 		JRadioButton radioButtonULSM;
 		for (int index=0; index<3; ++index) {
@@ -82,7 +82,7 @@ public class OptionsDialog extends GameDialog {
 		radioButtonsULSM[2].setText("Sort by game number");
 
 		radioButtonsULSM[Main.getUserPreferences().getUserListSortingMethod()].setSelected(true);
-		
+
 		panelRadioButtonsUserListSortingMethod.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "When waiting for me" panel
@@ -90,10 +90,10 @@ public class OptionsDialog extends GameDialog {
 		checkboxPlaySoundWhenWaitingForMe.setSelected(Main.getUserPreferences().getPlaySoundWhenWaitingForMe());
 
 		JLabel labelSoundPath = new JLabel("Path to sound:");
-		
+
 		tfPathToSound = new JTextField(Main.getUserPreferences().getPathToSound(), 20);
 		Util.setOnlySize(tfPathToSound, tfPathToSound.getPreferredSize());
-		
+
 		buttonBrowsePathToSound = new JButton("...");
 		Util.setOnlySize(buttonBrowsePathToSound, buttonBrowsePathToSound.getPreferredSize());
 		buttonBrowsePathToSound.addActionListener(this);
@@ -126,14 +126,14 @@ public class OptionsDialog extends GameDialog {
 		checkboxLogGamesToFiles.setSelected(Main.getUserPreferences().getWriteToLogFiles());
 
 		JLabel labelDirectoryToSaveIn = new JLabel("Directory to save in:");
-		
+
 		tfDirectoryToSaveIn = new JTextField(Main.getUserPreferences().getPathToLogFiles(), 20);
 		Util.setOnlySize(tfDirectoryToSaveIn, tfDirectoryToSaveIn.getPreferredSize());
 
 		buttonBrowseDirectoryToSaveIn = new JButton("...");
 		Util.setOnlySize(buttonBrowseDirectoryToSaveIn, buttonBrowseDirectoryToSaveIn.getPreferredSize());
 		buttonBrowseDirectoryToSaveIn.addActionListener(this);
-		
+
 		JPanel panelDirectoryToSaveIn = new JPanel();
 		panelDirectoryToSaveIn.setLayout(new BoxLayout(panelDirectoryToSaveIn, BoxLayout.X_AXIS));
 		panelDirectoryToSaveIn.add(labelDirectoryToSaveIn);
@@ -151,13 +151,13 @@ public class OptionsDialog extends GameDialog {
 		panelLogFiles.setLayout(new BoxLayout(panelLogFiles, BoxLayout.Y_AXIS));
 		panelLogFiles.add(checkboxLogGamesToFiles);
 		panelLogFiles.add(panelDirectoryToSaveIn);
-		
+
 		// "Where to start in review mode" panel
 		JPanel panelRadioButtonsWhereToStartInReviewMode = new JPanel();
 		panelRadioButtonsWhereToStartInReviewMode.setBorder(BorderFactory.createTitledBorder("Where to start in review mode"));
 		panelRadioButtonsWhereToStartInReviewMode.setLayout(new BoxLayout(panelRadioButtonsWhereToStartInReviewMode, BoxLayout.Y_AXIS));
 		radioButtonGroupWhereToStartInReviewMode = new ButtonGroup();
-		
+
 		JRadioButton[] radioButtonsWTSIRM = new JRadioButton[3];
 		JRadioButton radioButtonWTSIRM;
 		for (int index=0; index<3; ++index) {
@@ -173,7 +173,7 @@ public class OptionsDialog extends GameDialog {
 		radioButtonsWTSIRM[2].setText("End of file");
 
 		radioButtonsWTSIRM[Main.getUserPreferences().getWhereToStartInReviewMode()].setSelected(true);
-		
+
 		panelRadioButtonsWhereToStartInReviewMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "Show modal message dialog boxes" panel
@@ -184,7 +184,7 @@ public class OptionsDialog extends GameDialog {
 		panelShowModalMessageDialogBoxes.setBorder(BorderFactory.createTitledBorder("Show modal message dialog boxes"));
 		panelShowModalMessageDialogBoxes.setLayout(new BoxLayout(panelShowModalMessageDialogBoxes, BoxLayout.Y_AXIS));
 		panelShowModalMessageDialogBoxes.add(checkboxShowModalMessageDialogBoxes);
-		
+
 		panelShowModalMessageDialogBoxes.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "Game board label mode" panel
@@ -192,7 +192,7 @@ public class OptionsDialog extends GameDialog {
 		panelRadioButtonsGameBoardLabelMode.setBorder(BorderFactory.createTitledBorder("Game board label mode"));
 		panelRadioButtonsGameBoardLabelMode.setLayout(new BoxLayout(panelRadioButtonsGameBoardLabelMode, BoxLayout.Y_AXIS));
 		radioButtonGroupGameBoardLabelMode = new ButtonGroup();
-		
+
 		JRadioButton[] radioButtonsGBLM = new JRadioButton[3];
 		JRadioButton radioButtonGBLM;
 		for (int index=0; index<3; ++index) {
@@ -208,7 +208,7 @@ public class OptionsDialog extends GameDialog {
 		radioButtonsGBLM[2].setText("Show nothing");
 
 		radioButtonsGBLM[Main.getUserPreferences().getGameBoardLabelMode()].setSelected(true);
-		
+
 		panelRadioButtonsGameBoardLabelMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "OK/Cancel" panel
@@ -252,9 +252,9 @@ public class OptionsDialog extends GameDialog {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		panel.add(panel1);
 		panel.add(panel2);
-		
+
 		getRootPane().setDefaultButton(buttonOK);
-		
+
 		showGameDialog(POSITION_CENTER_IN_MAIN_FRAME_PANEL);
 	}
 
@@ -266,14 +266,14 @@ public class OptionsDialog extends GameDialog {
 			}
 		}
 	}
-	
+
 	private void hideOptionsDialog() {
 		synchronized (optionsDialogShowing) {
 			hideGameDialog();
-			optionsDialogShowing = false;		
+			optionsDialogShowing = false;
 		}
 	}
-	
+
 	public void DoAction(ActionEvent actionEvent) {
 		Object object = actionEvent.getSource();
 		if (object == buttonTestSound) {
@@ -302,7 +302,7 @@ public class OptionsDialog extends GameDialog {
 				Main.getUserPreferences().setUserListSortingMethod(userListSortingMethod);
 			} catch (NumberFormatException numberFormatException) {
 			}
-			
+
 			// "When waiting for me" panel
 			boolean playSoundWhenWaitingForMe = checkboxPlaySoundWhenWaitingForMe.isSelected();
 			Main.getUserPreferences().setPlaySoundWhenWaitingForMe(playSoundWhenWaitingForMe);
@@ -311,7 +311,7 @@ public class OptionsDialog extends GameDialog {
 			if (playSoundWhenWaitingForMe) {
 				Main.getSoundManager().loadSound(pathToSound);
 			}
-			
+
 			// "Log Files" panel
 			String pathOld = Main.getUserPreferences().getPathToLogFiles();
 			String pathNew = tfDirectoryToSaveIn.getText();
@@ -319,7 +319,7 @@ public class OptionsDialog extends GameDialog {
 				Main.getUserPreferences().setPathToLogFiles(pathNew);
 				Main.getLogFileWriter().closeLogFile();
 			}
-			
+
 			boolean logGamesToFiles = checkboxLogGamesToFiles.isSelected();
 			Main.getUserPreferences().setWriteToLogFiles(logGamesToFiles);
 			if (logGamesToFiles) {

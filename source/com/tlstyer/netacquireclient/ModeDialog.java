@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class ModeDialog extends GameDialog {
 	private static final long serialVersionUID = -9110080591988857670L;
-	
+
 	private JComboBox cbNickname;
 	private JButton buttonDeleteNickname;
 	private JComboBox cbIPURLPort;
@@ -17,24 +17,24 @@ public class ModeDialog extends GameDialog {
 
 	private JButton buttonReview;
 
-    private static final Pattern badNicknameChars = Pattern.compile(",|;|:|\"");
+	private static final Pattern badNicknameChars = Pattern.compile(",|;|:|\"");
 
 	public ModeDialog() {
 		super(DO_NOT_ALLOW_EXTERNAL_HIDE_REQUEST);
-		
+
 		setTitle("Choose Mode");
 
 		// "Nickname" panel
 		JLabel labelNickname = new JLabel("Nickname:", JLabel.TRAILING);
 		labelNickname.setDisplayedMnemonic(KeyEvent.VK_N);
-		
+
 		cbNickname = new JComboBox(Main.getUserPreferences().getNicknames().toArray());
 		cbNickname.setEditable(true);
 		labelNickname.setLabelFor(cbNickname);
-		
+
 		buttonDeleteNickname = new JButton("X");
 		buttonDeleteNickname.addActionListener(this);
-		
+
 		JPanel panelNickname = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		panelNickname.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		panelNickname.add(labelNickname);
@@ -44,14 +44,14 @@ public class ModeDialog extends GameDialog {
 		// "IPURL:Port" panel
 		JLabel labelIPURLPort = new JLabel("IP/URL:Port:", JLabel.TRAILING);
 		labelIPURLPort.setDisplayedMnemonic(KeyEvent.VK_I);
-		
+
 		cbIPURLPort = new JComboBox(Main.getUserPreferences().getAddressesAndPorts().toArray());
 		cbIPURLPort.setEditable(true);
 		labelIPURLPort.setLabelFor(cbIPURLPort);
-		
+
 		buttonDeleteIPURLPort = new JButton("X");
 		buttonDeleteIPURLPort.addActionListener(this);
-		
+
 		JPanel panelIPURLPort = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		panelIPURLPort.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		panelIPURLPort.add(labelIPURLPort);
@@ -62,23 +62,23 @@ public class ModeDialog extends GameDialog {
 		buttonPlay = Util.getButton3d2("Play", KeyEvent.VK_P);
 		buttonPlay.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		buttonPlay.addActionListener(this);
-		
+
 		// make the combo boxes the same width
 		int width = labelIPURLPort.getPreferredSize().width * 3;
 		Dimension dimension;
-		
+
 		dimension = cbNickname.getPreferredSize();
 		dimension.width = width;
 		cbNickname.setMinimumSize(dimension);
 		cbNickname.setPreferredSize(dimension);
 		cbNickname.setMaximumSize(dimension);
-		
+
 		dimension = cbIPURLPort.getPreferredSize();
 		dimension.width = width;
 		cbIPURLPort.setMinimumSize(dimension);
 		cbIPURLPort.setPreferredSize(dimension);
 		cbIPURLPort.setMaximumSize(dimension);
-		
+
 		// "Play" panel
 		JPanel panelGame = new JPanel();
 		panelGame.setBorder(BorderFactory.createTitledBorder("Play"));
@@ -96,7 +96,7 @@ public class ModeDialog extends GameDialog {
 		panelButtonReview.setLayout(new BoxLayout(panelButtonReview, BoxLayout.X_AXIS));
 		panelButtonReview.add(Box.createHorizontalGlue());
 		panelButtonReview.add(buttonReview);
-		
+
 		// "Review" panel
 		JPanel panelReview = new JPanel();
 		panelReview.setBorder(BorderFactory.createTitledBorder("Review"));
@@ -112,7 +112,7 @@ public class ModeDialog extends GameDialog {
 		panel.add(panelReview);
 
 		getRootPane().setDefaultButton(buttonPlay);
-		
+
 		showGameDialog(POSITION_0_0);
 	}
 
@@ -120,18 +120,18 @@ public class ModeDialog extends GameDialog {
 		JOptionPane.showMessageDialog(Main.getMainFrame(), message, title, JOptionPane.ERROR_MESSAGE);
 		toFront();
 	}
-	
+
 	private void processButtonDelete(ArrayList<String> strings, JComboBox comboBox) {
 		String nickname = ((String)comboBox.getSelectedItem());
 		strings.remove(nickname);
-		
+
 		int selectedIndex = comboBox.getSelectedIndex();
 		if (selectedIndex >= 0) {
 			comboBox.removeItemAt(selectedIndex);
 			int itemCount = comboBox.getItemCount();
 			if (itemCount > 0) {
 				if (selectedIndex >= itemCount) {
-					selectedIndex = itemCount - 1; 
+					selectedIndex = itemCount - 1;
 				}
 				comboBox.setSelectedIndex(selectedIndex);
 			} else {
@@ -181,8 +181,8 @@ public class ModeDialog extends GameDialog {
 			return;
 		}
 
-        Integer portInt = 0;
-        try {
+		Integer portInt = 0;
+		try {
 			portInt = Integer.decode(port);
 		} catch (NumberFormatException numberFormatException) {
 			portInt = 0;
@@ -191,22 +191,22 @@ public class ModeDialog extends GameDialog {
 			ShowErrorMessage("Bad Port", "Port must be a positive integer between 1 and 65535");
 			return;
 		}
-		
+
 		// tell UserPreferences about the changes
 		ArrayList<String> nicknames = Main.getUserPreferences().getNicknames();
 		nicknames.remove(nickname);
 		nicknames.add(0, nickname);
-		
+
 		ArrayList<String> addressesAndPorts = Main.getUserPreferences().getAddressesAndPorts();
 		String addressAndPort = ipurl + ":" + portInt;
 		addressesAndPorts.remove(addressAndPort);
 		addressesAndPorts.add(0, addressAndPort);
-		
+
 		// input accepted, so leave this dialog
 		Main.getMain().setPlayModeInfo(nickname, ipurl, portInt);
 		hideGameDialog();
 	}
-	
+
 	private void buttonReviewPressed() {
 		Main.getMain().setReviewModeInfo();
 		hideGameDialog();

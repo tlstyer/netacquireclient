@@ -7,16 +7,16 @@ public class FontManager {
 	private static final int LENGTH_TEXTCOMPONENTFONTDATAARRAY = 16;
 	private TextComponentFontData[] textComponentFontDataArray = new TextComponentFontData[LENGTH_TEXTCOMPONENTFONTDATAARRAY];
 	private int classicTextComponentHeight = 0;
-	
+
 	private static final String fontNameTextComponents = "SansSerif";
 	private static final String fontNameMessageWindows = "Monospaced";
-	
+
 	private static final Font fontBoldDialog = new Font(fontNameTextComponents, Font.BOLD, 16);
 	private static final Font fontMessageWindow = new Font(fontNameMessageWindows, Font.PLAIN, 12);
-	
+
 	public FontManager() {
 	}
-	
+
 	public void initializeTextComponentFontData(FontRenderContext fontRenderContext) {
 		for (int index=0; index<LENGTH_TEXTCOMPONENTFONTDATAARRAY; ++index) {
 			textComponentFontDataArray[index] = new TextComponentFontData(fontRenderContext, (index+1)*2);

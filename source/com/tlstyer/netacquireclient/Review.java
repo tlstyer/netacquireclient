@@ -29,7 +29,7 @@ class ReviewGameBoard extends ReviewMessage {
 		hoteltypeBefore = hoteltypeBefore_;
 		hoteltypeAfter = hoteltypeAfter_;
 	}
-	
+
 	public int getType() {
 		return TYPE_ReviewGameBoard;
 	}
@@ -75,7 +75,7 @@ class ReviewLobbyMessage extends ReviewMessage {
 		message = message_;
 		type = type_;
 	}
-	
+
 	public int getType() {
 		return TYPE_ReviewLobbyMessage;
 	}
@@ -89,7 +89,7 @@ class ReviewGameRoomMessage extends ReviewMessage {
 		message = message_;
 		type = type_;
 	}
-	
+
 	public int getType() {
 		return TYPE_ReviewGameRoomMessage;
 	}
@@ -116,7 +116,7 @@ class ReviewTileRackButton extends ReviewMessage {
 		isVisibleBefore = isVisibleBefore_;
 		isVisibleAfter = isVisibleAfter_;
 	}
-	
+
 	public int getType() {
 		return TYPE_ReviewTileRackButton;
 	}
@@ -132,7 +132,7 @@ class ReviewBreakPoint extends ReviewMessage {
 	ReviewBreakPoint(Integer bpType_) {
 		bpType = bpType_;
 	}
-	
+
 	public int getType() {
 		return TYPE_ReviewBreakPoint;
 	}
@@ -150,38 +150,38 @@ class LogFileTransferHandler extends TransferHandler {
 		} catch (UnsupportedFlavorException unsupportedFlavorException) {
 		} catch (IOException iOException) {
 		}
-		
+
 		return true;
 	}
-	
-    public boolean canImport(JComponent component, DataFlavor[] dataFlavorArray) {
-    	for (DataFlavor dataFlavor : dataFlavorArray) {
-    		if (dataFlavor.equals(DataFlavor.javaFileListFlavor)) {
-    			return true;
-    		}
-    	}
-        return false;
-    }
+
+	public boolean canImport(JComponent component, DataFlavor[] dataFlavorArray) {
+		for (DataFlavor dataFlavor : dataFlavorArray) {
+			if (dataFlavor.equals(DataFlavor.javaFileListFlavor)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
 
 public class Review {
-    private GameBoardData gameBoardData = new GameBoardData();
-    private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
-    private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
-    private TileRackData tileRackData = new TileRackData();
+	private GameBoardData gameBoardData = new GameBoardData();
+	private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
+	private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
+	private TileRackData tileRackData = new TileRackData();
 
 	private ArrayList<ReviewMessage> reviewMessages = new ArrayList<ReviewMessage>();
 
 	private int nextLineGoingForward;
 	private int firstBreakPointLine;
-	
+
 	private LogFileTransferHandler logFileTransferHandler = new LogFileTransferHandler();
-	
-    private static final Pattern patternCommand = Pattern.compile("\\A[^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?\\z");
-	
+
+	private static final Pattern patternCommand = Pattern.compile("\\A[^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?\\z");
+
 	public Review() {
 	}
-	
+
 	public void setMode(int mode) {
 		if (mode == Main.MODE_REVIEW) {
 			Main.getMainFrame().getRootPane().setTransferHandler(logFileTransferHandler);
@@ -200,16 +200,16 @@ public class Review {
 	private static final int COMMAND_M  = 6;
 	private static final int COMMAND_PT = 7;
 
-    private static final Map<String, Integer> hashmapCommand = new HashMap<String, Integer>();
-    static {
-        hashmapCommand.put("+SB", COMMAND_SB);
-        hashmapCommand.put("+SV", COMMAND_SV);
-        hashmapCommand.put("+LM", COMMAND_LM);
-        hashmapCommand.put("+GM", COMMAND_GM);
-        hashmapCommand.put("+AT", COMMAND_AT);
-        hashmapCommand.put("+M",  COMMAND_M );
-        hashmapCommand.put("-PT", COMMAND_PT);
-    }
+	private static final Map<String, Integer> hashmapCommand = new HashMap<String, Integer>();
+	static {
+		hashmapCommand.put("+SB", COMMAND_SB);
+		hashmapCommand.put("+SV", COMMAND_SV);
+		hashmapCommand.put("+LM", COMMAND_LM);
+		hashmapCommand.put("+GM", COMMAND_GM);
+		hashmapCommand.put("+AT", COMMAND_AT);
+		hashmapCommand.put("+M",  COMMAND_M );
+		hashmapCommand.put("-PT", COMMAND_PT);
+	}
 
 	private void initData() {
 		gameBoardData.init();
@@ -219,7 +219,7 @@ public class Review {
 		Main.getMainFrame().getLobby().clear();
 		Main.getMainFrame().getGameRoom().clear();
 	}
-	
+
 	public static final int START_AT_BEGINNING_OF_GAME = 0;
 	public static final int START_AT_END_OF_GAME = 1;
 	public static final int START_AT_END_OF_FILE = 2;
@@ -228,7 +228,7 @@ public class Review {
 	public void loadLogFile(String filename) {
 		initData();
 		reviewMessages.clear();
-		
+
 		BufferedReader bufferedReader = null;
 
 		try {
@@ -287,7 +287,7 @@ public class Review {
 
 		navigate(DIRECTION_FORWARD, BREAK_AT_TURN_STEP);
 		firstBreakPointLine = nextLineGoingForward;
-		
+
 		switch (Main.getUserPreferences().getWhereToStartInReviewMode()) {
 			case START_AT_BEGINNING_OF_GAME:
 				break;
@@ -298,7 +298,7 @@ public class Review {
 				navigate(DIRECTION_FORWARD, BREAK_AT_NOWHERE);
 				break;
 		}
-		
+
 		Main.getMainFrame().setTitle(Main.getProgramName() + " - Review Mode - " + filename);
 	}
 
@@ -311,7 +311,7 @@ public class Review {
 		gameBoardData.setHoteltype(point.x, point.y, hoteltype);
 		reviewMessages.add(new ReviewGameBoard(point, hoteltypeBefore, hoteltype));
 	}
-	
+
 	private void handleSV(Object[] command) {
 		if (((String)((Object[])command[1])[0]).equals("frmScoreSheet") &&
 			((String)((Object[])command[1])[1]).equals("lblData")) {
@@ -345,7 +345,7 @@ public class Review {
 				   ((String)((Object[])command[1])[1]).equals("cmdTile")) {
 			if (((String)((Object[])command[1])[3]).equals("Visible")) {
 				int tileRackIndex = (Integer)((Object[])command[1])[2];
-		        int index = tileRackIndex - 1;
+				int index = tileRackIndex - 1;
 
 				boolean visible = ((Integer)((Object[])command[1])[4] != 0 ? true : false);
 				boolean visibleBefore = tileRackData.getVisibility(index);
@@ -360,16 +360,16 @@ public class Review {
 			}
 		}
 	}
-	
+
 	private void handleLM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
 		reviewMessages.add(new ReviewLobbyMessage(message, MessageWindowDocument.APPEND_DEFAULT));
 	}
-	
+
 	private void handleGM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
 		reviewMessages.add(new ReviewGameRoomMessage(message, MessageWindowDocument.APPEND_DEFAULT));
-		
+
 		Matcher matcherWaiting = Util.patternWaiting.matcher(message);
 		if (matcherWaiting.find()) {
 			int bpType;
@@ -383,26 +383,26 @@ public class Review {
 			return;
 		}
 	}
-	
+
 	private void handleAT(Object[] command) {
 		int tileRackIndex = (Integer)((Object[])command[1])[0];
 		int gameBoardIndex = (Integer)((Object[])command[1])[1];
 		int tileRackColor = (Integer)((Object[])command[1])[2];
-        int index = tileRackIndex - 1;
+		int index = tileRackIndex - 1;
 		Point point = Util.gameBoardIndexToPoint(gameBoardIndex);
 
 		// ReviewTileRackButton
 		String label = Util.pointToNumberAndLetter(point.x, point.y);
 		String labelBefore = tileRackData.getLabel(index);
 		tileRackData.setLabel(index, label);
-		
+
 		int hoteltype = Util.colorvalueToHoteltype(tileRackColor);
 		Integer hoteltypeBefore = tileRackData.getHoteltype(index);
 		tileRackData.setHoteltype(index, hoteltype);
 
 		boolean visibleBefore = tileRackData.getVisibility(index);
 		tileRackData.setVisibility(index, true);
-		
+
 		reviewMessages.add(new ReviewTileRackButton(index,
 													labelBefore, label,
 													hoteltypeBefore, hoteltype,
@@ -415,10 +415,10 @@ public class Review {
 
 		reviewMessages.add(new ReviewGameBoard(point, gbdHoteltypeBefore, gbdHoteltype));
 	}
-	
+
 	private void handleM(Object[] command) {
 		String message = Util.commandToContainedMessage(command);
-		
+
 		ModalMessageToDisplay modalMessageToDisplay = ModalMessageProcessor.getModalMessageToDisplay(message);
 		if (modalMessageToDisplay != null) {
 			if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessageProcessor.LOBBY) {
@@ -426,7 +426,7 @@ public class Review {
 			} else if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessageProcessor.GAMEROOM) {
 				reviewMessages.add(new ReviewGameRoomMessage(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_ERROR));
 			}
-			
+
 			if (modalMessageToDisplay.getMessageHeader().equals("Game ended")) {
 				reviewMessages.add(new ReviewBreakPoint(ReviewBreakPoint.TURN_ENDED_THE_GAME));
 			}
@@ -435,7 +435,7 @@ public class Review {
 
 	private void handlePT(Object[] command) {
 		int tileRackIndex = (Integer)((Object)command[1]);
-        int index = tileRackIndex - 1;
+		int index = tileRackIndex - 1;
 
 		boolean visible = false;
 		boolean visibleBefore = tileRackData.getVisibility(index);
@@ -448,7 +448,7 @@ public class Review {
 													hoteltype, hoteltype,
 													visibleBefore, visible));
 	}
-	
+
 	public int getNumberOfPlayers() {
 		return Util.getNumberOfPlayers(scoreSheetCaptionData);
 	}
@@ -460,7 +460,7 @@ public class Review {
 	public static final int BREAK_AT_END_OF_GAME = 0;
 	public static final int BREAK_AT_TURN_BEGINNING = 1;
 	public static final int BREAK_AT_TURN_STEP = 2;
-	
+
 	public void navigate(int direction, int breakAt) {
 		int currentLine;
 		int boundaryLine;
@@ -473,7 +473,7 @@ public class Review {
 		}
 
 		boolean done = false;
-		
+
 		for (;;) {
 			if (currentLine == boundaryLine) {
 				break;
@@ -530,7 +530,7 @@ public class Review {
 
 		sync();
 	}
-	
+
 	private void sync() {
 		if (gameBoardData.isDirty()) {
 			Main.getMainFrame().getGameBoard().sync(gameBoardData);

@@ -7,16 +7,16 @@ import javax.swing.*;
 
 public abstract class GameDialog extends JDialog implements ActionListener {
 	private static final long serialVersionUID = -9013637360065026393L;
-	
+
 	protected JPanel panel = new JPanel();
-	
+
 	private boolean hasBeenHidden = false;
-	
+
 	private static Set<GameDialog> setOfGameDialogs = new HashSet<GameDialog>();
-	
+
 	public static final int ALLOW_EXTERNAL_HIDE_REQUEST = 1;
 	public static final int DO_NOT_ALLOW_EXTERNAL_HIDE_REQUEST = 2;
-	
+
 	public GameDialog(int allowExternalHideRequest) {
 		super(Main.getMainFrame());
 		panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
@@ -29,7 +29,7 @@ public abstract class GameDialog extends JDialog implements ActionListener {
 			}
 		}
 	}
-	
+
 	public static final int POSITION_0_0 = 1;
 	public static final int POSITION_BELOW_SCORE_SHEET = 2;
 	public static final int POSITION_CENTER_IN_MAIN_FRAME_PANEL = 3;
@@ -55,13 +55,13 @@ public abstract class GameDialog extends JDialog implements ActionListener {
 			setLocation(gameDialogLocation);
 		}
 	}
-		
+
 	public void showGameDialog(int position) {
 		pack();
 		setLocation(position);
 		setVisible(true);
 	}
-	
+
 	public void hideGameDialog() {
 		synchronized (setOfGameDialogs) {
 			hasBeenHidden = true;
@@ -69,7 +69,7 @@ public abstract class GameDialog extends JDialog implements ActionListener {
 			setOfGameDialogs.remove(this);
 		}
 	}
-	
+
 	public static void hideGameDialogs() {
 		synchronized (setOfGameDialogs) {
 			for (GameDialog gameDialog : setOfGameDialogs) {
@@ -84,6 +84,6 @@ public abstract class GameDialog extends JDialog implements ActionListener {
 			DoAction(actionEvent);
 		}
 	}
-	
+
 	public abstract void DoAction(ActionEvent actionEvent);
 }

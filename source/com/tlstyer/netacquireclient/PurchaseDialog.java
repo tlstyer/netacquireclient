@@ -6,42 +6,42 @@ import javax.swing.*;
 
 public class PurchaseDialog extends GameDialog {
 	private static final long serialVersionUID = 5139854320030992006L;
-	
+
 	private boolean canEndGame;
 	private int howMuchMoney;
-    private int[] available;
-    private int[] price;
+	private int[] available;
+	private int[] price;
 
-    private JButton[] buttonsAvailable;
-    private boolean[] isAvailable;
+	private JButton[] buttonsAvailable;
+	private boolean[] isAvailable;
 
-    private JButton[] buttonsPurchased;
-    private int[] selectedForPurchase;
+	private JButton[] buttonsPurchased;
+	private int[] selectedForPurchase;
 
-    private JTextField tfPurchase;
-    private JTextField tfCashLeft;
+	private JTextField tfPurchase;
+	private JTextField tfCashLeft;
 
-    private JCheckBox checkboxEndTheGame;
+	private JCheckBox checkboxEndTheGame;
 
-    private JButton buttonOK;
-    
-    private Color colorButtonBackground;
-    
-    private int buttonIndexWithFocus;
-	
+	private JButton buttonOK;
+
+	private Color colorButtonBackground;
+
+	private int buttonIndexWithFocus;
+
 	public PurchaseDialog(boolean canEndGame_,
-                          int howMuchMoney_,
-                          int[] available_,
-                          int[] price_) {
+						  int howMuchMoney_,
+						  int[] available_,
+						  int[] price_) {
 		super(ALLOW_EXTERNAL_HIDE_REQUEST);
-		
+
 		canEndGame = canEndGame_;
 		howMuchMoney = howMuchMoney_;
-        available = available_;
-        price = price_;
+		available = available_;
+		price = price_;
 
 		setTitle("Purchase");
-		
+
 		// initialize arrays
 		isAvailable = new boolean[7];
 		for (int index=0; index<7; ++index) {
@@ -51,12 +51,12 @@ public class PurchaseDialog extends GameDialog {
 				isAvailable[index] = true;
 			}
 		}
-		
+
 		selectedForPurchase = new int[3];
 		for (int index=0; index<3; ++index) {
 			selectedForPurchase[index] = -1;
 		}
-		
+
 		// "Available" panel
 		JPanel panelAvailable = new JPanel(new GridLayout(0, 1));
 		panelAvailable.setBorder(BorderFactory.createTitledBorder("Available"));
@@ -70,11 +70,11 @@ public class PurchaseDialog extends GameDialog {
 			button.setBackground(Util.hoteltypeToColor(index + 1));
 			button.setForeground(Color.black);
 			button.setVisible(isAvailable[index]);
-            button.setActionCommand(((Integer)index).toString());
-            button.addActionListener(this);
+			button.setActionCommand(((Integer)index).toString());
+			button.addActionListener(this);
 			panelAvailable.add(button);
 		}
-		
+
 		// "Purchased" panel
 		JPanel panelPurchased = new JPanel(new GridLayout(1, 0));
 		panelPurchased.setBorder(BorderFactory.createTitledBorder("Purchased"));
@@ -86,51 +86,51 @@ public class PurchaseDialog extends GameDialog {
 			button.setFont(Main.getFontManager().getBoldDialogFont());
 			button.setForeground(Color.black);
 			button.setEnabled(false);
-            button.setActionCommand(((Integer)(index+7)).toString());
-            button.addActionListener(this);
-            panelPurchased.add(button);
+			button.setActionCommand(((Integer)(index+7)).toString());
+			button.addActionListener(this);
+			panelPurchased.add(button);
 		}
 		colorButtonBackground = buttonsPurchased[0].getBackground();
-		
+
 		// "Cost" panel
 		JPanel panelCost = new JPanel(new GridLayout(2, 2));
 		panelCost.setBorder(BorderFactory.createTitledBorder("Cost"));
 		panelCost.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
+
 		JLabel labelPurchase = new JLabel("Purchase");
 		labelPurchase.setFont(Main.getFontManager().getBoldDialogFont());
 		panelCost.add(labelPurchase);
-		
+
 		tfPurchase = new JTextField();
 		tfPurchase.setFont(Main.getFontManager().getBoldDialogFont());
 		tfPurchase.setHorizontalAlignment(JTextField.RIGHT);
 		tfPurchase.setEnabled(false);
 		tfPurchase.setDisabledTextColor(Color.black);
 		panelCost.add(tfPurchase);
-		
+
 		JLabel labelCashLeft = new JLabel("Cash Left");
 		labelCashLeft.setFont(Main.getFontManager().getBoldDialogFont());
 		panelCost.add(labelCashLeft);
-		
+
 		tfCashLeft = new JTextField();
 		tfCashLeft.setFont(Main.getFontManager().getBoldDialogFont());
 		tfCashLeft.setHorizontalAlignment(JTextField.RIGHT);
 		tfCashLeft.setEnabled(false);
 		tfCashLeft.setDisabledTextColor(Color.black);
 		panelCost.add(tfCashLeft);
-		
+
 		// "End the game and OK" panel
 		checkboxEndTheGame = new JCheckBox("End the game");
 		checkboxEndTheGame.setMnemonic(KeyEvent.VK_E);
 		checkboxEndTheGame.setActionCommand("10");
 		checkboxEndTheGame.setAlignmentX(Component.LEFT_ALIGNMENT);
 		checkboxEndTheGame.addActionListener(this);
-		
+
 		buttonOK = Util.getButton3d2("OK", KeyEvent.VK_O);
 		buttonOK.setActionCommand("11");
 		buttonOK.setAlignmentX(Component.CENTER_ALIGNMENT);
 		buttonOK.addActionListener(this);
-		
+
 		// put them all together
 		JPanel panelRightTop = new JPanel(new GridLayout(0, 1));
 		panelRightTop.add(panelPurchased);
@@ -139,9 +139,9 @@ public class PurchaseDialog extends GameDialog {
 		JPanel panelRightSide = new JPanel();
 		panelRightSide.setLayout(new BoxLayout(panelRightSide, BoxLayout.Y_AXIS));
 		panelRightSide.add(panelRightTop);
-        panelRightSide.add(Box.createRigidArea(new Dimension(0, 5)));
+		panelRightSide.add(Box.createRigidArea(new Dimension(0, 5)));
 		panelRightSide.add(checkboxEndTheGame);
-        panelRightSide.add(Box.createRigidArea(new Dimension(0, 5)));
+		panelRightSide.add(Box.createRigidArea(new Dimension(0, 5)));
 		panelRightSide.add(buttonOK);
 
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
@@ -167,57 +167,57 @@ public class PurchaseDialog extends GameDialog {
 		setLocation(POSITION_BELOW_SCORE_SHEET);
 		setVisible(true);
 	}
-    
-    private int[] getSelectedChainCounts() {
-        int[] chainCounts = new int[7];
+
+	private int[] getSelectedChainCounts() {
+		int[] chainCounts = new int[7];
 		for (int index=0; index<7; ++index) {
-            chainCounts[index] = 0;
-        }
+			chainCounts[index] = 0;
+		}
 		for (int index=0; index<3; ++index) {
-            if (selectedForPurchase[index] != -1) {
-            	++chainCounts[selectedForPurchase[index]];
-            }
+			if (selectedForPurchase[index] != -1) {
+				++chainCounts[selectedForPurchase[index]];
+			}
 		}
 		return chainCounts;
 	}
-	
+
 	private void updateComponents() {
-        // calculate moneySpent and moneyLeft
+		// calculate moneySpent and moneyLeft
 		int moneySpent = 0;
 		for (int index=0; index<3; ++index) {
 			if (selectedForPurchase[index] != -1) {
 				moneySpent += price[selectedForPurchase[index]];
 			}
 		}
-        int moneyLeft = howMuchMoney - moneySpent;
+		int moneyLeft = howMuchMoney - moneySpent;
 
-        // enable/disable chains that i can afford and that are still available
-        int[] chainCounts = getSelectedChainCounts();
+		// enable/disable chains that i can afford and that are still available
+		int[] chainCounts = getSelectedChainCounts();
 		for (int index=0; index<7; ++index) {
-            if (isAvailable[index]) {
-                boolean haveEnoughMoney = (moneyLeft >= price[index]);
-                boolean stillAvailable = (available[index] > chainCounts[index]);
-                buttonsAvailable[index].setEnabled(haveEnoughMoney && stillAvailable);
-            }
-        }
+			if (isAvailable[index]) {
+				boolean haveEnoughMoney = (moneyLeft >= price[index]);
+				boolean stillAvailable = (available[index] > chainCounts[index]);
+				buttonsAvailable[index].setEnabled(haveEnoughMoney && stillAvailable);
+			}
+		}
 
-        // update buttonsPurchased to reflect selectedForPurchase
+		// update buttonsPurchased to reflect selectedForPurchase
 		for (int index=0; index<3; ++index) {
 			if (selectedForPurchase[index] != -1) {
-                int chainIndex = selectedForPurchase[index];
-                buttonsPurchased[index].setText("" + (price[chainIndex] * 100));
-                buttonsPurchased[index].setBackground(Util.hoteltypeToColor(chainIndex + 1));
-                buttonsPurchased[index].setEnabled(true);
-            } else {
-                buttonsPurchased[index].setText("");
-                buttonsPurchased[index].setBackground(colorButtonBackground);
-                buttonsPurchased[index].setEnabled(false);
-            }
-        }
+				int chainIndex = selectedForPurchase[index];
+				buttonsPurchased[index].setText("" + (price[chainIndex] * 100));
+				buttonsPurchased[index].setBackground(Util.hoteltypeToColor(chainIndex + 1));
+				buttonsPurchased[index].setEnabled(true);
+			} else {
+				buttonsPurchased[index].setText("");
+				buttonsPurchased[index].setBackground(colorButtonBackground);
+				buttonsPurchased[index].setEnabled(false);
+			}
+		}
 
-        // update "Cost" panel text fields
-        tfPurchase.setText("" + (moneySpent * 100));
-        tfCashLeft.setText("" + (moneyLeft * 100));
+		// update "Cost" panel text fields
+		tfPurchase.setText("" + (moneySpent * 100));
+		tfCashLeft.setText("" + (moneyLeft * 100));
 
 		// button focus
 		int origButtonIndexWithFocus = buttonIndexWithFocus;
@@ -245,39 +245,39 @@ public class PurchaseDialog extends GameDialog {
 		}
 	}
 
-    public void DoAction(ActionEvent actionEvent) {
-    	int buttonIndexPressed = Integer.decode(actionEvent.getActionCommand());
-    	if (buttonIndexPressed >= 0 && buttonIndexPressed <= 6) {
-    		for (int index=0; index<3; ++index) {
-                if (selectedForPurchase[index] == -1) {
-                    selectedForPurchase[index] = buttonIndexPressed;
-                    break;
-                }
-    		}
+	public void DoAction(ActionEvent actionEvent) {
+		int buttonIndexPressed = Integer.decode(actionEvent.getActionCommand());
+		if (buttonIndexPressed >= 0 && buttonIndexPressed <= 6) {
+			for (int index=0; index<3; ++index) {
+				if (selectedForPurchase[index] == -1) {
+					selectedForPurchase[index] = buttonIndexPressed;
+					break;
+				}
+			}
 			buttonIndexWithFocus = buttonIndexPressed;
-    	} else if (buttonIndexPressed >= 7 && buttonIndexPressed <= 9) {
-            selectedForPurchase[buttonIndexPressed - 7] = -1;
-    	} else if (buttonIndexPressed == 10) {
-    		if (!canEndGame) {
-    			JOptionPane.showMessageDialog(Main.getMainFrame(),
+		} else if (buttonIndexPressed >= 7 && buttonIndexPressed <= 9) {
+			selectedForPurchase[buttonIndexPressed - 7] = -1;
+		} else if (buttonIndexPressed == 10) {
+			if (!canEndGame) {
+				JOptionPane.showMessageDialog(Main.getMainFrame(),
 											  "No chain is greater than 40 in size and not all chains are safe.",
 											  "Cannot end game now",
 											  JOptionPane.WARNING_MESSAGE);
-    			checkboxEndTheGame.setSelected(false);
-    			toFront();
-    		}
-    	} else if (buttonIndexPressed == 11) {
-    		int[] chainCounts = getSelectedChainCounts();
-    		Object[] cc = new Object[7];
-    		for (int index=0; index<7; ++index) {
-                cc[index] = chainCounts[index];
-            }
-    		int endGameCode = (canEndGame && checkboxEndTheGame.isSelected() ? 1 : 0);
-    		Main.getNetworkConnection().writeMessage("P;" + Util.join(cc, ",") + "," + endGameCode);
-    		hideGameDialog();
+				checkboxEndTheGame.setSelected(false);
+				toFront();
+			}
+		} else if (buttonIndexPressed == 11) {
+			int[] chainCounts = getSelectedChainCounts();
+			Object[] cc = new Object[7];
+			for (int index=0; index<7; ++index) {
+				cc[index] = chainCounts[index];
+			}
+			int endGameCode = (canEndGame && checkboxEndTheGame.isSelected() ? 1 : 0);
+			Main.getNetworkConnection().writeMessage("P;" + Util.join(cc, ",") + "," + endGameCode);
+			hideGameDialog();
 			return;
 		}
-    	
-    	updateComponents();
-    }
+
+		updateComponents();
+	}
 }

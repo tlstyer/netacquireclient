@@ -40,7 +40,7 @@ class ModalMessageToDisplay {
 public class ModalMessageProcessor {
 	private ModalMessageProcessor() {
 	}
-	
+
 	public static final int LOBBY = 0;
 	public static final int GAMEROOM = 1;
 
@@ -54,13 +54,13 @@ public class ModalMessageProcessor {
 		"W;Test Mode Used;Test mode has been used by the host.  This means at least 1 tile has been drawn non-randomly (manually specified by the host).",
 	};
 
-    private static final Map<String, Integer> hashmapType = new HashMap<String, Integer>();
-    static {
-        hashmapType.put("E", JOptionPane.ERROR_MESSAGE);
-        hashmapType.put("I", JOptionPane.INFORMATION_MESSAGE);
-        hashmapType.put("W", JOptionPane.WARNING_MESSAGE);
-    }
-	
+	private static final Map<String, Integer> hashmapType = new HashMap<String, Integer>();
+	static {
+		hashmapType.put("E", JOptionPane.ERROR_MESSAGE);
+		hashmapType.put("I", JOptionPane.INFORMATION_MESSAGE);
+		hashmapType.put("W", JOptionPane.WARNING_MESSAGE);
+	}
+
 	public static ModalMessageToDisplay getModalMessageToDisplay(String message) {
 		String[] arrayTypeHeaderBody = message.split(";", -1);
 		if (arrayTypeHeaderBody.length != 3) {

@@ -7,7 +7,7 @@ public class SoundManager {
 	private static final int NUM_CLIPS = 3;
 	private Clip[] clips = new Clip[NUM_CLIPS];
 	private int currentClipIndex = 0;
-	
+
 	public SoundManager() {
 		for (int index=0; index<NUM_CLIPS; ++index) {
 			clips[index] = null;
@@ -17,17 +17,17 @@ public class SoundManager {
 				lineUnavailableException.printStackTrace();
 			}
 		}
-		
+
 		loadSound(Main.getUserPreferences().getPathToSound());
 	}
-	
+
 	public boolean loadSound(String pathname) {
 		currentClipIndex = (currentClipIndex + 1) % NUM_CLIPS;
-		
+
 		if (clips[currentClipIndex].isOpen()) {
 			clips[currentClipIndex].close();
 		}
-		
+
 		File file = new File(pathname);
 
 		AudioInputStream audioInputStream = null;
@@ -50,7 +50,7 @@ public class SoundManager {
 			iOException.printStackTrace();
 			return false;
 		}
-		
+
 		return true;
 	}
 

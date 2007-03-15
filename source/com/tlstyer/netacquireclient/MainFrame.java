@@ -8,57 +8,57 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 	private static final long serialVersionUID = 494783141808469259L;
 
 	private MainFrameMenuBar mainFrameMenuBar;
-	
+
 	private JPanel panel;
 
-    private GameBoard gameBoard;
-    private TextComponent tileRackBackground;
-    private TileRackButtons tileRackButtons;
-    private TileRackTextComponents tileRackTextComponents;
-    private MessageWindow lobby;
-    private PostMessageTextField lobbyPost;
-    private ScoreSheet scoreSheet;
-    private MessageWindow gameRoom;
-    private PostMessageTextField gameRoomPost;
-    
-    private static final Color tileRackBackgroundColor = new Color(255, 128, 0);
-	
+	private GameBoard gameBoard;
+	private TextComponent tileRackBackground;
+	private TileRackButtons tileRackButtons;
+	private TileRackTextComponents tileRackTextComponents;
+	private MessageWindow lobby;
+	private PostMessageTextField lobbyPost;
+	private ScoreSheet scoreSheet;
+	private MessageWindow gameRoom;
+	private PostMessageTextField gameRoomPost;
+
+	private static final Color tileRackBackgroundColor = new Color(255, 128, 0);
+
 	public MainFrame() {
-        //Set the look and feel.
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-        
-        //Make sure we have nice window decorations.
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        
-        //Create and set up the window.
-        setTitle(Main.getProgramName());
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addWindowListener(this);
-        
+		//Set the look and feel.
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+
+		//Make sure we have nice window decorations.
+		JFrame.setDefaultLookAndFeelDecorated(true);
+
+		//Create and set up the window.
+		setTitle(Main.getProgramName());
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(this);
+
 		// create the components
-        mainFrameMenuBar = new MainFrameMenuBar();
-        setJMenuBar(mainFrameMenuBar);
-        
-        panel = new JPanel(null);
-        gameBoard = new GameBoard();
-        tileRackBackground = new TextComponent(" ", tileRackBackgroundColor, TextComponent.ALIGN_CENTER);
-        tileRackButtons = new TileRackButtons();
-        tileRackTextComponents = new TileRackTextComponents();
-        lobby = new MessageWindow();
-        lobbyPost = new PostMessageTextField("Lobby");
-        scoreSheet = new ScoreSheet();
-        gameRoom = new MessageWindow();
-        gameRoomPost = new PostMessageTextField("Game Room");
-        
-        // use the same font in the entry areas as in the display areas
-        lobbyPost.setFont(Main.getFontManager().getMessageWindowFont());
-        gameRoomPost.setFont(Main.getFontManager().getMessageWindowFont());
-    	
-    	// layout the components
+		mainFrameMenuBar = new MainFrameMenuBar();
+		setJMenuBar(mainFrameMenuBar);
+
+		panel = new JPanel(null);
+		gameBoard = new GameBoard();
+		tileRackBackground = new TextComponent(" ", tileRackBackgroundColor, TextComponent.ALIGN_CENTER);
+		tileRackButtons = new TileRackButtons();
+		tileRackTextComponents = new TileRackTextComponents();
+		lobby = new MessageWindow();
+		lobbyPost = new PostMessageTextField("Lobby");
+		scoreSheet = new ScoreSheet();
+		gameRoom = new MessageWindow();
+		gameRoomPost = new PostMessageTextField("Game Room");
+
+		// use the same font in the entry areas as in the display areas
+		lobbyPost.setFont(Main.getFontManager().getMessageWindowFont());
+		gameRoomPost.setFont(Main.getFontManager().getMessageWindowFont());
+
+		// layout the components
 		panel.add(gameBoard);
 		panel.add(tileRackBackground);
 		panel.add(tileRackButtons);
@@ -68,7 +68,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		panel.add(scoreSheet);
 		panel.add(gameRoom);
 		panel.add(gameRoomPost);
-		
+
 		// put tile rack tiles in front of the background
 		panel.setComponentZOrder(tileRackBackground, 1);
 		panel.setComponentZOrder(tileRackButtons, 0);
@@ -77,61 +77,61 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		// don't know what to call these!
 		panel.addComponentListener(this);
 		getContentPane().add(panel, BorderLayout.CENTER);
-		
+
 		// for whatever reason, constructing the first JSpinner causes gobs of
 		// fonts to be loaded. this makes ShareDispositionDialog take forever
 		// to show up the first time it's requested. load these fonts (for
 		// whatever reason they're loaded) during program seup.
 		new JSpinner();
-		
-        //Display the window.
+
+		//Display the window.
 		pack();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setMode(Main.MODE_CHOOSE_MODE);
 		setVisible(true);
-    }
-	
-                                                                           // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
-    private static final boolean[] visibilityInModesGameBoard              = {false, false, false, false,  true,  true,  true};
-    private static final boolean[] visibilityInModesTileRackBackground     = {false, false, false, false,  true,  true,  true};
-    private static final boolean[] visibilityInModesTileRackButtons        = {false, false, false, false,  true,  true, false};
-    private static final boolean[] visibilityInModesTileRackTextComponents = {false, false, false, false, false, false,  true};
-    private static final boolean[] visibilityInModesLobby                  = {false, false,  true,  true,  true,  true,  true};
-    private static final boolean[] visibilityInModesLobbyPost              = {false, false, false,  true,  true,  true, false};
-    private static final boolean[] visibilityInModesScoreSheet             = {false, false, false, false,  true,  true,  true};
-    private static final boolean[] visibilityInModesGameRoom               = {false, false, false, false,  true,  true,  true};
-    private static final boolean[] visibilityInModesGameRoomPost           = {false, false, false, false,  true,  true, false};
-	
-	public void setMode(int mode) {
-        gameBoard.setVisible(visibilityInModesGameBoard[mode]);
-        tileRackBackground.setVisible(visibilityInModesTileRackBackground[mode]);
-        tileRackButtons.setVisible(visibilityInModesTileRackButtons[mode]);
-        tileRackTextComponents.setVisible(visibilityInModesTileRackTextComponents[mode]);
-        lobby.setVisible(visibilityInModesLobby[mode]);
-        lobbyPost.setVisible(visibilityInModesLobbyPost[mode]);
-        scoreSheet.setVisible(visibilityInModesScoreSheet[mode]);
-        gameRoom.setVisible(visibilityInModesGameRoom[mode]);
-        gameRoomPost.setVisible(visibilityInModesGameRoomPost[mode]);
-        
-        setComponentsBounds();
-
-        mainFrameMenuBar.setMode(mode);
-        
-        lobby.setMode(mode);
-        gameRoom.setMode(mode);
-        
-        if (mode <= Main.MODE_CONNECTING) {
-        	lobby.clear();
-        }
-        
-        if (mode <= Main.MODE_IN_LOBBY) {
-        	GameDialog.hideGameDialogs();
-        	gameRoom.clear();
-        	tileRackButtons.setButtonsVisible(false);
-        	tileRackButtons.setCanPlayTile(false);
-        }
 	}
-	
+
+																		   // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
+	private static final boolean[] visibilityInModesGameBoard              = {false, false, false, false,  true,  true,  true};
+	private static final boolean[] visibilityInModesTileRackBackground     = {false, false, false, false,  true,  true,  true};
+	private static final boolean[] visibilityInModesTileRackButtons        = {false, false, false, false,  true,  true, false};
+	private static final boolean[] visibilityInModesTileRackTextComponents = {false, false, false, false, false, false,  true};
+	private static final boolean[] visibilityInModesLobby                  = {false, false,  true,  true,  true,  true,  true};
+	private static final boolean[] visibilityInModesLobbyPost              = {false, false, false,  true,  true,  true, false};
+	private static final boolean[] visibilityInModesScoreSheet             = {false, false, false, false,  true,  true,  true};
+	private static final boolean[] visibilityInModesGameRoom               = {false, false, false, false,  true,  true,  true};
+	private static final boolean[] visibilityInModesGameRoomPost           = {false, false, false, false,  true,  true, false};
+
+	public void setMode(int mode) {
+		gameBoard.setVisible(visibilityInModesGameBoard[mode]);
+		tileRackBackground.setVisible(visibilityInModesTileRackBackground[mode]);
+		tileRackButtons.setVisible(visibilityInModesTileRackButtons[mode]);
+		tileRackTextComponents.setVisible(visibilityInModesTileRackTextComponents[mode]);
+		lobby.setVisible(visibilityInModesLobby[mode]);
+		lobbyPost.setVisible(visibilityInModesLobbyPost[mode]);
+		scoreSheet.setVisible(visibilityInModesScoreSheet[mode]);
+		gameRoom.setVisible(visibilityInModesGameRoom[mode]);
+		gameRoomPost.setVisible(visibilityInModesGameRoomPost[mode]);
+
+		setComponentsBounds();
+
+		mainFrameMenuBar.setMode(mode);
+
+		lobby.setMode(mode);
+		gameRoom.setMode(mode);
+
+		if (mode <= Main.MODE_CONNECTING) {
+			lobby.clear();
+		}
+
+		if (mode <= Main.MODE_IN_LOBBY) {
+			GameDialog.hideGameDialogs();
+			gameRoom.clear();
+			tileRackButtons.setButtonsVisible(false);
+			tileRackButtons.setCanPlayTile(false);
+		}
+	}
+
 	private void setComponentBounds(Component component, int x, int y, int width, int height) {
 		Rectangle bounds = component.getBounds();
 		if (bounds.x != x || bounds.y != y || bounds.width != width || bounds.height != height) {
@@ -141,14 +141,14 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 	}
 
 	private static final int borderWidth = 4;
-	
-	public void setComponentsBounds() {
-        int width = panel.getWidth();
-        int height = panel.getHeight();
-        int numRowsInScoreSheet = Main.getMain().getNumberOfPlayers() + 4;
 
-        int gameBoardWidth = width / 2 - (borderWidth + borderWidth / 2);
-        int gameBoardHeight = gameBoardWidth * 3 / 4;
+	public void setComponentsBounds() {
+		int width = panel.getWidth();
+		int height = panel.getHeight();
+		int numRowsInScoreSheet = Main.getMain().getNumberOfPlayers() + 4;
+
+		int gameBoardWidth = width / 2 - (borderWidth + borderWidth / 2);
+		int gameBoardHeight = gameBoardWidth * 3 / 4;
 
 		int tileRackBackgroundY = borderWidth + gameBoardHeight + borderWidth;
 		int tileRackBackgroundHeight = gameBoardHeight * 2 / 13;
@@ -168,7 +168,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		if (lobbyPost.isVisible()) {
 			lobbyHeight -= lobbyPostHeight;
 		}
-		
+
 		int lobbyPostY = lobbyY + lobbyHeight;
 
 		int scoreSheetX = width / 2 + borderWidth / 2;
@@ -181,12 +181,12 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		if (gameRoomPost.isVisible()) {
 			gameRoomHeight -= gameRoomPostHeight;
 		}
-		
+
 		int gameRoomPostY = gameRoomY + gameRoomHeight;
 
 		scoreSheet.setRowHeight(scoreSheetRowHeight);
 		Main.getFontManager().setClassicTextComponentHeight(scoreSheetRowHeight - 2);
-        setComponentBounds(gameBoard, borderWidth, borderWidth, gameBoardWidth, gameBoardHeight);
+		setComponentBounds(gameBoard, borderWidth, borderWidth, gameBoardWidth, gameBoardHeight);
 		setComponentBounds(tileRackBackground, borderWidth, tileRackBackgroundY, gameBoardWidth, tileRackBackgroundHeight);
 		setComponentBounds(tileRackButtons, tileRackX, tileRackY, tileRackWidth, tileRackHeight);
 		setComponentBounds(tileRackTextComponents, tileRackX, tileRackY, tileRackWidth, tileRackHeight);
@@ -195,33 +195,33 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		setComponentBounds(scoreSheet, scoreSheetX, borderWidth, gameBoardWidth, scoreSheetHeight);
 		setComponentBounds(gameRoom, scoreSheetX, gameRoomY, gameBoardWidth, gameRoomHeight);
 		setComponentBounds(gameRoomPost, scoreSheetX, gameRoomPostY, gameBoardWidth, gameRoomPostHeight);
-    }
-	
+	}
+
 	public int getScoreSheetHeight() {
-        int width = panel.getWidth();
-        int gameBoardWidth = width / 2 - (borderWidth + borderWidth / 2);
+		int width = panel.getWidth();
+		int gameBoardWidth = width / 2 - (borderWidth + borderWidth / 2);
 		int scoreSheetRowHeight = gameBoardWidth * 10 / 18 / 10;
 		int numRowsInScoreSheet = Main.getMain().getNumberOfPlayers() + 4;
 		return scoreSheetRowHeight * numRowsInScoreSheet;
 	}
-	
+
 	public void closeWindow() {
 		Main.getUserPreferences().save();
 		System.exit(0);
 	}
-    
-    public void componentHidden(ComponentEvent componentEvent) {
-    }
-    
-    public void componentMoved(ComponentEvent componentEvent) {
-    }
-    
-    public void componentResized(ComponentEvent componentEvent) {
+
+	public void componentHidden(ComponentEvent componentEvent) {
+	}
+
+	public void componentMoved(ComponentEvent componentEvent) {
+	}
+
+	public void componentResized(ComponentEvent componentEvent) {
 		setComponentsBounds();
 	}
 
-    public void componentShown(ComponentEvent componentEvent) {
-    }
+	public void componentShown(ComponentEvent componentEvent) {
+	}
 
 	public void windowActivated(WindowEvent windowEvent) {
 	}

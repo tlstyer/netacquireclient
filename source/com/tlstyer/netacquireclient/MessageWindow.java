@@ -9,9 +9,9 @@ public class MessageWindow extends JScrollPane {
 	private JTextPane textPane = new JTextPane();
 	private MessageWindowDocument messageWindowDocument;
 	private TransferHandler transferHandler;
-	
+
 	private static final Color colorBackground = new Color(192, 192, 255);
-	
+
 	public MessageWindow() {
 		textPane.setEditable(false);
 		textPane.setBackground(colorBackground);
@@ -19,11 +19,11 @@ public class MessageWindow extends JScrollPane {
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		transferHandler = textPane.getTransferHandler();
-		
+
 		messageWindowDocument = new MessageWindowDocument();
 		textPane.setStyledDocument(messageWindowDocument);
 	}
-	
+
 	public void setMode(int mode) {
 		if (mode == Main.MODE_REVIEW) {
 			textPane.setFocusable(false);
@@ -33,7 +33,7 @@ public class MessageWindow extends JScrollPane {
 			textPane.setTransferHandler(transferHandler);
 		}
 	}
-	
+
 	public void append(String str, int type) {
 		messageWindowDocument.append(str, type);
 		textPane.setCaretPosition(messageWindowDocument.getLength());
@@ -43,7 +43,7 @@ public class MessageWindow extends JScrollPane {
 		messageWindowDocument.unAppend(str);
 		textPane.setCaretPosition(messageWindowDocument.getLength());
 	}
-	
+
 	public void clear() {
 		messageWindowDocument.clear();
 	}

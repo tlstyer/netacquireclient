@@ -38,8 +38,8 @@ public class UserListPresenter {
 	private String messageStart;
 	private ArrayList<ListEntry> listEntries = new ArrayList<ListEntry>();
 
-    private static final Pattern patternListStart = Pattern.compile("\\A# Users: \\d*? \\.\\.\\.\\z");
-    private static final Pattern patternListEntry = Pattern.compile("\\A# -> (.+?) (in lobby|\\(playing in game #(\\d*?)\\)|\\(watching game #(\\d*?)\\)) \\.\\.\\.\\z");
+	private static final Pattern patternListStart = Pattern.compile("\\A# Users: \\d*? \\.\\.\\.\\z");
+	private static final Pattern patternListEntry = Pattern.compile("\\A# -> (.+?) (in lobby|\\(playing in game #(\\d*?)\\)|\\(watching game #(\\d*?)\\)) \\.\\.\\.\\z");
 	private static final String stringListEnd = "# End of user list.";
 	private static final ComparatorListEntryGameNumber comparatorListEntryGameNumber = new ComparatorListEntryGameNumber();
 	private static final ComparatorListEntryAlphabetically comparatorListEntryAlphabetically = new ComparatorListEntryAlphabetically();
@@ -105,7 +105,7 @@ public class UserListPresenter {
 		for (int i=0; i<listEntriesArray.length; ++i) {
 			listEntries[i] = (ListEntry)listEntriesArray[i];
 		}
-		
+
 		int sortingMethod = Main.getUserPreferences().getUserListSortingMethod();
 		if (sortingMethod == SORT_ALPHABETICALLY) {
 			Arrays.sort(listEntries, comparatorListEntryAlphabetically);
@@ -113,7 +113,7 @@ public class UserListPresenter {
 			Arrays.sort(listEntries, comparatorListEntryGameNumber);
 		}
 
-        MessageWindow lobby = Main.getMainFrame().getLobby();
+		MessageWindow lobby = Main.getMainFrame().getLobby();
 		lobby.append(messageStart, MessageWindowDocument.APPEND_DEFAULT);
 		for (ListEntry listEntry : listEntries) {
 			lobby.append(listEntry.message, MessageWindowDocument.APPEND_DEFAULT);
