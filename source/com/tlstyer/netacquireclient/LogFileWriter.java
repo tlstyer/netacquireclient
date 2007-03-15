@@ -20,7 +20,7 @@ public class LogFileWriter {
 	public static final int MESSAGE_OUTGOING = 2;
 
 	private void writeMessage_(int type, String message) {
-		if (mode < Main.MODE_IN_GAME) {
+		if (mode != Main.MODE_IN_GAME && mode != Main.MODE_IN_GAME_WAITING_FOR_ME_TO_START_GAME) {
 			return;
 		}
 
@@ -36,7 +36,7 @@ public class LogFileWriter {
 	}
 
 	private void writeMessages_() {
-		if (mode < Main.MODE_IN_GAME) {
+		if (mode != Main.MODE_IN_GAME && mode != Main.MODE_IN_GAME_WAITING_FOR_ME_TO_START_GAME) {
 			return;
 		}
 
@@ -74,7 +74,7 @@ public class LogFileWriter {
 	private void setMode_(int mode_) {
 		mode = mode_;
 
-		if (mode < Main.MODE_IN_GAME) {
+		if (mode != Main.MODE_IN_GAME && mode != Main.MODE_IN_GAME_WAITING_FOR_ME_TO_START_GAME) {
 			messages.clear();
 			closeLogFile_();
 		}
