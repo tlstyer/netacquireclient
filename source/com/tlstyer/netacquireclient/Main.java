@@ -26,6 +26,8 @@ public class Main {
 
 	private static final String programName = "NetAcquire Client";
 
+	private boolean waitingToEnterGame = false;
+
 	public static void main(String[] args) {
 		new Main();
 	}
@@ -169,6 +171,15 @@ public class Main {
 		synchronized (this) {
 			notifyAll();
 		}
+	}
+
+	public boolean getWaitingToEnterGame() {
+		return waitingToEnterGame;
+	}
+
+	public void setWaitingToEnterGame(boolean waitingToEnterGame) {
+		this.waitingToEnterGame = waitingToEnterGame;
+		mainFrame.getMainFrameMenuBar().setMode(mode);
 	}
 
 	public void setReviewModeInfo() {

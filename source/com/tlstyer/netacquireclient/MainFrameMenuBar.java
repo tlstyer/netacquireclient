@@ -143,6 +143,7 @@ class MenuItemStartGamePlay extends MainFrameMenuItem {
 
 	public void doAction() {
 		Main.getNetworkConnection().writeMessage("PG;");
+		Main.getMain().setWaitingToEnterGame(true);
 	}
 }
 
@@ -188,6 +189,7 @@ class MenuItemEnterGame extends MainFrameMenuItem {
 				Main.getNetworkConnection().writeMessage("LV;");
 			}
 			Main.getNetworkConnection().writeMessage("JG;" + value + "," + messageCode);
+			Main.getMain().setWaitingToEnterGame(true);
 		} else {
 			JOptionPane.showMessageDialog(
 					Main.getMainFrame(),
@@ -408,10 +410,16 @@ public class MainFrameMenuBar extends JMenuBar {
 	public void setMode(int mode) {
 		menuItemShowUsers.setEnabled(enablednessInModesMenuItemShowUsers[mode]);
 		menuItemShowGames.setEnabled(enablednessInModesMenuItemShowGames[mode]);
-		menuItemStartNewGame.setEnabled(enablednessInModesMenuItemStartNewGame[mode]);
 		menuItemStartGamePlay.setEnabled(enablednessInModesMenuItemStartGamePlay[mode]);
-		menuItemJoinGame.setEnabled(enablednessInModesMenuItemJoinGame[mode]);
-		menuItemWatchGame.setEnabled(enablednessInModesMenuItemWatchGame[mode]);
+		if (Main.getMain().getWaitingToEnterGame()) {
+			menuItemStartNewGame.setEnabled(false);
+			menuItemJoinGame.setEnabled(false);
+			menuItemWatchGame.setEnabled(false);
+		} else {
+			menuItemStartNewGame.setEnabled(enablednessInModesMenuItemStartNewGame[mode]);
+			menuItemJoinGame.setEnabled(enablednessInModesMenuItemJoinGame[mode]);
+			menuItemWatchGame.setEnabled(enablednessInModesMenuItemWatchGame[mode]);
+		}
 		menuItemShowGameState.setEnabled(enablednessInModesMenuItemShowGameState[mode]);
 		menuItemLeaveGame.setEnabled(enablednessInModesMenuItemLeaveGame[mode]);
 

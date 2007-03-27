@@ -432,6 +432,7 @@ public class NetworkConnection {
 			return;
 		}
 		Main.getMain().setMode(state);
+		Main.getMain().setWaitingToEnterGame(false);
 	}
 
 	private void handleGT(Object[] command) {
