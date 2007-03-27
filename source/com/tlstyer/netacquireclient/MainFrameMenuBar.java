@@ -185,9 +185,6 @@ class MenuItemEnterGame extends MainFrameMenuItem {
 		}
 
 		if (value >= 1 && value <= 32767) {
-			if (Main.getMain().getMode() >= Main.MODE_IN_GAME) {
-				Main.getNetworkConnection().writeMessage("LV;");
-			}
 			Main.getNetworkConnection().writeMessage("JG;" + value + "," + messageCode);
 			Main.getMain().setWaitingToEnterGame(true);
 		} else {
@@ -400,8 +397,8 @@ public class MainFrameMenuBar extends JMenuBar {
 	private static final boolean[] enablednessInModesMenuItemShowGames     = {false, false, false,  true,  true,  true, false};
 	private static final boolean[] enablednessInModesMenuItemStartNewGame  = {false, false, false,  true, false, false, false};
 	private static final boolean[] enablednessInModesMenuItemStartGamePlay = {false, false, false, false, false,  true, false};
-	private static final boolean[] enablednessInModesMenuItemJoinGame      = {false, false, false,  true,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemWatchGame     = {false, false, false,  true,  true,  true, false};
+	private static final boolean[] enablednessInModesMenuItemJoinGame      = {false, false, false,  true, false, false, false};
+	private static final boolean[] enablednessInModesMenuItemWatchGame     = {false, false, false,  true, false, false, false};
 	private static final boolean[] enablednessInModesMenuItemShowGameState = {false, false, false, false,  true,  true, false};
 	private static final boolean[] enablednessInModesMenuItemLeaveGame     = {false, false, false, false,  true,  true, false};
 
