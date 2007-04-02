@@ -8,7 +8,7 @@ public class PostMessageTextField extends JTextField implements ActionListener {
 
 	String type = null;
 
-	public PostMessageTextField (String type_) {
+	public PostMessageTextField(String type_) {
 		type = type_;
 		addActionListener(this);
 	}
