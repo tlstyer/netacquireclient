@@ -24,17 +24,17 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 	private static final Color tileRackBackgroundColor = new Color(255, 128, 0);
 
 	public MainFrame() {
-		//Set the look and feel.
+		// set the look and feel
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
 
-		//Make sure we have nice window decorations.
+		// make sure we have nice window decorations
 		JFrame.setDefaultLookAndFeelDecorated(true);
 
-		//Create and set up the window.
+		// create and setup the window
 		setTitle(Main.getProgramName());
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(this);
@@ -81,10 +81,10 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		// for whatever reason, constructing the first JSpinner causes gobs of
 		// fonts to be loaded. this makes ShareDispositionDialog take forever
 		// to show up the first time it's requested. load these fonts (for
-		// whatever reason they're loaded) during program seup.
+		// whatever reason they're loaded) during program setup.
 		new JSpinner();
 
-		//Display the window.
+		// display the window.
 		pack();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setMode(Main.MODE_CHOOSE_MODE);
