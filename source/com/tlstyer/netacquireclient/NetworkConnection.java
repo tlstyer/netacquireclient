@@ -489,15 +489,15 @@ public class NetworkConnection {
 			} else if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessageProcessor.GAMEROOM) {
 				Main.getMainFrame().getGameRoom().append(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_ERROR);
 			}
+
+			if (Main.getUserPreferences().getShowModalMessageDialogBoxes()) {
+				JOptionPane.showMessageDialog(Main.getMainFrame(),
+											  modalMessageToDisplay.getMessageBody(),
+											  modalMessageToDisplay.getMessageHeader(),
+											  modalMessageToDisplay.getMessageType());
+			}
 		} else {
 			commandProcessingResult = COMMAND_NOT_PROCESSED;
-		}
-
-		if (Main.getUserPreferences().getShowModalMessageDialogBoxes()) {
-			JOptionPane.showMessageDialog(Main.getMainFrame(),
-										  modalMessageToDisplay.getMessageBody(),
-										  modalMessageToDisplay.getMessageHeader(),
-										  modalMessageToDisplay.getMessageType());
 		}
 	}
 }
