@@ -12,22 +12,25 @@ public class PurchaseDialog extends GameDialog {
 	private int[] available;
 	private int[] price;
 
-	private JButton[] buttonsAvailable;
-	private boolean[] isAvailable;
-
-	private JButton[] buttonsPurchased;
-	private int[] selectedForPurchase;
-
-	private JTextField tfPurchase;
-	private JTextField tfCashLeft;
-
-	private JCheckBox checkboxEndTheGame;
-
-	private JButton buttonOK;
+	private int buttonIndexWithFocus;
 
 	private Color colorButtonBackground;
 
-	private int buttonIndexWithFocus;
+	// "Available" panel
+	private JButton[] buttonsAvailable;
+	private boolean[] isAvailable;
+
+	// "Purchased" panel
+	private JButton[] buttonsPurchased;
+	private int[] selectedForPurchase;
+
+	// "Cost" panel
+	private JTextField tfPurchase;
+	private JTextField tfCashLeft;
+
+	// "End the game and OK" panel
+	private JCheckBox checkboxEndTheGame;
+	private JButton buttonOK;
 
 	public PurchaseDialog(boolean canEndGame_,
 						  int howMuchMoney_,

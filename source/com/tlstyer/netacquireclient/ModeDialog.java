@@ -9,12 +9,18 @@ import javax.swing.*;
 public class ModeDialog extends GameDialog {
 	private static final long serialVersionUID = -9110080591988857670L;
 
+	// "Nickname" panel
 	private JComboBox cbNickname;
 	private JButton buttonDeleteNickname;
+
+	// "IPURL:Port" panel
 	private JComboBox cbIPURLPort;
 	private JButton buttonDeleteIPURLPort;
+
+	// "Play" panel
 	private JButton buttonPlay;
 
+	// "Review" panel
 	private JButton buttonReview;
 
 	private static final Pattern badNicknameChars = Pattern.compile(",|;|:|\"");
@@ -58,11 +64,6 @@ public class ModeDialog extends GameDialog {
 		panelIPURLPort.add(cbIPURLPort);
 		panelIPURLPort.add(buttonDeleteIPURLPort);
 
-		// "Play" button
-		buttonPlay = Util.getButton3d2("Play", KeyEvent.VK_P);
-		buttonPlay.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		buttonPlay.addActionListener(this);
-
 		// make the combo boxes the same width
 		int width = labelIPURLPort.getPreferredSize().width * 3;
 		Dimension dimension;
@@ -80,6 +81,10 @@ public class ModeDialog extends GameDialog {
 		cbIPURLPort.setMaximumSize(dimension);
 
 		// "Play" panel
+		buttonPlay = Util.getButton3d2("Play", KeyEvent.VK_P);
+		buttonPlay.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		buttonPlay.addActionListener(this);
+
 		JPanel panelGame = new JPanel();
 		panelGame.setBorder(BorderFactory.createTitledBorder("Play"));
 		panelGame.setLayout(new BoxLayout(panelGame, BoxLayout.Y_AXIS));
