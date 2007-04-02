@@ -43,7 +43,7 @@ public class UserPreferences {
 	private static final String KEY_gameBoardLabelMode = "game board label mode";
 
 	// other
-	private static final Preferences preferences = Preferences.userNodeForPackage(UserPreferences.class);
+	private static final Preferences preferences = Preferences.userRoot().node("com/tlstyer/netacquireclient");
 	private static final String stringArraySeparator = "::";
 
 	public UserPreferences() {
