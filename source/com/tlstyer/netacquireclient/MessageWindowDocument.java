@@ -6,47 +6,47 @@ import javax.swing.text.*;
 public class MessageWindowDocument extends DefaultStyledDocument {
 	private static final long serialVersionUID = -7707575450662821467L;
 
-	private static Style styleSystem;
-	private static Style styleUser;
-	private static Style styleError;
+	private static Style styleNormal;
+	private static Style styleComment;
+	private static Style styleImportant;
 	static {
 		StyleContext defaultStyleContext = StyleContext.getDefaultStyleContext();
 		Style style = defaultStyleContext.getStyle(StyleContext.DEFAULT_STYLE);
 
-		styleSystem = defaultStyleContext.addStyle("system", style);
-		StyleConstants.setFontFamily(styleSystem, FontManager.getFontNameMessageWindows());
-		StyleConstants.setFontSize(styleSystem, 12);
-		StyleConstants.setForeground(styleSystem, Color.black);
+		styleNormal = defaultStyleContext.addStyle("normal", style);
+		StyleConstants.setFontFamily(styleNormal, FontManager.getFontNameMessageWindows());
+		StyleConstants.setFontSize(styleNormal, 12);
+		StyleConstants.setForeground(styleNormal, Color.black);
 
-		styleUser = defaultStyleContext.addStyle("user", styleSystem);
-		StyleConstants.setForeground(styleUser, Color.blue);
+		styleComment = defaultStyleContext.addStyle("comment", styleNormal);
+		StyleConstants.setForeground(styleComment, Color.blue);
 
-		styleError = defaultStyleContext.addStyle("error", styleUser);
-		StyleConstants.setForeground(styleError, Color.red);
+		styleImportant = defaultStyleContext.addStyle("important", styleComment);
+		StyleConstants.setForeground(styleImportant, Color.red);
 	}
 
 	public MessageWindowDocument() {
-		addStyle("system", styleSystem);
-		addStyle("user", styleUser);
-		addStyle("error", styleError);
+		addStyle("normal", styleNormal);
+		addStyle("comment", styleComment);
+		addStyle("important", styleImportant);
 	}
 
-	public static final int APPEND_SYSTEM = 0;
-	public static final int APPEND_USER = 1;
-	public static final int APPEND_ERROR = 2;
+	public static final int APPEND_NORMAL = 0;
+	public static final int APPEND_COMMENT = 1;
+	public static final int APPEND_IMPORTANT = 2;
 
 	public void append(String str, int type) {
 		String style;
 		switch (type) {
-			case APPEND_SYSTEM:
-				style = "system";
+			case APPEND_NORMAL:
+				style = "normal";
 				break;
-			case APPEND_USER:
-				style = "user";
+			case APPEND_COMMENT:
+				style = "comment";
 				break;
-			case APPEND_ERROR:
+			case APPEND_IMPORTANT:
 			default:
-				style = "error";
+				style = "important";
 				break;
 		}
 

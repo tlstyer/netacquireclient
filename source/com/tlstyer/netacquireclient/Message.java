@@ -22,9 +22,9 @@ public class Message {
 	
 	public int getType() {
 		if (message.length() >= 2 && message.substring(0, 2).equals("->")) {
-			return MessageWindowDocument.APPEND_USER;
+			return MessageWindowDocument.APPEND_COMMENT;
 		} else {
-			return MessageWindowDocument.APPEND_SYSTEM;
+			return MessageWindowDocument.APPEND_NORMAL;
 		}
 	}
 }

@@ -298,9 +298,9 @@ public class NetworkConnection {
 			}
 
 			if (commandProcessingResult == COMMAND_NOT_PROCESSED) {
-				Main.getMainFrame().getLobby().append("Unhandled command: " + commandString, MessageWindowDocument.APPEND_ERROR);
+				Main.getMainFrame().getLobby().append("Unhandled command: " + commandString, MessageWindowDocument.APPEND_IMPORTANT);
 			} else if (commandProcessingResult == COMMAND_ERROR_WHILE_PROCESSING) {
-				Main.getMainFrame().getLobby().append("Error while processing command: " + commandString, MessageWindowDocument.APPEND_ERROR);
+				Main.getMainFrame().getLobby().append("Error while processing command: " + commandString, MessageWindowDocument.APPEND_IMPORTANT);
 			}
 		}
 
@@ -485,9 +485,9 @@ public class NetworkConnection {
 		ModalMessageToDisplay modalMessageToDisplay = ModalMessageProcessor.getModalMessageToDisplay(message.getMessage());
 		if (modalMessageToDisplay != null) {
 			if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessageProcessor.LOBBY) {
-				Main.getMainFrame().getLobby().append(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_ERROR);
+				Main.getMainFrame().getLobby().append(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_IMPORTANT);
 			} else if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessageProcessor.GAMEROOM) {
-				Main.getMainFrame().getGameRoom().append(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_ERROR);
+				Main.getMainFrame().getGameRoom().append(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_IMPORTANT);
 			}
 
 			if (Main.getUserPreferences().getShowModalMessageDialogBoxes()) {
