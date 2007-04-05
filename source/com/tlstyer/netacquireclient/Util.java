@@ -93,15 +93,6 @@ public class Util {
 		return join(strings, ";");
 	}
 
-	public static String commandToContainedMessage(Object[] command) {
-		Object[] objects_message = new Object[command.length - 1];
-		System.arraycopy(command, 1, objects_message, 0, objects_message.length);
-		String message = commandJavaToText(objects_message);
-		message = message.substring(1, message.length() - 1);
-		message = message.replace("\"\"", "\"");
-		return message;
-	}
-
 	// update net worths functions
 	private static boolean[] getExistingHotelsOnGameBoard(GameBoardData gbd) {
 		boolean[] existing = new boolean[7];

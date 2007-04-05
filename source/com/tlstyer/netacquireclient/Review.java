@@ -362,15 +362,15 @@ public class Review {
 	}
 
 	private void handleLM(Object[] command) {
-		String message = Util.commandToContainedMessage(command);
-		reviewMessages.add(new ReviewLobbyMessage(message, MessageWindowDocument.APPEND_DEFAULT));
+		Message message = new Message(command);
+		reviewMessages.add(new ReviewLobbyMessage(message.getMessage(), MessageWindowDocument.APPEND_DEFAULT));
 	}
 
 	private void handleGM(Object[] command) {
-		String message = Util.commandToContainedMessage(command);
-		reviewMessages.add(new ReviewGameRoomMessage(message, MessageWindowDocument.APPEND_DEFAULT));
+		Message message = new Message(command);
+		reviewMessages.add(new ReviewGameRoomMessage(message.getMessage(), MessageWindowDocument.APPEND_DEFAULT));
 
-		Matcher matcherWaiting = Util.patternWaiting.matcher(message);
+		Matcher matcherWaiting = Util.patternWaiting.matcher(message.getMessage());
 		if (matcherWaiting.find()) {
 			int bpType;
 			if (matcherWaiting.group(2) != null) {
@@ -417,9 +417,9 @@ public class Review {
 	}
 
 	private void handleM(Object[] command) {
-		String message = Util.commandToContainedMessage(command);
+		Message message = new Message(command);
 
-		ModalMessageToDisplay modalMessageToDisplay = ModalMessageProcessor.getModalMessageToDisplay(message);
+		ModalMessageToDisplay modalMessageToDisplay = ModalMessageProcessor.getModalMessageToDisplay(message.getMessage());
 		if (modalMessageToDisplay != null) {
 			if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessageProcessor.LOBBY) {
 				reviewMessages.add(new ReviewLobbyMessage(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_ERROR));

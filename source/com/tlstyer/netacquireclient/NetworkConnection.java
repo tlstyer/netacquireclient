@@ -386,19 +386,19 @@ public class NetworkConnection {
 	}
 
 	private void handleLM(Object[] command) {
-		String message = Util.commandToContainedMessage(command);
-		int result = userListPresenter.processMessage(message);
+		Message message = new Message(command);
+		int result = userListPresenter.processMessage(message.getMessage());
 		if (result == UserListPresenter.DO_AS_USUAL) {
-			Main.getMainFrame().getLobby().append(message, MessageWindowDocument.APPEND_DEFAULT);
+			Main.getMainFrame().getLobby().append(message.getMessage(), MessageWindowDocument.APPEND_DEFAULT);
 		} else if (result == UserListPresenter.READY_TO_OUTPUT_LINES) {
 			userListPresenter.outputLines();
 		}
 	}
 
 	private void handleGM(Object[] command) {
-		String message = Util.commandToContainedMessage(command);
-		Main.getMainFrame().getGameRoom().append(message, MessageWindowDocument.APPEND_DEFAULT);
-		Matcher matcher = Util.patternWaiting.matcher(message);
+		Message message = new Message(command);
+		Main.getMainFrame().getGameRoom().append(message.getMessage(), MessageWindowDocument.APPEND_DEFAULT);
+		Matcher matcher = Util.patternWaiting.matcher(message.getMessage());
 		if (matcher.find() && matcher.group(1).toLowerCase().equals(nicknameLowercase)) {
 			if (Main.getUserPreferences().getPlaySoundWhenWaitingForMe()) {
 				Main.getSoundManager().playSound(Main.getUserPreferences().getPathToSound());
@@ -480,9 +480,9 @@ public class NetworkConnection {
 	}
 
 	private void handleM(Object[] command) {
-		String message = Util.commandToContainedMessage(command);
-
-		ModalMessageToDisplay modalMessageToDisplay = ModalMessageProcessor.getModalMessageToDisplay(message);
+		Message message = new Message(command);
+		
+		ModalMessageToDisplay modalMessageToDisplay = ModalMessageProcessor.getModalMessageToDisplay(message.getMessage());
 		if (modalMessageToDisplay != null) {
 			if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessageProcessor.LOBBY) {
 				Main.getMainFrame().getLobby().append(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_ERROR);
