@@ -240,10 +240,15 @@ public class OptionsDialog extends GameDialog {
 		panelOKCancel.add(buttonCancel);
 
 		// give all panels left alignment
+		panelGameBoardLabelMode.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panelLobbyAndGameRoomMessages.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panelLogFiles.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panelMaxPlayerCount.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panelOKCancel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panelShowModalMessageDialogBoxes.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panelUserListSortingMethod.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panelWhenWaitingForMe.setAlignmentX(Component.LEFT_ALIGNMENT);
-		panelOKCancel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panelWhereToStartInReviewMode.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 		// put them all together
 		JPanel panel1 = new JPanel();
