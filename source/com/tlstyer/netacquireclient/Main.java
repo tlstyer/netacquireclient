@@ -89,7 +89,7 @@ public class Main {
 		String ipurlPortAsNickname = ipurl + ":" + port + " as " + nickname;
 		mainFrame.setTitle(getProgramName() + " - Play Mode - " + ipurlPortAsNickname);
 		Message message = new Message("# connecting to " + ipurlPortAsNickname + " ...");
-		mainFrame.getLobby().append(message.getMessageWithoutPrefix(), MessageWindowDocument.APPEND_NORMAL);
+		mainFrame.getLobby().append(message.getMessageToDisplay(), MessageWindowDocument.APPEND_NORMAL);
 
 		int connectionStatus = networkConnection.connect(ipurl, port);
 		if (connectionStatus == NetworkConnection.CONNECTION_STATUS_COULD_NOT_CONNECT) {

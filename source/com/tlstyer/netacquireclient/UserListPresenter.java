@@ -101,7 +101,7 @@ public class UserListPresenter {
 	
 	private void outputLine(String line) {
 		Message message = new Message(line);
-		Main.getMainFrame().getLobby().append(message.getMessageWithoutPrefix(), MessageWindowDocument.APPEND_NORMAL);
+		Main.getMainFrame().getLobby().append(message.getMessageToDisplay(), MessageWindowDocument.APPEND_NORMAL);
 	}
 
 	public void outputLines() {

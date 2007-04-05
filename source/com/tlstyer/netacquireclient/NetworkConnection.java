@@ -387,9 +387,9 @@ public class NetworkConnection {
 
 	private void handleLM(Object[] command) {
 		Message message = new Message(command);
-		int result = userListPresenter.processMessage(message.getMessage());
+		int result = userListPresenter.processMessage(message.getMessageFull());
 		if (result == UserListPresenter.DO_AS_USUAL) {
-			Main.getMainFrame().getLobby().append(message.getMessageWithoutPrefix(), message.getType());
+			Main.getMainFrame().getLobby().append(message.getMessageToDisplay(), message.getType());
 		} else if (result == UserListPresenter.READY_TO_OUTPUT_LINES) {
 			userListPresenter.outputLines();
 		}
@@ -397,8 +397,8 @@ public class NetworkConnection {
 
 	private void handleGM(Object[] command) {
 		Message message = new Message(command);
-		Main.getMainFrame().getGameRoom().append(message.getMessageWithoutPrefix(), message.getType());
-		Matcher matcher = Util.patternWaiting.matcher(message.getMessage());
+		Main.getMainFrame().getGameRoom().append(message.getMessageToDisplay(), message.getType());
+		Matcher matcher = Util.patternWaiting.matcher(message.getMessageFull());
 		if (matcher.find() && matcher.group(1).toLowerCase().equals(nicknameLowercase)) {
 			if (Main.getUserPreferences().getPlaySoundWhenWaitingForMe()) {
 				Main.getSoundManager().playSound(Main.getUserPreferences().getPathToSound());
@@ -482,7 +482,7 @@ public class NetworkConnection {
 	private void handleM(Object[] command) {
 		Message message = new Message(command);
 		
-		ModalMessageToDisplay modalMessageToDisplay = ModalMessageProcessor.getModalMessageToDisplay(message.getMessage());
+		ModalMessageToDisplay modalMessageToDisplay = ModalMessageProcessor.getModalMessageToDisplay(message.getMessageFull());
 		if (modalMessageToDisplay != null) {
 			if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessageProcessor.LOBBY) {
 				Main.getMainFrame().getLobby().append(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_IMPORTANT);

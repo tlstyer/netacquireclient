@@ -363,14 +363,14 @@ public class Review {
 
 	private void handleLM(Object[] command) {
 		Message message = new Message(command);
-		reviewMessages.add(new ReviewLobbyMessage(message.getMessageWithoutPrefix(), message.getType()));
+		reviewMessages.add(new ReviewLobbyMessage(message.getMessageToDisplay(), message.getType()));
 	}
 
 	private void handleGM(Object[] command) {
 		Message message = new Message(command);
-		reviewMessages.add(new ReviewGameRoomMessage(message.getMessageWithoutPrefix(), message.getType()));
+		reviewMessages.add(new ReviewGameRoomMessage(message.getMessageToDisplay(), message.getType()));
 
-		Matcher matcherWaiting = Util.patternWaiting.matcher(message.getMessage());
+		Matcher matcherWaiting = Util.patternWaiting.matcher(message.getMessageFull());
 		if (matcherWaiting.find()) {
 			int bpType;
 			if (matcherWaiting.group(2) != null) {
@@ -419,7 +419,7 @@ public class Review {
 	private void handleM(Object[] command) {
 		Message message = new Message(command);
 
-		ModalMessageToDisplay modalMessageToDisplay = ModalMessageProcessor.getModalMessageToDisplay(message.getMessage());
+		ModalMessageToDisplay modalMessageToDisplay = ModalMessageProcessor.getModalMessageToDisplay(message.getMessageFull());
 		if (modalMessageToDisplay != null) {
 			if (modalMessageToDisplay.getWhereToPutMessage() == ModalMessageProcessor.LOBBY) {
 				reviewMessages.add(new ReviewLobbyMessage(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_IMPORTANT));

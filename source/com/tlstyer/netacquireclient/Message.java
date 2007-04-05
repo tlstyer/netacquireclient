@@ -24,7 +24,7 @@ public class Message {
 		return message;
 	}
 
-	public String getMessage() {
+	public String getMessageFull() {
 		return message;
 	}
 	
@@ -35,6 +35,10 @@ public class Message {
 		} else {
 			return message;
 		}
+	}
+	
+	public String getMessageToDisplay() {
+		return getMessageWithoutPrefix();
 	}
 	
 	public int getType() {
