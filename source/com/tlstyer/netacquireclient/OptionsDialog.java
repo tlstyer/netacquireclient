@@ -65,9 +65,9 @@ public class OptionsDialog extends GameDialog {
 		panelMaxPlayerCount.add(Box.createHorizontalGlue());
 
 		// "User List sorting method" panel
-		JPanel panelRadioButtonsUserListSortingMethod = new JPanel();
-		panelRadioButtonsUserListSortingMethod.setBorder(BorderFactory.createTitledBorder("User list"));
-		panelRadioButtonsUserListSortingMethod.setLayout(new BoxLayout(panelRadioButtonsUserListSortingMethod, BoxLayout.Y_AXIS));
+		JPanel panelUserListSortingMethod = new JPanel();
+		panelUserListSortingMethod.setBorder(BorderFactory.createTitledBorder("User list"));
+		panelUserListSortingMethod.setLayout(new BoxLayout(panelUserListSortingMethod, BoxLayout.Y_AXIS));
 		radioButtonGroupUserListSortingMethod = new ButtonGroup();
 
 		JRadioButton[] radioButtonsULSM = new JRadioButton[3];
@@ -77,7 +77,7 @@ public class OptionsDialog extends GameDialog {
 			radioButtonULSM.setActionCommand("" + index);
 			radioButtonsULSM[index] = radioButtonULSM;
 			radioButtonGroupUserListSortingMethod.add(radioButtonULSM);
-			panelRadioButtonsUserListSortingMethod.add(radioButtonULSM);
+			panelUserListSortingMethod.add(radioButtonULSM);
 		}
 
 		radioButtonsULSM[0].setText("Don't sort");
@@ -86,7 +86,7 @@ public class OptionsDialog extends GameDialog {
 
 		radioButtonsULSM[Main.getUserPreferences().getUserListSortingMethod()].setSelected(true);
 
-		panelRadioButtonsUserListSortingMethod.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
+		panelUserListSortingMethod.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "When waiting for me" panel
 		checkboxPlaySoundWhenWaitingForMe = new JCheckBox("Play sound");
@@ -156,9 +156,9 @@ public class OptionsDialog extends GameDialog {
 		panelLogFiles.add(panelDirectoryToSaveIn);
 
 		// "Where to start in review mode" panel
-		JPanel panelRadioButtonsWhereToStartInReviewMode = new JPanel();
-		panelRadioButtonsWhereToStartInReviewMode.setBorder(BorderFactory.createTitledBorder("Where to start in review mode"));
-		panelRadioButtonsWhereToStartInReviewMode.setLayout(new BoxLayout(panelRadioButtonsWhereToStartInReviewMode, BoxLayout.Y_AXIS));
+		JPanel panelWhereToStartInReviewMode = new JPanel();
+		panelWhereToStartInReviewMode.setBorder(BorderFactory.createTitledBorder("Where to start in review mode"));
+		panelWhereToStartInReviewMode.setLayout(new BoxLayout(panelWhereToStartInReviewMode, BoxLayout.Y_AXIS));
 		radioButtonGroupWhereToStartInReviewMode = new ButtonGroup();
 
 		JRadioButton[] radioButtonsWTSIRM = new JRadioButton[3];
@@ -168,7 +168,7 @@ public class OptionsDialog extends GameDialog {
 			radioButtonWTSIRM.setActionCommand("" + index);
 			radioButtonsWTSIRM[index] = radioButtonWTSIRM;
 			radioButtonGroupWhereToStartInReviewMode.add(radioButtonWTSIRM);
-			panelRadioButtonsWhereToStartInReviewMode.add(radioButtonWTSIRM);
+			panelWhereToStartInReviewMode.add(radioButtonWTSIRM);
 		}
 
 		radioButtonsWTSIRM[0].setText("Beginning of game");
@@ -177,7 +177,7 @@ public class OptionsDialog extends GameDialog {
 
 		radioButtonsWTSIRM[Main.getUserPreferences().getWhereToStartInReviewMode()].setSelected(true);
 
-		panelRadioButtonsWhereToStartInReviewMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
+		panelWhereToStartInReviewMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "Modal message dialog boxes" panel
 		checkboxShowModalMessageDialogBoxes = new JCheckBox("Show them");
@@ -191,9 +191,9 @@ public class OptionsDialog extends GameDialog {
 		panelShowModalMessageDialogBoxes.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "Game board label mode" panel
-		JPanel panelRadioButtonsGameBoardLabelMode = new JPanel();
-		panelRadioButtonsGameBoardLabelMode.setBorder(BorderFactory.createTitledBorder("Game board label mode"));
-		panelRadioButtonsGameBoardLabelMode.setLayout(new BoxLayout(panelRadioButtonsGameBoardLabelMode, BoxLayout.Y_AXIS));
+		JPanel panelGameBoardLabelMode = new JPanel();
+		panelGameBoardLabelMode.setBorder(BorderFactory.createTitledBorder("Game board label mode"));
+		panelGameBoardLabelMode.setLayout(new BoxLayout(panelGameBoardLabelMode, BoxLayout.Y_AXIS));
 		radioButtonGroupGameBoardLabelMode = new ButtonGroup();
 
 		JRadioButton[] radioButtonsGBLM = new JRadioButton[3];
@@ -203,7 +203,7 @@ public class OptionsDialog extends GameDialog {
 			radioButtonGBLM.setActionCommand("" + index);
 			radioButtonsGBLM[index] = radioButtonGBLM;
 			radioButtonGroupGameBoardLabelMode.add(radioButtonGBLM);
-			panelRadioButtonsGameBoardLabelMode.add(radioButtonGBLM);
+			panelGameBoardLabelMode.add(radioButtonGBLM);
 		}
 
 		radioButtonsGBLM[0].setText("Show coordinates");
@@ -212,7 +212,7 @@ public class OptionsDialog extends GameDialog {
 
 		radioButtonsGBLM[Main.getUserPreferences().getGameBoardLabelMode()].setSelected(true);
 
-		panelRadioButtonsGameBoardLabelMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
+		panelGameBoardLabelMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "Lobby and Game Room messages" panel
 		checkboxShowMessagePrefixes = new JCheckBox("Show message prefixes");
@@ -241,7 +241,7 @@ public class OptionsDialog extends GameDialog {
 
 		// give all panels left alignment
 		panelMaxPlayerCount.setAlignmentX(Component.LEFT_ALIGNMENT);
-		panelRadioButtonsUserListSortingMethod.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panelUserListSortingMethod.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panelWhenWaitingForMe.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panelOKCancel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -253,13 +253,13 @@ public class OptionsDialog extends GameDialog {
 		panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
 
 		panel1.add(panelMaxPlayerCount);
-		panel1.add(panelRadioButtonsUserListSortingMethod);
+		panel1.add(panelUserListSortingMethod);
 		panel1.add(panelWhenWaitingForMe);
 		panel1.add(panelLogFiles);
 
-		panel2.add(panelRadioButtonsWhereToStartInReviewMode);
+		panel2.add(panelWhereToStartInReviewMode);
 		panel2.add(panelShowModalMessageDialogBoxes);
-		panel2.add(panelRadioButtonsGameBoardLabelMode);
+		panel2.add(panelGameBoardLabelMode);
 		panel2.add(panelLobbyAndGameRoomMessages);
 		panel2.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel2.add(panelOKCancel);
