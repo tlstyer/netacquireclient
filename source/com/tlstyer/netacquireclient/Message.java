@@ -1,10 +1,18 @@
 package com.tlstyer.netacquireclient;
 
+import java.util.regex.*;
+
 public class Message {
 	private String message;
 	
+	private static final Pattern patternStripPrefix = Pattern.compile("\\A(\\*+|\\-> |# |> )(.*)");
+	
 	public Message(Object[] command) {
 		message = commandToContainedMessage(command);
+	}
+	
+	public Message(String message_) {
+		message = message_;
 	}
 	
 	private String commandToContainedMessage(Object[] command) {
@@ -18,6 +26,15 @@ public class Message {
 
 	public String getMessage() {
 		return message;
+	}
+	
+	public String getMessageWithoutPrefix() {
+		Matcher matcher = patternStripPrefix.matcher(message);
+		if (matcher.find()) {
+			return matcher.group(2);
+		} else {
+			return message;
+		}
 	}
 	
 	public int getType() {

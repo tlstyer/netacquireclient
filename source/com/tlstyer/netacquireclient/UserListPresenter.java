@@ -98,6 +98,11 @@ public class UserListPresenter {
 	public static final int SORT_ALPHABETICALLY = 1;
 	public static final int SORT_GAME_NUMBER = 2;
 	public static final int SORT_END = 2;
+	
+	private void outputLine(String line) {
+		Message message = new Message(line);
+		Main.getMainFrame().getLobby().append(message.getMessageWithoutPrefix(), MessageWindowDocument.APPEND_NORMAL);
+	}
 
 	public void outputLines() {
 		Object[] listEntriesArray = this.listEntries.toArray();
@@ -113,11 +118,10 @@ public class UserListPresenter {
 			Arrays.sort(listEntries, comparatorListEntryGameNumber);
 		}
 
-		MessageWindow lobby = Main.getMainFrame().getLobby();
-		lobby.append(messageStart, MessageWindowDocument.APPEND_NORMAL);
+		outputLine(messageStart);
 		for (ListEntry listEntry : listEntries) {
-			lobby.append(listEntry.message, MessageWindowDocument.APPEND_NORMAL);
+			outputLine(listEntry.message);
 		}
-		lobby.append(stringListEnd, MessageWindowDocument.APPEND_NORMAL);
+		outputLine(stringListEnd);
 	}
 }
