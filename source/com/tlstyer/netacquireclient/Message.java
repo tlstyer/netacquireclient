@@ -38,7 +38,11 @@ public class Message {
 	}
 	
 	public String getMessageToDisplay() {
-		return getMessageWithoutPrefix();
+		if (Main.getUserPreferences().getShowMessagePrefixes()) {
+			return getMessageFull();
+		} else {
+			return getMessageWithoutPrefix();
+		}
 	}
 	
 	public int getType() {

@@ -33,6 +33,9 @@ public class OptionsDialog extends GameDialog {
 	// "Game board label mode" panel
 	private ButtonGroup radioButtonGroupGameBoardLabelMode;
 
+	// "Lobby and Game Room messages" panel
+	private JCheckBox checkboxShowMessagePrefixes;
+
 	// "OK/Cancel" panel
 	private JButton buttonOK;
 	private JButton buttonCancel;
@@ -211,6 +214,17 @@ public class OptionsDialog extends GameDialog {
 
 		panelRadioButtonsGameBoardLabelMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
+		// "Lobby and Game Room messages" panel
+		checkboxShowMessagePrefixes = new JCheckBox("Show message prefixes");
+		checkboxShowMessagePrefixes.setSelected(Main.getUserPreferences().getShowMessagePrefixes());
+
+		JPanel panelLobbyAndGameRoomMessages = new JPanel();
+		panelLobbyAndGameRoomMessages.setBorder(BorderFactory.createTitledBorder("Lobby and Game Room messages"));
+		panelLobbyAndGameRoomMessages.setLayout(new BoxLayout(panelLobbyAndGameRoomMessages, BoxLayout.Y_AXIS));
+		panelLobbyAndGameRoomMessages.add(checkboxShowMessagePrefixes);
+
+		panelLobbyAndGameRoomMessages.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
+
 		// "OK/Cancel" panel
 		buttonOK = Util.getButton3d2("OK", KeyEvent.VK_O);
 		buttonOK.addActionListener(this);
@@ -246,6 +260,7 @@ public class OptionsDialog extends GameDialog {
 		panel2.add(panelRadioButtonsWhereToStartInReviewMode);
 		panel2.add(panelShowModalMessageDialogBoxes);
 		panel2.add(panelRadioButtonsGameBoardLabelMode);
+		panel2.add(panelLobbyAndGameRoomMessages);
 		panel2.add(Box.createRigidArea(new Dimension(0, 5)));
 		panel2.add(panelOKCancel);
 
@@ -349,6 +364,10 @@ public class OptionsDialog extends GameDialog {
 				}
 			} catch (NumberFormatException numberFormatException) {
 			}
+
+			// "Lobby and Game Room messages" panel
+			boolean showMessagePrefixes = checkboxShowMessagePrefixes.isSelected();
+			Main.getUserPreferences().setShowMessagePrefixes(showMessagePrefixes);
 
 			hideOptionsDialog();
 		} else if (object == buttonCancel) {

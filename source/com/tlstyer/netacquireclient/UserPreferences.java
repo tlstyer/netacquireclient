@@ -17,6 +17,7 @@ public class UserPreferences {
 	private Integer whereToStartInReviewMode = null;
 	private Boolean showModalMessageDialogBoxes = null;
 	private Integer gameBoardLabelMode = null;
+	private Boolean showMessagePrefixes = null;
 
 	// defaults
 	private static final Integer maxPlayerCountDefault = 4;
@@ -28,6 +29,7 @@ public class UserPreferences {
 	private static final Integer whereToStartInReviewModeDefault = Review.START_AT_BEGINNING_OF_GAME;
 	private static final Boolean showModalMessageDialogBoxesDefault = false;
 	private static final Integer gameBoardLabelModeDefault = GameBoard.LABEL_COORDINATES;
+	private static final Boolean showMessagePrefixesDefault = true;
 
 	// preference keys
 	private static final String KEY_nicknames = "nicknames";
@@ -41,6 +43,7 @@ public class UserPreferences {
 	private static final String KEY_whereToStartInReviewMode = "where to start in review mode";
 	private static final String KEY_showModalMessageDialogBoxes = "show modal message dialog boxes";
 	private static final String KEY_gameBoardLabelMode = "game board label mode";
+	private static final String KEY_showMessagePrefixes = "show message prefixes";
 
 	// other
 	private static final Preferences preferences = Preferences.userNodeForPackage(UserPreferences.class);
@@ -110,6 +113,8 @@ public class UserPreferences {
 		if (gameBoardLabelMode < 0 || gameBoardLabelMode > GameBoard.LABEL_END) {
 			gameBoardLabelMode = gameBoardLabelModeDefault;
 		}
+
+		showMessagePrefixes = preferences.getBoolean(KEY_showMessagePrefixes, showMessagePrefixesDefault);
 	}
 
 	public void save() {
@@ -124,6 +129,7 @@ public class UserPreferences {
 		preferences.putInt(KEY_whereToStartInReviewMode, whereToStartInReviewMode);
 		preferences.putBoolean(KEY_showModalMessageDialogBoxes, showModalMessageDialogBoxes);
 		preferences.putInt(KEY_gameBoardLabelMode, gameBoardLabelMode);
+		preferences.putBoolean(KEY_showMessagePrefixes, showMessagePrefixes);
 	}
 
 	private void putString(String key, String value) {
@@ -219,5 +225,13 @@ public class UserPreferences {
 
 	public void setGameBoardLabelMode(Integer gameBoardLabelMode) {
 		this.gameBoardLabelMode = gameBoardLabelMode;
+	}
+
+	public Boolean getShowMessagePrefixes() {
+		return showMessagePrefixes;
+	}
+
+	public void setShowMessagePrefixes(Boolean showMessagePrefixes) {
+		this.showMessagePrefixes = showMessagePrefixes;
 	}
 }
