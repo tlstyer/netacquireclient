@@ -31,21 +31,23 @@ public class MessageWindowDocument extends DefaultStyledDocument {
 		addStyle("error", styleError);
 	}
 
-	public static final int APPEND_DEFAULT = 0;
-	public static final int APPEND_ERROR = 1;
+	public static final int APPEND_SYSTEM = 0;
+	public static final int APPEND_USER = 1;
+	public static final int APPEND_ERROR = 2;
 
 	public void append(String str, int type) {
 		String style;
-		if (type == APPEND_DEFAULT) {
-			if (str.length() >= 2 && str.substring(0, 2).equals("->")) {
-				style = "user";
-			} else {
+		switch (type) {
+			case APPEND_SYSTEM:
 				style = "system";
-			}
-		} else if (type == APPEND_ERROR) {
-			style = "error";
-		} else {
-			style = "system";
+				break;
+			case APPEND_USER:
+				style = "user";
+				break;
+			case APPEND_ERROR:
+			default:
+				style = "error";
+				break;
 		}
 
 		try {

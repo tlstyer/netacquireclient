@@ -363,12 +363,12 @@ public class Review {
 
 	private void handleLM(Object[] command) {
 		Message message = new Message(command);
-		reviewMessages.add(new ReviewLobbyMessage(message.getMessage(), MessageWindowDocument.APPEND_DEFAULT));
+		reviewMessages.add(new ReviewLobbyMessage(message.getMessage(), message.getType()));
 	}
 
 	private void handleGM(Object[] command) {
 		Message message = new Message(command);
-		reviewMessages.add(new ReviewGameRoomMessage(message.getMessage(), MessageWindowDocument.APPEND_DEFAULT));
+		reviewMessages.add(new ReviewGameRoomMessage(message.getMessage(), message.getType()));
 
 		Matcher matcherWaiting = Util.patternWaiting.matcher(message.getMessage());
 		if (matcherWaiting.find()) {

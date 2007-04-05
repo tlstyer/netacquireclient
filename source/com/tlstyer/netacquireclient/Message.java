@@ -19,4 +19,12 @@ public class Message {
 	public String getMessage() {
 		return message;
 	}
+	
+	public int getType() {
+		if (message.length() >= 2 && message.substring(0, 2).equals("->")) {
+			return MessageWindowDocument.APPEND_USER;
+		} else {
+			return MessageWindowDocument.APPEND_SYSTEM;
+		}
+	}
 }

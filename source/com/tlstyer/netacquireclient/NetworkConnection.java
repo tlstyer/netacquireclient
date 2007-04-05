@@ -389,7 +389,7 @@ public class NetworkConnection {
 		Message message = new Message(command);
 		int result = userListPresenter.processMessage(message.getMessage());
 		if (result == UserListPresenter.DO_AS_USUAL) {
-			Main.getMainFrame().getLobby().append(message.getMessage(), MessageWindowDocument.APPEND_DEFAULT);
+			Main.getMainFrame().getLobby().append(message.getMessage(), message.getType());
 		} else if (result == UserListPresenter.READY_TO_OUTPUT_LINES) {
 			userListPresenter.outputLines();
 		}
@@ -397,7 +397,7 @@ public class NetworkConnection {
 
 	private void handleGM(Object[] command) {
 		Message message = new Message(command);
-		Main.getMainFrame().getGameRoom().append(message.getMessage(), MessageWindowDocument.APPEND_DEFAULT);
+		Main.getMainFrame().getGameRoom().append(message.getMessage(), message.getType());
 		Matcher matcher = Util.patternWaiting.matcher(message.getMessage());
 		if (matcher.find() && matcher.group(1).toLowerCase().equals(nicknameLowercase)) {
 			if (Main.getUserPreferences().getPlaySoundWhenWaitingForMe()) {
