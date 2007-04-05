@@ -27,7 +27,7 @@ public class OptionsDialog extends GameDialog {
 	// "Where to start in review mode" panel
 	private ButtonGroup radioButtonGroupWhereToStartInReviewMode;
 
-	// "Show modal message dialog boxes" panel
+	// "Modal message dialog boxes" panel
 	private JCheckBox checkboxShowModalMessageDialogBoxes;
 
 	// "Game board label mode" panel
@@ -179,12 +179,12 @@ public class OptionsDialog extends GameDialog {
 
 		panelRadioButtonsWhereToStartInReviewMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
-		// "Show modal message dialog boxes" panel
-		checkboxShowModalMessageDialogBoxes = new JCheckBox("Show modal message dialog boxes");
+		// "Modal message dialog boxes" panel
+		checkboxShowModalMessageDialogBoxes = new JCheckBox("Show them");
 		checkboxShowModalMessageDialogBoxes.setSelected(Main.getUserPreferences().getShowModalMessageDialogBoxes());
 
 		JPanel panelShowModalMessageDialogBoxes = new JPanel();
-		panelShowModalMessageDialogBoxes.setBorder(BorderFactory.createTitledBorder("Show modal message dialog boxes"));
+		panelShowModalMessageDialogBoxes.setBorder(BorderFactory.createTitledBorder("Modal message dialog boxes"));
 		panelShowModalMessageDialogBoxes.setLayout(new BoxLayout(panelShowModalMessageDialogBoxes, BoxLayout.Y_AXIS));
 		panelShowModalMessageDialogBoxes.add(checkboxShowModalMessageDialogBoxes);
 
@@ -350,7 +350,7 @@ public class OptionsDialog extends GameDialog {
 			} catch (NumberFormatException numberFormatException) {
 			}
 
-			// "Show modal message dialog boxes" panel
+			// "Modal message dialog boxes" panel
 			boolean showModalMessageDialogBoxes = checkboxShowModalMessageDialogBoxes.isSelected();
 			Main.getUserPreferences().setShowModalMessageDialogBoxes(showModalMessageDialogBoxes);
 
