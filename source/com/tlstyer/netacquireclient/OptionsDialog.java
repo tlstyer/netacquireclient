@@ -51,7 +51,7 @@ public class OptionsDialog extends GameDialog {
 		spinnerNumberModelMaxPlayerCount = new SpinnerNumberModel();
 		spinnerNumberModelMaxPlayerCount.setMinimum(2);
 		spinnerNumberModelMaxPlayerCount.setMaximum(6);
-		spinnerNumberModelMaxPlayerCount.setValue(Main.getUserPreferences().getMaxPlayerCount());
+		spinnerNumberModelMaxPlayerCount.setValue(Main.getUserPreferences().getInteger(UserPreferences.MAX_PLAYER_COUNT));
 		JSpinner spinnerMaxPlayerCount = new JSpinner(spinnerNumberModelMaxPlayerCount);
 
 		JLabel labelMaxPlayerCount = new JLabel("Maximum player count in self-initiated games");
@@ -84,17 +84,17 @@ public class OptionsDialog extends GameDialog {
 		radioButtonsULSM[1].setText("Sort alphabetically");
 		radioButtonsULSM[2].setText("Sort by game number");
 
-		radioButtonsULSM[Main.getUserPreferences().getUserListSortingMethod()].setSelected(true);
+		radioButtonsULSM[Main.getUserPreferences().getInteger(UserPreferences.USER_LIST_SORTING_METHOD)].setSelected(true);
 
 		panelUserListSortingMethod.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "When waiting for me" panel
 		checkboxPlaySoundWhenWaitingForMe = new JCheckBox("Play sound");
-		checkboxPlaySoundWhenWaitingForMe.setSelected(Main.getUserPreferences().getPlaySoundWhenWaitingForMe());
+		checkboxPlaySoundWhenWaitingForMe.setSelected(Main.getUserPreferences().getBoolean(UserPreferences.PLAY_SOUND_WHEN_WAITING_FOR_ME));
 
 		JLabel labelSoundPath = new JLabel("Path to sound:");
 
-		tfPathToSound = new JTextField(Main.getUserPreferences().getPathToSound(), 20);
+		tfPathToSound = new JTextField(Main.getUserPreferences().getString(UserPreferences.PATH_TO_SOUND), 20);
 		Util.setOnlySize(tfPathToSound, tfPathToSound.getPreferredSize());
 
 		buttonBrowsePathToSound = new JButton("...");
@@ -126,11 +126,11 @@ public class OptionsDialog extends GameDialog {
 
 		// "Log Files" panel
 		checkboxLogGamesToFiles = new JCheckBox("Log games to files");
-		checkboxLogGamesToFiles.setSelected(Main.getUserPreferences().getWriteToLogFiles());
+		checkboxLogGamesToFiles.setSelected(Main.getUserPreferences().getBoolean(UserPreferences.WRITE_TO_LOG_FILES));
 
 		JLabel labelDirectoryToSaveIn = new JLabel("Directory to save in:");
 
-		tfDirectoryToSaveIn = new JTextField(Main.getUserPreferences().getPathToLogFiles(), 20);
+		tfDirectoryToSaveIn = new JTextField(Main.getUserPreferences().getString(UserPreferences.PATH_TO_LOG_FILES), 20);
 		Util.setOnlySize(tfDirectoryToSaveIn, tfDirectoryToSaveIn.getPreferredSize());
 
 		buttonBrowseDirectoryToSaveIn = new JButton("...");
@@ -175,13 +175,13 @@ public class OptionsDialog extends GameDialog {
 		radioButtonsWTSIRM[1].setText("End of game");
 		radioButtonsWTSIRM[2].setText("End of file");
 
-		radioButtonsWTSIRM[Main.getUserPreferences().getWhereToStartInReviewMode()].setSelected(true);
+		radioButtonsWTSIRM[Main.getUserPreferences().getInteger(UserPreferences.WHERE_TO_START_IN_REVIEW_MODE)].setSelected(true);
 
 		panelWhereToStartInReviewMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "Modal message dialog boxes" panel
 		checkboxShowModalMessageDialogBoxes = new JCheckBox("Show them");
-		checkboxShowModalMessageDialogBoxes.setSelected(Main.getUserPreferences().getShowModalMessageDialogBoxes());
+		checkboxShowModalMessageDialogBoxes.setSelected(Main.getUserPreferences().getBoolean(UserPreferences.SHOW_MODAL_MESSAGE_DIALOG_BOXES));
 
 		JPanel panelShowModalMessageDialogBoxes = new JPanel();
 		panelShowModalMessageDialogBoxes.setBorder(BorderFactory.createTitledBorder("Modal message dialog boxes"));
@@ -210,13 +210,13 @@ public class OptionsDialog extends GameDialog {
 		radioButtonsGBLM[1].setText("Show hotel initials");
 		radioButtonsGBLM[2].setText("Show nothing");
 
-		radioButtonsGBLM[Main.getUserPreferences().getGameBoardLabelMode()].setSelected(true);
+		radioButtonsGBLM[Main.getUserPreferences().getInteger(UserPreferences.GAME_BOARD_LABEL_MODE)].setSelected(true);
 
 		panelGameBoardLabelMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "Lobby and Game Room messages" panel
 		checkboxShowMessagePrefixes = new JCheckBox("Show message prefixes");
-		checkboxShowMessagePrefixes.setSelected(Main.getUserPreferences().getShowMessagePrefixes());
+		checkboxShowMessagePrefixes.setSelected(Main.getUserPreferences().getBoolean(UserPreferences.SHOW_MESSAGE_PREFIXES));
 
 		JPanel panelLobbyAndGameRoomMessages = new JPanel();
 		panelLobbyAndGameRoomMessages.setBorder(BorderFactory.createTitledBorder("Lobby and Game Room messages"));
@@ -314,34 +314,34 @@ public class OptionsDialog extends GameDialog {
 			}
 		} else if (object == buttonOK) {
 			// "max player count" panel
-			Main.getUserPreferences().setMaxPlayerCount(spinnerNumberModelMaxPlayerCount.getNumber().intValue());
+			Main.getUserPreferences().setInteger(UserPreferences.MAX_PLAYER_COUNT, spinnerNumberModelMaxPlayerCount.getNumber().intValue());
 
 			// "User List sorting method" panel
 			try {
 				int userListSortingMethod = Integer.decode(radioButtonGroupUserListSortingMethod.getSelection().getActionCommand());
-				Main.getUserPreferences().setUserListSortingMethod(userListSortingMethod);
+				Main.getUserPreferences().setInteger(UserPreferences.USER_LIST_SORTING_METHOD, userListSortingMethod);
 			} catch (NumberFormatException numberFormatException) {
 			}
 
 			// "When waiting for me" panel
 			boolean playSoundWhenWaitingForMe = checkboxPlaySoundWhenWaitingForMe.isSelected();
-			Main.getUserPreferences().setPlaySoundWhenWaitingForMe(playSoundWhenWaitingForMe);
+			Main.getUserPreferences().setBoolean(UserPreferences.PLAY_SOUND_WHEN_WAITING_FOR_ME, playSoundWhenWaitingForMe);
 			String pathToSound = tfPathToSound.getText();
-			Main.getUserPreferences().setPathToSound(pathToSound);
+			Main.getUserPreferences().setString(UserPreferences.PATH_TO_SOUND, pathToSound);
 			if (playSoundWhenWaitingForMe) {
 				Main.getSoundManager().loadSound(pathToSound);
 			}
 
 			// "Log Files" panel
-			String pathOld = Main.getUserPreferences().getPathToLogFiles();
+			String pathOld = Main.getUserPreferences().getString(UserPreferences.PATH_TO_LOG_FILES);
 			String pathNew = tfDirectoryToSaveIn.getText();
 			if (!pathOld.equals(pathNew)) {
-				Main.getUserPreferences().setPathToLogFiles(pathNew);
+				Main.getUserPreferences().setString(UserPreferences.PATH_TO_LOG_FILES, pathNew);
 				Main.getLogFileWriter().closeLogFile();
 			}
 
 			boolean logGamesToFiles = checkboxLogGamesToFiles.isSelected();
-			Main.getUserPreferences().setWriteToLogFiles(logGamesToFiles);
+			Main.getUserPreferences().setBoolean(UserPreferences.WRITE_TO_LOG_FILES, logGamesToFiles);
 			if (logGamesToFiles) {
 				Main.getLogFileWriter().writeMessages();
 			} else {
@@ -351,20 +351,20 @@ public class OptionsDialog extends GameDialog {
 			// "Where to start in review mode" panel
 			try {
 				int whereToStartInReviewMode = Integer.decode(radioButtonGroupWhereToStartInReviewMode.getSelection().getActionCommand());
-				Main.getUserPreferences().setWhereToStartInReviewMode(whereToStartInReviewMode);
+				Main.getUserPreferences().setInteger(UserPreferences.WHERE_TO_START_IN_REVIEW_MODE, whereToStartInReviewMode);
 			} catch (NumberFormatException numberFormatException) {
 			}
 
 			// "Modal message dialog boxes" panel
 			boolean showModalMessageDialogBoxes = checkboxShowModalMessageDialogBoxes.isSelected();
-			Main.getUserPreferences().setShowModalMessageDialogBoxes(showModalMessageDialogBoxes);
+			Main.getUserPreferences().setBoolean(UserPreferences.SHOW_MODAL_MESSAGE_DIALOG_BOXES, showModalMessageDialogBoxes);
 
 			// "Game board label mode" panel
 			try {
-				int gameBoardLabelModeOld = Main.getUserPreferences().getGameBoardLabelMode();
+				int gameBoardLabelModeOld = Main.getUserPreferences().getInteger(UserPreferences.GAME_BOARD_LABEL_MODE);
 				int gameBoardLabelModeNew = Integer.decode(radioButtonGroupGameBoardLabelMode.getSelection().getActionCommand());
 				if (gameBoardLabelModeOld != gameBoardLabelModeNew) {
-					Main.getUserPreferences().setGameBoardLabelMode(gameBoardLabelModeNew);
+					Main.getUserPreferences().setInteger(UserPreferences.GAME_BOARD_LABEL_MODE, gameBoardLabelModeNew);
 					Main.getMainFrame().getGameBoard().makeTextCorrect();
 				}
 			} catch (NumberFormatException numberFormatException) {
@@ -372,7 +372,7 @@ public class OptionsDialog extends GameDialog {
 
 			// "Lobby and Game Room messages" panel
 			boolean showMessagePrefixes = checkboxShowMessagePrefixes.isSelected();
-			Main.getUserPreferences().setShowMessagePrefixes(showMessagePrefixes);
+			Main.getUserPreferences().setBoolean(UserPreferences.SHOW_MESSAGE_PREFIXES, showMessagePrefixes);
 
 			hideOptionsDialog();
 		} else if (object == buttonCancel) {

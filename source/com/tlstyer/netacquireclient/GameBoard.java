@@ -35,7 +35,7 @@ public class GameBoard extends JPanel {
 
 		int labelMode = LABEL_COORDINATES;
 		if (Hoteltype.LUXOR <= hoteltype && hoteltype <= Hoteltype.CANT_PLAY_EVER) {
-			labelMode = Main.getUserPreferences().getGameBoardLabelMode();
+			labelMode = Main.getUserPreferences().getInteger(UserPreferences.GAME_BOARD_LABEL_MODE);
 		}
 
 		switch (labelMode) {

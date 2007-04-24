@@ -38,7 +38,7 @@ public class Message {
 	}
 	
 	public String getMessageToDisplay() {
-		if (Main.getUserPreferences().getShowMessagePrefixes()) {
+		if (Main.getUserPreferences().getBoolean(UserPreferences.SHOW_MESSAGE_PREFIXES)) {
 			return getMessageFull();
 		} else {
 			return getMessageWithoutPrefix();

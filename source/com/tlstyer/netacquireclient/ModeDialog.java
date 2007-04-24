@@ -34,7 +34,7 @@ public class ModeDialog extends GameDialog {
 		JLabel labelNickname = new JLabel("Nickname:", JLabel.TRAILING);
 		labelNickname.setDisplayedMnemonic(KeyEvent.VK_N);
 
-		cbNickname = new JComboBox(Main.getUserPreferences().getNicknames().toArray());
+		cbNickname = new JComboBox(Main.getUserPreferences().getStringArrayList(UserPreferences.NICKNAMES).toArray());
 		cbNickname.setEditable(true);
 		labelNickname.setLabelFor(cbNickname);
 
@@ -51,7 +51,7 @@ public class ModeDialog extends GameDialog {
 		JLabel labelIPURLPort = new JLabel("IP/URL:Port:", JLabel.TRAILING);
 		labelIPURLPort.setDisplayedMnemonic(KeyEvent.VK_I);
 
-		cbIPURLPort = new JComboBox(Main.getUserPreferences().getAddressesAndPorts().toArray());
+		cbIPURLPort = new JComboBox(Main.getUserPreferences().getStringArrayList(UserPreferences.ADDRESSES_AND_PORTS).toArray());
 		cbIPURLPort.setEditable(true);
 		labelIPURLPort.setLabelFor(cbIPURLPort);
 
@@ -198,11 +198,11 @@ public class ModeDialog extends GameDialog {
 		}
 
 		// tell UserPreferences about the changes
-		ArrayList<String> nicknames = Main.getUserPreferences().getNicknames();
+		ArrayList<String> nicknames = Main.getUserPreferences().getStringArrayList(UserPreferences.NICKNAMES);
 		nicknames.remove(nickname);
 		nicknames.add(0, nickname);
 
-		ArrayList<String> addressesAndPorts = Main.getUserPreferences().getAddressesAndPorts();
+		ArrayList<String> addressesAndPorts = Main.getUserPreferences().getStringArrayList(UserPreferences.ADDRESSES_AND_PORTS);
 		String addressAndPort = ipurl + ":" + portInt;
 		addressesAndPorts.remove(addressAndPort);
 		addressesAndPorts.add(0, addressAndPort);
@@ -220,9 +220,9 @@ public class ModeDialog extends GameDialog {
 	public void DoAction(ActionEvent actionEvent) {
 		Object object = actionEvent.getSource();
 		if (object == buttonDeleteNickname) {
-			processButtonDelete(Main.getUserPreferences().getNicknames(), cbNickname);
+			processButtonDelete(Main.getUserPreferences().getStringArrayList(UserPreferences.NICKNAMES), cbNickname);
 		} else if (object == buttonDeleteIPURLPort) {
-			processButtonDelete(Main.getUserPreferences().getAddressesAndPorts(), cbIPURLPort);
+			processButtonDelete(Main.getUserPreferences().getStringArrayList(UserPreferences.ADDRESSES_AND_PORTS), cbIPURLPort);
 		} else if (object == buttonPlay) {
 			buttonPlayPressed();
 		} else if (object == buttonReview) {

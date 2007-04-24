@@ -111,7 +111,7 @@ public class UserListPresenter {
 			listEntries[i] = (ListEntry)listEntriesArray[i];
 		}
 
-		int sortingMethod = Main.getUserPreferences().getUserListSortingMethod();
+		int sortingMethod = Main.getUserPreferences().getInteger(UserPreferences.USER_LIST_SORTING_METHOD);
 		if (sortingMethod == SORT_ALPHABETICALLY) {
 			Arrays.sort(listEntries, comparatorListEntryAlphabetically);
 		} else if (sortingMethod == SORT_GAME_NUMBER) {

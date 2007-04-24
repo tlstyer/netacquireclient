@@ -400,8 +400,8 @@ public class NetworkConnection {
 		Main.getMainFrame().getGameRoom().append(message.getMessageToDisplay(), message.getType());
 		Matcher matcher = Util.patternWaiting.matcher(message.getMessageFull());
 		if (matcher.find() && matcher.group(1).toLowerCase().equals(nicknameLowercase)) {
-			if (Main.getUserPreferences().getPlaySoundWhenWaitingForMe()) {
-				Main.getSoundManager().playSound(Main.getUserPreferences().getPathToSound());
+			if (Main.getUserPreferences().getBoolean(UserPreferences.PLAY_SOUND_WHEN_WAITING_FOR_ME)) {
+				Main.getSoundManager().playSound(Main.getUserPreferences().getString(UserPreferences.PATH_TO_SOUND));
 			}
 		}
 	}
@@ -490,7 +490,7 @@ public class NetworkConnection {
 				Main.getMainFrame().getGameRoom().append(modalMessageToDisplay.getMessageFull(), MessageWindowDocument.APPEND_IMPORTANT);
 			}
 
-			if (Main.getUserPreferences().getShowModalMessageDialogBoxes()) {
+			if (Main.getUserPreferences().getBoolean(UserPreferences.SHOW_MODAL_MESSAGE_DIALOG_BOXES)) {
 				JOptionPane.showMessageDialog(Main.getMainFrame(),
 											  modalMessageToDisplay.getMessageBody(),
 											  modalMessageToDisplay.getMessageHeader(),

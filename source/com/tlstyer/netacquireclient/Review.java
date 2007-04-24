@@ -288,7 +288,7 @@ public class Review {
 		navigate(DIRECTION_FORWARD, BREAK_AT_TURN_STEP);
 		firstBreakPointLine = nextLineGoingForward;
 
-		switch (Main.getUserPreferences().getWhereToStartInReviewMode()) {
+		switch (Main.getUserPreferences().getInteger(UserPreferences.WHERE_TO_START_IN_REVIEW_MODE)) {
 			case START_AT_BEGINNING_OF_GAME:
 				break;
 			case START_AT_END_OF_GAME:
