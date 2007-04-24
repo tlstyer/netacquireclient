@@ -51,13 +51,13 @@ class UserPreference {
 }
 
 class UserPreferenceNicknames extends UserPreference {
-	private static final String KEY_nicknames = "nicknames";
+	private static final String key = "nicknames";
 
-	private ArrayList<String> nicknames = null;
+	private ArrayList<String> value = null;
 
 	public void load() {
-		String[] nicknamesArray = preferences.get(KEY_nicknames, "").split(stringArraySeparator, -1);
-		nicknames = new ArrayList<String>();
+		String[] nicknamesArray = preferences.get(key, "").split(stringArraySeparator, -1);
+		value = new ArrayList<String>();
 		if (nicknamesArray.length == 1 && nicknamesArray[0].length() == 0) {
 			String nickname;
 			try {
@@ -66,299 +66,299 @@ class UserPreferenceNicknames extends UserPreference {
 				Random random = new Random();
 				nickname = "" + random.nextInt();
 			}
-			nicknames.add(nickname);
+			value.add(nickname);
 		} else {
 			for (String nickname : nicknamesArray) {
-				nicknames.add(nickname);
+				value.add(nickname);
 			}
 		}
 	}
 
 	public void save() {
-		putString(KEY_nicknames, Util.join(nicknames.toArray(), stringArraySeparator));
+		putString(key, Util.join(value.toArray(), stringArraySeparator));
 	}
 
 	public ArrayList<String> getStringArrayList() {
-		return nicknames;
+		return value;
 	}
 
 	public void setStringArrayList(ArrayList<String> stringArrayList_) {
-		nicknames = stringArrayList_;
+		value = stringArrayList_;
 	}
 }
 
 class UserPreferenceAddressesAndPorts extends UserPreference {
-	private static final String KEY_addressesAndPorts = "addresses and ports";
+	private static final String key = "addresses and ports";
 
-	private ArrayList<String> addressesAndPorts = null;
+	private ArrayList<String> value = null;
 
 	public void load() {
-		String[] addressesAndPortsArray = preferences.get(KEY_addressesAndPorts, "").split(stringArraySeparator, -1);
-		addressesAndPorts = new ArrayList<String>();
+		String[] addressesAndPortsArray = preferences.get(key, "").split(stringArraySeparator, -1);
+		value = new ArrayList<String>();
 		if (addressesAndPortsArray.length == 1 && addressesAndPortsArray[0].length() == 0) {
-			addressesAndPorts.add("acquire.sbg.org:1001");
-			addressesAndPorts.add("acquire.sbg.org:1002");
-			addressesAndPorts.add("acquire.dynu.com:1001");
-			addressesAndPorts.add("localhost:1001");
+			value.add("acquire.sbg.org:1001");
+			value.add("acquire.sbg.org:1002");
+			value.add("acquire.dynu.com:1001");
+			value.add("localhost:1001");
 		} else {
 			for (String addressAndPort : addressesAndPortsArray) {
-				addressesAndPorts.add(addressAndPort);
+				value.add(addressAndPort);
 			}
 		}
 	}
 
 	public void save() {
-		putString(KEY_addressesAndPorts, Util.join(addressesAndPorts.toArray(), stringArraySeparator));
+		putString(key, Util.join(value.toArray(), stringArraySeparator));
 	}
 
 	public ArrayList<String> getStringArrayList() {
-		return addressesAndPorts;
+		return value;
 	}
 
 	public void setStringArrayList(ArrayList<String> stringArrayList_) {
-		addressesAndPorts = stringArrayList_;
+		value = stringArrayList_;
 	}
 }
 
 class UserPreferenceMaxPlayerCount extends UserPreference {
-	private static final String KEY_maxPlayerCount = "max player count";
+	private static final String key = "max player count";
 
-	private Integer maxPlayerCount = null;
+	private Integer value = null;
 	private static final Integer valueDefault = 4;
 
 	public void load() {
-		maxPlayerCount = preferences.getInt(KEY_maxPlayerCount, valueDefault);
-		if (maxPlayerCount < 2 || maxPlayerCount > 6) {
-			maxPlayerCount = valueDefault;
+		value = preferences.getInt(key, valueDefault);
+		if (value < 2 || value > 6) {
+			value = valueDefault;
 		}
 	}
 
 	public void save() {
-		preferences.putInt(KEY_maxPlayerCount, maxPlayerCount);
+		preferences.putInt(key, value);
 	}
 
 	public Integer getInteger() {
-		return maxPlayerCount;
+		return value;
 	}
 
 	public void setInteger(Integer integer_) {
-		maxPlayerCount = integer_;
+		value = integer_;
 	}
 }
 
 class UserPreferenceUserListSortingMethod extends UserPreference {
-	private static final String KEY_userListSortingMethod = "user list sorting method";
+	private static final String key = "user list sorting method";
 
-	private Integer userListSortingMethod = null;
-	private static final Integer showModalMessageDialogBoxesDefault = UserListPresenter.SORT_NONE;
+	private Integer value = null;
+	private static final Integer valueDefault = UserListPresenter.SORT_NONE;
 
 	public void load() {
-		userListSortingMethod = preferences.getInt(KEY_userListSortingMethod, showModalMessageDialogBoxesDefault);
-		if (userListSortingMethod < 0 || userListSortingMethod > UserListPresenter.SORT_END) {
-			userListSortingMethod = showModalMessageDialogBoxesDefault;
+		value = preferences.getInt(key, valueDefault);
+		if (value < 0 || value > UserListPresenter.SORT_END) {
+			value = valueDefault;
 		}
 	}
 
 	public void save() {
-		preferences.putInt(KEY_userListSortingMethod, userListSortingMethod);
+		preferences.putInt(key, value);
 	}
 
 	public Integer getInteger() {
-		return userListSortingMethod;
+		return value;
 	}
 
 	public void setInteger(Integer integer_) {
-		userListSortingMethod = integer_;
+		value = integer_;
 	}
 }
 
 class UserPreferencePlaySoundWhenWaitingForMe extends UserPreference {
-	private static final String KEY_playSoundWhenWaitingForMe = "play sound when waiting for me";
+	private static final String key = "play sound when waiting for me";
 
-	private Boolean playSoundWhenWaitingForMe = null;
-	private static final Boolean playSoundWhenWaitingForMeDefault = false;
+	private Boolean value = null;
+	private static final Boolean valueDefault = false;
 
 	public void load() {
-		playSoundWhenWaitingForMe = preferences.getBoolean(KEY_playSoundWhenWaitingForMe, playSoundWhenWaitingForMeDefault);
+		value = preferences.getBoolean(key, valueDefault);
 	}
 
 	public void save() {
-		preferences.putBoolean(KEY_playSoundWhenWaitingForMe, playSoundWhenWaitingForMe);
+		preferences.putBoolean(key, value);
 	}
 
 	public Boolean getBoolean() {
-		return playSoundWhenWaitingForMe;
+		return value;
 	}
 
 	public void setBoolean(Boolean boolean_) {
-		playSoundWhenWaitingForMe = boolean_;
+		value = boolean_;
 	}
 }
 
 class UserPreferencePathToSound extends UserPreference {
-	private static final String KEY_pathToSound = "path to sound";
+	private static final String key = "path to sound";
 
-	private String pathToSound = null;
-	private static final String pathToSoundDefault = "";
+	private String value = null;
+	private static final String valueDefault = "";
 
 	public void load() {
-		pathToSound = preferences.get(KEY_pathToSound, pathToSoundDefault);
+		value = preferences.get(key, valueDefault);
 	}
 
 	public void save() {
-		putString(KEY_pathToSound, pathToSound);
+		putString(key, value);
 	}
 
 	public String getString() {
-		return pathToSound;
+		return value;
 	}
 
 	public void setString(String string_) {
-		pathToSound = string_;
+		value = string_;
 	}
 }
 
 class UserPreferenceWriteToLogFiles extends UserPreference {
-	private static final String KEY_writeToLogFiles = "write to log files";
+	private static final String key = "write to log files";
 
-	private Boolean writeToLogFiles = null;
-	private static final Boolean writeToLogFilesDefault = false;
+	private Boolean value = null;
+	private static final Boolean valueDefault = false;
 
 	public void load() {
-		writeToLogFiles = preferences.getBoolean(KEY_writeToLogFiles, writeToLogFilesDefault);
+		value = preferences.getBoolean(key, valueDefault);
 	}
 
 	public void save() {
-		preferences.putBoolean(KEY_writeToLogFiles, writeToLogFiles);
+		preferences.putBoolean(key, value);
 	}
 
 	public Boolean getBoolean() {
-		return writeToLogFiles;
+		return value;
 	}
 
 	public void setBoolean(Boolean boolean_) {
-		writeToLogFiles = boolean_;
+		value = boolean_;
 	}
 }
 
 class UserPreferencePathToLogFiles extends UserPreference {
-	private static final String KEY_pathToLogFiles = "path to log files";
+	private static final String key = "path to log files";
 
-	private String pathToLogFiles = null;
-	private static final String pathToLogFilesDefault = "";
+	private String value = null;
+	private static final String valueDefault = "";
 
 	public void load() {
-		pathToLogFiles = preferences.get(KEY_pathToLogFiles, pathToLogFilesDefault);
+		value = preferences.get(key, valueDefault);
 	}
 
 	public void save() {
-		putString(KEY_pathToLogFiles, pathToLogFiles);
+		putString(key, value);
 	}
 
 	public String getString() {
-		return pathToLogFiles;
+		return value;
 	}
 
 	public void setString(String string_) {
-		pathToLogFiles = string_;
+		value = string_;
 	}
 }
 
 class UserPreferenceWhereToStartInReviewMode extends UserPreference {
-	private static final String KEY_whereToStartInReviewMode = "where to start in review mode";
+	private static final String key = "where to start in review mode";
 
-	private Integer whereToStartInReviewMode = null;
-	private static final Integer whereToStartInReviewModeDefault = Review.START_AT_BEGINNING_OF_GAME;
+	private Integer value = null;
+	private static final Integer valueDefault = Review.START_AT_BEGINNING_OF_GAME;
 
 	public void load() {
-		whereToStartInReviewMode = preferences.getInt(KEY_whereToStartInReviewMode, whereToStartInReviewModeDefault);
-		if (whereToStartInReviewMode < 0 || whereToStartInReviewMode > Review.START_END) {
-			whereToStartInReviewMode = whereToStartInReviewModeDefault;
+		value = preferences.getInt(key, valueDefault);
+		if (value < 0 || value > Review.START_END) {
+			value = valueDefault;
 		}
 	}
 
 	public void save() {
-		preferences.putInt(KEY_whereToStartInReviewMode, whereToStartInReviewMode);
+		preferences.putInt(key, value);
 	}
 
 	public Integer getInteger() {
-		return whereToStartInReviewMode;
+		return value;
 	}
 
 	public void setInteger(Integer integer_) {
-		whereToStartInReviewMode = integer_;
+		value = integer_;
 	}
 }
 
 class UserPreferenceShowModalMessageDialogBoxes extends UserPreference {
-	private static final String KEY_showModalMessageDialogBoxes = "show modal message dialog boxes";
+	private static final String key = "show modal message dialog boxes";
 
-	private Boolean showModalMessageDialogBoxes = null;
-	private static final Boolean showModalMessageDialogBoxesDefault = false;
+	private Boolean value = null;
+	private static final Boolean valueDefault = false;
 
 	public void load() {
-		showModalMessageDialogBoxes = preferences.getBoolean(KEY_showModalMessageDialogBoxes, showModalMessageDialogBoxesDefault);
+		value = preferences.getBoolean(key, valueDefault);
 	}
 
 	public void save() {
-		preferences.putBoolean(KEY_showModalMessageDialogBoxes, showModalMessageDialogBoxes);
+		preferences.putBoolean(key, value);
 	}
 
 	public Boolean getBoolean() {
-		return showModalMessageDialogBoxes;
+		return value;
 	}
 
 	public void setBoolean(Boolean boolean_) {
-		showModalMessageDialogBoxes = boolean_;
+		value = boolean_;
 	}
 }
 
 class UserPreferenceGameBoardLabelMode extends UserPreference {
-	private static final String KEY_gameBoardLabelMode = "game board label mode";
+	private static final String key = "game board label mode";
 
-	private Integer gameBoardLabelMode = null;
-	private static final Integer gameBoardLabelModeDefault = GameBoard.LABEL_COORDINATES;
+	private Integer value = null;
+	private static final Integer valueDefault = GameBoard.LABEL_COORDINATES;
 
 	public void load() {
-		gameBoardLabelMode = preferences.getInt(KEY_gameBoardLabelMode, gameBoardLabelModeDefault);
-		if (gameBoardLabelMode < 0 || gameBoardLabelMode > GameBoard.LABEL_END) {
-			gameBoardLabelMode = gameBoardLabelModeDefault;
+		value = preferences.getInt(key, valueDefault);
+		if (value < 0 || value > GameBoard.LABEL_END) {
+			value = valueDefault;
 		}
 	}
 
 	public void save() {
-		preferences.putInt(KEY_gameBoardLabelMode, gameBoardLabelMode);
+		preferences.putInt(key, value);
 	}
 
 	public Integer getInteger() {
-		return gameBoardLabelMode;
+		return value;
 	}
 
 	public void setInteger(Integer integer_) {
-		gameBoardLabelMode = integer_;
+		value = integer_;
 	}
 }
 
 class UserPreferenceShowMessagePrefixes extends UserPreference {
-	private static final String KEY_showMessagePrefixes = "show message prefixes";
+	private static final String key = "show message prefixes";
 
-	private Boolean showMessagePrefixes = null;
-	private static final Boolean showMessagePrefixesDefault = true;
+	private Boolean value = null;
+	private static final Boolean valueDefault = true;
 
 	public void load() {
-		showMessagePrefixes = preferences.getBoolean(KEY_showMessagePrefixes, showMessagePrefixesDefault);
+		value = preferences.getBoolean(key, valueDefault);
 	}
 
 	public void save() {
-		preferences.putBoolean(KEY_showMessagePrefixes, showMessagePrefixes);
+		preferences.putBoolean(key, value);
 	}
 
 	public Boolean getBoolean() {
-		return showMessagePrefixes;
+		return value;
 	}
 
 	public void setBoolean(Boolean boolean_) {
-		showMessagePrefixes = boolean_;
+		value = boolean_;
 	}
 }
 
