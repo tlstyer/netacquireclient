@@ -4,15 +4,12 @@ import java.net.*;
 import java.util.*;
 import java.util.prefs.*;
 
-class UserPreference {
+abstract class UserPreference {
 	protected static final Preferences preferences = Preferences.userNodeForPackage(UserPreferences.class);
-	protected static final String stringArraySeparator = "::";
 
-	public void load() {
-	}
+	abstract public void load();
 
-	public void save() {
-	}
+	abstract public void save();
 
 	protected void putString(String key, String value) {
 		if (value.length() > Preferences.MAX_VALUE_LENGTH) {
@@ -50,29 +47,30 @@ class UserPreference {
 	}
 }
 
-class UserPreferenceNicknames extends UserPreference {
-	private static final String key = "nicknames";
+abstract class UserPreferenceTypeStringArrayList extends UserPreference {
+	protected ArrayList<String> value = null;
 
-	private ArrayList<String> value = null;
+	private String key;
+
+	private static final String stringArraySeparator = "::";
+
+	public UserPreferenceTypeStringArrayList(String key) {
+		this.key = key;
+	}
 
 	public void load() {
-		String[] nicknamesArray = preferences.get(key, "").split(stringArraySeparator, -1);
+		String[] itemsArray = preferences.get(key, "").split(stringArraySeparator, -1);
 		value = new ArrayList<String>();
-		if (nicknamesArray.length == 1 && nicknamesArray[0].length() == 0) {
-			String nickname;
-			try {
-				nickname = InetAddress.getLocalHost().getHostName();
-			} catch (UnknownHostException unknownHostException) {
-				Random random = new Random();
-				nickname = "" + random.nextInt();
-			}
-			value.add(nickname);
+		if (itemsArray.length == 1 && itemsArray[0].length() == 0) {
+			populateEmptyArrayList();
 		} else {
-			for (String nickname : nicknamesArray) {
-				value.add(nickname);
+			for (String item : itemsArray) {
+				value.add(item);
 			}
 		}
 	}
+
+	abstract protected void populateEmptyArrayList();
 
 	public void save() {
 		putString(key, Util.join(value.toArray(), stringArraySeparator));
@@ -87,119 +85,16 @@ class UserPreferenceNicknames extends UserPreference {
 	}
 }
 
-class UserPreferenceAddressesAndPorts extends UserPreference {
-	private static final String key = "addresses and ports";
-
-	private ArrayList<String> value = null;
-
-	public void load() {
-		String[] addressesAndPortsArray = preferences.get(key, "").split(stringArraySeparator, -1);
-		value = new ArrayList<String>();
-		if (addressesAndPortsArray.length == 1 && addressesAndPortsArray[0].length() == 0) {
-			value.add("acquire.sbg.org:1001");
-			value.add("acquire.sbg.org:1002");
-			value.add("acquire.dynu.com:1001");
-			value.add("localhost:1001");
-		} else {
-			for (String addressAndPort : addressesAndPortsArray) {
-				value.add(addressAndPort);
-			}
-		}
-	}
-
-	public void save() {
-		putString(key, Util.join(value.toArray(), stringArraySeparator));
-	}
-
-	public ArrayList<String> getStringArrayList() {
-		return value;
-	}
-
-	public void setStringArrayList(ArrayList<String> stringArrayList_) {
-		value = stringArrayList_;
-	}
-}
-
-class UserPreferenceMaxPlayerCount extends UserPreference {
-	private static final String key = "max player count";
-
-	private Integer value = null;
-	private static final Integer valueDefault = 4;
-
-	public void load() {
-		value = preferences.getInt(key, valueDefault);
-		if (value < 2 || value > 6) {
-			value = valueDefault;
-		}
-	}
-
-	public void save() {
-		preferences.putInt(key, value);
-	}
-
-	public Integer getInteger() {
-		return value;
-	}
-
-	public void setInteger(Integer integer_) {
-		value = integer_;
-	}
-}
-
-class UserPreferenceUserListSortingMethod extends UserPreference {
-	private static final String key = "user list sorting method";
-
-	private Integer value = null;
-	private static final Integer valueDefault = UserListPresenter.SORT_NONE;
-
-	public void load() {
-		value = preferences.getInt(key, valueDefault);
-		if (value < 0 || value > UserListPresenter.SORT_END) {
-			value = valueDefault;
-		}
-	}
-
-	public void save() {
-		preferences.putInt(key, value);
-	}
-
-	public Integer getInteger() {
-		return value;
-	}
-
-	public void setInteger(Integer integer_) {
-		value = integer_;
-	}
-}
-
-class UserPreferencePlaySoundWhenWaitingForMe extends UserPreference {
-	private static final String key = "play sound when waiting for me";
-
-	private Boolean value = null;
-	private static final Boolean valueDefault = false;
-
-	public void load() {
-		value = preferences.getBoolean(key, valueDefault);
-	}
-
-	public void save() {
-		preferences.putBoolean(key, value);
-	}
-
-	public Boolean getBoolean() {
-		return value;
-	}
-
-	public void setBoolean(Boolean boolean_) {
-		value = boolean_;
-	}
-}
-
-class UserPreferencePathToSound extends UserPreference {
-	private static final String key = "path to sound";
-
+class UserPreferenceTypeString extends UserPreference {
 	private String value = null;
-	private static final String valueDefault = "";
+
+	private String key;
+	private String valueDefault;
+
+	public UserPreferenceTypeString(String key, String valueDefault) {
+		this.key = key;
+		this.valueDefault = valueDefault;
+	}
 
 	public void load() {
 		value = preferences.get(key, valueDefault);
@@ -218,61 +113,24 @@ class UserPreferencePathToSound extends UserPreference {
 	}
 }
 
-class UserPreferenceWriteToLogFiles extends UserPreference {
-	private static final String key = "write to log files";
-
-	private Boolean value = null;
-	private static final Boolean valueDefault = false;
-
-	public void load() {
-		value = preferences.getBoolean(key, valueDefault);
-	}
-
-	public void save() {
-		preferences.putBoolean(key, value);
-	}
-
-	public Boolean getBoolean() {
-		return value;
-	}
-
-	public void setBoolean(Boolean boolean_) {
-		value = boolean_;
-	}
-}
-
-class UserPreferencePathToLogFiles extends UserPreference {
-	private static final String key = "path to log files";
-
-	private String value = null;
-	private static final String valueDefault = "";
-
-	public void load() {
-		value = preferences.get(key, valueDefault);
-	}
-
-	public void save() {
-		putString(key, value);
-	}
-
-	public String getString() {
-		return value;
-	}
-
-	public void setString(String string_) {
-		value = string_;
-	}
-}
-
-class UserPreferenceWhereToStartInReviewMode extends UserPreference {
-	private static final String key = "where to start in review mode";
-
+class UserPreferenceTypeInteger extends UserPreference {
 	private Integer value = null;
-	private static final Integer valueDefault = Review.START_AT_BEGINNING_OF_GAME;
+
+	private String key;
+	private int valueDefault;
+	private int valueMin;
+	private int valueMax;
+
+	public UserPreferenceTypeInteger(String key, int valueDefault, int valueMin, int valueMax) {
+		this.key = key;
+		this.valueDefault = valueDefault;
+		this.valueMin = valueMin;
+		this.valueMax = valueMax;
+	}
 
 	public void load() {
 		value = preferences.getInt(key, valueDefault);
-		if (value < 0 || value > Review.START_END) {
+		if (value < valueMin || value > valueMax) {
 			value = valueDefault;
 		}
 	}
@@ -290,11 +148,16 @@ class UserPreferenceWhereToStartInReviewMode extends UserPreference {
 	}
 }
 
-class UserPreferenceShowModalMessageDialogBoxes extends UserPreference {
-	private static final String key = "show modal message dialog boxes";
-
+class UserPreferenceTypeBoolean extends UserPreference {
 	private Boolean value = null;
-	private static final Boolean valueDefault = false;
+
+	private String key;
+	private boolean valueDefault;
+
+	public UserPreferenceTypeBoolean(String key, boolean valueDefault) {
+		this.key = key;
+		this.valueDefault = valueDefault;
+	}
 
 	public void load() {
 		value = preferences.getBoolean(key, valueDefault);
@@ -313,52 +176,33 @@ class UserPreferenceShowModalMessageDialogBoxes extends UserPreference {
 	}
 }
 
-class UserPreferenceGameBoardLabelMode extends UserPreference {
-	private static final String key = "game board label mode";
+class UserPreferenceNicknames extends UserPreferenceTypeStringArrayList {
+	public UserPreferenceNicknames() {
+		super("nicknames");
+	}
 
-	private Integer value = null;
-	private static final Integer valueDefault = GameBoard.LABEL_COORDINATES;
-
-	public void load() {
-		value = preferences.getInt(key, valueDefault);
-		if (value < 0 || value > GameBoard.LABEL_END) {
-			value = valueDefault;
+	protected void populateEmptyArrayList() {
+		String nickname;
+		try {
+			nickname = InetAddress.getLocalHost().getHostName();
+		} catch (UnknownHostException unknownHostException) {
+			Random random = new Random();
+			nickname = "" + random.nextInt();
 		}
-	}
-
-	public void save() {
-		preferences.putInt(key, value);
-	}
-
-	public Integer getInteger() {
-		return value;
-	}
-
-	public void setInteger(Integer integer_) {
-		value = integer_;
+		value.add(nickname);
 	}
 }
 
-class UserPreferenceShowMessagePrefixes extends UserPreference {
-	private static final String key = "show message prefixes";
-
-	private Boolean value = null;
-	private static final Boolean valueDefault = true;
-
-	public void load() {
-		value = preferences.getBoolean(key, valueDefault);
+class UserPreferenceAddressesAndPorts extends UserPreferenceTypeStringArrayList {
+	public UserPreferenceAddressesAndPorts() {
+		super("addresses and ports");
 	}
 
-	public void save() {
-		preferences.putBoolean(key, value);
-	}
-
-	public Boolean getBoolean() {
-		return value;
-	}
-
-	public void setBoolean(Boolean boolean_) {
-		value = boolean_;
+	protected void populateEmptyArrayList() {
+		value.add("acquire.sbg.org:1001");
+		value.add("acquire.sbg.org:1002");
+		value.add("acquire.dynu.com:1001");
+		value.add("localhost:1001");
 	}
 }
 
@@ -382,16 +226,16 @@ public class UserPreferences {
 	public UserPreferences() {
 		userPreferenceArray[NICKNAMES                      ] = new UserPreferenceNicknames();
 		userPreferenceArray[ADDRESSES_AND_PORTS            ] = new UserPreferenceAddressesAndPorts();
-		userPreferenceArray[MAX_PLAYER_COUNT               ] = new UserPreferenceMaxPlayerCount();
-		userPreferenceArray[USER_LIST_SORTING_METHOD       ] = new UserPreferenceUserListSortingMethod();
-		userPreferenceArray[PLAY_SOUND_WHEN_WAITING_FOR_ME ] = new UserPreferencePlaySoundWhenWaitingForMe();
-		userPreferenceArray[PATH_TO_SOUND                  ] = new UserPreferencePathToSound();
-		userPreferenceArray[WRITE_TO_LOG_FILES             ] = new UserPreferenceWriteToLogFiles();
-		userPreferenceArray[PATH_TO_LOG_FILES              ] = new UserPreferencePathToLogFiles();
-		userPreferenceArray[WHERE_TO_START_IN_REVIEW_MODE  ] = new UserPreferenceWhereToStartInReviewMode();
-		userPreferenceArray[SHOW_MODAL_MESSAGE_DIALOG_BOXES] = new UserPreferenceShowModalMessageDialogBoxes();
-		userPreferenceArray[GAME_BOARD_LABEL_MODE          ] = new UserPreferenceGameBoardLabelMode();
-		userPreferenceArray[SHOW_MESSAGE_PREFIXES          ] = new UserPreferenceShowMessagePrefixes();
+		userPreferenceArray[MAX_PLAYER_COUNT               ] = new UserPreferenceTypeInteger("max player count", 4, 2, 6);
+		userPreferenceArray[USER_LIST_SORTING_METHOD       ] = new UserPreferenceTypeInteger("user list sorting method", UserListPresenter.SORT_NONE, 0, UserListPresenter.SORT_END);
+		userPreferenceArray[PLAY_SOUND_WHEN_WAITING_FOR_ME ] = new UserPreferenceTypeBoolean("play sound when waiting for me", false);
+		userPreferenceArray[PATH_TO_SOUND                  ] = new UserPreferenceTypeString("path to sound", "");
+		userPreferenceArray[WRITE_TO_LOG_FILES             ] = new UserPreferenceTypeBoolean("write to log files", false);
+		userPreferenceArray[PATH_TO_LOG_FILES              ] = new UserPreferenceTypeString("path to log files", "");
+		userPreferenceArray[WHERE_TO_START_IN_REVIEW_MODE  ] = new UserPreferenceTypeInteger("where to start in review mode", Review.START_AT_BEGINNING_OF_GAME, 0, Review.START_END);
+		userPreferenceArray[SHOW_MODAL_MESSAGE_DIALOG_BOXES] = new UserPreferenceTypeBoolean("show modal message dialog boxes", false);
+		userPreferenceArray[GAME_BOARD_LABEL_MODE          ] = new UserPreferenceTypeInteger("game board label mode", GameBoard.LABEL_COORDINATES, 0, GameBoard.LABEL_END);
+		userPreferenceArray[SHOW_MESSAGE_PREFIXES          ] = new UserPreferenceTypeBoolean("show message prefixes", true);
 
 		load();
 	}
