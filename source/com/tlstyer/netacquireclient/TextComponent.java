@@ -88,7 +88,7 @@ class TextComponent extends JComponent {
 		graphics2D.fillRect(0, 0, getWidth(), getHeight());
 
 		// draw text
-		TextComponentFontData textComponentFontData = Main.getFontManager().getTextComponentFontData();
+		TextComponentFontData textComponentFontData = Main.getFontManager().getTextComponentFontData(3);
 		graphics2D.setFont(textComponentFontData.getFont());
 		graphics2D.setColor(colorForeground);
 

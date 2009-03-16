@@ -27,8 +27,8 @@ public class FontManager {
 		this.classicTextComponentHeight = classicTextComponentHeight;
 	}
 
-	public TextComponentFontData getTextComponentFontData() {
-		int index = classicTextComponentHeight / 3;
+	public TextComponentFontData getTextComponentFontData(int divisor) {
+		int index = classicTextComponentHeight / divisor;
 		if (index < 0) {
 			index = 0;
 		} else if (index >= LENGTH_TEXTCOMPONENTFONTDATAARRAY) {
