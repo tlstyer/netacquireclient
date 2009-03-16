@@ -420,7 +420,6 @@ public class NetworkConnection {
 
 	private void handleSP(Object[] command) {
 		writeMessage("PL;" + nickname + ",2,0,2");
-		writeMessage("BM;Lobby,\"http://www.tlstyer.com/NetAcquireClient/\"");
 	}
 
 	private void handleSS(Object[] command) {
