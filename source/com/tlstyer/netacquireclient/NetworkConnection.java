@@ -20,6 +20,7 @@ class ConnectThread extends Thread {
 		inetSocketAddress = inetSocketAddress_;
 	}
 
+	@Override
 	public void run() {
 		try {
 			socketChannel = SocketChannel.open(inetSocketAddress);
@@ -49,10 +50,12 @@ public class NetworkConnection {
 	private ConnectThread connectThread = null;
 
 	private Boolean connected = false;
+	private final Boolean connectedSynch = true;
 	private boolean exitedNicely = false;
 
 	private StringBuilder dataRead = new StringBuilder(10240);
 	private StringBuilder dataToWrite = new StringBuilder(10240);
+	private final Boolean dataToWriteSynch = true;
 
 	private Selector selector;
 	private SocketChannel socketChannel;
@@ -115,7 +118,7 @@ public class NetworkConnection {
 	}
 
 	public void disconnect() {
-		synchronized(connected) {
+		synchronized(connectedSynch) {
 			if (connected) {
 				exitedNicely = true;
 				try {
@@ -132,7 +135,7 @@ public class NetworkConnection {
 	}
 
 	private void setConnected(boolean connected_) {
-		synchronized(connected) {
+		synchronized(connectedSynch) {
 			connected = connected_;
 		}
 	}
@@ -148,7 +151,7 @@ public class NetworkConnection {
 		dataRead.delete(0, dataRead.length());
 		ByteBuffer byteBuffer = ByteBuffer.allocate(10240);
 
-		synchronized(dataToWrite) {
+		synchronized(dataToWriteSynch) {
 			dataToWrite.delete(0, dataToWrite.length());
 		}
 
@@ -176,7 +179,7 @@ public class NetworkConnection {
 							dataRead.append(charsetDecoder.decode(byteBuffer));
 							processDataRead();
 						} else if (sk.isWritable()) {
-							synchronized(dataToWrite) {
+							synchronized(dataToWriteSynch) {
 								byteBuffer.clear();
 								byteBuffer.put(charsetDecoder.encode(dataToWrite.toString()));
 								byteBuffer.flip();

@@ -13,6 +13,7 @@ public abstract class GameDialog extends JDialog implements ActionListener {
 	private boolean hasBeenHidden = false;
 
 	private static Set<GameDialog> setOfGameDialogs = new HashSet<GameDialog>();
+	private static final Boolean setOfGameDialogsSynch = true;
 
 	public static final int ALLOW_EXTERNAL_HIDE_REQUEST = 1;
 	public static final int DO_NOT_ALLOW_EXTERNAL_HIDE_REQUEST = 2;
@@ -24,7 +25,7 @@ public abstract class GameDialog extends JDialog implements ActionListener {
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setResizable(false);
 		if (allowExternalHideRequest == ALLOW_EXTERNAL_HIDE_REQUEST) {
-			synchronized (setOfGameDialogs) {
+			synchronized (setOfGameDialogsSynch) {
 				setOfGameDialogs.add(this);
 			}
 		}
@@ -36,8 +37,8 @@ public abstract class GameDialog extends JDialog implements ActionListener {
 
 	public void setLocation(int position) {
 		if (position == POSITION_0_0) {
-			JPanel panel = Main.getMainFrame().getPanel();
-			Point location = panel.getLocationOnScreen();
+			JPanel panel2 = Main.getMainFrame().getPanel();
+			Point location = panel2.getLocationOnScreen();
 			setLocation(location);
 		} else if (position == POSITION_BELOW_SCORE_SHEET) {
 			ScoreSheet scoreSheet = Main.getMainFrame().getScoreSheet();
@@ -63,7 +64,7 @@ public abstract class GameDialog extends JDialog implements ActionListener {
 	}
 
 	public void hideGameDialog() {
-		synchronized (setOfGameDialogs) {
+		synchronized (setOfGameDialogsSynch) {
 			hasBeenHidden = true;
 			setVisible(false);
 			setOfGameDialogs.remove(this);
@@ -71,7 +72,7 @@ public abstract class GameDialog extends JDialog implements ActionListener {
 	}
 
 	public static void hideGameDialogs() {
-		synchronized (setOfGameDialogs) {
+		synchronized (setOfGameDialogsSynch) {
 			for (GameDialog gameDialog : setOfGameDialogs) {
 				gameDialog.setVisible(false);
 			}

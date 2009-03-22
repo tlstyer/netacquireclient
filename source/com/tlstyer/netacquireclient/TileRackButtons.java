@@ -11,6 +11,7 @@ public class TileRackButtons extends JPanel implements ActionListener, Component
 	private int[] hoteltypes = new int[6];
 	private GridLayout gridLayout = new GridLayout(1, 6, spacing, spacing);
 	private Boolean canPlayTile = false;
+	private final Boolean canPlayTileSynch = true;
 
 	public static final int spacing = 10;
 
@@ -45,14 +46,14 @@ public class TileRackButtons extends JPanel implements ActionListener, Component
 	}
 
 	public void setCanPlayTile(boolean canPlayTile_) {
-		synchronized (canPlayTile) {
+		synchronized (canPlayTileSynch) {
 			canPlayTile = canPlayTile_;
 		}
 	}
 
 	public void actionPerformed(ActionEvent actionEvent) {
 		int buttonIndex = Integer.decode(actionEvent.getActionCommand());
-		synchronized (canPlayTile) {
+		synchronized (canPlayTileSynch) {
 			boolean canPlayTileNow = canPlayTile;
 			canPlayTileNow &= (hoteltypes[buttonIndex] != Hoteltype.CANT_PLAY_EVER);
 			canPlayTileNow &= (hoteltypes[buttonIndex] != Hoteltype.CANT_PLAY_NOW);

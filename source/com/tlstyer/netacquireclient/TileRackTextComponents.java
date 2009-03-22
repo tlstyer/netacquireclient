@@ -25,7 +25,7 @@ public class TileRackTextComponents extends JPanel {
 			boolean repaint = false;
 
 			String label = trd.getLabel(index);
-			if (tileRackData.getLabel(index) != label) {
+			if (!tileRackData.getLabel(index).equals(label)) {
 				tileRackData.setLabel(index, label);
 				textComponents[index].setText(label);
 				repaint = true;

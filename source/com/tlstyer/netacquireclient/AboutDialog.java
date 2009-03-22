@@ -17,6 +17,7 @@ public class AboutDialog extends GameDialog {
 	private JButton buttonOK;
 
 	private static Boolean aboutDialogShowing = false;
+	private static final Boolean aboutDialogShowingSynch = true;
 
 	public AboutDialog() {
 		super(DO_NOT_ALLOW_EXTERNAL_HIDE_REQUEST);
@@ -44,7 +45,7 @@ public class AboutDialog extends GameDialog {
 	}
 
 	public static void showAboutDialog() {
-		synchronized (aboutDialogShowing) {
+		synchronized (aboutDialogShowingSynch) {
 			if (!aboutDialogShowing) {
 				new AboutDialog();
 				aboutDialogShowing = true;
@@ -53,7 +54,7 @@ public class AboutDialog extends GameDialog {
 	}
 
 	private void hideAboutDialog() {
-		synchronized (aboutDialogShowing) {
+		synchronized (aboutDialogShowingSynch) {
 			hideGameDialog();
 			aboutDialogShowing = false;
 		}

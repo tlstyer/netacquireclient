@@ -141,6 +141,7 @@ class ReviewBreakPoint extends ReviewMessage {
 class LogFileTransferHandler extends TransferHandler {
 	private static final long serialVersionUID = -1586106234288412330L;
 
+	@Override
 	public boolean importData(JComponent component, Transferable transferable) {
 		try {
 			java.util.List fileList = (java.util.List)transferable.getTransferData(DataFlavor.javaFileListFlavor);
@@ -154,6 +155,7 @@ class LogFileTransferHandler extends TransferHandler {
 		return true;
 	}
 
+	@Override
 	public boolean canImport(JComponent component, DataFlavor[] dataFlavorArray) {
 		for (DataFlavor dataFlavor : dataFlavorArray) {
 			if (dataFlavor.equals(DataFlavor.javaFileListFlavor)) {

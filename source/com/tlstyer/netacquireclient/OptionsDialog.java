@@ -41,6 +41,7 @@ public class OptionsDialog extends GameDialog {
 	private JButton buttonCancel;
 
 	private static Boolean optionsDialogShowing = false;
+	private static final Boolean optionsDialogShowingSynch = true;
 
 	public OptionsDialog() {
 		super(DO_NOT_ALLOW_EXTERNAL_HIDE_REQUEST);
@@ -279,7 +280,7 @@ public class OptionsDialog extends GameDialog {
 	}
 
 	public static void showOptionsDialog() {
-		synchronized (optionsDialogShowing) {
+		synchronized (optionsDialogShowingSynch) {
 			if (!optionsDialogShowing) {
 				new OptionsDialog();
 				optionsDialogShowing = true;
@@ -288,7 +289,7 @@ public class OptionsDialog extends GameDialog {
 	}
 
 	private void hideOptionsDialog() {
-		synchronized (optionsDialogShowing) {
+		synchronized (optionsDialogShowingSynch) {
 			hideGameDialog();
 			optionsDialogShowing = false;
 		}

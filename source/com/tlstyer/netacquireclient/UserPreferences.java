@@ -76,10 +76,12 @@ abstract class UserPreferenceTypeStringArrayList extends UserPreference {
 		putString(key, Util.join(value.toArray(), stringArraySeparator));
 	}
 
+	@Override
 	public ArrayList<String> getStringArrayList() {
 		return value;
 	}
 
+	@Override
 	public void setStringArrayList(ArrayList<String> stringArrayList_) {
 		value = stringArrayList_;
 	}
@@ -104,10 +106,12 @@ class UserPreferenceTypeString extends UserPreference {
 		putString(key, value);
 	}
 
+	@Override
 	public String getString() {
 		return value;
 	}
 
+	@Override
 	public void setString(String string_) {
 		value = string_;
 	}
@@ -139,10 +143,12 @@ class UserPreferenceTypeInteger extends UserPreference {
 		preferences.putInt(key, value);
 	}
 
+	@Override
 	public Integer getInteger() {
 		return value;
 	}
 
+	@Override
 	public void setInteger(Integer integer_) {
 		value = integer_;
 	}
@@ -167,10 +173,12 @@ class UserPreferenceTypeBoolean extends UserPreference {
 		preferences.putBoolean(key, value);
 	}
 
+	@Override
 	public Boolean getBoolean() {
 		return value;
 	}
 
+	@Override
 	public void setBoolean(Boolean boolean_) {
 		value = boolean_;
 	}

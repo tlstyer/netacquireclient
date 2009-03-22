@@ -18,10 +18,10 @@ public class Message {
 	private String commandToContainedMessage(Object[] command) {
 		Object[] objects_message = new Object[command.length - 1];
 		System.arraycopy(command, 1, objects_message, 0, objects_message.length);
-		String message = Util.commandJavaToText(objects_message);
-		message = message.substring(1, message.length() - 1);
-		message = message.replace("\"\"", "\"");
-		return message;
+		String message2 = Util.commandJavaToText(objects_message);
+		message2 = message2.substring(1, message2.length() - 1);
+		message2 = message2.replace("\"\"", "\"");
+		return message2;
 	}
 
 	public String getMessageFull() {

@@ -67,12 +67,14 @@ class TextComponent extends JComponent {
 		textAlign = textAlign_;
 	}
 
+	@Override
 	public boolean isOpaque() {
 		return true;
 	}
 
 	private static boolean initializedTextComponentFontData = false;
 
+	@Override
 	public void paint(Graphics graphics) {
 		Graphics2D graphics2D = (Graphics2D)graphics;
 

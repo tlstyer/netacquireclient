@@ -106,20 +106,20 @@ public class UserListPresenter {
 
 	public void outputLines() {
 		Object[] listEntriesArray = this.listEntries.toArray();
-		ListEntry[] listEntries = new ListEntry[listEntriesArray.length];
+		ListEntry[] listEntries2 = new ListEntry[listEntriesArray.length];
 		for (int i=0; i<listEntriesArray.length; ++i) {
-			listEntries[i] = (ListEntry)listEntriesArray[i];
+			listEntries2[i] = (ListEntry)listEntriesArray[i];
 		}
 
 		int sortingMethod = Main.getUserPreferences().getInteger(UserPreferences.USER_LIST_SORTING_METHOD);
 		if (sortingMethod == SORT_ALPHABETICALLY) {
-			Arrays.sort(listEntries, comparatorListEntryAlphabetically);
+			Arrays.sort(listEntries2, comparatorListEntryAlphabetically);
 		} else if (sortingMethod == SORT_GAME_NUMBER) {
-			Arrays.sort(listEntries, comparatorListEntryGameNumber);
+			Arrays.sort(listEntries2, comparatorListEntryGameNumber);
 		}
 
 		outputLine(messageStart);
-		for (ListEntry listEntry : listEntries) {
+		for (ListEntry listEntry : listEntries2) {
 			outputLine(listEntry.message);
 		}
 		outputLine(stringListEnd);
