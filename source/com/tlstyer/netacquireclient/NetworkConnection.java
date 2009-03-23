@@ -322,7 +322,7 @@ public class NetworkConnection {
 	}
 
 	public void writeMessage(String message) {
-		synchronized(dataToWrite) {
+		synchronized(dataToWriteSynch) {
 			Main.getLogFileWriter().writeMessage(LogFileWriter.MESSAGE_OUTGOING, message);
 			dataToWrite.append(message + ";:");
 			if (!isWritable) {
