@@ -7,8 +7,6 @@ import java.util.regex.*;
 import javax.swing.*;
 
 public class ModeDialog extends GameDialog {
-	private static final long serialVersionUID = -9110080591988857670L;
-
 	// "Nickname" panel
 	private JComboBox cbNickname;
 	private JButton buttonDeleteNickname;

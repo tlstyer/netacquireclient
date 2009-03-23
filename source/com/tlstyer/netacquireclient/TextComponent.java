@@ -6,8 +6,6 @@ import java.awt.geom.*;
 import javax.swing.*;
 
 class TextComponent extends JComponent {
-	private static final long serialVersionUID = 8310329275352927342L;
-
 	private String text;
 	private String textForBounds;
 	private Color colorBackground;

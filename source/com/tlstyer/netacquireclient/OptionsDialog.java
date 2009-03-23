@@ -5,8 +5,6 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class OptionsDialog extends GameDialog {
-	private static final long serialVersionUID = -8370913711548370855L;
-
 	// "max player count" panel
 	private SpinnerNumberModel spinnerNumberModelMaxPlayerCount;
 

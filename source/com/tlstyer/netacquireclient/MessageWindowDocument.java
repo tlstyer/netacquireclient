@@ -4,8 +4,6 @@ import java.awt.*;
 import javax.swing.text.*;
 
 public class MessageWindowDocument extends DefaultStyledDocument {
-	private static final long serialVersionUID = -7707575450662821467L;
-
 	private static Style styleNormal;
 	private static Style styleComment;
 	private static Style styleImportant;

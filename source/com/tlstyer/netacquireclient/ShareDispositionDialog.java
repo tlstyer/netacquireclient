@@ -6,8 +6,6 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 public class ShareDispositionDialog extends GameDialog implements ChangeListener {
-	private static final long serialVersionUID = 5149132406543033949L;
-
 	private int numSharesOfTakenOverHotelIHave;
 	private int numAvailableOfSurvivor;
 

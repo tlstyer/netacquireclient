@@ -5,8 +5,6 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class AboutDialog extends GameDialog {
-	private static final long serialVersionUID = 6464857331964610658L;
-
 	private static final String[] labelTextArray = new String[]{
 		Main.getProgramName(),
 		"Programmed by Tim Styer",

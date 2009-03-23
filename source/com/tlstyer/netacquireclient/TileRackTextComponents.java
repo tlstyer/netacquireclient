@@ -4,8 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 
 public class TileRackTextComponents extends JPanel {
-	private static final long serialVersionUID = 4472307616301298731L;
-
 	private TextComponent[] textComponents = new TextComponent[6];
 	private GridLayout gridLayout = new GridLayout(1, 6, TileRackButtons.spacing, TileRackButtons.spacing);
 	private TileRackData tileRackData = new TileRackData();

@@ -139,8 +139,6 @@ class ReviewBreakPoint extends ReviewMessage {
 }
 
 class LogFileTransferHandler extends TransferHandler {
-	private static final long serialVersionUID = -1586106234288412330L;
-
 	@Override
 	public boolean importData(JComponent component, Transferable transferable) {
 		try {

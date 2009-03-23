@@ -5,8 +5,6 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class SelectChainDialog extends GameDialog {
-	private static final long serialVersionUID = -480008475260474107L;
-
 	private ButtonGroup radioButtonGroup;
 	private JRadioButton[] radioButtons;
 	private JButton buttonOK;

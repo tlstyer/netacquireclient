@@ -4,8 +4,6 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class ScoreSheet extends JPanel implements ComponentListener {
-	private static final long serialVersionUID = -3774187727532342245L;
-
 	private TextComponent[][] scoreSheet;
 	private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
 	private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();

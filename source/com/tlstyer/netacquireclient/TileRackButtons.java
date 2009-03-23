@@ -5,8 +5,6 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class TileRackButtons extends JPanel implements ActionListener, ComponentListener {
-	private static final long serialVersionUID = -4958509929445192150L;
-
 	private Button[] buttons = new Button[6];
 	private int[] hoteltypes = new int[6];
 	private GridLayout gridLayout = new GridLayout(1, 6, spacing, spacing);

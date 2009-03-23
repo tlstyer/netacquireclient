@@ -5,8 +5,6 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class MainFrame extends JFrame implements ComponentListener, WindowListener {
-	private static final long serialVersionUID = 494783141808469259L;
-
 	private MainFrameMenuBar mainFrameMenuBar;
 
 	private JPanel panel;

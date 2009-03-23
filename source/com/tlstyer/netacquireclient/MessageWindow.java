@@ -4,8 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 
 public class MessageWindow extends JScrollPane {
-	private static final long serialVersionUID = 89083236981415606L;
-
 	private JTextPane textPane = new JTextPane();
 	private MessageWindowDocument messageWindowDocument;
 	private TransferHandler transferHandler;

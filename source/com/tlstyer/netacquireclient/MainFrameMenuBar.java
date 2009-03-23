@@ -4,8 +4,6 @@ import java.awt.event.*;
 import javax.swing.*;
 
 class MainFrameMenu extends JMenu {
-	private static final long serialVersionUID = -4802690017318072905L;
-
 	public MainFrameMenu(String text, Integer mnemonic) {
 		if (text != null) {
 			setText(text);
@@ -17,8 +15,6 @@ class MainFrameMenu extends JMenu {
 }
 
 class MainFrameMenuItem extends JMenuItem implements ActionListener {
-	private static final long serialVersionUID = 2020542451615622982L;
-
 	public MainFrameMenuItem(String text,
 							 Integer mnemonic,
 							 Integer mnemonicIndex,
@@ -48,8 +44,6 @@ class MainFrameMenuItem extends JMenuItem implements ActionListener {
 }
 
 class MenuItemReinitialize extends MainFrameMenuItem {
-	private static final long serialVersionUID = -7113343397152091960L;
-
 	public MenuItemReinitialize() {
 		super("Reinitialize", KeyEvent.VK_I, null, KeyEvent.VK_I, ActionEvent.CTRL_MASK);
 	}
@@ -76,8 +70,6 @@ class MenuItemReinitialize extends MainFrameMenuItem {
 }
 
 class MenuItemOptions extends MainFrameMenuItem {
-	private static final long serialVersionUID = -2034147668512354594L;
-
 	public MenuItemOptions() {
 		super("Options", KeyEvent.VK_O, null, KeyEvent.VK_O, ActionEvent.CTRL_MASK);
 	}
@@ -89,8 +81,6 @@ class MenuItemOptions extends MainFrameMenuItem {
 }
 
 class MenuItemQuit extends MainFrameMenuItem {
-	private static final long serialVersionUID = 8960385492720201493L;
-
 	public MenuItemQuit() {
 		super("Quit", KeyEvent.VK_Q, null, KeyEvent.VK_Q, ActionEvent.CTRL_MASK);
 	}
@@ -102,8 +92,6 @@ class MenuItemQuit extends MainFrameMenuItem {
 }
 
 class MenuItemShowUsers extends MainFrameMenuItem {
-	private static final long serialVersionUID = -6174886083660502152L;
-
 	public MenuItemShowUsers() {
 		super("Show Users", KeyEvent.VK_U, null, KeyEvent.VK_U, ActionEvent.CTRL_MASK);
 	}
@@ -115,8 +103,6 @@ class MenuItemShowUsers extends MainFrameMenuItem {
 }
 
 class MenuItemShowGames extends MainFrameMenuItem {
-	private static final long serialVersionUID = -3109019172088568140L;
-
 	public MenuItemShowGames() {
 		super("Show Games", KeyEvent.VK_G, null, KeyEvent.VK_G, ActionEvent.CTRL_MASK);
 	}
@@ -128,8 +114,6 @@ class MenuItemShowGames extends MainFrameMenuItem {
 }
 
 class MenuItemStartNewGame extends MainFrameMenuItem {
-	private static final long serialVersionUID = 6597744682855386663L;
-
 	public MenuItemStartNewGame() {
 		super("Start New Game", KeyEvent.VK_N, null, KeyEvent.VK_N, ActionEvent.CTRL_MASK);
 	}
@@ -141,8 +125,6 @@ class MenuItemStartNewGame extends MainFrameMenuItem {
 }
 
 class MenuItemStartGamePlay extends MainFrameMenuItem {
-	private static final long serialVersionUID = 4990474257635115489L;
-
 	public MenuItemStartGamePlay() {
 		super("Start Game Play", KeyEvent.VK_P, null, KeyEvent.VK_P, ActionEvent.CTRL_MASK);
 	}
@@ -155,8 +137,6 @@ class MenuItemStartGamePlay extends MainFrameMenuItem {
 }
 
 class MenuItemEnterGame extends MainFrameMenuItem {
-	private static final long serialVersionUID = -8114551889792969039L;
-
 	private String enterType;
 	private String enterTypeLowercase;
 	private Integer messageCode;
@@ -206,24 +186,18 @@ class MenuItemEnterGame extends MainFrameMenuItem {
 }
 
 class MenuItemJoinGame extends MenuItemEnterGame {
-	private static final long serialVersionUID = 6611164207319039612L;
-
 	public MenuItemJoinGame() {
 		super("Join", KeyEvent.VK_J, -1);
 	}
 }
 
 class MenuItemWatchGame extends MenuItemEnterGame {
-	private static final long serialVersionUID = 5663143655535772345L;
-
 	public MenuItemWatchGame() {
 		super("Watch", KeyEvent.VK_W, 0);
 	}
 }
 
 class MenuItemShowGameState extends MainFrameMenuItem {
-	private static final long serialVersionUID = -5574878232630231406L;
-
 	public MenuItemShowGameState() {
 		super("Show Game State", KeyEvent.VK_S, 10, KeyEvent.VK_S, ActionEvent.CTRL_MASK);
 	}
@@ -235,8 +209,6 @@ class MenuItemShowGameState extends MainFrameMenuItem {
 }
 
 class MenuItemLeaveGame extends MainFrameMenuItem {
-	private static final long serialVersionUID = 661750057979030705L;
-
 	public MenuItemLeaveGame() {
 		super("Leave Game", KeyEvent.VK_L, null, KeyEvent.VK_L, ActionEvent.CTRL_MASK);
 	}
@@ -248,8 +220,6 @@ class MenuItemLeaveGame extends MainFrameMenuItem {
 }
 
 class MenuItemGoToBeginning extends MainFrameMenuItem {
-	private static final long serialVersionUID = -6390774861985985034L;
-
 	public MenuItemGoToBeginning() {
 		super("Go To Beginning", null, null, KeyEvent.VK_A, 0);
 	}
@@ -261,8 +231,6 @@ class MenuItemGoToBeginning extends MainFrameMenuItem {
 }
 
 class MenuItemGoToEnd extends MainFrameMenuItem {
-	private static final long serialVersionUID = -8829089903183715136L;
-
 	public MenuItemGoToEnd() {
 		super("Go To End", null, null, KeyEvent.VK_Z, 0);
 	}
@@ -274,8 +242,6 @@ class MenuItemGoToEnd extends MainFrameMenuItem {
 }
 
 class MenuItemGoToPreviousTurn extends MainFrameMenuItem {
-	private static final long serialVersionUID = -4862737182870551833L;
-
 	public MenuItemGoToPreviousTurn() {
 		super("Go To Previous Turn", null, null, KeyEvent.VK_UP, 0);
 	}
@@ -287,8 +253,6 @@ class MenuItemGoToPreviousTurn extends MainFrameMenuItem {
 }
 
 class MenuItemGoToNextTurn extends MainFrameMenuItem {
-	private static final long serialVersionUID = 2402014732248796723L;
-
 	public MenuItemGoToNextTurn() {
 		super("Go To Next Turn", null, null, KeyEvent.VK_DOWN, 0);
 	}
@@ -300,8 +264,6 @@ class MenuItemGoToNextTurn extends MainFrameMenuItem {
 }
 
 class MenuItemGoToPreviousDecision extends MainFrameMenuItem {
-	private static final long serialVersionUID = -4263318082975525169L;
-
 	public MenuItemGoToPreviousDecision() {
 		super("Go To Previous Decision", null, null, KeyEvent.VK_LEFT, 0);
 	}
@@ -313,8 +275,6 @@ class MenuItemGoToPreviousDecision extends MainFrameMenuItem {
 }
 
 class MenuItemGoToNextDecision extends MainFrameMenuItem {
-	private static final long serialVersionUID = 4191487740209569768L;
-
 	public MenuItemGoToNextDecision() {
 		super("Go To Next Decision", null, null, KeyEvent.VK_RIGHT, 0);
 	}
@@ -326,8 +286,6 @@ class MenuItemGoToNextDecision extends MainFrameMenuItem {
 }
 
 class MenuItemAboutNetAcquire extends MainFrameMenuItem {
-	private static final long serialVersionUID = -1643289616812206827L;
-
 	public MenuItemAboutNetAcquire() {
 		super("About " + Main.getProgramName(), KeyEvent.VK_A, null, null, null);
 	}
@@ -339,8 +297,6 @@ class MenuItemAboutNetAcquire extends MainFrameMenuItem {
 }
 
 public class MainFrameMenuBar extends JMenuBar {
-	private static final long serialVersionUID = 7655371178124451659L;
-
 	// File
 	private MainFrameMenu menuFile = new MainFrameMenu("File", KeyEvent.VK_F);
 	private MenuItemReinitialize menuItemReinitialize = new MenuItemReinitialize();

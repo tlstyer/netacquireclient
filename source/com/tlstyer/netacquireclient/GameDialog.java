@@ -6,8 +6,6 @@ import java.util.*;
 import javax.swing.*;
 
 public abstract class GameDialog extends JDialog implements ActionListener {
-	private static final long serialVersionUID = -9013637360065026393L;
-
 	protected JPanel panel = new JPanel();
 
 	private boolean hasBeenHidden = false;
