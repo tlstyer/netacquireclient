@@ -1,6 +1,6 @@
 package com.tlstyer.netacquireclient;
 
-public class ScoreSheetCaptionData {
+public final class ScoreSheetCaptionData {
 	private Object[][] captions = new Object[10][10];
 	private boolean dirty = true;
 

@@ -4,9 +4,9 @@ import java.awt.*;
 import javax.swing.text.*;
 
 public class MessageWindowDocument extends DefaultStyledDocument {
-	private static Style styleNormal;
-	private static Style styleComment;
-	private static Style styleImportant;
+	private static final Style styleNormal;
+	private static final Style styleComment;
+	private static final Style styleImportant;
 	static {
 		StyleContext defaultStyleContext = StyleContext.getDefaultStyleContext();
 		Style style = defaultStyleContext.getStyle(StyleContext.DEFAULT_STYLE);

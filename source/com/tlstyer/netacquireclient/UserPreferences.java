@@ -58,20 +58,20 @@ abstract class UserPreferenceTypeStringArrayList extends UserPreference {
 		this.key = key;
 	}
 
+	@Override
 	public void load() {
 		String[] itemsArray = preferences.get(key, "").split(stringArraySeparator, -1);
 		value = new ArrayList<String>();
 		if (itemsArray.length == 1 && itemsArray[0].length() == 0) {
 			populateEmptyArrayList();
 		} else {
-			for (String item : itemsArray) {
-				value.add(item);
-			}
+			value.addAll(Arrays.asList(itemsArray));
 		}
 	}
 
 	abstract protected void populateEmptyArrayList();
 
+	@Override
 	public void save() {
 		putString(key, Util.join(value.toArray(), stringArraySeparator));
 	}
@@ -98,10 +98,12 @@ class UserPreferenceTypeString extends UserPreference {
 		this.valueDefault = valueDefault;
 	}
 
+	@Override
 	public void load() {
 		value = preferences.get(key, valueDefault);
 	}
 
+	@Override
 	public void save() {
 		putString(key, value);
 	}
@@ -132,6 +134,7 @@ class UserPreferenceTypeInteger extends UserPreference {
 		this.valueMax = valueMax;
 	}
 
+	@Override
 	public void load() {
 		value = preferences.getInt(key, valueDefault);
 		if (value < valueMin || value > valueMax) {
@@ -139,6 +142,7 @@ class UserPreferenceTypeInteger extends UserPreference {
 		}
 	}
 
+	@Override
 	public void save() {
 		preferences.putInt(key, value);
 	}
@@ -165,10 +169,12 @@ class UserPreferenceTypeBoolean extends UserPreference {
 		this.valueDefault = valueDefault;
 	}
 
+	@Override
 	public void load() {
 		value = preferences.getBoolean(key, valueDefault);
 	}
 
+	@Override
 	public void save() {
 		preferences.putBoolean(key, value);
 	}
@@ -189,6 +195,7 @@ class UserPreferenceNicknames extends UserPreferenceTypeStringArrayList {
 		super("nicknames");
 	}
 
+	@Override
 	protected void populateEmptyArrayList() {
 		String nickname;
 		try {
@@ -206,6 +213,7 @@ class UserPreferenceAddressesAndPorts extends UserPreferenceTypeStringArrayList 
 		super("addresses and ports");
 	}
 
+	@Override
 	protected void populateEmptyArrayList() {
 		value.add("acquire.sbg.org:1001");
 		value.add("acquire.sbg.org:1002");
@@ -214,7 +222,7 @@ class UserPreferenceAddressesAndPorts extends UserPreferenceTypeStringArrayList 
 	}
 }
 
-public class UserPreferences {
+public final class UserPreferences {
 	private UserPreference[] userPreferenceArray = new UserPreference[COUNT];
 
 	public static final int NICKNAMES                       =  0;

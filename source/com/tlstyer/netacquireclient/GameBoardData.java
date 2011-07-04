@@ -1,6 +1,6 @@
 package com.tlstyer.netacquireclient;
 
-public class GameBoardData {
+public final class GameBoardData {
 	private int hoteltypes[][] = new int[9][12];
 	private boolean dirty = true;
 

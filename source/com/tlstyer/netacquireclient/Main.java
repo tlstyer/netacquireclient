@@ -2,7 +2,7 @@ package com.tlstyer.netacquireclient;
 
 import javax.swing.*;
 
-public class Main {
+public final class Main {
 	private static UserPreferences userPreferences;
 	private static MainFrame mainFrame;
 	private static FontManager fontManager;
@@ -43,6 +43,7 @@ public class Main {
 		fontManager = new FontManager();
 
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				mainFrame = new MainFrame();
 				synchronized (Main.getMain()) {
@@ -56,7 +57,6 @@ public class Main {
 				try {
 					Main.getMain().wait();
 				} catch (InterruptedException interruptedException) {
-					interruptedException.printStackTrace();
 				}
 			}
 		}
@@ -72,7 +72,6 @@ public class Main {
 					try {
 						wait();
 					} catch (InterruptedException interruptedException) {
-						interruptedException.printStackTrace();
 					}
 				}
 			}
@@ -128,7 +127,6 @@ public class Main {
 				try {
 					wait();
 				} catch (InterruptedException interruptedException) {
-					interruptedException.printStackTrace();
 				}
 			}
 		}

@@ -58,6 +58,7 @@ public class AboutDialog extends GameDialog {
 		}
 	}
 
+	@Override
 	public void DoAction(ActionEvent actionEvent) {
 		Object object = actionEvent.getSource();
 		if (object == buttonOK) {

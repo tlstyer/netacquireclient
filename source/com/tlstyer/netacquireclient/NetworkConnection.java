@@ -198,7 +198,6 @@ public class NetworkConnection {
 			}
 		} catch (ClosedChannelException closedChannelException) {
 		} catch (IOException iOException) {
-			iOException.printStackTrace();
 			disconnect();
 			return EXIT_IO_EXCEPTION;
 		} catch (Exception exception) {
@@ -293,7 +292,6 @@ public class NetworkConnection {
 						default: commandProcessingResult = COMMAND_NOT_PROCESSED; break;
 					}
 				} catch (Exception exception) {
-					exception.printStackTrace();
 					commandProcessingResult = COMMAND_ERROR_WHILE_PROCESSING;
 				}
 			} else {
@@ -324,7 +322,7 @@ public class NetworkConnection {
 	public void writeMessage(String message) {
 		synchronized(dataToWriteSynch) {
 			Main.getLogFileWriter().writeMessage(LogFileWriter.MESSAGE_OUTGOING, message);
-			dataToWrite.append(message + ";:");
+			dataToWrite.append(message).append(";:");
 			if (!isWritable) {
 				try {
 					socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);

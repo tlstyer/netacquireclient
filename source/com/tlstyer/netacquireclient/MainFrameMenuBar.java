@@ -35,6 +35,7 @@ abstract class MainFrameMenuItem extends JMenuItem implements ActionListener {
 		addActionListener(this);
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
 		doAction();
 	}
@@ -47,6 +48,7 @@ class MenuItemReinitialize extends MainFrameMenuItem {
 		super("Reinitialize", KeyEvent.VK_I, null, KeyEvent.VK_I, ActionEvent.CTRL_MASK);
 	}
 
+	@Override
 	public void doAction() {
 		int mode = Main.getMain().getMode();
 		switch (mode) {
@@ -72,6 +74,7 @@ class MenuItemOptions extends MainFrameMenuItem {
 		super("Options", KeyEvent.VK_O, null, KeyEvent.VK_O, ActionEvent.CTRL_MASK);
 	}
 
+	@Override
 	public void doAction() {
 		OptionsDialog.showOptionsDialog();
 	}
@@ -82,6 +85,7 @@ class MenuItemQuit extends MainFrameMenuItem {
 		super("Quit", KeyEvent.VK_Q, null, KeyEvent.VK_Q, ActionEvent.CTRL_MASK);
 	}
 
+	@Override
 	public void doAction() {
 		Main.getMainFrame().closeWindow();
 	}
@@ -92,6 +96,7 @@ class MenuItemShowUsers extends MainFrameMenuItem {
 		super("Show Users", KeyEvent.VK_U, null, KeyEvent.VK_U, ActionEvent.CTRL_MASK);
 	}
 
+	@Override
 	public void doAction() {
 		Main.getNetworkConnection().writeMessage("LU;");
 	}
@@ -102,6 +107,7 @@ class MenuItemShowGames extends MainFrameMenuItem {
 		super("Show Games", KeyEvent.VK_G, null, KeyEvent.VK_G, ActionEvent.CTRL_MASK);
 	}
 
+	@Override
 	public void doAction() {
 		Main.getNetworkConnection().writeMessage("LG;");
 	}
@@ -112,9 +118,10 @@ class MenuItemStartNewGame extends MainFrameMenuItem {
 		super("Start New Game", KeyEvent.VK_N, null, KeyEvent.VK_N, ActionEvent.CTRL_MASK);
 	}
 
+	@Override
 	public void doAction() {
 		Main.getNetworkConnection().writeMessage("SG;" + Main.getUserPreferences().getInteger(UserPreferences.MAX_PLAYER_COUNT));
-        Main.getMain().setWaitingToEnterGame(true);
+		Main.getMain().setWaitingToEnterGame(true);
 	}
 }
 
@@ -123,6 +130,7 @@ class MenuItemStartGamePlay extends MainFrameMenuItem {
 		super("Start Game Play", KeyEvent.VK_P, null, KeyEvent.VK_P, ActionEvent.CTRL_MASK);
 	}
 
+	@Override
 	public void doAction() {
 		Main.getNetworkConnection().writeMessage("PG;");
 		Main.getMain().setWaitingToEnterGame(true);
@@ -143,6 +151,7 @@ class MenuItemEnterGame extends MainFrameMenuItem {
 		messageCode = messageCode_;
 	}
 
+	@Override
 	public void doAction() {
 		String input = (String)JOptionPane.showInputDialog(
 				Main.getMainFrame(),
@@ -194,6 +203,7 @@ class MenuItemShowGameState extends MainFrameMenuItem {
 		super("Show Game State", KeyEvent.VK_S, 10, KeyEvent.VK_S, ActionEvent.CTRL_MASK);
 	}
 
+	@Override
 	public void doAction() {
 		Main.getNetworkConnection().writeMessage("GS;");
 	}
@@ -204,6 +214,7 @@ class MenuItemLeaveGame extends MainFrameMenuItem {
 		super("Leave Game", KeyEvent.VK_L, null, KeyEvent.VK_L, ActionEvent.CTRL_MASK);
 	}
 
+	@Override
 	public void doAction() {
 		Main.getNetworkConnection().writeMessage("LV;");
 	}
@@ -214,6 +225,7 @@ class MenuItemGoToBeginning extends MainFrameMenuItem {
 		super("Go To Beginning", null, null, KeyEvent.VK_A, 0);
 	}
 
+	@Override
 	public void doAction() {
 		Main.getReview().navigate(Review.DIRECTION_BACKWARD, Review.BREAK_AT_NOWHERE);
 	}
@@ -224,6 +236,7 @@ class MenuItemGoToEnd extends MainFrameMenuItem {
 		super("Go To End", null, null, KeyEvent.VK_Z, 0);
 	}
 
+	@Override
 	public void doAction() {
 		Main.getReview().navigate(Review.DIRECTION_FORWARD, Review.BREAK_AT_NOWHERE);
 	}
@@ -234,6 +247,7 @@ class MenuItemGoToPreviousTurn extends MainFrameMenuItem {
 		super("Go To Previous Turn", null, null, KeyEvent.VK_UP, 0);
 	}
 
+	@Override
 	public void doAction() {
 		Main.getReview().navigate(Review.DIRECTION_BACKWARD, Review.BREAK_AT_TURN_BEGINNING);
 	}
@@ -244,6 +258,7 @@ class MenuItemGoToNextTurn extends MainFrameMenuItem {
 		super("Go To Next Turn", null, null, KeyEvent.VK_DOWN, 0);
 	}
 
+	@Override
 	public void doAction() {
 		Main.getReview().navigate(Review.DIRECTION_FORWARD, Review.BREAK_AT_TURN_BEGINNING);
 	}
@@ -254,6 +269,7 @@ class MenuItemGoToPreviousDecision extends MainFrameMenuItem {
 		super("Go To Previous Decision", null, null, KeyEvent.VK_LEFT, 0);
 	}
 
+	@Override
 	public void doAction() {
 		Main.getReview().navigate(Review.DIRECTION_BACKWARD, Review.BREAK_AT_TURN_STEP);
 	}
@@ -264,6 +280,7 @@ class MenuItemGoToNextDecision extends MainFrameMenuItem {
 		super("Go To Next Decision", null, null, KeyEvent.VK_RIGHT, 0);
 	}
 
+	@Override
 	public void doAction() {
 		Main.getReview().navigate(Review.DIRECTION_FORWARD, Review.BREAK_AT_TURN_STEP);
 	}
@@ -274,6 +291,7 @@ class MenuItemAboutNetAcquire extends MainFrameMenuItem {
 		super("About " + Main.getProgramName(), KeyEvent.VK_A, null, null, null);
 	}
 
+	@Override
 	public void doAction() {
 		AboutDialog.showAboutDialog();
 	}

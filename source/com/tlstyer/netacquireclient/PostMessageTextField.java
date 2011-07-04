@@ -11,6 +11,7 @@ public class PostMessageTextField extends JTextField implements ActionListener {
 		addActionListener(this);
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
 		String message = getText().replace("\"", "\"\"");
 		setText("");

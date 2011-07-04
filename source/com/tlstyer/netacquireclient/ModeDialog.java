@@ -215,6 +215,7 @@ public class ModeDialog extends GameDialog {
 		hideGameDialog();
 	}
 
+	@Override
 	public void DoAction(ActionEvent actionEvent) {
 		Object object = actionEvent.getSource();
 		if (object == buttonDeleteNickname) {

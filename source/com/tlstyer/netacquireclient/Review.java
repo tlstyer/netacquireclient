@@ -30,6 +30,7 @@ class ReviewGameBoard extends ReviewMessage {
 		hoteltypeAfter = hoteltypeAfter_;
 	}
 
+	@Override
 	public int getType() {
 		return TYPE_ReviewGameBoard;
 	}
@@ -46,6 +47,7 @@ class ReviewScoreSheetCaption extends ReviewMessage {
 		captionAfter = captionAfter_;
 	}
 
+	@Override
 	public int getType() {
 		return TYPE_ReviewScoreSheetCaption;
 	}
@@ -62,6 +64,7 @@ class ReviewScoreSheetHoteltype extends ReviewMessage {
 		hoteltypeAfter = hoteltypeAfter_;
 	}
 
+	@Override
 	public int getType() {
 		return TYPE_ReviewScoreSheetHoteltype;
 	}
@@ -76,6 +79,7 @@ class ReviewLobbyMessage extends ReviewMessage {
 		type = type_;
 	}
 
+	@Override
 	public int getType() {
 		return TYPE_ReviewLobbyMessage;
 	}
@@ -90,6 +94,7 @@ class ReviewGameRoomMessage extends ReviewMessage {
 		type = type_;
 	}
 
+	@Override
 	public int getType() {
 		return TYPE_ReviewGameRoomMessage;
 	}
@@ -117,6 +122,7 @@ class ReviewTileRackButton extends ReviewMessage {
 		isVisibleAfter = isVisibleAfter_;
 	}
 
+	@Override
 	public int getType() {
 		return TYPE_ReviewTileRackButton;
 	}
@@ -133,6 +139,7 @@ class ReviewBreakPoint extends ReviewMessage {
 		bpType = bpType_;
 	}
 
+	@Override
 	public int getType() {
 		return TYPE_ReviewBreakPoint;
 	}
@@ -265,7 +272,6 @@ public class Review {
 							default: break;
 						}
 					} catch (Exception exception) {
-						exception.printStackTrace();
 					}
 				}
 			}
@@ -275,7 +281,6 @@ public class Review {
 				try {
 					bufferedReader.close();
 				} catch (IOException iOException) {
-					iOException.printStackTrace();
 				}
 			}
 		}

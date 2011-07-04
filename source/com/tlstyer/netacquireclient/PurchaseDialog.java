@@ -246,6 +246,7 @@ public class PurchaseDialog extends GameDialog {
 		}
 	}
 
+	@Override
 	public void DoAction(ActionEvent actionEvent) {
 		int buttonIndexPressed = Integer.decode(actionEvent.getActionCommand());
 		if (buttonIndexPressed >= 0 && buttonIndexPressed <= 6) {

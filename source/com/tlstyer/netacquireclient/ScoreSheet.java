@@ -137,16 +137,20 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 		return rowHeight;
 	}
 
+	@Override
 	public void componentHidden(ComponentEvent componentEvent) {
 	}
 
+	@Override
 	public void componentMoved(ComponentEvent componentEvent) {
 	}
 
+	@Override
 	public void componentResized(ComponentEvent componentEvent) {
 		layoutTextComponents();
 	}
 
+	@Override
 	public void componentShown(ComponentEvent componentEvent) {
 	}
 

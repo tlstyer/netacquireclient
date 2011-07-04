@@ -26,7 +26,6 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception exception) {
-			exception.printStackTrace();
 		}
 
 		// make sure we have nice window decorations

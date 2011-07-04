@@ -78,6 +78,7 @@ public abstract class GameDialog extends JDialog implements ActionListener {
 		}
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
 		if (!hasBeenHidden) {
 			DoAction(actionEvent);
