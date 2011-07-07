@@ -68,15 +68,11 @@ public class ModeDialog extends GameDialog {
 
 		dimension = cbNickname.getPreferredSize();
 		dimension.width = width;
-		cbNickname.setMinimumSize(dimension);
-		cbNickname.setPreferredSize(dimension);
-		cbNickname.setMaximumSize(dimension);
+		Util.setOnlySize(cbNickname, dimension);
 
 		dimension = cbIPURLPort.getPreferredSize();
 		dimension.width = width;
-		cbIPURLPort.setMinimumSize(dimension);
-		cbIPURLPort.setPreferredSize(dimension);
-		cbIPURLPort.setMaximumSize(dimension);
+		Util.setOnlySize(cbIPURLPort, dimension);
 
 		// "Play" panel
 		buttonPlay = Util.getButton3d2("Play", KeyEvent.VK_P);
