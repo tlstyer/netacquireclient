@@ -215,9 +215,7 @@ class UserPreferenceAddressesAndPorts extends UserPreferenceTypeStringArrayList 
 
 	@Override
 	protected void populateEmptyArrayList() {
-		value.add("acquire.sbg.org:1001");
-		value.add("acquire.sbg.org:1002");
-		value.add("acquire.dynu.com:1001");
+		value.add("server.netacquire.ca:1001");
 		value.add("localhost:1001");
 	}
 }
