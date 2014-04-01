@@ -11,4 +11,3 @@
 -keep public class com.tlstyer.netacquireclient.Main {
     public static void main(java.lang.String[]);
 }
-
