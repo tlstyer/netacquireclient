@@ -70,6 +70,7 @@ public class PurchaseDialog extends GameDialog {
 			button.setFont(Main.getFontManager().getBoldDialogFont());
 			button.setBackground(Util.hoteltypeToColor(index + 1));
 			button.setForeground(Color.black);
+			button.setOpaque(true);
 			button.setVisible(isAvailable[index]);
 			button.setActionCommand(((Integer)index).toString());
 			button.addActionListener(this);
@@ -86,6 +87,7 @@ public class PurchaseDialog extends GameDialog {
 			buttonsPurchased[index] = button;
 			button.setFont(Main.getFontManager().getBoldDialogFont());
 			button.setForeground(Color.black);
+			button.setOpaque(true);
 			button.setEnabled(false);
 			button.setActionCommand(((Integer)(index+7)).toString());
 			button.addActionListener(this);
