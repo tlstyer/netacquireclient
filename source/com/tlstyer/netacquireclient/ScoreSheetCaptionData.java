@@ -2,7 +2,7 @@ package com.tlstyer.netacquireclient;
 
 public final class ScoreSheetCaptionData {
 
-	private Object[][] captions = new Object[10][10];
+	private final Object[][] captions = new Object[10][10];
 	private boolean dirty = true;
 
 	public ScoreSheetCaptionData() {

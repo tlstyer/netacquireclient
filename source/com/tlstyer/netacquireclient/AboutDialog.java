@@ -12,7 +12,7 @@ public class AboutDialog extends GameDialog {
 		"tlstyer@gmail.com",
 		"http://www.tlstyer.com/NetAcquireClient/",};
 
-	private JButton buttonOK;
+	private final JButton buttonOK;
 
 	private static Boolean aboutDialogShowing = false;
 	private static final Boolean aboutDialogShowingSynch = true;

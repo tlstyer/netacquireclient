@@ -7,37 +7,37 @@ import javax.swing.*;
 public class OptionsDialog extends GameDialog {
 
 	// "max player count" panel
-	private SpinnerNumberModel spinnerNumberModelMaxPlayerCount;
+	private final SpinnerNumberModel spinnerNumberModelMaxPlayerCount;
 
 	// "User List sorting method" panel
-	private ButtonGroup radioButtonGroupUserListSortingMethod;
+	private final ButtonGroup radioButtonGroupUserListSortingMethod;
 
 	// "When waiting for me" panel
-	private JCheckBox checkboxPlaySoundWhenWaitingForMe;
-	private JTextField tfPathToSound;
-	private JButton buttonBrowsePathToSound;
-	private JButton buttonTestSound;
+	private final JCheckBox checkboxPlaySoundWhenWaitingForMe;
+	private final JTextField tfPathToSound;
+	private final JButton buttonBrowsePathToSound;
+	private final JButton buttonTestSound;
 
 	// "Log Files" panel
-	private JCheckBox checkboxLogGamesToFiles;
-	private JTextField tfDirectoryToSaveIn;
-	private JButton buttonBrowseDirectoryToSaveIn;
+	private final JCheckBox checkboxLogGamesToFiles;
+	private final JTextField tfDirectoryToSaveIn;
+	private final JButton buttonBrowseDirectoryToSaveIn;
 
 	// "Where to start in review mode" panel
-	private ButtonGroup radioButtonGroupWhereToStartInReviewMode;
+	private final ButtonGroup radioButtonGroupWhereToStartInReviewMode;
 
 	// "Modal message dialog boxes" panel
-	private JCheckBox checkboxShowModalMessageDialogBoxes;
+	private final JCheckBox checkboxShowModalMessageDialogBoxes;
 
 	// "Game board label mode" panel
-	private ButtonGroup radioButtonGroupGameBoardLabelMode;
+	private final ButtonGroup radioButtonGroupGameBoardLabelMode;
 
 	// "Lobby and Game Room messages" panel
-	private JCheckBox checkboxShowMessagePrefixes;
+	private final JCheckBox checkboxShowMessagePrefixes;
 
 	// "OK/Cancel" panel
-	private JButton buttonOK;
-	private JButton buttonCancel;
+	private final JButton buttonOK;
+	private final JButton buttonCancel;
 
 	private static Boolean optionsDialogShowing = false;
 	private static final Boolean optionsDialogShowingSynch = true;
@@ -294,6 +294,7 @@ public class OptionsDialog extends GameDialog {
 		}
 	}
 
+	@Override
 	public void DoAction(ActionEvent actionEvent) {
 		Object object = actionEvent.getSource();
 		if (object == buttonTestSound) {

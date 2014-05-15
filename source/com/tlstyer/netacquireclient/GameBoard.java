@@ -5,9 +5,9 @@ import javax.swing.*;
 
 public class GameBoard extends JPanel {
 
-	private TextComponent[][] board = new TextComponent[9][12];
-	private GridLayout gridLayout = new GridLayout(9, 12, 2, 2);
-	private GameBoardData gameBoardData = new GameBoardData();
+	private final TextComponent[][] board = new TextComponent[9][12];
+	private final GridLayout gridLayout = new GridLayout(9, 12, 2, 2);
+	private final GameBoardData gameBoardData = new GameBoardData();
 
 	private static final Color color_def = Util.hoteltypeToColor(Hoteltype.NONE);
 

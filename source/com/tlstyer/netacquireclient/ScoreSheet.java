@@ -5,9 +5,9 @@ import javax.swing.*;
 
 public class ScoreSheet extends JPanel implements ComponentListener {
 
-	private TextComponent[][] scoreSheet;
-	private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
-	private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
+	private final TextComponent[][] scoreSheet;
+	private final ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
+	private final ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
 	private int usedRows = 6;
 	private int rowHeight = 0;
 

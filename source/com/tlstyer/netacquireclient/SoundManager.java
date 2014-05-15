@@ -3,10 +3,10 @@ package com.tlstyer.netacquireclient;
 import java.io.*;
 import javax.sound.sampled.*;
 
-public class SoundManager {
+public final class SoundManager {
 
 	private static final int NUM_CLIPS = 3;
-	private Clip[] clips = new Clip[NUM_CLIPS];
+	private final Clip[] clips = new Clip[NUM_CLIPS];
 	private int currentClipIndex = 0;
 
 	public SoundManager() {
@@ -30,20 +30,16 @@ public class SoundManager {
 
 		File file = new File(pathname);
 
-		AudioInputStream audioInputStream = null;
+		AudioInputStream audioInputStream;
 		try {
 			audioInputStream = AudioSystem.getAudioInputStream(file);
-		} catch (UnsupportedAudioFileException unsupportedAudioFileException) {
-			return false;
-		} catch (IOException iOException) {
+		} catch (UnsupportedAudioFileException | IOException exception) {
 			return false;
 		}
 
 		try {
 			clips[currentClipIndex].open(audioInputStream);
-		} catch (LineUnavailableException lineUnavailableException) {
-			return false;
-		} catch (IOException iOException) {
+		} catch (LineUnavailableException | IOException exception) {
 			return false;
 		}
 

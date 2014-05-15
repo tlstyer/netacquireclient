@@ -8,7 +8,7 @@ public class SelectChainDialog extends GameDialog {
 
 	private ButtonGroup radioButtonGroup;
 	private JRadioButton[] radioButtons;
-	private JButton buttonOK;
+	private final JButton buttonOK;
 	private int type;
 
 	public SelectChainDialog(int type_, boolean[] hotelOptions) {
@@ -83,6 +83,7 @@ public class SelectChainDialog extends GameDialog {
 		showGameDialog(POSITION_BELOW_SCORE_SHEET);
 	}
 
+	@Override
 	public void DoAction(ActionEvent actionEvent) {
 		for (int index = 0; index < 7; ++index) {
 			if (radioButtons[index].isSelected()) {

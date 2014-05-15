@@ -162,8 +162,7 @@ class LogFileTransferHandler extends TransferHandler {
 			if (fileList.size() > 0) {
 				Main.getReview().loadLogFile(((File) fileList.get(0)).getAbsolutePath());
 			}
-		} catch (UnsupportedFlavorException unsupportedFlavorException) {
-		} catch (IOException iOException) {
+		} catch (UnsupportedFlavorException | IOException exception) {
 		}
 
 		return true;
@@ -182,17 +181,17 @@ class LogFileTransferHandler extends TransferHandler {
 
 public class Review {
 
-	private GameBoardData gameBoardData = new GameBoardData();
-	private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
-	private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
-	private TileRackData tileRackData = new TileRackData();
+	private final GameBoardData gameBoardData = new GameBoardData();
+	private final ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
+	private final ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
+	private final TileRackData tileRackData = new TileRackData();
 
-	private ArrayList<ReviewMessage> reviewMessages = new ArrayList<ReviewMessage>();
+	private final ArrayList<ReviewMessage> reviewMessages = new ArrayList<>();
 
 	private int nextLineGoingForward;
 	private int firstBreakPointLine;
 
-	private LogFileTransferHandler logFileTransferHandler = new LogFileTransferHandler();
+	private final LogFileTransferHandler logFileTransferHandler = new LogFileTransferHandler();
 
 	private static final Pattern patternCommand = Pattern.compile("\\A[^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?\\z");
 
@@ -217,7 +216,7 @@ public class Review {
 	private static final int COMMAND_M = 6;
 	private static final int COMMAND_PT = 7;
 
-	private static final Map<String, Integer> hashmapCommand = new HashMap<String, Integer>();
+	private static final Map<String, Integer> hashmapCommand = new HashMap<>();
 
 	static {
 		hashmapCommand.put("+SB", COMMAND_SB);
@@ -346,30 +345,35 @@ public class Review {
 	private void handleSV(Object[] command) {
 		if (((String) ((Object[]) command[1])[0]).equals("frmScoreSheet")
 				&& ((String) ((Object[]) command[1])[1]).equals("lblData")) {
-			if (((String) ((Object[]) command[1])[3]).equals("Caption")) {
-				int index = (Integer) ((Object[]) command[1])[2];
-				Object what = ((Object[]) command[1])[4];
-				if (index > 7 && (what.toString().length() == 0 || what.toString().equals("-  "))) {
-					what = 0;
+			switch ((String) ((Object[]) command[1])[3]) {
+				case "Caption": {
+					int index = (Integer) ((Object[]) command[1])[2];
+					Object what = ((Object[]) command[1])[4];
+					if (index > 7 && (what.toString().length() == 0 || what.toString().equals("-  "))) {
+						what = 0;
+					}
+					if (index >= 82 && index <= 88) {
+						what = ((Integer) what) / 100;
+					}
+					Point where = Util.scoreSheetIndexToPoint(index);
+					if (where != null) {
+						Object whatBefore = scoreSheetCaptionData.getCaption(where.x, where.y);
+						scoreSheetCaptionData.setCaption(where.x, where.y, what);
+						reviewMessages.add(new ReviewScoreSheetCaption(where, whatBefore, what));
+					}
+					break;
 				}
-				if (index >= 82 && index <= 88) {
-					what = ((Integer) what) / 100;
-				}
-				Point where = Util.scoreSheetIndexToPoint(index);
-				if (where != null) {
-					Object whatBefore = scoreSheetCaptionData.getCaption(where.x, where.y);
-					scoreSheetCaptionData.setCaption(where.x, where.y, what);
-					reviewMessages.add(new ReviewScoreSheetCaption(where, whatBefore, what));
-				}
-			} else if (((String) ((Object[]) command[1])[3]).equals("BackColor")) {
-				int index = (Integer) ((Object[]) command[1])[2];
-				int color = (Integer) ((Object[]) command[1])[4];
-				int hoteltype = Util.colorvalueToHoteltype(color);
-				Point where = Util.scoreSheetIndexToPoint(index);
-				if (where != null) {
-					int hoteltypeBefore = scoreSheetHoteltypeData.getHoteltype(where.x, where.y);
-					scoreSheetHoteltypeData.setHoteltype(where.x, where.y, hoteltype);
-					reviewMessages.add(new ReviewScoreSheetHoteltype(where, hoteltypeBefore, hoteltype));
+				case "BackColor": {
+					int index = (Integer) ((Object[]) command[1])[2];
+					int color = (Integer) ((Object[]) command[1])[4];
+					int hoteltype = Util.colorvalueToHoteltype(color);
+					Point where = Util.scoreSheetIndexToPoint(index);
+					if (where != null) {
+						int hoteltypeBefore = scoreSheetHoteltypeData.getHoteltype(where.x, where.y);
+						scoreSheetHoteltypeData.setHoteltype(where.x, where.y, hoteltype);
+						reviewMessages.add(new ReviewScoreSheetHoteltype(where, hoteltypeBefore, hoteltype));
+					}
+					break;
 				}
 			}
 		} else if (((String) ((Object[]) command[1])[0]).equals("frmTileRack")
@@ -378,7 +382,7 @@ public class Review {
 				int tileRackIndex = (Integer) ((Object[]) command[1])[2];
 				int index = tileRackIndex - 1;
 
-				boolean visible = ((Integer) ((Object[]) command[1])[4] != 0 ? true : false);
+				boolean visible = (Integer) ((Object[]) command[1])[4] != 0;
 				boolean visibleBefore = tileRackData.getVisibility(index);
 				tileRackData.setVisibility(index, visible);
 
@@ -411,7 +415,6 @@ public class Review {
 			}
 
 			reviewMessages.add(new ReviewBreakPoint(bpType));
-			return;
 		}
 	}
 

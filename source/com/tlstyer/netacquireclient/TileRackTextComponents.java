@@ -5,9 +5,9 @@ import javax.swing.*;
 
 public class TileRackTextComponents extends JPanel {
 
-	private TextComponent[] textComponents = new TextComponent[6];
-	private GridLayout gridLayout = new GridLayout(1, 6, TileRackButtons.spacing, TileRackButtons.spacing);
-	private TileRackData tileRackData = new TileRackData();
+	private final TextComponent[] textComponents = new TextComponent[6];
+	private final GridLayout gridLayout = new GridLayout(1, 6, TileRackButtons.spacing, TileRackButtons.spacing);
+	private final TileRackData tileRackData = new TileRackData();
 
 	public TileRackTextComponents() {
 		setLayout(gridLayout);

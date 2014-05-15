@@ -9,18 +9,18 @@ import javax.swing.*;
 public class ModeDialog extends GameDialog {
 
 	// "Nickname" panel
-	private JComboBox cbNickname;
-	private JButton buttonDeleteNickname;
+	private final JComboBox cbNickname;
+	private final JButton buttonDeleteNickname;
 
 	// "IPURL:Port" panel
-	private JComboBox cbIPURLPort;
-	private JButton buttonDeleteIPURLPort;
+	private final JComboBox cbIPURLPort;
+	private final JButton buttonDeleteIPURLPort;
 
 	// "Play" panel
-	private JButton buttonPlay;
+	private final JButton buttonPlay;
 
 	// "Review" panel
-	private JButton buttonReview;
+	private final JButton buttonReview;
 
 	private static final Pattern badNicknameChars = Pattern.compile(",|;|:|\"");
 
@@ -181,7 +181,7 @@ public class ModeDialog extends GameDialog {
 			return;
 		}
 
-		Integer portInt = 0;
+		Integer portInt;
 		try {
 			portInt = Integer.decode(port);
 		} catch (NumberFormatException numberFormatException) {

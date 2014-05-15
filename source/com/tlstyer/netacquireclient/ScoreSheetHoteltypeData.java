@@ -1,8 +1,8 @@
 package com.tlstyer.netacquireclient;
 
-public class ScoreSheetHoteltypeData {
+public final class ScoreSheetHoteltypeData {
 
-	private int[][] hoteltypes = new int[10][10];
+	private final int[][] hoteltypes = new int[10][10];
 	private boolean dirty = true;
 
 	public ScoreSheetHoteltypeData() {

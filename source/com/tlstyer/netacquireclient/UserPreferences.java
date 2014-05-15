@@ -52,7 +52,7 @@ abstract class UserPreferenceTypeStringArrayList extends UserPreference {
 
 	protected ArrayList<String> value = null;
 
-	private String key;
+	private final String key;
 
 	private static final String stringArraySeparator = "::";
 
@@ -63,7 +63,7 @@ abstract class UserPreferenceTypeStringArrayList extends UserPreference {
 	@Override
 	public void load() {
 		String[] itemsArray = preferences.get(key, "").split(stringArraySeparator, -1);
-		value = new ArrayList<String>();
+		value = new ArrayList<>();
 		if (itemsArray.length == 1 && itemsArray[0].length() == 0) {
 			populateEmptyArrayList();
 		} else {
@@ -93,8 +93,8 @@ class UserPreferenceTypeString extends UserPreference {
 
 	private String value = null;
 
-	private String key;
-	private String valueDefault;
+	private final String key;
+	private final String valueDefault;
 
 	public UserPreferenceTypeString(String key, String valueDefault) {
 		this.key = key;
@@ -126,10 +126,10 @@ class UserPreferenceTypeInteger extends UserPreference {
 
 	private Integer value = null;
 
-	private String key;
-	private int valueDefault;
-	private int valueMin;
-	private int valueMax;
+	private final String key;
+	private final int valueDefault;
+	private final int valueMin;
+	private final int valueMax;
 
 	public UserPreferenceTypeInteger(String key, int valueDefault, int valueMin, int valueMax) {
 		this.key = key;
@@ -166,8 +166,8 @@ class UserPreferenceTypeBoolean extends UserPreference {
 
 	private Boolean value = null;
 
-	private String key;
-	private boolean valueDefault;
+	private final String key;
+	private final boolean valueDefault;
 
 	public UserPreferenceTypeBoolean(String key, boolean valueDefault) {
 		this.key = key;
@@ -229,7 +229,7 @@ class UserPreferenceAddressesAndPorts extends UserPreferenceTypeStringArrayList 
 
 public final class UserPreferences {
 
-	private UserPreference[] userPreferenceArray = new UserPreference[COUNT];
+	private final UserPreference[] userPreferenceArray = new UserPreference[COUNT];
 
 	public static final int NICKNAMES = 0;
 	public static final int ADDRESSES_AND_PORTS = 1;

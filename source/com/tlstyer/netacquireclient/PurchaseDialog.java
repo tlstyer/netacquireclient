@@ -6,30 +6,30 @@ import javax.swing.*;
 
 public class PurchaseDialog extends GameDialog {
 
-	private boolean canEndGame;
-	private int howMuchMoney;
-	private int[] available;
-	private int[] price;
+	private final boolean canEndGame;
+	private final int howMuchMoney;
+	private final int[] available;
+	private final int[] price;
 
 	private int buttonIndexWithFocus;
 
-	private Color colorButtonBackground;
+	private final Color colorButtonBackground;
 
 	// "Available" panel
-	private JButton[] buttonsAvailable;
-	private boolean[] isAvailable;
+	private final JButton[] buttonsAvailable;
+	private final boolean[] isAvailable;
 
 	// "Purchased" panel
-	private JButton[] buttonsPurchased;
-	private int[] selectedForPurchase;
+	private final JButton[] buttonsPurchased;
+	private final int[] selectedForPurchase;
 
 	// "Cost" panel
-	private JTextField tfPurchase;
-	private JTextField tfCashLeft;
+	private final JTextField tfPurchase;
+	private final JTextField tfCashLeft;
 
 	// "End the game and OK" panel
-	private JCheckBox checkboxEndTheGame;
-	private JButton buttonOK;
+	private final JCheckBox checkboxEndTheGame;
+	private final JButton buttonOK;
 
 	public PurchaseDialog(boolean canEndGame_,
 			int howMuchMoney_,
@@ -47,11 +47,7 @@ public class PurchaseDialog extends GameDialog {
 		// initialize arrays
 		isAvailable = new boolean[7];
 		for (int index = 0; index < 7; ++index) {
-			if (available[index] == 0 || price[index] == 0) {
-				isAvailable[index] = false;
-			} else {
-				isAvailable[index] = true;
-			}
+			isAvailable[index] = available[index] != 0 && price[index] != 0;
 		}
 
 		selectedForPurchase = new int[3];

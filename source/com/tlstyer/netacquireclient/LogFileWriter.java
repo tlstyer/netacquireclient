@@ -6,7 +6,7 @@ import java.util.*;
 
 public class LogFileWriter {
 
-	private ArrayList<String> messages = new ArrayList<String>();
+	private final ArrayList<String> messages = new ArrayList<>();
 	private FileOutputStream fileOutputStream = null;
 	private int numMessagesWritten = 0;
 

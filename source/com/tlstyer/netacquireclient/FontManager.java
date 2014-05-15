@@ -6,7 +6,7 @@ import java.awt.font.*;
 public class FontManager {
 
 	private static final int LENGTH_TEXTCOMPONENTFONTDATAARRAY = 16;
-	private TextComponentFontData[] textComponentFontDataArray = new TextComponentFontData[LENGTH_TEXTCOMPONENTFONTDATAARRAY];
+	private final TextComponentFontData[] textComponentFontDataArray = new TextComponentFontData[LENGTH_TEXTCOMPONENTFONTDATAARRAY];
 	private int classicTextComponentHeight = 0;
 
 	private static final String fontNameTextComponents = "SansSerif";

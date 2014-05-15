@@ -8,8 +8,8 @@ import javax.swing.*;
 
 class PlayerOwnsAmount {
 
-	private int player;
-	private int amount;
+	private final int player;
+	private final int amount;
 
 	public PlayerOwnsAmount(int player_, int amount_) {
 		player = player_;
@@ -27,6 +27,7 @@ class PlayerOwnsAmount {
 
 class PlayerOwnsAmountComparator implements Comparator<PlayerOwnsAmount> {
 
+	@Override
 	public int compare(PlayerOwnsAmount o1, PlayerOwnsAmount o2) {
 		return o2.getAmount() - o1.getAmount();
 	}
@@ -75,14 +76,14 @@ public class Util {
 	public static String join(Object object, String separator) {
 		if (object.getClass() == Object[].class) {
 			Object[] objects = (Object[]) object;
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder builder = new StringBuilder();
 			for (int i = 0; i < objects.length; ++i) {
-				buffer.append(objects[i]);
+				builder.append(objects[i]);
 				if (i + 1 < objects.length) {
-					buffer.append(separator);
+					builder.append(separator);
 				}
 			}
-			return buffer.toString();
+			return builder.toString();
 		} else {
 			return object.toString();
 		}
@@ -251,7 +252,7 @@ public class Util {
 		return (red << 16) + (green << 8) + (blue);
 	}
 
-	private static final Map<Integer, Integer> hashmapColorvalueToHoteltype = new HashMap<Integer, Integer>();
+	private static final Map<Integer, Integer> hashmapColorvalueToHoteltype = new HashMap<>();
 
 	static {
 		hashmapColorvalueToHoteltype.put(12648447, Hoteltype.NONE);
@@ -469,7 +470,7 @@ public class Util {
 			if (fields[index] < 10) {
 				timeString.append("0");
 			}
-			timeString.append("" + fields[index]);
+			timeString.append(fields[index]);
 
 			if (index == 2) {
 				timeString.append("-");
@@ -483,7 +484,7 @@ public class Util {
 		if (fields[6] < 10) {
 			timeString.append("0");
 		}
-		timeString.append("" + fields[6]);
+		timeString.append(fields[6]);
 
 		return timeString.toString();
 	}

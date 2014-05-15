@@ -2,10 +2,10 @@ package com.tlstyer.netacquireclient;
 
 public class ModalMessageToDisplay {
 
-	private String messageHeader;
-	private String messageBody;
-	private int messageType;
-	private Integer whereToPutMessage;
+	private final String messageHeader;
+	private final String messageBody;
+	private final int messageType;
+	private final Integer whereToPutMessage;
 
 	public ModalMessageToDisplay(int messageType_, String messageHeader_, String messageBody_, Integer whereToPutMessage_) {
 		messageType = messageType_;

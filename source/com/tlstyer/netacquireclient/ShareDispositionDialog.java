@@ -7,30 +7,30 @@ import javax.swing.event.*;
 
 public class ShareDispositionDialog extends GameDialog implements ChangeListener {
 
-	private int numSharesOfTakenOverHotelIHave;
-	private int numAvailableOfSurvivor;
+	private final int numSharesOfTakenOverHotelIHave;
+	private final int numAvailableOfSurvivor;
 
 	// "Keep" panel
 	private Integer numKeep;
-	private JLabel labelKeep;
-	private JButton buttonAll;
+	private final JLabel labelKeep;
+	private final JButton buttonAll;
 
 	// "Trade" panel
 	private Integer numTrade;
 	private Integer maxTrade;
-	private SpinnerNumberModel spinnerNumberModelTrade;
-	private JSpinner spinnerTrade;
-	private JButton buttonMaximum;
+	private final SpinnerNumberModel spinnerNumberModelTrade;
+	private final JSpinner spinnerTrade;
+	private final JButton buttonMaximum;
 
 	// "Sell" panel
 	private Integer numSell;
 	private Integer maxSell;
-	private SpinnerNumberModel spinnerNumberModelSell;
-	private JSpinner spinnerSell;
-	private JButton buttonRemaining;
+	private final SpinnerNumberModel spinnerNumberModelSell;
+	private final JSpinner spinnerSell;
+	private final JButton buttonRemaining;
 
 	// OK button
-	private JButton buttonOK;
+	private final JButton buttonOK;
 
 	public ShareDispositionDialog(String nameOfTakenOverChain,
 			int numSharesOfTakenOverHotelIHave_,
@@ -193,6 +193,7 @@ public class ShareDispositionDialog extends GameDialog implements ChangeListener
 		spinnerNumberModelSell.setMaximum(maxSell);
 	}
 
+	@Override
 	public void DoAction(ActionEvent actionEvent) {
 		Object object = actionEvent.getSource();
 		if (object == buttonAll) {
@@ -211,6 +212,7 @@ public class ShareDispositionDialog extends GameDialog implements ChangeListener
 		updateComponents();
 	}
 
+	@Override
 	public void stateChanged(ChangeEvent changeEvent) {
 		Object object = changeEvent.getSource();
 		if (object == spinnerTrade) {

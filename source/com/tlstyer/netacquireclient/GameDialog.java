@@ -11,7 +11,7 @@ public abstract class GameDialog extends JDialog implements ActionListener {
 
 	private boolean hasBeenHidden = false;
 
-	private static Set<GameDialog> setOfGameDialogs = new HashSet<GameDialog>();
+	private static final Set<GameDialog> setOfGameDialogs = new HashSet<>();
 	private static final Boolean setOfGameDialogsSynch = true;
 
 	public static final int ALLOW_EXTERNAL_HIDE_REQUEST = 1;

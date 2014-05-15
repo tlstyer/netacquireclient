@@ -148,9 +148,9 @@ class MenuItemStartGamePlay extends MainFrameMenuItem {
 
 class MenuItemEnterGame extends MainFrameMenuItem {
 
-	private String enterType;
-	private String enterTypeLowercase;
-	private Integer messageCode;
+	private final String enterType;
+	private final String enterTypeLowercase;
+	private final Integer messageCode;
 
 	public MenuItemEnterGame(String enterType_,
 			Integer mnemonicAndAccelerator,
@@ -176,7 +176,7 @@ class MenuItemEnterGame extends MainFrameMenuItem {
 			return;
 		}
 
-		Integer value = 0;
+		Integer value;
 		try {
 			value = Integer.decode(input);
 		} catch (NumberFormatException numberFormatException) {
@@ -321,34 +321,34 @@ class MenuItemAboutNetAcquire extends MainFrameMenuItem {
 public class MainFrameMenuBar extends JMenuBar {
 
 	// File
-	private MainFrameMenu menuFile = new MainFrameMenu("File", KeyEvent.VK_F);
-	private MenuItemReinitialize menuItemReinitialize = new MenuItemReinitialize();
-	private MenuItemOptions menuItemOptions = new MenuItemOptions();
-	private MenuItemQuit menuItemQuit = new MenuItemQuit();
+	private final MainFrameMenu menuFile = new MainFrameMenu("File", KeyEvent.VK_F);
+	private final MenuItemReinitialize menuItemReinitialize = new MenuItemReinitialize();
+	private final MenuItemOptions menuItemOptions = new MenuItemOptions();
+	private final MenuItemQuit menuItemQuit = new MenuItemQuit();
 
 	// Play
-	private MainFrameMenu menuPlay = new MainFrameMenu("Play", KeyEvent.VK_P);
-	private MenuItemShowUsers menuItemShowUsers = new MenuItemShowUsers();
-	private MenuItemShowGames menuItemShowGames = new MenuItemShowGames();
-	private MenuItemStartNewGame menuItemStartNewGame = new MenuItemStartNewGame();
-	private MenuItemStartGamePlay menuItemStartGamePlay = new MenuItemStartGamePlay();
-	private MenuItemJoinGame menuItemJoinGame = new MenuItemJoinGame();
-	private MenuItemWatchGame menuItemWatchGame = new MenuItemWatchGame();
-	private MenuItemShowGameState menuItemShowGameState = new MenuItemShowGameState();
-	private MenuItemLeaveGame menuItemLeaveGame = new MenuItemLeaveGame();
+	private final MainFrameMenu menuPlay = new MainFrameMenu("Play", KeyEvent.VK_P);
+	private final MenuItemShowUsers menuItemShowUsers = new MenuItemShowUsers();
+	private final MenuItemShowGames menuItemShowGames = new MenuItemShowGames();
+	private final MenuItemStartNewGame menuItemStartNewGame = new MenuItemStartNewGame();
+	private final MenuItemStartGamePlay menuItemStartGamePlay = new MenuItemStartGamePlay();
+	private final MenuItemJoinGame menuItemJoinGame = new MenuItemJoinGame();
+	private final MenuItemWatchGame menuItemWatchGame = new MenuItemWatchGame();
+	private final MenuItemShowGameState menuItemShowGameState = new MenuItemShowGameState();
+	private final MenuItemLeaveGame menuItemLeaveGame = new MenuItemLeaveGame();
 
 	// Review
-	private MainFrameMenu menuReview = new MainFrameMenu("Review", KeyEvent.VK_R);
-	private MenuItemGoToBeginning menuItemGoToBeginning = new MenuItemGoToBeginning();
-	private MenuItemGoToEnd menuItemGoToEnd = new MenuItemGoToEnd();
-	private MenuItemGoToPreviousTurn menuItemGoToPreviousTurn = new MenuItemGoToPreviousTurn();
-	private MenuItemGoToNextTurn menuItemGoToNextTurn = new MenuItemGoToNextTurn();
-	private MenuItemGoToPreviousDecision menuItemGoToPreviousDecision = new MenuItemGoToPreviousDecision();
-	private MenuItemGoToNextDecision menuItemGoToNextDecision = new MenuItemGoToNextDecision();
+	private final MainFrameMenu menuReview = new MainFrameMenu("Review", KeyEvent.VK_R);
+	private final MenuItemGoToBeginning menuItemGoToBeginning = new MenuItemGoToBeginning();
+	private final MenuItemGoToEnd menuItemGoToEnd = new MenuItemGoToEnd();
+	private final MenuItemGoToPreviousTurn menuItemGoToPreviousTurn = new MenuItemGoToPreviousTurn();
+	private final MenuItemGoToNextTurn menuItemGoToNextTurn = new MenuItemGoToNextTurn();
+	private final MenuItemGoToPreviousDecision menuItemGoToPreviousDecision = new MenuItemGoToPreviousDecision();
+	private final MenuItemGoToNextDecision menuItemGoToNextDecision = new MenuItemGoToNextDecision();
 
 	// Help
-	private MainFrameMenu menuHelp = new MainFrameMenu("Help", KeyEvent.VK_H);
-	private MenuItemAboutNetAcquire menuItemAboutNetAcquire = new MenuItemAboutNetAcquire();
+	private final MainFrameMenu menuHelp = new MainFrameMenu("Help", KeyEvent.VK_H);
+	private final MenuItemAboutNetAcquire menuItemAboutNetAcquire = new MenuItemAboutNetAcquire();
 
 	public MainFrameMenuBar() {
 		// File

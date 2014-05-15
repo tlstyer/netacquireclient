@@ -1,10 +1,10 @@
 package com.tlstyer.netacquireclient;
 
-public class TileRackData {
+public final class TileRackData {
 
-	private String[] labels = new String[6];
-	private int[] hoteltypes = new int[6];
-	private boolean[] visibilities = new boolean[6];
+	private final String[] labels = new String[6];
+	private final int[] hoteltypes = new int[6];
+	private final boolean[] visibilities = new boolean[6];
 	private boolean dirty = true;
 
 	public TileRackData() {

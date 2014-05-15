@@ -5,9 +5,9 @@ import java.awt.font.*;
 
 public class TextComponentFontData {
 
-	private Font font;
-	private double fontHeight;
-	private double fontY;
+	private final Font font;
+	private final double fontHeight;
+	private final double fontY;
 
 	public TextComponentFontData(FontRenderContext fontRenderContext, int size) {
 		font = new Font(FontManager.getFontNameTextComponents(), Font.BOLD, size);

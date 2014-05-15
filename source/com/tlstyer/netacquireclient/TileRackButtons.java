@@ -6,9 +6,9 @@ import javax.swing.*;
 
 public class TileRackButtons extends JPanel implements ActionListener, ComponentListener {
 
-	private Button[] buttons = new Button[6];
-	private int[] hoteltypes = new int[6];
-	private GridLayout gridLayout = new GridLayout(1, 6, spacing, spacing);
+	private final Button[] buttons = new Button[6];
+	private final int[] hoteltypes = new int[6];
+	private final GridLayout gridLayout = new GridLayout(1, 6, spacing, spacing);
 	private Boolean canPlayTile = false;
 	private final Boolean canPlayTileSynch = true;
 
@@ -50,6 +50,7 @@ public class TileRackButtons extends JPanel implements ActionListener, Component
 		}
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
 		int buttonIndex = Integer.decode(actionEvent.getActionCommand());
 		synchronized (canPlayTileSynch) {
@@ -76,16 +77,20 @@ public class TileRackButtons extends JPanel implements ActionListener, Component
 		}
 	}
 
+	@Override
 	public void componentHidden(ComponentEvent componentEvent) {
 	}
 
+	@Override
 	public void componentMoved(ComponentEvent componentEvent) {
 	}
 
+	@Override
 	public void componentResized(ComponentEvent componentEvent) {
 		updateFonts();
 	}
 
+	@Override
 	public void componentShown(ComponentEvent componentEvent) {
 	}
 }

@@ -13,7 +13,7 @@ import javax.swing.*;
 
 class ConnectThread extends Thread {
 
-	private InetSocketAddress inetSocketAddress;
+	private final InetSocketAddress inetSocketAddress;
 	private SocketChannel socketChannel;
 	private int connectionStatus;
 
@@ -28,7 +28,7 @@ class ConnectThread extends Thread {
 			connectionStatus = NetworkConnection.CONNECTION_STATUS_CONNECTED;
 		} catch (ClosedByInterruptException closedByInterruptException) {
 			connectionStatus = NetworkConnection.CONNECTION_STATUS_CLOSED_BY_INTERRUPT;
-		} catch (Exception exception) {
+		} catch (IOException iOException) {
 			connectionStatus = NetworkConnection.CONNECTION_STATUS_COULD_NOT_CONNECT;
 		}
 	}
@@ -55,19 +55,19 @@ public class NetworkConnection {
 	private final Boolean connectedSynch = true;
 	private boolean exitedNicely = false;
 
-	private StringBuilder dataRead = new StringBuilder(10240);
-	private StringBuilder dataToWrite = new StringBuilder(10240);
+	private final StringBuilder dataRead = new StringBuilder(10240);
+	private final StringBuilder dataToWrite = new StringBuilder(10240);
 	private final Boolean dataToWriteSynch = true;
 
 	private Selector selector;
 	private SocketChannel socketChannel;
 	private boolean isWritable = false;
 
-	private GameBoardData gameBoardData = new GameBoardData();
-	private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
-	private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
+	private final GameBoardData gameBoardData = new GameBoardData();
+	private final ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
+	private final ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
 
-	private UserListPresenter userListPresenter = new UserListPresenter();
+	private final UserListPresenter userListPresenter = new UserListPresenter();
 
 	private static final Pattern patternCommand = Pattern.compile("\\A([^\"]*?(?:\"(?:\"\"|[^\"]{1})*?\")*?[^\"]*?);:");
 	private static final Charset charsetDecoder = Charset.forName("US-ASCII");
@@ -103,7 +103,7 @@ public class NetworkConnection {
 				socketChannel.configureBlocking(false);
 				selector = SelectorProvider.provider().openSelector();
 				socketChannel.register(selector, SelectionKey.OP_READ);
-			} catch (Exception exception) {
+			} catch (IOException iOException) {
 			}
 		} else {
 			setConnected(false);
@@ -158,7 +158,7 @@ public class NetworkConnection {
 		}
 
 		try {
-			int keysAdded = 0;
+			int keysAdded;
 
 			while (true) {
 				if (!isConnected()) {
@@ -202,7 +202,6 @@ public class NetworkConnection {
 		} catch (IOException iOException) {
 			disconnect();
 			return EXIT_IO_EXCEPTION;
-		} catch (Exception exception) {
 		}
 
 		if (exitedNicely) {
@@ -240,7 +239,7 @@ public class NetworkConnection {
 	private static final int COMMAND_SS = 11;
 	private static final int COMMAND_SV = 12;
 
-	private static final Map<String, Integer> hashmapCommand = new HashMap<String, Integer>();
+	private static final Map<String, Integer> hashmapCommand = new HashMap<>();
 
 	static {
 		hashmapCommand.put("AT", COMMAND_AT);
@@ -373,35 +372,41 @@ public class NetworkConnection {
 	private void handleSV(Object[] command) {
 		if (((String) ((Object[]) command[1])[0]).equals("frmScoreSheet")
 				&& ((String) ((Object[]) command[1])[1]).equals("lblData")) {
-			if (((String) ((Object[]) command[1])[3]).equals("Caption")) {
-				int index = (Integer) ((Object[]) command[1])[2];
-				Object what = ((Object[]) command[1])[4];
-				if (index > 7 && (what.toString().length() == 0 || what.toString().equals("-  "))) {
-					what = 0;
+			switch ((String) ((Object[]) command[1])[3]) {
+				case "Caption": {
+					int index = (Integer) ((Object[]) command[1])[2];
+					Object what = ((Object[]) command[1])[4];
+					if (index > 7 && (what.toString().length() == 0 || what.toString().equals("-  "))) {
+						what = 0;
+					}
+					if (index >= 82 && index <= 88) {
+						what = ((Integer) what) / 100;
+					}
+					Point where = Util.scoreSheetIndexToPoint(index);
+					if (where != null) {
+						scoreSheetCaptionData.setCaption(where.x, where.y, what);
+					}
+					break;
 				}
-				if (index >= 82 && index <= 88) {
-					what = ((Integer) what) / 100;
+				case "BackColor": {
+					int index = (Integer) ((Object[]) command[1])[2];
+					int color = (Integer) ((Object[]) command[1])[4];
+					int hoteltype = Util.colorvalueToHoteltype(color);
+					Point where = Util.scoreSheetIndexToPoint(index);
+					if (where != null) {
+						scoreSheetHoteltypeData.setHoteltype(where.x, where.y, hoteltype);
+					}
+					break;
 				}
-				Point where = Util.scoreSheetIndexToPoint(index);
-				if (where != null) {
-					scoreSheetCaptionData.setCaption(where.x, where.y, what);
-				}
-			} else if (((String) ((Object[]) command[1])[3]).equals("BackColor")) {
-				int index = (Integer) ((Object[]) command[1])[2];
-				int color = (Integer) ((Object[]) command[1])[4];
-				int hoteltype = Util.colorvalueToHoteltype(color);
-				Point where = Util.scoreSheetIndexToPoint(index);
-				if (where != null) {
-					scoreSheetHoteltypeData.setHoteltype(where.x, where.y, hoteltype);
-				}
-			} else {
-				commandProcessingResult = COMMAND_NOT_PROCESSED;
+				default:
+					commandProcessingResult = COMMAND_NOT_PROCESSED;
+					break;
 			}
 		} else if (((String) ((Object[]) command[1])[0]).equals("frmTileRack")
 				&& ((String) ((Object[]) command[1])[1]).equals("cmdTile")) {
 			if (((String) ((Object[]) command[1])[3]).equals("Visible")) {
 				int tileRackIndex = (Integer) ((Object[]) command[1])[2];
-				boolean visible = ((Integer) ((Object[]) command[1])[4] != 0 ? true : false);
+				boolean visible = (Integer) ((Object[]) command[1])[4] != 0;
 				int index = tileRackIndex - 1;
 				Main.getMainFrame().getTileRackButtons().setButtonVisible(index, visible);
 			} else {
@@ -484,7 +489,7 @@ public class NetworkConnection {
 	}
 
 	private void handleGP(Object[] command) {
-		boolean canEndGame = ((Integer) ((Object[]) command[1])[0] != 0 ? true : false);
+		boolean canEndGame = (Integer) ((Object[]) command[1])[0] != 0;
 		int howMuchMoney = (Integer) ((Object[]) command[1])[1] / 100;
 		int[] available = Util.getHotelDataAsIntegers(scoreSheetCaptionData, 7);
 		int[] price = Util.getHotelDataAsIntegers(scoreSheetCaptionData, 9);

@@ -18,6 +18,7 @@ class ListEntry {
 
 class ComparatorListEntryAlphabetically implements Comparator<ListEntry> {
 
+	@Override
 	public int compare(ListEntry le1, ListEntry le2) {
 		return le1.nicknameLowercase.compareTo(le2.nicknameLowercase);
 	}
@@ -25,6 +26,7 @@ class ComparatorListEntryAlphabetically implements Comparator<ListEntry> {
 
 class ComparatorListEntryGameNumber implements Comparator<ListEntry> {
 
+	@Override
 	public int compare(ListEntry le1, ListEntry le2) {
 		int diff;
 		diff = le1.gameNumber - le2.gameNumber;
@@ -35,12 +37,12 @@ class ComparatorListEntryGameNumber implements Comparator<ListEntry> {
 	}
 }
 
-public class UserListPresenter {
+public final class UserListPresenter {
 
 	private boolean processingList;
 
 	private String messageStart;
-	private ArrayList<ListEntry> listEntries = new ArrayList<ListEntry>();
+	private final ArrayList<ListEntry> listEntries = new ArrayList<>();
 
 	private static final Pattern patternListStart = Pattern.compile("\\A# Users: \\d*? \\.\\.\\.\\z");
 	private static final Pattern patternListEntry = Pattern.compile("\\A# -> (.+?) (in lobby|\\(playing in game #(\\d*?)\\)|\\(watching game #(\\d*?)\\)) \\.\\.\\.\\z");
@@ -81,7 +83,7 @@ public class UserListPresenter {
 				if (matcher.groupCount() >= 3) {
 					try {
 						gameNumber = Integer.decode(matcher.group(3));
-					} catch (Exception exception) {
+					} catch (NumberFormatException exception) {
 						gameNumber = Integer.MAX_VALUE;
 					}
 				} else {

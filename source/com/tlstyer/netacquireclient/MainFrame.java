@@ -4,21 +4,21 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MainFrame extends JFrame implements ComponentListener, WindowListener {
+public final class MainFrame extends JFrame implements ComponentListener, WindowListener {
 
-	private MainFrameMenuBar mainFrameMenuBar;
+	private final MainFrameMenuBar mainFrameMenuBar;
 
-	private JPanel panel;
+	private final JPanel panel;
 
-	private GameBoard gameBoard;
-	private TextComponent tileRackBackground;
-	private TileRackButtons tileRackButtons;
-	private TileRackTextComponents tileRackTextComponents;
-	private MessageWindow lobby;
-	private PostMessageTextField lobbyPost;
-	private ScoreSheet scoreSheet;
-	private MessageWindow gameRoom;
-	private PostMessageTextField gameRoomPost;
+	private final GameBoard gameBoard;
+	private final TextComponent tileRackBackground;
+	private final TileRackButtons tileRackButtons;
+	private final TileRackTextComponents tileRackTextComponents;
+	private final MessageWindow lobby;
+	private final PostMessageTextField lobbyPost;
+	private final ScoreSheet scoreSheet;
+	private final MessageWindow gameRoom;
+	private final PostMessageTextField gameRoomPost;
 
 	private static final Color tileRackBackgroundColor = new Color(255, 128, 0);
 
@@ -26,7 +26,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		// set the look and feel
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception exception) {
+		} catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException exception) {
 		}
 
 		// make sure we have nice window decorations
@@ -208,38 +208,49 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 		System.exit(0);
 	}
 
+	@Override
 	public void componentHidden(ComponentEvent componentEvent) {
 	}
 
+	@Override
 	public void componentMoved(ComponentEvent componentEvent) {
 	}
 
+	@Override
 	public void componentResized(ComponentEvent componentEvent) {
 		setComponentsBounds();
 	}
 
+	@Override
 	public void componentShown(ComponentEvent componentEvent) {
 	}
 
+	@Override
 	public void windowActivated(WindowEvent windowEvent) {
 	}
 
+	@Override
 	public void windowClosed(WindowEvent windowEvent) {
 	}
 
+	@Override
 	public void windowClosing(WindowEvent windowEvent) {
 		closeWindow();
 	}
 
+	@Override
 	public void windowDeactivated(WindowEvent windowEvent) {
 	}
 
+	@Override
 	public void windowDeiconified(WindowEvent windowEvent) {
 	}
 
+	@Override
 	public void windowIconified(WindowEvent windowEvent) {
 	}
 
+	@Override
 	public void windowOpened(WindowEvent windowEvent) {
 	}
 

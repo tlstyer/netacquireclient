@@ -20,7 +20,7 @@ public class ModalMessageProcessor {
 		"I;No playable tile;It is your turn and you have no playable tile.",
 		"W;Test Mode Used;Test mode has been used by the host.  This means at least 1 tile has been drawn non-randomly (manually specified by the host).",};
 
-	private static final Map<String, Integer> hashmapType = new HashMap<String, Integer>();
+	private static final Map<String, Integer> hashmapType = new HashMap<>();
 
 	static {
 		hashmapType.put("E", JOptionPane.ERROR_MESSAGE);

@@ -5,9 +5,9 @@ import javax.swing.*;
 
 public class MessageWindow extends JScrollPane {
 
-	private JTextPane textPane = new JTextPane();
-	private MessageWindowDocument messageWindowDocument;
-	private TransferHandler transferHandler;
+	private final JTextPane textPane = new JTextPane();
+	private final MessageWindowDocument messageWindowDocument;
+	private final TransferHandler transferHandler;
 
 	private static final Color colorBackground = new Color(192, 192, 255);
 

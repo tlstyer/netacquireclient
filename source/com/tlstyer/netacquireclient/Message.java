@@ -4,7 +4,7 @@ import java.util.regex.*;
 
 public class Message {
 
-	private String message;
+	private final String message;
 
 	private static final Pattern patternStripPrefix = Pattern.compile("\\A(\\*+|\\-> |# |> )(.*)");
 

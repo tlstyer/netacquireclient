@@ -113,13 +113,11 @@ public final class Main {
 					"Lost connection to " + ipurl + ":" + port + ".",
 					"Lost connection",
 					JOptionPane.ERROR_MESSAGE);
-			return;
 		} else if (exitReason == NetworkConnection.EXIT_IO_EXCEPTION) {
 			JOptionPane.showMessageDialog(mainFrame,
 					"Unhandled exception. Please reconnect.",
 					"Unhandled exception",
 					JOptionPane.ERROR_MESSAGE);
-			return;
 		}
 	}
 
