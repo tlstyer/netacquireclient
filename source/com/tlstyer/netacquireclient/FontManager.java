@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.font.*;
 
 public class FontManager {
+
 	private static final int LENGTH_TEXTCOMPONENTFONTDATAARRAY = 16;
 	private TextComponentFontData[] textComponentFontDataArray = new TextComponentFontData[LENGTH_TEXTCOMPONENTFONTDATAARRAY];
 	private int classicTextComponentHeight = 0;
@@ -18,8 +19,8 @@ public class FontManager {
 	}
 
 	public void initializeTextComponentFontData(FontRenderContext fontRenderContext) {
-		for (int index=0; index<LENGTH_TEXTCOMPONENTFONTDATAARRAY; ++index) {
-			textComponentFontDataArray[index] = new TextComponentFontData(fontRenderContext, (index+1)*2);
+		for (int index = 0; index < LENGTH_TEXTCOMPONENTFONTDATAARRAY; ++index) {
+			textComponentFontDataArray[index] = new TextComponentFontData(fontRenderContext, (index + 1) * 2);
 		}
 	}
 

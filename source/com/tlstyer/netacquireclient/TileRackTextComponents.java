@@ -4,13 +4,14 @@ import java.awt.*;
 import javax.swing.*;
 
 public class TileRackTextComponents extends JPanel {
+
 	private TextComponent[] textComponents = new TextComponent[6];
 	private GridLayout gridLayout = new GridLayout(1, 6, TileRackButtons.spacing, TileRackButtons.spacing);
 	private TileRackData tileRackData = new TileRackData();
 
 	public TileRackTextComponents() {
 		setLayout(gridLayout);
-		for (int buttonIndex=0; buttonIndex<6; ++buttonIndex) {
+		for (int buttonIndex = 0; buttonIndex < 6; ++buttonIndex) {
 			textComponents[buttonIndex] = new TextComponent();
 			add(textComponents[buttonIndex]);
 			textComponents[buttonIndex].setVisible(false);
@@ -19,7 +20,7 @@ public class TileRackTextComponents extends JPanel {
 	}
 
 	public void sync(TileRackData trd) {
-		for (int index=0; index<6; ++index) {
+		for (int index = 0; index < 6; ++index) {
 			boolean repaint = false;
 
 			String label = trd.getLabel(index);

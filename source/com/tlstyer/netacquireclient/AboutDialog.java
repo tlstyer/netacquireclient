@@ -5,12 +5,12 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class AboutDialog extends GameDialog {
+
 	private static final String[] labelTextArray = new String[]{
 		Main.getProgramName(),
 		"Programmed by Tim Styer",
 		"tlstyer@gmail.com",
-		"http://www.tlstyer.com/NetAcquireClient/",
-	};
+		"http://www.tlstyer.com/NetAcquireClient/",};
 
 	private JButton buttonOK;
 

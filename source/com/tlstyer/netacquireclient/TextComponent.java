@@ -6,6 +6,7 @@ import java.awt.geom.*;
 import javax.swing.*;
 
 class TextComponent extends JComponent {
+
 	private String text;
 	private String textForBounds;
 	private Color colorBackground;
@@ -74,7 +75,7 @@ class TextComponent extends JComponent {
 
 	@Override
 	public void paint(Graphics graphics) {
-		Graphics2D graphics2D = (Graphics2D)graphics;
+		Graphics2D graphics2D = (Graphics2D) graphics;
 
 		FontRenderContext fontRenderContext = graphics2D.getFontRenderContext();
 		if (!initializedTextComponentFontData) {
@@ -98,11 +99,11 @@ class TextComponent extends JComponent {
 		if (textAlign == ALIGN_LEFT) {
 			x = PADDING;
 		} else if (textAlign == ALIGN_CENTER) {
-			x = (int)((getWidth() - bounds.getWidth() - bounds.getX()) / 2);
+			x = (int) ((getWidth() - bounds.getWidth() - bounds.getX()) / 2);
 		} else { // textAlign == ALIGN_RIGHT
-			x = (int)(getWidth() - bounds.getWidth() - bounds.getX() - PADDING);
+			x = (int) (getWidth() - bounds.getWidth() - bounds.getX() - PADDING);
 		}
-		int y = (int)((getHeight() - textComponentFontData.getFontHeight()) / 2 - textComponentFontData.getFontY());
+		int y = (int) ((getHeight() - textComponentFontData.getFontHeight()) / 2 - textComponentFontData.getFontY());
 		graphics2D.drawString(text, x, y);
 	}
 }

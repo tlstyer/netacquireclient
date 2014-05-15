@@ -1,6 +1,7 @@
 package com.tlstyer.netacquireclient;
 
 public final class GameBoardData {
+
 	private int hoteltypes[][] = new int[9][12];
 	private boolean dirty = true;
 
@@ -9,8 +10,8 @@ public final class GameBoardData {
 	}
 
 	public void init() {
-		for (int y=0; y<9; ++y) {
-			for (int x=0; x<12; ++x) {
+		for (int y = 0; y < 9; ++y) {
+			for (int x = 0; x < 12; ++x) {
 				hoteltypes[y][x] = Hoteltype.NONE;
 			}
 		}

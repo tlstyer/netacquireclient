@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class SelectChainDialog extends GameDialog {
+
 	private ButtonGroup radioButtonGroup;
 	private JRadioButton[] radioButtons;
 	private JButton buttonOK;
@@ -17,18 +18,18 @@ public class SelectChainDialog extends GameDialog {
 
 		String title;
 		switch (type) {
-		case 4:
-			title = "Hotel Chain Selection";
-			break;
-		case 6:
-			title = "Select Merger Survivor";
-			break;
-		case 8:
-			title = "Select Chain To Dispose Of";
-			break;
-		default:
-			title = "Unknown Title";
-			break;
+			case 4:
+				title = "Hotel Chain Selection";
+				break;
+			case 6:
+				title = "Select Merger Survivor";
+				break;
+			case 8:
+				title = "Select Chain To Dispose Of";
+				break;
+			default:
+				title = "Unknown Title";
+				break;
 		}
 		setTitle(title);
 
@@ -38,7 +39,7 @@ public class SelectChainDialog extends GameDialog {
 		radioButtonGroup = new ButtonGroup();
 		radioButtons = new JRadioButton[7];
 
-		for (int index=0; index<7; ++index) {
+		for (int index = 0; index < 7; ++index) {
 			String name = Util.hoteltypeToName(index + 1);
 			JRadioButton radioButton = new JRadioButton(name);
 			radioButtons[index] = radioButton;
@@ -54,12 +55,12 @@ public class SelectChainDialog extends GameDialog {
 			}
 			panelRadioButtons.add(radioButton);
 			if (index == 1 || index == 4) {
-				panelRadioButtons.add(Box.createRigidArea(new Dimension(0,10)));
+				panelRadioButtons.add(Box.createRigidArea(new Dimension(0, 10)));
 			}
 		}
-		panelRadioButtons.add(Box.createRigidArea(new Dimension(0,10)));
+		panelRadioButtons.add(Box.createRigidArea(new Dimension(0, 10)));
 
-		for (int index=0; index<7; ++index) {
+		for (int index = 0; index < 7; ++index) {
 			if (hotelOptions[index]) {
 				radioButtons[index].setSelected(true);
 				break;
@@ -83,7 +84,7 @@ public class SelectChainDialog extends GameDialog {
 	}
 
 	public void DoAction(ActionEvent actionEvent) {
-		for (int index=0; index<7; ++index) {
+		for (int index = 0; index < 7; ++index) {
 			if (radioButtons[index].isSelected()) {
 				int colorvalue = Util.hoteltypeToColorvalueNetwork(index + 1);
 				Main.getNetworkConnection().writeMessage("CS;" + colorvalue + "," + type);

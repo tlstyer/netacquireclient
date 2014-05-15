@@ -3,6 +3,7 @@ package com.tlstyer.netacquireclient;
 import javax.swing.*;
 
 public final class Main {
+
 	private static UserPreferences userPreferences;
 	private static MainFrame mainFrame;
 	private static FontManager fontManager;
@@ -77,8 +78,12 @@ public final class Main {
 			}
 
 			switch (selectedMode) {
-				case SELECTED_MODE_PLAY:   playMode();   break;
-				case SELECTED_MODE_REVIEW: reviewMode(); break;
+				case SELECTED_MODE_PLAY:
+					playMode();
+					break;
+				case SELECTED_MODE_REVIEW:
+					reviewMode();
+					break;
 			}
 		}
 	}
@@ -93,9 +98,9 @@ public final class Main {
 		int connectionStatus = networkConnection.connect(ipurl, port);
 		if (connectionStatus == NetworkConnection.CONNECTION_STATUS_COULD_NOT_CONNECT) {
 			JOptionPane.showMessageDialog(mainFrame,
-										  "Could not connect to " + ipurl + ":" + port + ".",
-										  "Could not connect",
-										  JOptionPane.ERROR_MESSAGE);
+					"Could not connect to " + ipurl + ":" + port + ".",
+					"Could not connect",
+					JOptionPane.ERROR_MESSAGE);
 			return;
 		} else if (connectionStatus == NetworkConnection.CONNECTION_STATUS_CLOSED_BY_INTERRUPT) {
 			return;
@@ -105,15 +110,15 @@ public final class Main {
 
 		if (exitReason == NetworkConnection.EXIT_LOST_CONNECTION) {
 			JOptionPane.showMessageDialog(mainFrame,
-										  "Lost connection to " + ipurl + ":" + port + ".",
-										  "Lost connection",
-										  JOptionPane.ERROR_MESSAGE);
+					"Lost connection to " + ipurl + ":" + port + ".",
+					"Lost connection",
+					JOptionPane.ERROR_MESSAGE);
 			return;
 		} else if (exitReason == NetworkConnection.EXIT_IO_EXCEPTION) {
 			JOptionPane.showMessageDialog(mainFrame,
-										  "Unhandled exception. Please reconnect.",
-										  "Unhandled exception",
-										  JOptionPane.ERROR_MESSAGE);
+					"Unhandled exception. Please reconnect.",
+					"Unhandled exception",
+					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 	}

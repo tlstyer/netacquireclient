@@ -1,6 +1,7 @@
 package com.tlstyer.netacquireclient;
 
 public class Hoteltype {
+
 	public static final int NONE = 0;
 	public static final int LUXOR = 1;
 	public static final int TOWER = 2;

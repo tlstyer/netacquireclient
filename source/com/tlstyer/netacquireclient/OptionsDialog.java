@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class OptionsDialog extends GameDialog {
+
 	// "max player count" panel
 	private SpinnerNumberModel spinnerNumberModelMaxPlayerCount;
 
@@ -71,7 +72,7 @@ public class OptionsDialog extends GameDialog {
 
 		JRadioButton[] radioButtonsULSM = new JRadioButton[3];
 		JRadioButton radioButtonULSM;
-		for (int index=0; index<3; ++index) {
+		for (int index = 0; index < 3; ++index) {
 			radioButtonULSM = new JRadioButton();
 			radioButtonULSM.setActionCommand("" + index);
 			radioButtonsULSM[index] = radioButtonULSM;
@@ -162,7 +163,7 @@ public class OptionsDialog extends GameDialog {
 
 		JRadioButton[] radioButtonsWTSIRM = new JRadioButton[3];
 		JRadioButton radioButtonWTSIRM;
-		for (int index=0; index<3; ++index) {
+		for (int index = 0; index < 3; ++index) {
 			radioButtonWTSIRM = new JRadioButton();
 			radioButtonWTSIRM.setActionCommand("" + index);
 			radioButtonsWTSIRM[index] = radioButtonWTSIRM;
@@ -197,7 +198,7 @@ public class OptionsDialog extends GameDialog {
 
 		JRadioButton[] radioButtonsGBLM = new JRadioButton[3];
 		JRadioButton radioButtonGBLM;
-		for (int index=0; index<3; ++index) {
+		for (int index = 0; index < 3; ++index) {
 			radioButtonGBLM = new JRadioButton();
 			radioButtonGBLM.setActionCommand("" + index);
 			radioButtonsGBLM[index] = radioButtonGBLM;

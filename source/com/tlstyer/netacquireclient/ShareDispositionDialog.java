@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 public class ShareDispositionDialog extends GameDialog implements ChangeListener {
+
 	private int numSharesOfTakenOverHotelIHave;
 	private int numAvailableOfSurvivor;
 
@@ -32,10 +33,10 @@ public class ShareDispositionDialog extends GameDialog implements ChangeListener
 	private JButton buttonOK;
 
 	public ShareDispositionDialog(String nameOfTakenOverChain,
-								  int numSharesOfTakenOverHotelIHave_,
-								  int numAvailableOfSurvivor_,
-								  int hoteltypeOfSurvivor,
-								  int hoteltypeOfTakenOver) {
+			int numSharesOfTakenOverHotelIHave_,
+			int numAvailableOfSurvivor_,
+			int hoteltypeOfSurvivor,
+			int hoteltypeOfTakenOver) {
 		super(ALLOW_EXTERNAL_HIDE_REQUEST);
 
 		numSharesOfTakenOverHotelIHave = numSharesOfTakenOverHotelIHave_;
@@ -54,7 +55,7 @@ public class ShareDispositionDialog extends GameDialog implements ChangeListener
 		JPanel panelKeepInternal = new JPanel();
 		panelKeepInternal.setLayout(new BoxLayout(panelKeepInternal, BoxLayout.X_AXIS));
 		panelKeepInternal.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black),
-																	   BorderFactory.createEmptyBorder(3,10,3,10)));
+				BorderFactory.createEmptyBorder(3, 10, 3, 10)));
 		panelKeepInternal.setBackground(Util.hoteltypeToColor(hoteltypeOfSurvivor));
 		panelKeep.add(panelKeepInternal);
 
@@ -78,7 +79,7 @@ public class ShareDispositionDialog extends GameDialog implements ChangeListener
 		JPanel panelTradeInternal = new JPanel();
 		panelTradeInternal.setLayout(new BoxLayout(panelTradeInternal, BoxLayout.X_AXIS));
 		panelTradeInternal.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black),
-																		BorderFactory.createEmptyBorder(3,10,3,10)));
+				BorderFactory.createEmptyBorder(3, 10, 3, 10)));
 		panelTradeInternal.setBackground(Util.hoteltypeToColor(hoteltypeOfTakenOver));
 		panelTrade.add(panelTradeInternal);
 
@@ -105,7 +106,7 @@ public class ShareDispositionDialog extends GameDialog implements ChangeListener
 		JPanel panelSellInternal = new JPanel();
 		panelSellInternal.setLayout(new BoxLayout(panelSellInternal, BoxLayout.X_AXIS));
 		panelSellInternal.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black),
-																	   BorderFactory.createEmptyBorder(3,10,3,10)));
+				BorderFactory.createEmptyBorder(3, 10, 3, 10)));
 		panelSell.add(panelSellInternal);
 
 		spinnerNumberModelSell = new SpinnerNumberModel();

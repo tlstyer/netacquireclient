@@ -4,12 +4,13 @@ import java.io.*;
 import javax.sound.sampled.*;
 
 public class SoundManager {
+
 	private static final int NUM_CLIPS = 3;
 	private Clip[] clips = new Clip[NUM_CLIPS];
 	private int currentClipIndex = 0;
 
 	public SoundManager() {
-		for (int index=0; index<NUM_CLIPS; ++index) {
+		for (int index = 0; index < NUM_CLIPS; ++index) {
 			clips[index] = null;
 			try {
 				clips[index] = AudioSystem.getClip();

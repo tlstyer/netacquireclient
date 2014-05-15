@@ -1,6 +1,7 @@
 package com.tlstyer.netacquireclient;
 
 public class TileRackData {
+
 	private String[] labels = new String[6];
 	private int[] hoteltypes = new int[6];
 	private boolean[] visibilities = new boolean[6];
@@ -11,7 +12,7 @@ public class TileRackData {
 	}
 
 	public void init() {
-		for (int index=0; index<6; ++index) {
+		for (int index = 0; index < 6; ++index) {
 			labels[index] = " ";
 			hoteltypes[index] = Hoteltype.NONE;
 			visibilities[index] = false;

@@ -5,6 +5,7 @@ import java.nio.charset.*;
 import java.util.*;
 
 public class LogFileWriter {
+
 	private ArrayList<String> messages = new ArrayList<String>();
 	private FileOutputStream fileOutputStream = null;
 	private int numMessagesWritten = 0;
@@ -50,7 +51,7 @@ public class LogFileWriter {
 				numMessagesWritten = 0;
 			}
 			if (fileOutputStream != null) {
-				for (int index=numMessagesWritten; index<messages.size(); ++index) {
+				for (int index = numMessagesWritten; index < messages.size(); ++index) {
 					try {
 						fileOutputStream.write(charset.encode(messages.get(index)).array());
 					} catch (IOException iOException) {

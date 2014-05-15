@@ -7,6 +7,7 @@ import java.util.regex.*;
 import javax.swing.*;
 
 public class ModeDialog extends GameDialog {
+
 	// "Nickname" panel
 	private JComboBox cbNickname;
 	private JButton buttonDeleteNickname;
@@ -121,7 +122,7 @@ public class ModeDialog extends GameDialog {
 	}
 
 	private void processButtonDelete(ArrayList<String> strings, JComboBox comboBox) {
-		String nickname = ((String)comboBox.getSelectedItem());
+		String nickname = ((String) comboBox.getSelectedItem());
 		strings.remove(nickname);
 
 		int selectedIndex = comboBox.getSelectedIndex();
@@ -148,14 +149,14 @@ public class ModeDialog extends GameDialog {
 
 	private void buttonPlayPressed() {
 		// figure out input and check for bad input
-		String[] ipurlAndPort = ((String)cbIPURLPort.getSelectedItem()).split(":", -1);
+		String[] ipurlAndPort = ((String) cbIPURLPort.getSelectedItem()).split(":", -1);
 
 		if (ipurlAndPort.length != 2) {
 			ShowErrorMessage("Bad IP/URL:Port format", "IP/URL:Port format must be <IP/URL>:<Port>");
 			return;
 		}
 
-		String nickname = ((String)cbNickname.getSelectedItem()).trim();
+		String nickname = ((String) cbNickname.getSelectedItem()).trim();
 		String ipurl = ipurlAndPort[0].trim();
 		String port = ipurlAndPort[1].trim();
 

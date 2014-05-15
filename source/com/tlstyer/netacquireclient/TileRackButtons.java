@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class TileRackButtons extends JPanel implements ActionListener, ComponentListener {
+
 	private Button[] buttons = new Button[6];
 	private int[] hoteltypes = new int[6];
 	private GridLayout gridLayout = new GridLayout(1, 6, spacing, spacing);
@@ -15,10 +16,10 @@ public class TileRackButtons extends JPanel implements ActionListener, Component
 
 	public TileRackButtons() {
 		setLayout(gridLayout);
-		for (int buttonIndex=0; buttonIndex<6; ++buttonIndex) {
+		for (int buttonIndex = 0; buttonIndex < 6; ++buttonIndex) {
 			buttons[buttonIndex] = new Button();
 			buttons[buttonIndex].addActionListener(this);
-			buttons[buttonIndex].setActionCommand(((Integer)buttonIndex).toString());
+			buttons[buttonIndex].setActionCommand(((Integer) buttonIndex).toString());
 			add(buttons[buttonIndex]);
 		}
 		setBackground(MainFrame.getTileRackBackgroundColor());
@@ -38,7 +39,7 @@ public class TileRackButtons extends JPanel implements ActionListener, Component
 	}
 
 	public void setButtonsVisible(boolean visible) {
-		for (int buttonIndex=0; buttonIndex<6; ++buttonIndex) {
+		for (int buttonIndex = 0; buttonIndex < 6; ++buttonIndex) {
 			buttons[buttonIndex].setVisible(visible);
 		}
 	}
@@ -70,7 +71,7 @@ public class TileRackButtons extends JPanel implements ActionListener, Component
 		}
 
 		Font font = textComponentFontData.getFont();
-		for (int buttonIndex=0; buttonIndex<6; ++buttonIndex) {
+		for (int buttonIndex = 0; buttonIndex < 6; ++buttonIndex) {
 			buttons[buttonIndex].setFont(font);
 		}
 	}

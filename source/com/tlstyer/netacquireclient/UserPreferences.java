@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.prefs.*;
 
 abstract class UserPreference {
+
 	protected static final Preferences preferences = Preferences.userNodeForPackage(UserPreferences.class);
 
 	abstract public void load();
@@ -48,6 +49,7 @@ abstract class UserPreference {
 }
 
 abstract class UserPreferenceTypeStringArrayList extends UserPreference {
+
 	protected ArrayList<String> value = null;
 
 	private String key;
@@ -88,6 +90,7 @@ abstract class UserPreferenceTypeStringArrayList extends UserPreference {
 }
 
 class UserPreferenceTypeString extends UserPreference {
+
 	private String value = null;
 
 	private String key;
@@ -120,6 +123,7 @@ class UserPreferenceTypeString extends UserPreference {
 }
 
 class UserPreferenceTypeInteger extends UserPreference {
+
 	private Integer value = null;
 
 	private String key;
@@ -159,6 +163,7 @@ class UserPreferenceTypeInteger extends UserPreference {
 }
 
 class UserPreferenceTypeBoolean extends UserPreference {
+
 	private Boolean value = null;
 
 	private String key;
@@ -191,6 +196,7 @@ class UserPreferenceTypeBoolean extends UserPreference {
 }
 
 class UserPreferenceNicknames extends UserPreferenceTypeStringArrayList {
+
 	public UserPreferenceNicknames() {
 		super("nicknames");
 	}
@@ -209,6 +215,7 @@ class UserPreferenceNicknames extends UserPreferenceTypeStringArrayList {
 }
 
 class UserPreferenceAddressesAndPorts extends UserPreferenceTypeStringArrayList {
+
 	public UserPreferenceAddressesAndPorts() {
 		super("addresses and ports");
 	}
@@ -221,47 +228,48 @@ class UserPreferenceAddressesAndPorts extends UserPreferenceTypeStringArrayList 
 }
 
 public final class UserPreferences {
+
 	private UserPreference[] userPreferenceArray = new UserPreference[COUNT];
 
-	public static final int NICKNAMES                       =  0;
-	public static final int ADDRESSES_AND_PORTS             =  1;
-	public static final int MAX_PLAYER_COUNT                =  2;
-	public static final int USER_LIST_SORTING_METHOD        =  3;
-	public static final int PLAY_SOUND_WHEN_WAITING_FOR_ME  =  4;
-	public static final int PATH_TO_SOUND                   =  5;
-	public static final int WRITE_TO_LOG_FILES              =  6;
-	public static final int PATH_TO_LOG_FILES               =  7;
-	public static final int WHERE_TO_START_IN_REVIEW_MODE   =  8;
-	public static final int SHOW_MODAL_MESSAGE_DIALOG_BOXES =  9;
-	public static final int GAME_BOARD_LABEL_MODE           = 10;
-	public static final int SHOW_MESSAGE_PREFIXES           = 11;
-	public static final int COUNT                           = 12;
+	public static final int NICKNAMES = 0;
+	public static final int ADDRESSES_AND_PORTS = 1;
+	public static final int MAX_PLAYER_COUNT = 2;
+	public static final int USER_LIST_SORTING_METHOD = 3;
+	public static final int PLAY_SOUND_WHEN_WAITING_FOR_ME = 4;
+	public static final int PATH_TO_SOUND = 5;
+	public static final int WRITE_TO_LOG_FILES = 6;
+	public static final int PATH_TO_LOG_FILES = 7;
+	public static final int WHERE_TO_START_IN_REVIEW_MODE = 8;
+	public static final int SHOW_MODAL_MESSAGE_DIALOG_BOXES = 9;
+	public static final int GAME_BOARD_LABEL_MODE = 10;
+	public static final int SHOW_MESSAGE_PREFIXES = 11;
+	public static final int COUNT = 12;
 
 	public UserPreferences() {
-		userPreferenceArray[NICKNAMES                      ] = new UserPreferenceNicknames();
-		userPreferenceArray[ADDRESSES_AND_PORTS            ] = new UserPreferenceAddressesAndPorts();
-		userPreferenceArray[MAX_PLAYER_COUNT               ] = new UserPreferenceTypeInteger("max player count", 4, 2, 6);
-		userPreferenceArray[USER_LIST_SORTING_METHOD       ] = new UserPreferenceTypeInteger("user list sorting method", UserListPresenter.SORT_NONE, 0, UserListPresenter.SORT_END);
-		userPreferenceArray[PLAY_SOUND_WHEN_WAITING_FOR_ME ] = new UserPreferenceTypeBoolean("play sound when waiting for me", false);
-		userPreferenceArray[PATH_TO_SOUND                  ] = new UserPreferenceTypeString("path to sound", "");
-		userPreferenceArray[WRITE_TO_LOG_FILES             ] = new UserPreferenceTypeBoolean("write to log files", false);
-		userPreferenceArray[PATH_TO_LOG_FILES              ] = new UserPreferenceTypeString("path to log files", "");
-		userPreferenceArray[WHERE_TO_START_IN_REVIEW_MODE  ] = new UserPreferenceTypeInteger("where to start in review mode", Review.START_AT_BEGINNING_OF_GAME, 0, Review.START_END);
+		userPreferenceArray[NICKNAMES] = new UserPreferenceNicknames();
+		userPreferenceArray[ADDRESSES_AND_PORTS] = new UserPreferenceAddressesAndPorts();
+		userPreferenceArray[MAX_PLAYER_COUNT] = new UserPreferenceTypeInteger("max player count", 4, 2, 6);
+		userPreferenceArray[USER_LIST_SORTING_METHOD] = new UserPreferenceTypeInteger("user list sorting method", UserListPresenter.SORT_NONE, 0, UserListPresenter.SORT_END);
+		userPreferenceArray[PLAY_SOUND_WHEN_WAITING_FOR_ME] = new UserPreferenceTypeBoolean("play sound when waiting for me", false);
+		userPreferenceArray[PATH_TO_SOUND] = new UserPreferenceTypeString("path to sound", "");
+		userPreferenceArray[WRITE_TO_LOG_FILES] = new UserPreferenceTypeBoolean("write to log files", false);
+		userPreferenceArray[PATH_TO_LOG_FILES] = new UserPreferenceTypeString("path to log files", "");
+		userPreferenceArray[WHERE_TO_START_IN_REVIEW_MODE] = new UserPreferenceTypeInteger("where to start in review mode", Review.START_AT_BEGINNING_OF_GAME, 0, Review.START_END);
 		userPreferenceArray[SHOW_MODAL_MESSAGE_DIALOG_BOXES] = new UserPreferenceTypeBoolean("show modal message dialog boxes", false);
-		userPreferenceArray[GAME_BOARD_LABEL_MODE          ] = new UserPreferenceTypeInteger("game board label mode", GameBoard.LABEL_COORDINATES, 0, GameBoard.LABEL_END);
-		userPreferenceArray[SHOW_MESSAGE_PREFIXES          ] = new UserPreferenceTypeBoolean("show message prefixes", true);
+		userPreferenceArray[GAME_BOARD_LABEL_MODE] = new UserPreferenceTypeInteger("game board label mode", GameBoard.LABEL_COORDINATES, 0, GameBoard.LABEL_END);
+		userPreferenceArray[SHOW_MESSAGE_PREFIXES] = new UserPreferenceTypeBoolean("show message prefixes", true);
 
 		load();
 	}
 
 	public void load() {
-		for (int index=0; index<COUNT; ++index) {
+		for (int index = 0; index < COUNT; ++index) {
 			userPreferenceArray[index].load();
 		}
 	}
 
 	public void save() {
-		for (int index=0; index<COUNT; ++index) {
+		for (int index = 0; index < COUNT; ++index) {
 			userPreferenceArray[index].save();
 		}
 	}

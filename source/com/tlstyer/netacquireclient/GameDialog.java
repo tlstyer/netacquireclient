@@ -6,6 +6,7 @@ import java.util.*;
 import javax.swing.*;
 
 public abstract class GameDialog extends JDialog implements ActionListener {
+
 	protected JPanel panel = new JPanel();
 
 	private boolean hasBeenHidden = false;
@@ -18,7 +19,7 @@ public abstract class GameDialog extends JDialog implements ActionListener {
 
 	public GameDialog(int allowExternalHideRequest) {
 		super(Main.getMainFrame());
-		panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		setContentPane(panel);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setResizable(false);

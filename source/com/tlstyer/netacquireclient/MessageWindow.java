@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class MessageWindow extends JScrollPane {
+
 	private JTextPane textPane = new JTextPane();
 	private MessageWindowDocument messageWindowDocument;
 	private TransferHandler transferHandler;

@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class ScoreSheet extends JPanel implements ComponentListener {
+
 	private TextComponent[][] scoreSheet;
 	private ScoreSheetCaptionData scoreSheetCaptionData = new ScoreSheetCaptionData();
 	private ScoreSheetHoteltypeData scoreSheetHoteltypeData = new ScoreSheetHoteltypeData();
@@ -22,8 +23,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 		TextComponent.ALIGN_CENTER,
 		TextComponent.ALIGN_CENTER,
 		TextComponent.ALIGN_RIGHT,
-		TextComponent.ALIGN_RIGHT,
-	};
+		TextComponent.ALIGN_RIGHT,};
 
 	public ScoreSheet() {
 		super(null);
@@ -37,7 +37,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 
 		// header (row 0)
 		addTextComponent(x++, y, Hoteltype.PLAYER, "Player");
-		for (int hoteltype=1; hoteltype<=7; ++hoteltype) {
+		for (int hoteltype = 1; hoteltype <= 7; ++hoteltype) {
 			addTextComponent(x++, y, hoteltype, Util.hoteltypeToInitial(hoteltype));
 		}
 		addTextComponent(x++, y, Hoteltype.CASH_TITLE, "Cash");
@@ -47,9 +47,9 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 		x = 0;
 
 		// player data (rows 1-6)
-		for (int row=1; row<=6; ++row) {
+		for (int row = 1; row <= 6; ++row) {
 			addTextComponent(x++, y, Hoteltype.NOT_MY_TURN, " ");
-			for (int hoteltype=1; hoteltype<=7; ++hoteltype) {
+			for (int hoteltype = 1; hoteltype <= 7; ++hoteltype) {
 				addTextComponent(x++, y, Hoteltype.HOLDINGS, " ");
 			}
 			addTextComponent(x++, y, Hoteltype.CASH, "0");
@@ -60,9 +60,9 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 		}
 
 		// hotel data (rows 7-9)
-		for (int row=7; row<=9; ++row) {
+		for (int row = 7; row <= 9; ++row) {
 			addTextComponent(x++, y, Hoteltype.HCS_TITLE, " ");
-			for (int hoteltype=1; hoteltype<=7; ++hoteltype) {
+			for (int hoteltype = 1; hoteltype <= 7; ++hoteltype) {
 				addTextComponent(x++, y, Hoteltype.HCS, " ");
 			}
 
@@ -85,7 +85,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 	}
 
 	private void setRowVisible(int row, boolean visible) {
-		for (int x=0; x<10; ++x) {
+		for (int x = 0; x < 10; ++x) {
 			scoreSheet[row][x].setVisible(visible);
 		}
 	}
@@ -94,11 +94,11 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 		int numberOfPlayers = Util.getNumberOfPlayers(sscd);
 		if (numberOfPlayers != usedRows) {
 			if (numberOfPlayers < usedRows) {
-				for (int y=numberOfPlayers+1; y<=usedRows; ++y) {
+				for (int y = numberOfPlayers + 1; y <= usedRows; ++y) {
 					setRowVisible(y, false);
 				}
 			} else {
-				for (int y=usedRows+1; y<=numberOfPlayers; ++y) {
+				for (int y = usedRows + 1; y <= numberOfPlayers; ++y) {
 					setRowVisible(y, true);
 				}
 			}
@@ -111,12 +111,12 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 		int componentWidth = getWidth() / 18;
 
 		int displayY = 0;
-		for (int tcY=0; tcY<10; ++tcY) {
-			if (usedRows<tcY && tcY<=6) {
+		for (int tcY = 0; tcY < 10; ++tcY) {
+			if (usedRows < tcY && tcY <= 6) {
 				continue;
 			}
-			for (int tcX=0; tcX<10; ++tcX) {
-				if (tcY>=7 && tcX>=8) {
+			for (int tcX = 0; tcX < 10; ++tcX) {
+				if (tcY >= 7 && tcX >= 8) {
 					break;
 				}
 				int x = columnStartX[tcX] * componentWidth;
@@ -157,8 +157,8 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 	public void sync(ScoreSheetCaptionData sscd, ScoreSheetHoteltypeData sshtd) {
 		Main.getMainFrame().setComponentsBounds();
 		makeOnlyUsedRowsVisible(sscd);
-		for (int y=0; y<10; ++y) {
-			for (int x=0; x<10; ++x) {
+		for (int y = 0; y < 10; ++y) {
+			for (int x = 0; x < 10; ++x) {
 				boolean repaint = false;
 				Object caption = sscd.getCaption(x, y);
 				if (scoreSheetCaptionData.getCaption(x, y) != caption) {
@@ -167,7 +167,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 						caption = 0;
 					}
 					if (caption.getClass() == Integer.class) {
-						if (((Integer)caption) == 0) {
+						if (((Integer) caption) == 0) {
 							if (x >= 1 && x <= 7) {
 								if (y >= 1 && y <= 6) {
 									caption = " ";
@@ -177,7 +177,7 @@ public class ScoreSheet extends JPanel implements ComponentListener {
 							}
 						}
 						if (x >= 8 && x <= 9 && y >= 1 && y <= 6) {
-							caption = (Integer)caption * 100;
+							caption = (Integer) caption * 100;
 						}
 					}
 					scoreSheet[y][x].setText(caption.toString());

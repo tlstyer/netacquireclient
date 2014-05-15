@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class PostMessageTextField extends JTextField implements ActionListener {
+
 	String type = null;
 
 	public PostMessageTextField(String type_) {

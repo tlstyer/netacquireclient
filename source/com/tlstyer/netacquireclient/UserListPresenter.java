@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.regex.*;
 
 class ListEntry {
+
 	public int gameNumber;
 	public String message;
 	public String nicknameLowercase;
@@ -16,23 +17,26 @@ class ListEntry {
 }
 
 class ComparatorListEntryAlphabetically implements Comparator<ListEntry> {
-	 public int compare(ListEntry le1, ListEntry le2) {
-		 return le1.nicknameLowercase.compareTo(le2.nicknameLowercase);
-	 }
+
+	public int compare(ListEntry le1, ListEntry le2) {
+		return le1.nicknameLowercase.compareTo(le2.nicknameLowercase);
+	}
 }
 
 class ComparatorListEntryGameNumber implements Comparator<ListEntry> {
-	 public int compare(ListEntry le1, ListEntry le2) {
-		 int diff;
-		 diff = le1.gameNumber - le2.gameNumber;
-		 if (diff != 0) {
-			 return diff;
-		 }
-		 return le1.nicknameLowercase.compareTo(le2.nicknameLowercase);
-	 }
+
+	public int compare(ListEntry le1, ListEntry le2) {
+		int diff;
+		diff = le1.gameNumber - le2.gameNumber;
+		if (diff != 0) {
+			return diff;
+		}
+		return le1.nicknameLowercase.compareTo(le2.nicknameLowercase);
+	}
 }
 
 public class UserListPresenter {
+
 	private boolean processingList;
 
 	private String messageStart;
@@ -98,7 +102,7 @@ public class UserListPresenter {
 	public static final int SORT_ALPHABETICALLY = 1;
 	public static final int SORT_GAME_NUMBER = 2;
 	public static final int SORT_END = 2;
-	
+
 	private void outputLine(String line) {
 		Message message = new Message(line);
 		Main.getMainFrame().getLobby().append(message.getMessageToDisplay(), MessageWindowDocument.APPEND_NORMAL);
@@ -107,8 +111,8 @@ public class UserListPresenter {
 	public void outputLines() {
 		Object[] listEntriesArray = this.listEntries.toArray();
 		ListEntry[] listEntries2 = new ListEntry[listEntriesArray.length];
-		for (int i=0; i<listEntriesArray.length; ++i) {
-			listEntries2[i] = (ListEntry)listEntriesArray[i];
+		for (int i = 0; i < listEntriesArray.length; ++i) {
+			listEntries2[i] = (ListEntry) listEntriesArray[i];
 		}
 
 		int sortingMethod = Main.getUserPreferences().getInteger(UserPreferences.USER_LIST_SORTING_METHOD);

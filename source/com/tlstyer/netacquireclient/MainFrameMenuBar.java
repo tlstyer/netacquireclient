@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 class MainFrameMenu extends JMenu {
+
 	public MainFrameMenu(String text, Integer mnemonic) {
 		if (text != null) {
 			setText(text);
@@ -15,11 +16,12 @@ class MainFrameMenu extends JMenu {
 }
 
 abstract class MainFrameMenuItem extends JMenuItem implements ActionListener {
+
 	public MainFrameMenuItem(String text,
-							 Integer mnemonic,
-							 Integer mnemonicIndex,
-							 Integer accelerator,
-							 Integer modifiers) {
+			Integer mnemonic,
+			Integer mnemonicIndex,
+			Integer accelerator,
+			Integer modifiers) {
 		if (text != null) {
 			setText(text);
 		}
@@ -44,6 +46,7 @@ abstract class MainFrameMenuItem extends JMenuItem implements ActionListener {
 }
 
 class MenuItemReinitialize extends MainFrameMenuItem {
+
 	public MenuItemReinitialize() {
 		super("Reinitialize", KeyEvent.VK_I, null, KeyEvent.VK_I, ActionEvent.CTRL_MASK);
 	}
@@ -70,6 +73,7 @@ class MenuItemReinitialize extends MainFrameMenuItem {
 }
 
 class MenuItemOptions extends MainFrameMenuItem {
+
 	public MenuItemOptions() {
 		super("Options", KeyEvent.VK_O, null, KeyEvent.VK_O, ActionEvent.CTRL_MASK);
 	}
@@ -81,6 +85,7 @@ class MenuItemOptions extends MainFrameMenuItem {
 }
 
 class MenuItemQuit extends MainFrameMenuItem {
+
 	public MenuItemQuit() {
 		super("Quit", KeyEvent.VK_Q, null, KeyEvent.VK_Q, ActionEvent.CTRL_MASK);
 	}
@@ -92,6 +97,7 @@ class MenuItemQuit extends MainFrameMenuItem {
 }
 
 class MenuItemShowUsers extends MainFrameMenuItem {
+
 	public MenuItemShowUsers() {
 		super("Show Users", KeyEvent.VK_U, null, KeyEvent.VK_U, ActionEvent.CTRL_MASK);
 	}
@@ -103,6 +109,7 @@ class MenuItemShowUsers extends MainFrameMenuItem {
 }
 
 class MenuItemShowGames extends MainFrameMenuItem {
+
 	public MenuItemShowGames() {
 		super("Show Games", KeyEvent.VK_G, null, KeyEvent.VK_G, ActionEvent.CTRL_MASK);
 	}
@@ -114,6 +121,7 @@ class MenuItemShowGames extends MainFrameMenuItem {
 }
 
 class MenuItemStartNewGame extends MainFrameMenuItem {
+
 	public MenuItemStartNewGame() {
 		super("Start New Game", KeyEvent.VK_N, null, KeyEvent.VK_N, ActionEvent.CTRL_MASK);
 	}
@@ -126,6 +134,7 @@ class MenuItemStartNewGame extends MainFrameMenuItem {
 }
 
 class MenuItemStartGamePlay extends MainFrameMenuItem {
+
 	public MenuItemStartGamePlay() {
 		super("Start Game Play", KeyEvent.VK_P, null, KeyEvent.VK_P, ActionEvent.CTRL_MASK);
 	}
@@ -138,13 +147,14 @@ class MenuItemStartGamePlay extends MainFrameMenuItem {
 }
 
 class MenuItemEnterGame extends MainFrameMenuItem {
+
 	private String enterType;
 	private String enterTypeLowercase;
 	private Integer messageCode;
 
 	public MenuItemEnterGame(String enterType_,
-							 Integer mnemonicAndAccelerator,
-							 Integer messageCode_) {
+			Integer mnemonicAndAccelerator,
+			Integer messageCode_) {
 		super(enterType_ + " Game", mnemonicAndAccelerator, null, mnemonicAndAccelerator, ActionEvent.CTRL_MASK);
 		enterType = enterType_;
 		enterTypeLowercase = enterType_.toLowerCase();
@@ -153,7 +163,7 @@ class MenuItemEnterGame extends MainFrameMenuItem {
 
 	@Override
 	public void doAction() {
-		String input = (String)JOptionPane.showInputDialog(
+		String input = (String) JOptionPane.showInputDialog(
 				Main.getMainFrame(),
 				"What game do you want to " + enterTypeLowercase + "?",
 				enterType + " game",
@@ -187,18 +197,21 @@ class MenuItemEnterGame extends MainFrameMenuItem {
 }
 
 class MenuItemJoinGame extends MenuItemEnterGame {
+
 	public MenuItemJoinGame() {
 		super("Join", KeyEvent.VK_J, -1);
 	}
 }
 
 class MenuItemWatchGame extends MenuItemEnterGame {
+
 	public MenuItemWatchGame() {
 		super("Watch", KeyEvent.VK_W, 0);
 	}
 }
 
 class MenuItemShowGameState extends MainFrameMenuItem {
+
 	public MenuItemShowGameState() {
 		super("Show Game State", KeyEvent.VK_S, 10, KeyEvent.VK_S, ActionEvent.CTRL_MASK);
 	}
@@ -210,6 +223,7 @@ class MenuItemShowGameState extends MainFrameMenuItem {
 }
 
 class MenuItemLeaveGame extends MainFrameMenuItem {
+
 	public MenuItemLeaveGame() {
 		super("Leave Game", KeyEvent.VK_L, null, KeyEvent.VK_L, ActionEvent.CTRL_MASK);
 	}
@@ -221,6 +235,7 @@ class MenuItemLeaveGame extends MainFrameMenuItem {
 }
 
 class MenuItemGoToBeginning extends MainFrameMenuItem {
+
 	public MenuItemGoToBeginning() {
 		super("Go To Beginning", null, null, KeyEvent.VK_A, 0);
 	}
@@ -232,6 +247,7 @@ class MenuItemGoToBeginning extends MainFrameMenuItem {
 }
 
 class MenuItemGoToEnd extends MainFrameMenuItem {
+
 	public MenuItemGoToEnd() {
 		super("Go To End", null, null, KeyEvent.VK_Z, 0);
 	}
@@ -243,6 +259,7 @@ class MenuItemGoToEnd extends MainFrameMenuItem {
 }
 
 class MenuItemGoToPreviousTurn extends MainFrameMenuItem {
+
 	public MenuItemGoToPreviousTurn() {
 		super("Go To Previous Turn", null, null, KeyEvent.VK_UP, 0);
 	}
@@ -254,6 +271,7 @@ class MenuItemGoToPreviousTurn extends MainFrameMenuItem {
 }
 
 class MenuItemGoToNextTurn extends MainFrameMenuItem {
+
 	public MenuItemGoToNextTurn() {
 		super("Go To Next Turn", null, null, KeyEvent.VK_DOWN, 0);
 	}
@@ -265,6 +283,7 @@ class MenuItemGoToNextTurn extends MainFrameMenuItem {
 }
 
 class MenuItemGoToPreviousDecision extends MainFrameMenuItem {
+
 	public MenuItemGoToPreviousDecision() {
 		super("Go To Previous Decision", null, null, KeyEvent.VK_LEFT, 0);
 	}
@@ -276,6 +295,7 @@ class MenuItemGoToPreviousDecision extends MainFrameMenuItem {
 }
 
 class MenuItemGoToNextDecision extends MainFrameMenuItem {
+
 	public MenuItemGoToNextDecision() {
 		super("Go To Next Decision", null, null, KeyEvent.VK_RIGHT, 0);
 	}
@@ -287,6 +307,7 @@ class MenuItemGoToNextDecision extends MainFrameMenuItem {
 }
 
 class MenuItemAboutNetAcquire extends MainFrameMenuItem {
+
 	public MenuItemAboutNetAcquire() {
 		super("About " + Main.getProgramName(), KeyEvent.VK_A, null, null, null);
 	}
@@ -298,6 +319,7 @@ class MenuItemAboutNetAcquire extends MainFrameMenuItem {
 }
 
 public class MainFrameMenuBar extends JMenuBar {
+
 	// File
 	private MainFrameMenu menuFile = new MainFrameMenu("File", KeyEvent.VK_F);
 	private MenuItemReinitialize menuItemReinitialize = new MenuItemReinitialize();
@@ -366,17 +388,17 @@ public class MainFrameMenuBar extends JMenuBar {
 		menuHelp.add(menuItemAboutNetAcquire);
 	}
 
-																		   // XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
-	private static final boolean[] enablednessInModesMenuItemShowUsers     = {false, false, false,  true,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemShowGames     = {false, false, false,  true,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemStartNewGame  = {false, false, false,  true, false, false, false};
-	private static final boolean[] enablednessInModesMenuItemStartGamePlay = {false, false, false, false, false,  true, false};
-	private static final boolean[] enablednessInModesMenuItemJoinGame      = {false, false, false,  true, false, false, false};
-	private static final boolean[] enablednessInModesMenuItemWatchGame     = {false, false, false,  true, false, false, false};
-	private static final boolean[] enablednessInModesMenuItemShowGameState = {false, false, false, false,  true,  true, false};
-	private static final boolean[] enablednessInModesMenuItemLeaveGame     = {false, false, false, false,  true,  true, false};
+	// XXXXX, mode1, mode2, mode3, mode4, mode5, mode6
+	private static final boolean[] enablednessInModesMenuItemShowUsers = {false, false, false, true, true, true, false};
+	private static final boolean[] enablednessInModesMenuItemShowGames = {false, false, false, true, true, true, false};
+	private static final boolean[] enablednessInModesMenuItemStartNewGame = {false, false, false, true, false, false, false};
+	private static final boolean[] enablednessInModesMenuItemStartGamePlay = {false, false, false, false, false, true, false};
+	private static final boolean[] enablednessInModesMenuItemJoinGame = {false, false, false, true, false, false, false};
+	private static final boolean[] enablednessInModesMenuItemWatchGame = {false, false, false, true, false, false, false};
+	private static final boolean[] enablednessInModesMenuItemShowGameState = {false, false, false, false, true, true, false};
+	private static final boolean[] enablednessInModesMenuItemLeaveGame = {false, false, false, false, true, true, false};
 
-	private static final boolean[] enablednessInModesMenuItemReviewMode    = {false, false, false, false, false, false,  true};
+	private static final boolean[] enablednessInModesMenuItemReviewMode = {false, false, false, false, false, false, true};
 
 	public void setMode(int mode) {
 		menuItemShowUsers.setEnabled(enablednessInModesMenuItemShowUsers[mode]);

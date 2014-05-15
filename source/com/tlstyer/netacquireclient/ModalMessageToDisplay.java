@@ -1,6 +1,7 @@
 package com.tlstyer.netacquireclient;
 
 public class ModalMessageToDisplay {
+
 	private String messageHeader;
 	private String messageBody;
 	private int messageType;

@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.font.*;
 
 public class TextComponentFontData {
+
 	private Font font;
 	private double fontHeight;
 	private double fontY;
