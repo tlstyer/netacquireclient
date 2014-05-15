@@ -81,11 +81,7 @@ public final class UserListPresenter {
 				String nickname = matcher.group(1);
 				Integer gameNumber;
 				if (matcher.groupCount() >= 3) {
-					try {
-						gameNumber = Integer.decode(matcher.group(3));
-					} catch (NumberFormatException exception) {
-						gameNumber = Integer.MAX_VALUE;
-					}
+					gameNumber = matcher.group(3) != null ? Integer.decode(matcher.group(3)) : Integer.MAX_VALUE;
 				} else {
 					gameNumber = Integer.MAX_VALUE;
 				}
