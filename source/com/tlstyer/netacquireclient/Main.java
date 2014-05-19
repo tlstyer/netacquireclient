@@ -57,7 +57,7 @@ public final class Main {
 			while (mainFrame == null) {
 				try {
 					Main.getMain().wait();
-				} catch (InterruptedException interruptedException) {
+				} catch (InterruptedException e) {
 				}
 			}
 		}
@@ -72,7 +72,7 @@ public final class Main {
 				while (selectedMode == SELECTED_MODE_NOTHING_YET) {
 					try {
 						wait();
-					} catch (InterruptedException interruptedException) {
+					} catch (InterruptedException e) {
 					}
 				}
 			}
@@ -129,7 +129,7 @@ public final class Main {
 			while (!leaveReviewModeFlag) {
 				try {
 					wait();
-				} catch (InterruptedException interruptedException) {
+				} catch (InterruptedException e) {
 				}
 			}
 		}

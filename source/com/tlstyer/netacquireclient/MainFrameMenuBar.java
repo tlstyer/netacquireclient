@@ -179,7 +179,7 @@ class MenuItemEnterGame extends MainFrameMenuItem {
 		Integer value;
 		try {
 			value = Integer.decode(input);
-		} catch (NumberFormatException numberFormatException) {
+		} catch (NumberFormatException e) {
 			value = 0;
 		}
 

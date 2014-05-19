@@ -51,7 +51,7 @@ public class Util {
 				} else {
 					throw new Exception();
 				}
-			} catch (Exception exception) {
+			} catch (Exception e) {
 				splitObjectArray[index] = splitString;
 			}
 		}

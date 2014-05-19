@@ -206,7 +206,7 @@ class UserPreferenceNicknames extends UserPreferenceTypeStringArrayList {
 		String nickname;
 		try {
 			nickname = InetAddress.getLocalHost().getHostName();
-		} catch (UnknownHostException unknownHostException) {
+		} catch (UnknownHostException e) {
 			Random random = new Random();
 			nickname = "" + random.nextInt();
 		}

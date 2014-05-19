@@ -26,9 +26,9 @@ class ConnectThread extends Thread {
 		try {
 			socketChannel = SocketChannel.open(inetSocketAddress);
 			connectionStatus = NetworkConnection.CONNECTION_STATUS_CONNECTED;
-		} catch (ClosedByInterruptException closedByInterruptException) {
+		} catch (ClosedByInterruptException e) {
 			connectionStatus = NetworkConnection.CONNECTION_STATUS_CLOSED_BY_INTERRUPT;
-		} catch (IOException iOException) {
+		} catch (IOException e) {
 			connectionStatus = NetworkConnection.CONNECTION_STATUS_COULD_NOT_CONNECT;
 		}
 	}
@@ -89,7 +89,7 @@ public class NetworkConnection {
 		connectThread.start();
 		try {
 			connectThread.join();
-		} catch (InterruptedException interruptedException) {
+		} catch (InterruptedException e) {
 		}
 
 		socketChannel = connectThread.getSocketChannel();
@@ -103,7 +103,7 @@ public class NetworkConnection {
 				socketChannel.configureBlocking(false);
 				selector = SelectorProvider.provider().openSelector();
 				socketChannel.register(selector, SelectionKey.OP_READ);
-			} catch (IOException iOException) {
+			} catch (IOException e) {
 			}
 		} else {
 			setConnected(false);
@@ -125,7 +125,7 @@ public class NetworkConnection {
 				exitedNicely = true;
 				try {
 					socketChannel.close();
-				} catch (IOException iOException) {
+				} catch (IOException e) {
 				}
 				connected = false;
 			}
@@ -198,8 +198,8 @@ public class NetworkConnection {
 					}
 				}
 			}
-		} catch (ClosedChannelException closedChannelException) {
-		} catch (IOException iOException) {
+		} catch (ClosedChannelException e) {
+		} catch (IOException e) {
 			disconnect();
 			return EXIT_IO_EXCEPTION;
 		}
@@ -319,7 +319,7 @@ public class NetworkConnection {
 							commandProcessingResult = COMMAND_NOT_PROCESSED;
 							break;
 					}
-				} catch (Exception exception) {
+				} catch (Exception e) {
 					commandProcessingResult = COMMAND_ERROR_WHILE_PROCESSING;
 				}
 			} else {
@@ -355,7 +355,7 @@ public class NetworkConnection {
 				try {
 					socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
 					isWritable = true;
-				} catch (ClosedChannelException closedChannelException) {
+				} catch (ClosedChannelException e) {
 				}
 			}
 		}

@@ -14,7 +14,7 @@ public final class SoundManager {
 			clips[index] = null;
 			try {
 				clips[index] = AudioSystem.getClip();
-			} catch (LineUnavailableException lineUnavailableException) {
+			} catch (LineUnavailableException e) {
 			}
 		}
 
@@ -33,13 +33,13 @@ public final class SoundManager {
 		AudioInputStream audioInputStream;
 		try {
 			audioInputStream = AudioSystem.getAudioInputStream(file);
-		} catch (UnsupportedAudioFileException | IOException exception) {
+		} catch (UnsupportedAudioFileException | IOException e) {
 			return false;
 		}
 
 		try {
 			clips[currentClipIndex].open(audioInputStream);
-		} catch (LineUnavailableException | IOException exception) {
+		} catch (LineUnavailableException | IOException e) {
 			return false;
 		}
 

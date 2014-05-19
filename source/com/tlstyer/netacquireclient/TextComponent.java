@@ -39,7 +39,7 @@ final class TextComponent extends JComponent {
 		Integer value;
 		try {
 			value = Integer.decode(text);
-		} catch (NumberFormatException numberFormatException) {
+		} catch (NumberFormatException e) {
 			value = -1;
 		}
 		if (value >= 0 && value <= 99) {
