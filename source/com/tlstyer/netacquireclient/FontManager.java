@@ -13,7 +13,7 @@ public class FontManager {
 	private static final String fontNameMessageWindows = "Monospaced";
 
 	private static final Font fontBoldDialog = new Font(fontNameTextComponents, Font.BOLD, 16);
-	private static final Font fontMessageWindow = new Font(fontNameMessageWindows, Font.PLAIN, 14);
+	private static final Font fontMessageWindow = new Font(fontNameMessageWindows, Font.PLAIN, Main.getUserPreferences().getInteger(UserPreferences.MESSAGE_FONT_SIZE));
 
 	public FontManager() {
 	}

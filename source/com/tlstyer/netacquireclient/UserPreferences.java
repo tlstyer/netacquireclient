@@ -244,7 +244,8 @@ public final class UserPreferences {
 	public static final int SHOW_MODAL_MESSAGE_DIALOG_BOXES = 9;
 	public static final int GAME_BOARD_LABEL_MODE = 10;
 	public static final int SHOW_MESSAGE_PREFIXES = 11;
-	public static final int COUNT = 12;
+	public static final int MESSAGE_FONT_SIZE = 12;
+	public static final int COUNT = 13;
 
 	public UserPreferences() {
 		userPreferenceArray[NICKNAMES] = new UserPreferenceNicknames();
@@ -259,6 +260,7 @@ public final class UserPreferences {
 		userPreferenceArray[SHOW_MODAL_MESSAGE_DIALOG_BOXES] = new UserPreferenceTypeBoolean("show modal message dialog boxes", false);
 		userPreferenceArray[GAME_BOARD_LABEL_MODE] = new UserPreferenceTypeInteger("game board label mode", GameBoard.LABEL_COORDINATES, 0, GameBoard.LABEL_END);
 		userPreferenceArray[SHOW_MESSAGE_PREFIXES] = new UserPreferenceTypeBoolean("show message prefixes", true);
+		userPreferenceArray[MESSAGE_FONT_SIZE] = new UserPreferenceTypeInteger("message font size", 12, 12, 24);
 
 		load();
 	}

@@ -34,6 +34,7 @@ public class OptionsDialog extends GameDialog {
 
 	// "Lobby and Game Room messages" panel
 	private final JCheckBox checkboxShowMessagePrefixes;
+	private final SpinnerNumberModel spinnerNumberModelMessageFontSize;
 
 	// "OK/Cancel" panel
 	private final JButton buttonOK;
@@ -53,6 +54,7 @@ public class OptionsDialog extends GameDialog {
 		spinnerNumberModelMaxPlayerCount.setMaximum(6);
 		spinnerNumberModelMaxPlayerCount.setValue(Main.getUserPreferences().getInteger(UserPreferences.MAX_PLAYER_COUNT));
 		JSpinner spinnerMaxPlayerCount = new JSpinner(spinnerNumberModelMaxPlayerCount);
+		spinnerMaxPlayerCount.setMaximumSize(new Dimension(50, 30));
 
 		JLabel labelMaxPlayerCount = new JLabel("Maximum player count in self-initiated games");
 
@@ -62,7 +64,6 @@ public class OptionsDialog extends GameDialog {
 		panelMaxPlayerCount.add(spinnerMaxPlayerCount);
 		panelMaxPlayerCount.add(Box.createRigidArea(new Dimension(5, 0)));
 		panelMaxPlayerCount.add(labelMaxPlayerCount);
-		panelMaxPlayerCount.add(Box.createHorizontalGlue());
 
 		// "User List sorting method" panel
 		JPanel panelUserListSortingMethod = new JPanel();
@@ -85,8 +86,6 @@ public class OptionsDialog extends GameDialog {
 		radioButtonsULSM[2].setText("Sort by game number");
 
 		radioButtonsULSM[Main.getUserPreferences().getInteger(UserPreferences.USER_LIST_SORTING_METHOD)].setSelected(true);
-
-		panelUserListSortingMethod.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "When waiting for me" panel
 		checkboxPlaySoundWhenWaitingForMe = new JCheckBox("Play sound");
@@ -177,8 +176,6 @@ public class OptionsDialog extends GameDialog {
 
 		radioButtonsWTSIRM[Main.getUserPreferences().getInteger(UserPreferences.WHERE_TO_START_IN_REVIEW_MODE)].setSelected(true);
 
-		panelWhereToStartInReviewMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
-
 		// "Modal message dialog boxes" panel
 		checkboxShowModalMessageDialogBoxes = new JCheckBox("Show them");
 		checkboxShowModalMessageDialogBoxes.setSelected(Main.getUserPreferences().getBoolean(UserPreferences.SHOW_MODAL_MESSAGE_DIALOG_BOXES));
@@ -187,8 +184,6 @@ public class OptionsDialog extends GameDialog {
 		panelShowModalMessageDialogBoxes.setBorder(BorderFactory.createTitledBorder("Modal message dialog boxes"));
 		panelShowModalMessageDialogBoxes.setLayout(new BoxLayout(panelShowModalMessageDialogBoxes, BoxLayout.Y_AXIS));
 		panelShowModalMessageDialogBoxes.add(checkboxShowModalMessageDialogBoxes);
-
-		panelShowModalMessageDialogBoxes.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
 
 		// "Game board label mode" panel
 		JPanel panelGameBoardLabelMode = new JPanel();
@@ -212,18 +207,27 @@ public class OptionsDialog extends GameDialog {
 
 		radioButtonsGBLM[Main.getUserPreferences().getInteger(UserPreferences.GAME_BOARD_LABEL_MODE)].setSelected(true);
 
-		panelGameBoardLabelMode.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
-
 		// "Lobby and Game Room messages" panel
 		checkboxShowMessagePrefixes = new JCheckBox("Show message prefixes");
 		checkboxShowMessagePrefixes.setSelected(Main.getUserPreferences().getBoolean(UserPreferences.SHOW_MESSAGE_PREFIXES));
+
+		spinnerNumberModelMessageFontSize = new SpinnerNumberModel();
+		spinnerNumberModelMessageFontSize.setMinimum(12);
+		spinnerNumberModelMessageFontSize.setMaximum(24);
+		spinnerNumberModelMessageFontSize.setValue(Main.getUserPreferences().getInteger(UserPreferences.MESSAGE_FONT_SIZE));
+		JSpinner spinnerMessageFontSize = new JSpinner(spinnerNumberModelMessageFontSize);
+		spinnerMessageFontSize.setMaximumSize(new Dimension(50, 30));
+
+		JLabel labelMessageFontSize = new JLabel("Font size");
 
 		JPanel panelLobbyAndGameRoomMessages = new JPanel();
 		panelLobbyAndGameRoomMessages.setBorder(BorderFactory.createTitledBorder("Lobby and Game Room messages"));
 		panelLobbyAndGameRoomMessages.setLayout(new BoxLayout(panelLobbyAndGameRoomMessages, BoxLayout.Y_AXIS));
 		panelLobbyAndGameRoomMessages.add(checkboxShowMessagePrefixes);
-
-		panelLobbyAndGameRoomMessages.setMaximumSize(panelMaxPlayerCount.getMaximumSize());
+		panelLobbyAndGameRoomMessages.add(Box.createHorizontalGlue());
+		panelLobbyAndGameRoomMessages.add(spinnerMessageFontSize);
+		panelLobbyAndGameRoomMessages.add(Box.createRigidArea(new Dimension(5, 0)));
+		panelLobbyAndGameRoomMessages.add(labelMessageFontSize);
 
 		// "OK/Cancel" panel
 		buttonOK = Util.getButton3d2("OK", KeyEvent.VK_O);
@@ -377,6 +381,7 @@ public class OptionsDialog extends GameDialog {
 			// "Lobby and Game Room messages" panel
 			boolean showMessagePrefixes = checkboxShowMessagePrefixes.isSelected();
 			Main.getUserPreferences().setBoolean(UserPreferences.SHOW_MESSAGE_PREFIXES, showMessagePrefixes);
+			Main.getUserPreferences().setInteger(UserPreferences.MESSAGE_FONT_SIZE, spinnerNumberModelMessageFontSize.getNumber().intValue());
 
 			hideOptionsDialog();
 		} else if (object == buttonCancel) {
