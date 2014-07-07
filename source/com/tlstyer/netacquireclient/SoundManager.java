@@ -15,6 +15,7 @@ public final class SoundManager {
 			try {
 				clips[index] = AudioSystem.getClip();
 			} catch (LineUnavailableException e) {
+				Util.printStackTrace(e);
 			}
 		}
 
@@ -34,12 +35,14 @@ public final class SoundManager {
 		try {
 			audioInputStream = AudioSystem.getAudioInputStream(file);
 		} catch (UnsupportedAudioFileException | IOException e) {
+			Util.printStackTrace(e);
 			return false;
 		}
 
 		try {
 			clips[currentClipIndex].open(audioInputStream);
 		} catch (LineUnavailableException | IOException e) {
+			Util.printStackTrace(e);
 			return false;
 		}
 

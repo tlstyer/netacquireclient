@@ -47,6 +47,7 @@ public class LogFileWriter {
 				try {
 					fileOutputStream = new FileOutputStream(file);
 				} catch (FileNotFoundException e) {
+					Util.printStackTrace(e);
 				}
 				numMessagesWritten = 0;
 			}
@@ -55,6 +56,7 @@ public class LogFileWriter {
 					try {
 						fileOutputStream.write(charset.encode(messages.get(index)).array());
 					} catch (IOException e) {
+						Util.printStackTrace(e);
 					}
 				}
 				numMessagesWritten = messages.size();
@@ -67,6 +69,7 @@ public class LogFileWriter {
 			try {
 				fileOutputStream.close();
 			} catch (IOException e) {
+				Util.printStackTrace(e);
 			}
 			fileOutputStream = null;
 		}

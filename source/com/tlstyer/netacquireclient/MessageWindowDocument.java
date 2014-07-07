@@ -53,6 +53,7 @@ public class MessageWindowDocument extends DefaultStyledDocument {
 		try {
 			insertString(getLength(), str + "\n", getStyle(style));
 		} catch (BadLocationException e) {
+			Util.printStackTrace(e);
 		}
 	}
 
@@ -61,6 +62,7 @@ public class MessageWindowDocument extends DefaultStyledDocument {
 		try {
 			remove(getLength() - length, length);
 		} catch (BadLocationException e) {
+			Util.printStackTrace(e);
 		}
 	}
 
@@ -68,6 +70,7 @@ public class MessageWindowDocument extends DefaultStyledDocument {
 		try {
 			remove(0, getLength());
 		} catch (BadLocationException e) {
+			Util.printStackTrace(e);
 		}
 	}
 }

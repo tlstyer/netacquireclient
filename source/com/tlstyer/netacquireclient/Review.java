@@ -163,6 +163,7 @@ class LogFileTransferHandler extends TransferHandler {
 				Main.getReview().loadLogFile(((File) fileList.get(0)).getAbsolutePath());
 			}
 		} catch (UnsupportedFlavorException | IOException e) {
+			Util.printStackTrace(e);
 		}
 
 		return true;
@@ -297,15 +298,18 @@ public class Review {
 								break;
 						}
 					} catch (Exception e) {
+						Util.printStackTrace(e);
 					}
 				}
 			}
 		} catch (IOException e) {
+			Util.printStackTrace(e);
 		} finally {
 			if (bufferedReader != null) {
 				try {
 					bufferedReader.close();
 				} catch (IOException e) {
+					Util.printStackTrace(e);
 				}
 			}
 		}

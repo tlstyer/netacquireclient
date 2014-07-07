@@ -27,8 +27,10 @@ class ConnectThread extends Thread {
 			socketChannel = SocketChannel.open(inetSocketAddress);
 			connectionStatus = NetworkConnection.CONNECTION_STATUS_CONNECTED;
 		} catch (ClosedByInterruptException e) {
+			Util.printStackTrace(e);
 			connectionStatus = NetworkConnection.CONNECTION_STATUS_CLOSED_BY_INTERRUPT;
 		} catch (IOException e) {
+			Util.printStackTrace(e);
 			connectionStatus = NetworkConnection.CONNECTION_STATUS_COULD_NOT_CONNECT;
 		}
 	}
@@ -90,6 +92,7 @@ public class NetworkConnection {
 		try {
 			connectThread.join();
 		} catch (InterruptedException e) {
+			Util.printStackTrace(e);
 		}
 
 		socketChannel = connectThread.getSocketChannel();
@@ -104,6 +107,7 @@ public class NetworkConnection {
 				selector = SelectorProvider.provider().openSelector();
 				socketChannel.register(selector, SelectionKey.OP_READ);
 			} catch (IOException e) {
+				Util.printStackTrace(e);
 			}
 		} else {
 			setConnected(false);
@@ -126,6 +130,7 @@ public class NetworkConnection {
 				try {
 					socketChannel.close();
 				} catch (IOException e) {
+					Util.printStackTrace(e);
 				}
 				connected = false;
 			}
@@ -199,7 +204,9 @@ public class NetworkConnection {
 				}
 			}
 		} catch (ClosedChannelException e) {
+			Util.printStackTrace(e);
 		} catch (IOException e) {
+			Util.printStackTrace(e);
 			disconnect();
 			return EXIT_IO_EXCEPTION;
 		}
@@ -320,6 +327,7 @@ public class NetworkConnection {
 							break;
 					}
 				} catch (Exception e) {
+					Util.printStackTrace(e);
 					commandProcessingResult = COMMAND_ERROR_WHILE_PROCESSING;
 				}
 			} else {
@@ -356,6 +364,7 @@ public class NetworkConnection {
 					socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
 					isWritable = true;
 				} catch (ClosedChannelException e) {
+					Util.printStackTrace(e);
 				}
 			}
 		}

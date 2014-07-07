@@ -185,6 +185,7 @@ public class ModeDialog extends GameDialog {
 		try {
 			portInt = Integer.decode(port);
 		} catch (NumberFormatException e) {
+			Util.printStackTrace(e);
 			portInt = 0;
 		}
 		if (portInt < 1 || portInt > 65535) {

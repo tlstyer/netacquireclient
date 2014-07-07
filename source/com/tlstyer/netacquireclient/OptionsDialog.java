@@ -322,6 +322,7 @@ public class OptionsDialog extends GameDialog {
 				int userListSortingMethod = Integer.decode(radioButtonGroupUserListSortingMethod.getSelection().getActionCommand());
 				Main.getUserPreferences().setInteger(UserPreferences.USER_LIST_SORTING_METHOD, userListSortingMethod);
 			} catch (NumberFormatException e) {
+				Util.printStackTrace(e);
 			}
 
 			// "When waiting for me" panel
@@ -354,6 +355,7 @@ public class OptionsDialog extends GameDialog {
 				int whereToStartInReviewMode = Integer.decode(radioButtonGroupWhereToStartInReviewMode.getSelection().getActionCommand());
 				Main.getUserPreferences().setInteger(UserPreferences.WHERE_TO_START_IN_REVIEW_MODE, whereToStartInReviewMode);
 			} catch (NumberFormatException e) {
+				Util.printStackTrace(e);
 			}
 
 			// "Modal message dialog boxes" panel
@@ -369,6 +371,7 @@ public class OptionsDialog extends GameDialog {
 					Main.getMainFrame().getGameBoard().makeTextCorrect();
 				}
 			} catch (NumberFormatException e) {
+				Util.printStackTrace(e);
 			}
 
 			// "Lobby and Game Room messages" panel

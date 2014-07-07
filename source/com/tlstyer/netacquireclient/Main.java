@@ -58,6 +58,7 @@ public final class Main {
 				try {
 					Main.getMain().wait();
 				} catch (InterruptedException e) {
+					Util.printStackTrace(e);
 				}
 			}
 		}
@@ -73,6 +74,7 @@ public final class Main {
 					try {
 						wait();
 					} catch (InterruptedException e) {
+						Util.printStackTrace(e);
 					}
 				}
 			}
@@ -130,6 +132,7 @@ public final class Main {
 				try {
 					wait();
 				} catch (InterruptedException e) {
+					Util.printStackTrace(e);
 				}
 			}
 		}
